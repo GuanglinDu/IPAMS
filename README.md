@@ -1,4 +1,4 @@
-gdeployer2014
+IPAMA
 =============
 
-A batch-deploying utility to deploy GAE/Goagent server. GAE/Goagent服务端批量部署工具。
+A Ruby on Rails (RoR) based IP Address Management System. 基于Ruby on Rails (RoR)的IP地址管理系统。
