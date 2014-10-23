@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lan_number: 1
+  lan_name: MyString
+  lan_description: MyText
+
+two:
+  lan_number: 1
+  lan_name: MyString
+  lan_description: MyText
