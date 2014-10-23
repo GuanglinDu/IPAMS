@@ -18,3 +18,5 @@
 # LibreOffice cache files
 *.~*#
 
+# swap files
+*.swp
