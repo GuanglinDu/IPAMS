@@ -9,6 +9,11 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Test data for table lans
+Lan.delete_all
+Lan.create!(:lan_number => 1, :lan_name => "Legacy LAN",
+  :lan_description => %{<p>The traditional LAN with 4-C LANs each.</p>})
+Lan.create!(:lan_number => 2, :lan_name => "Datacenter LAN",
+  :lan_description => %{<p>The new LAN with 1-C LAN each inside the DC building.</p>})
 
 # Test data for table valns
 
@@ -22,11 +27,4 @@
 # Test data for table reserved_addresses
 
 # Test data for table histories
-
- 
-Lan.delete_all
-Lan.create!(:lan_number => 1, :lan_name => "Legacy LAN",
-  :lan_description => %{<p>The traditional LAN with 4-C LANs.</p>})
-Lan.create!(:lan_number => 2, :lan_name => "Datacenter LAN",
-  :lan_description => %{<p>The new LAN with 1-C LAN inside the DC building.</p>})
 
