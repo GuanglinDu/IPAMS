@@ -1,22 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Lan number:</strong>
-  <%= @lan.lan_number %>
-</p>
-
-<p>
-  <strong>Lan name:</strong>
-  <%= @lan.lan_name %>
-</p>
-
-<p>
-  <strong>Lan description:</strong>
-  <%= @lan.lan_description %>
-</p>
+<h3>The Current LAN</h3>
+<table>
+  <tr>
+    <td><strong>Lan number</strong></td>
+    <td><%= @lan.lan_number %></td>
+  </tr>
+  <tr>
+    <td><strong>Lan name</strong></td>
+    <td><%= @lan.lan_name %></td>
+  </tr>
+  <tr>
+    <td><strong>Lan description</strong></td>
+    <td><%= @lan.lan_description %></td>
+  </tr>
+</table>
 
 <!-- Show the existing VLANs in a table -->
-<h3>Existing VLANs:</h3>
+<h3>Existing VLANs within <%= @lan.lan_name %></h3>
 <table>
   <tr>
     <th>No.</th>
@@ -39,23 +40,24 @@
     <td><%= vlan.subnet_mask %></td>
     <td><%= vlan.gateway %></td>
     <td><%= vlan.vlan_description %></td>  
-    <% i = i+1 %>
-  <% end %>
   </tr>
+  <% i = i+1 %>
+  <% end %>
 </table>
 
 <!-- Create a VLAN -->
-<h3>Create a new VLAN:</h3>
+<h3>Create a New VLAN within <%= @lan.lan_name %></h3>
 <%= form_for([@lan, @lan.vlans.build]) do |f| %>
-  <p><%= f.label :"Number:" %><%= f.text_field :vlan_number %></p>
-  <p><%= f.label :"Name:" %><%= f.text_field :vlan_name %></p>
-  <p><%= f.label :"Static IP Start:" %><%= f.text_field :static_ip_start %></p>
-  <p><%= f.label :"Static IP End:" %><%= f.text_field :static_ip_end %></p>
-  <p><%= f.label :"Mask:" %><%= f.text_field :subnet_mask %></p>
-  <p><%= f.label :"Gateway:" %><%= f.text_field :gateway %></p>
-  <p><%= f.label :"Description:" %><%= f.text_area :vlan_description, rows: 6 %></p>  
-  <p><%= f.submit %></p>
+  <%= f.label :"Number:" %><%= f.text_field :vlan_number %><br />
+  <%= f.label :"Name:" %><%= f.text_field :vlan_name %><br />
+  <%= f.label :"Static IP Start:" %><%= f.text_field :static_ip_start %><br />
+  <%= f.label :"Static IP End:" %><%= f.text_field :static_ip_end %><br />
+  <%= f.label :"Mask:" %><%= f.text_field :subnet_mask %><br />
+  <%= f.label :"Gateway:" %><%= f.text_field :gateway %><br />
+  <%= f.label :"Description:" %><%= f.text_area :vlan_description, rows: 6 %><br />  
+  <p><%= f.label :"Click to create:" %><%= f.submit %></p>
 <% end %>
 
 <%= link_to 'Edit', edit_lan_path(@lan) %> |
   <%= link_to 'Back', lans_path %>
+
