@@ -15,5 +15,44 @@
   <%= @lan.lan_description %>
 </p>
 
+<!-- Show VLANs -->
+<h2>Show the VLAN list:</h2>
+<table>
+  <tr>
+    <th>VLAN Number</th>
+    <th>VLAN Name</th>
+    <th>Description</th>
+    <th>Subnet Masktn</th>
+    <th>Static IP Start</th>
+    <th>Static IP End</th>
+  </tr>
+  <% @lan.vlans.each do |vlan| %>
+  <tr>
+    <td><%= vlan.vlan_number %></td>
+    <td><%= vlan.vlan_name %></td>
+    <td><%= vlan.vlan_description %></td>
+    <td><%= vlan.subnet_mask %></td>
+    <td><%= vlan.static_ip_start %></td>
+    <td><%= vlan.static_ip_end %></td>
+  </tr>
+  <% end %>
+</table>
+
+<!-- Create VLANs within a LAN -->
+<h2>Create a VLAN:</h2>
+<%= form_for([@lan, @lan.vlans.build]) do |f| %>
+  <p>
+    <%= f.label :"VLAN Number" %><%= f.text_field :vlan_number %>
+    <%= f.label :"Name" %><%= f.text_field :vlan_name %>
+    <%= f.label :"VLAN Description" %><%= f.text_area :vlan_description %>
+  </p>
+  <p>
+    <%= f.label :"Subnet Mask" %><%= f.text_field :subnet_mask %>
+    <%= f.label :"Static IP Start" %><%= f.text_field :static_ip_start %>
+    <%= f.label :"Static IP End" %><%= f.text_field :static_ip_end %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %> 
+
 <%= link_to 'Edit', edit_lan_path(@lan) %> |
 <%= link_to 'Back', lans_path %>
