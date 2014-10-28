@@ -5,8 +5,8 @@ one:
   vlan_name: MyString
   vlan_description: MyText
   subnet_mask: MyString
-  static_ip_start: 1
-  static_ip_end: 1
+  static_ip_start: MyString
+  static_ip_end: MyString
   lan_id: 
 
 two:
@@ -14,6 +14,6 @@ two:
   vlan_name: MyString
   vlan_description: MyText
   subnet_mask: MyString
-  static_ip_start: 1
-  static_ip_end: 1
+  static_ip_start: MyString
+  static_ip_end: MyString
   lan_id: 

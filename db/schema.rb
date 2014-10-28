@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027050319) do
+ActiveRecord::Schema.define(version: 20141028070538) do
 
   create_table "lans", force: true do |t|
     t.integer  "lan_number"
@@ -24,10 +24,11 @@ ActiveRecord::Schema.define(version: 20141027050319) do
   create_table "vlans", force: true do |t|
     t.integer  "vlan_number"
     t.string   "vlan_name"
-    t.text     "vlan_description"
     t.string   "subnet_mask"
+    t.string   "gateway"
     t.string   "static_ip_start"
     t.string   "static_ip_end"
+    t.text     "vlan_description"
     t.integer  "lan_id"
     t.datetime "created_at"
     t.datetime "updated_at"
