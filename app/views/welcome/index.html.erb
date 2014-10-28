@@ -1,10 +1,10 @@
-<h1>Welcome to IP Address Management System (IPAMS) 14.11.0</h1>
+<h2>IP Address Management System (IPAMS) 14.11.0</h2>
 
 <% if notice %>
   <p id="notice"><%= notice %></p>
 <% end %>
 
-<h2>Existing LANs</h2>
+<h3>Existing LANs</h3>
 <% @lans.each do |lan| %>
   <div class="entry">
      <%= lan.lan_number %>

@@ -1,0 +1,2 @@
+module VlansHelper
+end
