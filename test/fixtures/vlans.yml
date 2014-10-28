@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  vlan_number: 1
+  vlan_name: MyString
+  vlan_description: MyText
+  subnet_mask: MyString
+  static_ip_start: MyString
+  static_ip_end: MyString
+  lan_id: 
+
+two:
+  vlan_number: 1
+  vlan_name: MyString
+  vlan_description: MyText
+  subnet_mask: MyString
+  static_ip_start: MyString
+  static_ip_end: MyString
+  lan_id: 
