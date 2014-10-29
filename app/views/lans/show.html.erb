@@ -28,9 +28,12 @@
     <th>Subnet Mask</th>
     <th>Gateway</th>
     <th>Description</th>
+    <th>Show</th>
+    <th>Edit</th>
+    <th>Destroy</th>
   </tr>
   <% i = 1 %>
-  <%= @lan.vlans.each do |vlan| %>
+  <% @lan.vlans.each do |vlan| %>
   <tr>
     <td><%= i %></td>
     <td><%= vlan.vlan_number %></td>
@@ -40,8 +43,11 @@
     <td><%= vlan.subnet_mask %></td>
     <td><%= vlan.gateway %></td>
     <td><%= vlan.vlan_description %></td>  
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
-  <% i = i+1 %>
+  <% i = i + 1 %>
   <% end %>
 </table>
 
