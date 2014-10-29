@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+  <p id="notice"><%= notice %></p>
+<% end %>
 
 <h3>The Current LAN</h3>
 <table>
@@ -17,7 +19,7 @@
 </table>
 
 <!-- Show the existing VLANs in a table -->
-<h3>Existing VLANs within <%= @lan.lan_name %></h3>
+<h3>Existing VLANs within the <%= @lan.lan_name %></h3>
 <table>
   <tr>
     <th>No.</th>
@@ -43,16 +45,16 @@
     <td><%= vlan.subnet_mask %></td>
     <td><%= vlan.gateway %></td>
     <td><%= vlan.vlan_description %></td>  
-    <td></td>
-    <td></td>
-    <td></td>
+    <td><%= link_to 'Show', [vlan.lan, vlan] %></td>
+    <td><%= link_to 'Edit', [vlan.lan, vlan] %></td>
+    <td><%= link_to 'Destroy', [vlan.lan, vlan], method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
   <% i = i + 1 %>
   <% end %>
 </table>
 
 <!-- Create a VLAN -->
-<h3>Create a New VLAN within <%= @lan.lan_name %></h3>
+<h3>Create a New VLAN within the <%= @lan.lan_name %></h3>
 <%= form_for([@lan, @lan.vlans.build]) do |f| %>
   <%= f.label :"Number:" %><%= f.text_field :vlan_number %><br />
   <%= f.label :"Name:" %><%= f.text_field :vlan_name %><br />
