@@ -1,0 +1,12 @@
+<!-- This is a partial to create a VLAN -->
+<h3>Create a New VLAN within the <%= @lan.lan_name %></h3>
+<%= form_for([@lan, @lan.vlans.build]) do |f| %>
+  <%= f.label :"Number:" %><%= f.text_field :vlan_number %><br />
+  <%= f.label :"Name:" %><%= f.text_field :vlan_name %><br />
+  <%= f.label :"Static IP Start:" %><%= f.text_field :static_ip_start %><br />
+  <%= f.label :"Static IP End:" %><%= f.text_field :static_ip_end %><br />
+  <%= f.label :"Mask:" %><%= f.text_field :subnet_mask %><br />
+  <%= f.label :"Gateway:" %><%= f.text_field :gateway %><br />
+  <%= f.label :"Description:" %><%= f.text_area :vlan_description, rows: 6 %><br />  
+  <p><%= f.label :"Click to create:" %><%= f.submit %></p>
+<% end %>

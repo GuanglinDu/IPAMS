@@ -18,7 +18,7 @@
   </tr>
 </table>
 
-<!-- Show the existing VLANs in a table -->
+<!-- Show the existing VLANs in a table. Note that partials shorten the code. -->
 <h3>Existing VLANs within the <%= @lan.lan_name %></h3>
 <table>
   <tr>
@@ -30,42 +30,23 @@
     <th>Subnet Mask</th>
     <th>Gateway</th>
     <th>Description</th>
-    <th>Show</th>
-    <th>Edit</th>
-    <th>Destroy</th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
-  <% i = 1 %>
-  <% @lan.vlans.each do |vlan| %>
-  <tr>
-    <td><%= i %></td>
-    <td><%= vlan.vlan_number %></td>
-    <td><%= vlan.vlan_name %></td>
-    <td><%= vlan.static_ip_start %></td>
-    <td><%= vlan.static_ip_end %></td>
-    <td><%= vlan.subnet_mask %></td>
-    <td><%= vlan.gateway %></td>
-    <td><%= vlan.vlan_description %></td>  
-    <td><%= link_to 'Show', [vlan.lan, vlan] %></td>
-    <td><%= link_to 'Edit', [vlan.lan, vlan] %></td>
-    <td><%= link_to 'Destroy', [vlan.lan, vlan], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-  <% i = i + 1 %>
-  <% end %>
+  <!--
+    As the render method iterates over the @lan.vlans collection,
+    it assigns each vlan to a local variable named the same as the partial,
+    in this case vlan which is then available in the partial for us to show.
+  -->
+  <!-- The following either will do. --> 
+  <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
+  <%= render @lan.vlans %>
 </table>
 
-<!-- Create a VLAN -->
-<h3>Create a New VLAN within the <%= @lan.lan_name %></h3>
-<%= form_for([@lan, @lan.vlans.build]) do |f| %>
-  <%= f.label :"Number:" %><%= f.text_field :vlan_number %><br />
-  <%= f.label :"Name:" %><%= f.text_field :vlan_name %><br />
-  <%= f.label :"Static IP Start:" %><%= f.text_field :static_ip_start %><br />
-  <%= f.label :"Static IP End:" %><%= f.text_field :static_ip_end %><br />
-  <%= f.label :"Mask:" %><%= f.text_field :subnet_mask %><br />
-  <%= f.label :"Gateway:" %><%= f.text_field :gateway %><br />
-  <%= f.label :"Description:" %><%= f.text_area :vlan_description, rows: 6 %><br />  
-  <p><%= f.label :"Click to create:" %><%= f.submit %></p>
-<% end %>
+<!-- Create a VLAN using partial vlans/form -->
+<%= render "vlans/form" %>
 
-<%= link_to 'Edit', edit_lan_path(@lan) %> |
-  <%= link_to 'Back', lans_path %>
-
+<div>
+  <p><%= link_to 'Edit', edit_lan_path(@lan) %> | <%= link_to 'Back', lans_path %></p>
+</div>

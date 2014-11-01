@@ -4,9 +4,13 @@
 
 <h3>Existing LANs</h3>
 <% @lans.each do |lan| %>
-  <div class="entry">
-     <%= lan.lan_number %>
-     <%= lan.lan_name %>
-     <%= sanitize(lan.lan_description) %>  
-  </div>
+<div class="entry">
+   <%= lan.lan_number %>
+   <%= lan.lan_name %>
+   <%= sanitize(lan.lan_description) %>  
+</div>
 <% end %>
+
+<div>
+  <p><%= link_to "LANs", controller: "lans" %></p>
+</div>
