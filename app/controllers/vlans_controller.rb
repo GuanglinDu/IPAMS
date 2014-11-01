@@ -4,26 +4,37 @@ class VlansController < ApplicationController
 
   # Create a VLAN record
   def create
-    #@lan = Lan.find(params[:lan_id])
     @vlan = @lan.vlans.create(vlan_params)
     redirect_to lan_path(@lan)
   end
 
-  def show
-    #@lan = Lan.find(params[:lan_id])
-    #@vlan = @lan.vlans.find(params[:id])
+  # Updates are implemented by methods edit and update
+  def edit
+  end 
+ 
+  # PUT /lans/:lan_id/vlans/:id
+  # PUT /lans/:lan_id/vlans/:id.xml
+  def update
+    respond_to do |format|
+      if @vlan.update(vlan_params)
+        #1st argument of redirect_to is an array, in order to build the correct route to the nested resource vlan
+        #format.html { redirect_to [@vlan.lan, @vlan], notice: 'Comment was successfully updated.' }
+        format.html { redirect_to @vlan.lan, notice: 'Comment was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @vlan.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # Destroy a VLAN record
   def destroy
-    #@lan = Lan.find(params[:lan_id])
-    #@vlan = @lan.vlans.find(params[:id])
     @vlan.destroy
     redirect_to lan_path(@lan)
   end
 
   private
-  
     # Use callbacks to share common setup or constraints between actions.
     def set_lan
       @lan = Lan.find(params[:lan_id])

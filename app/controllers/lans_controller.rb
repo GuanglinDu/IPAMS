@@ -10,7 +10,7 @@ class LansController < ApplicationController
   # GET /lans/1
   # GET /lans/1.json
   def show
-    @lan = Lan.find(params[:id])
+    #@lan = Lan.find(params[:id])
   end
 
   # GET /lans/new
