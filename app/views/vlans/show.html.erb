@@ -1,14 +1,37 @@
-<h2>Showing vlan to edit</h2>
+<!-- Show a VLAN -->
+<h3>Show VLAN <b style="color:red"><%= @vlan.vlan_name %></b> inside <%= @lan.lan_name %></h3>
 
-<!-- Edit a VLAN -->
-<h3>Edit vlan <%= @vlan.vlan_name %> within LAN <%= @lan.lan_name %></h3>
-<%= form_for([@lan, @vlan]) do |f| %>
-  <%= f.label :"Number:" %><%= f.text_field :vlan_number %><br />
-  <%= f.label :"Name:" %><%= f.text_field :vlan_name %><br />
-  <%= f.label :"Static IP Start:" %><%= f.text_field :static_ip_start %><br />
-  <%= f.label :"Static IP End:" %><%= f.text_field :static_ip_end %><br />
-  <%= f.label :"Mask:" %><%= f.text_field :subnet_mask %><br />
-  <%= f.label :"Gateway:" %><%= f.text_field :gateway %><br />
-  <%= f.label :"Description:" %><%= f.text_area :vlan_description, rows: 6 %><br />  
-  <p><%= f.label :"Click to update:" %><%= f.submit %></p>
-<% end %>
+<table>
+  <tr>
+    <td><b>Number</b></td>
+    <td><%= @vlan.vlan_number %></td>
+  </tr>
+  <tr>
+    <td><b>Name</b></td>
+    <td><%= @vlan.vlan_name %></td>
+  </tr>
+  <tr>
+    <td><b>Static IP Start</b></td>
+    <td><%= @vlan.static_ip_start %></td>
+  </tr>
+  <tr>
+    <td><b>Static IP End</b></td>
+    <td><%= @vlan.static_ip_end %></td>
+  </tr>
+  <tr>
+    <td><b>Subnet Mask</b></td>
+    <td><%= @vlan.subnet_mask %></td>
+  </tr>
+  <tr>
+    <td><b>Gateway</b></td>
+    <td><%= @vlan.gateway %></td>
+  </tr>
+  <tr>
+    <td><b>Description</b></td>
+    <td><%= @vlan.vlan_description %></td>
+  </tr>  
+</table>
+
+<div>
+  <p><%= link_to 'Back to LAN', lan_path(@lan) %> | <%= link_to 'Home', controller: "welcome" %></p>
+</div>
