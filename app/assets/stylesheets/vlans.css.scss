@@ -1,3 +1,22 @@
 // Place all the styles related to the Vlans controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.vlans {
+  table {
+    border-collapse: collapse;
+  }
+
+  td, th {
+    border: 1px solid black;
+  }
+
+  // Enable text_field alignment in method form_for
+  label{
+    width: 10em;
+    float: left;
+    text-align: right;
+    margin-right: 0.5em;
+    display: block;
+  }
+}
+
