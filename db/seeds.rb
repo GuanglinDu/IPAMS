@@ -33,6 +33,11 @@ vlan22_of_lan2 = Vlan.create!(lan_id: lan2.id, vlan_number: 22, vlan_name: "VLAN
   vlan_description: "Storey 2 of Buiding DC")
 
 # Test data for table departments
+Department.delete_all
+dept_geophysics = Department.create!(dept_name: "Geophysics", location: "Building Geophysics")
+dept_geology = Department.create!(dept_name: "Geology", location: "Storey 1-2, Building Main")
+dept_computer = Department.create!(dept_name: "Computer", location: "Storey 4, 8 and 9, Building DC")
+
 
 # Test data for table addresses
 
