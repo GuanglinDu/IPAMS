@@ -61,3 +61,19 @@
   }
 }
 
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid black;
+}
+
+// Enable text_field alignment in method form_for
+label{
+  width: 10em;
+  float: left;
+  text-align: right;
+  margin-right: 0.5em;
+  display: block;
+}
