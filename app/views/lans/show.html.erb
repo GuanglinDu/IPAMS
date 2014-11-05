@@ -21,6 +21,7 @@
 <!-- Show the existing VLANs in a table. Note that partials shorten the code. -->
 <h3>Existing VLANs within the <%= @lan.lan_name %></h3>
 <table>
+  <thead>
   <tr>
     <th>No.</th>
     <th>VLAN Number</th>
@@ -34,6 +35,7 @@
     <th></th>
     <th></th>
   </tr>
+  </thead>
   <!--
     As the render method iterates over the @lan.vlans collection,
     it assigns each vlan to a local variable named the same as the partial,
@@ -41,7 +43,9 @@
   -->
   <!-- The following either will do. --> 
   <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
-  <%= render @lan.vlans %>
+  <tbody>
+    <%= render @lan.vlans %>
+  </tbody>
 </table>
 
 <!-- Create a VLAN using partial vlans/form -->
