@@ -2,6 +2,7 @@
 <h3>Show VLAN <b style="color:red"><%= @vlan.vlan_name %></b> inside <%= @lan.lan_name %></h3>
 
 <table>
+  <tbody>
   <tr>
     <td><b>Number</b></td>
     <td><%= @vlan.vlan_number %></td>
@@ -29,7 +30,8 @@
   <tr>
     <td><b>Description</b></td>
     <td><%= @vlan.vlan_description %></td>
-  </tr>  
+  </tr>
+  </tbody>
 </table>
 
 <div>
