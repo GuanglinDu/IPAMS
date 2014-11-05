@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104135032) do
+ActiveRecord::Schema.define(version: 20141105083115) do
 
   create_table "departments", force: true do |t|
     t.string   "dept_name"
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 20141104135032) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "reserved_addresses", force: true do |t|
+    t.string   "ip"
+    t.text     "description"
+    t.integer  "vlan_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reserved_addresses", ["vlan_id"], name: "index_reserved_addresses_on_vlan_id"
 
   create_table "users", force: true do |t|
     t.string   "name"

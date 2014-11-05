@@ -2,12 +2,33 @@
   <p id="notice"><%= notice %></p>
 <% end %>
 
-<h3>Existing LANs</h3>
+<h3>Existing LANs & its VLANs</h3>
 <% @lans.each do |lan| %>
 <div class="entry">
-  <%= lan.lan_number %>
-  <%= lan.lan_name %>
-  <%= sanitize(lan.lan_description) %>  
+  <p><b style="color:red;"><%= lan.lan_name %></b>: <%= lan.lan_description %></p>
+
+  <!-- VLAN list -->
+  <table>
+    <thead>
+    <tr>
+      <th>No.</th>
+      <th>VLAN Number</th>
+      <th>VLAN Name</th>
+      <th>Static IP Start</th>
+      <th>Static IP End</th>
+      <th>Subnet Mask</th>
+      <th>Gateway</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
+    <tbody>
+      <%= render lan.vlans %>
+    </tbody>
+  </table>
 </div>
 <% end %>
 

@@ -10,7 +10,7 @@
     border-bottom: 3px dotted #77d;
   }
 
-  /* An entry in the store catalog */
+  /* An entry in the LAN list */
   .entry {
     overflow: auto;
     margin-top: 1em;
@@ -31,23 +31,6 @@
       margin-top: 0;
       margin-bottom: 2px;
       color: #227;
-    }
-
-    p, div.price_line {
-      margin-left: 100px;
-      margin-top: 0.5em; 
-      margin-bottom: 0.8em; 
-      
-      // Palces Cart next to the Price
-      form, div {
-        display: inline
-      }
-    }
-
-    .price {
-      color: #44a;
-      font-weight: bold;
-      margin-right: 3em;
     }
   }
 }

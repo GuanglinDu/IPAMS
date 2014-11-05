@@ -13,9 +13,9 @@ Vlan.delete_all
 Lan.delete_all
 
 lan1 = Lan.create!(:lan_number => 1, :lan_name => "Legacy LAN",
-  :lan_description => %{<p>The traditional LAN with 4-C LANs each.</p>})
+  :lan_description => %{The traditional LAN with 4-C LANs each.})
 lan2 = Lan.create!(:lan_number => 2, :lan_name => "Datacenter LAN",
-  :lan_description => %{<p>The new LAN with 1-C LAN each inside the DC building.</p>})
+  :lan_description => %{The new LAN with 1-C LAN each inside the DC building.})
 
 # Test data for table valns
 vlan11_of_lan1 = Vlan.create!(lan_id: lan1.id, vlan_number: 11, vlan_name: "VLAN_11", subnet_mask: "255.255.255.0",
