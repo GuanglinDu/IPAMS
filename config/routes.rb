@@ -1,4 +1,8 @@
 Ipams::Application.routes.draw do
+  resources :users
+
+  resources :departments
+
   get "welcome/index"
 
   resources :lans do
