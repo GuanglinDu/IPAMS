@@ -2,27 +2,27 @@
 
 <table>
   <thead>
-    <tr>
-      <th>Lan number</th>
-      <th>Lan name</th>
-      <th>Lan description</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+  <tr>
+    <th>Lan number</th>
+    <th>Lan name</th>
+    <th>Lan description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @lans.each do |lan| %>
-      <tr>
-        <td><%= lan.lan_number %></td>
-        <td><%= lan.lan_name %></td>
-        <td><%= lan.lan_description %></td>
-        <td><%= link_to 'Show', lan %></td>
-        <td><%= link_to 'Edit', edit_lan_path(lan) %></td>
-        <td><%= link_to 'Destroy', lan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+  <% @lans.each do |lan| %>
+    <tr>
+      <td><%= lan.lan_number %></td>
+      <td><%= lan.lan_name %></td>
+      <td><%= lan.lan_description %></td>
+      <td><%= link_to 'Show', lan %></td>
+      <td><%= link_to 'Edit', edit_lan_path(lan) %></td>
+      <td><%= link_to 'Destroy', lan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 
