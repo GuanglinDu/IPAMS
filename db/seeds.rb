@@ -33,15 +33,27 @@ vlan22_of_lan2 = Vlan.create!(lan_id: lan2.id, vlan_number: 22, vlan_name: "VLAN
   vlan_description: "Storey 2 of Buiding DC")
 
 # Test data for table departments
+User.delete_all
 Department.delete_all
 dept_geophysics = Department.create!(dept_name: "Geophysics", location: "Building Geophysics")
 dept_geology = Department.create!(dept_name: "Geology", location: "Storey 1-2, Building Main")
 dept_computer = Department.create!(dept_name: "Computer", location: "Storey 4, 8 and 9, Building DC")
 
+# Test data for table users
+user1_of_dept_geophysics = User.create!(department_id: dept_geophysics.id, name: "Tom", office_phone: 2727,
+  cell_phone: 13912345678, email: "nobody@example.com", building: "DC", storey: 9, room: 901) 
+user2_of_dept_geophysics = User.create!(department_id: dept_geophysics.id, name: "Jerry", office_phone: 2728,
+  cell_phone: 13922345678, email: "nobody2@example.com", building: "Main", storey: 4, room: 402) 
+user1_of_dept_geology = User.create!(department_id: dept_geology.id, name: "Cathy", office_phone: 2727,
+  cell_phone: 13932345678, email: "nobody3@example.com", building: "DC", storey: 19, room: 1901) 
+user2_of_dept_geology = User.create!(department_id: dept_geology.id, name: "Jack", office_phone: 2728,
+  cell_phone: 13942345678, email: "nobody4@example.com", building: "Main", storey: 24, room: 2402) 
+user1_of_dept_computer = User.create!(department_id: dept_computer.id, name: "Brown", office_phone: 2727,
+  cell_phone: 13952345678, email: "nobody5@example.com", building: "DC", storey: 1, room: 102) 
+user2_of_dept_computer = User.create!(department_id: dept_computer.id, name: "Obama", office_phone: 2728,
+  cell_phone: 13962345678, email: "nobody6@example.com", building: "Main", storey: 2, room: 202) 
 
 # Test data for table addresses
-
-# Test data for table users
 
 
 # Test data for table reserved_addresses
