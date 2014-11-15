@@ -2,34 +2,22 @@
   <p id="notice"><%= notice %></p>
 <% end %>
 
-<h3>Existing LANs & its VLANs</h3>
+<h3>IPAMS Home Page</h3>
 <% @lans.each do |lan| %>
 <div class="entry">
   <p><b style="color:red;"><%= lan.lan_name %></b>: <%= lan.lan_description %></p>
-  <!-- VLAN list -->
-  <table>
-    <thead>
-    <tr>
-      <th>No.</th>
-      <th>VLAN Number</th>
-      <th>VLAN Name</th>
-      <th>Static IP Start</th>
-      <th>Static IP End</th>
-      <th>Subnet Mask</th>
-      <th>Gateway</th>
-      <th>Description</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-    </thead>
-    <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
-    <tbody>
-      <%= render lan.vlans %>
-    </tbody>
-  </table>
 </div>
 <% end %>
+
+<div>
+  <p>Targets(Nov. 14, 2014 Fri.):</p>
+  <ol>
+    <li>Switch views between LANs, VLANs, IP addresses, departments, users at one's will.</li>
+    <li>Search for anything with any key word and their combinations.</li>
+    <li>List the info in any order necessary.</li>
+    <li>Operate only in an appropriate view.</li>
+  </ol>
+</div>
 
 <div>
   <p><%= link_to "LANs", controller: "lans" %></p>
