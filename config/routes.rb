@@ -1,8 +1,20 @@
 Ipams::Application.routes.draw do
+  get "vlans_perspective/index"
+  get "addresses_perspective/index"
+  get "users_perspective/index"
+  get "help/index"
+  get "search/index"
+
   get "welcome/index"
 
+  resources :departments do
+    resources :users
+  end
+
   resources :lans do
-    resources :vlans
+    resources :vlans do
+      resources :reserved_addresses
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
