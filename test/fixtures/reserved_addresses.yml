@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  address_reserved: MyString
+  reservation_description: MyText
+  vlan_id: 
+
+two:
+  address_reserved: MyString
+  reservation_description: MyText
+  vlan_id: 
