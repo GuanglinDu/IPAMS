@@ -7,21 +7,24 @@ Ipams::Application.routes.draw do
 
   get "welcome/index"
 
-  resources :departments do
-    resources :users
-  end
-
-  resources :lans do
-    resources :vlans do
-      resources :reserved_addresses
-    end
-  end
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcome#index', as: 'welcome'
+  # i18n
+  scope '(:locale)' do
+    root 'welcome#index', as: 'welcome'
+
+    resources :lans do
+      resources :vlans do
+        resources :reserved_addresses
+      end
+    end
+
+    resources :departments do
+      resources :users
+    end
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
