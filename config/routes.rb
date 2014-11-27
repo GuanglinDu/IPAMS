@@ -1,6 +1,6 @@
 Ipams::Application.routes.draw do
+  get "address/index"
   get "vlans_perspective/index"
-  get "addresses_perspective/index"
   get "users_perspective/index"
   get "help/index"
   get "search/index"
@@ -15,15 +15,12 @@ Ipams::Application.routes.draw do
   scope '(:locale)' do
     root 'welcome#index', as: 'welcome'
 
-    resources :lans do
-      resources :vlans do
-        resources :reserved_addresses
-      end
-    end
+    resources :lans
+    resources :vlans
+    resources :reserved_addresses
 
-    resources :departments do
-      resources :users
-    end
+    resources :departments
+    resources :users
   end
 
   # Example of regular route:
