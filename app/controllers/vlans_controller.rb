@@ -1,6 +1,12 @@
 class VlansController < ApplicationController
+  #include CurrentVlan
+
   before_action :set_lan, only: [:create, :show, :edit, :update, :destroy]
   before_action :set_vlan, :only => [:show, :edit, :update, :destroy]
+
+  def index
+    @lans = Lan.order(:lan_number)
+  end
 
   # Create a VLAN record
   def create
