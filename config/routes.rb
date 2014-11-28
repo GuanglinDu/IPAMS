@@ -1,7 +1,5 @@
 Ipams::Application.routes.draw do
   get "address/index"
-  get "vlans_perspective/index"
-  get "users_perspective/index"
   get "help/index"
   get "search/index"
 
