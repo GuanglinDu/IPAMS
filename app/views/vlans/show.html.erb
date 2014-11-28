@@ -34,6 +34,33 @@
   </tbody>
 </table>
 
+<!-- Reserved addresses list -->
+<div>
+  <p>Reserved addresses list</p> 
+  <table>
+    <thead>
+    <tr>
+      <th>IP Adress</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+  <% @vlan.reserved_addresses.each do |ra| %>
+    <tbody>
+    <tr>
+      <td><%= ra.ip %></td>
+      <td><%= ra.description %></td>
+      <td>Show</td>
+      <td>Edit</td>
+      <td>Destroy</td>
+    </tr>
+    </tbody>
+  <% end %>
+  </table>
+</div>
+
 <!-- Show the IP address list of this VLAN -->
 <div>
   <p>IP Addresses of VLAN <%= @vlan.vlan_name %>:</p>
