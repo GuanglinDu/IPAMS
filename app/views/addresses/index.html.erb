@@ -1,0 +1,46 @@
+<h1>Address#index</h1>
+<p>Find me in app/views/address/index.html.erb</p>
+
+<table>
+  <thead>
+  <tr>
+    <th>No.</th>
+    <th>vlan_id</th>
+    <th>user_id</th>
+    <th>IP Address</th>
+    <th>Usage</th>
+    <th>Application Form</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% count = 1 %>
+  <% @addresses.each do |address| %>
+    <tr>
+      <td><%= count %></td>
+      <td><%= address.vlan_id %></td>
+      <td><%= address.user_id %></td>
+      <td><%= address.ip %></td>
+      <td><%= address.usage %></td>
+      <td><%= address.application_form %></td>
+      <td><%= address.start_date%></td>
+      <td><%= address.end_date %></td>
+      <td><%= link_to 'Show', address %></td>
+      <td><%= link_to 'Edit', edit_address_path(address) %></td>
+      <td><%= link_to 'Destroy', address, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    <% count += 1 %>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div>
+  <p>link_to 'New Address', new_address_path %> | <%= link_to 'Home', controller: "welcome" %></p>
+</div>

@@ -11,6 +11,7 @@
     </div>
   <% end %>
 
+  <!-- Create LANs -->
   <div class="field">
     <%= f.label :lan_number %><br>
     <%= f.number_field :lan_number %>
@@ -21,7 +22,7 @@
   </div>
   <div class="field">
     <%= f.label :lan_description %><br>
-    <%= f.text_area :lan_description %>
+    <%= f.text_area :lan_description, rows: 6 %>
   </div>
   <div class="actions">
     <%= f.submit %>

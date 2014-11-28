@@ -1,19 +1,57 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+  <p id="notice"><%= notice %></p>
+<% end %>
 
-<p>
-  <strong>Lan number:</strong>
-  <%= @lan.lan_number %>
-</p>
+<h3>The Current LAN</h3>
+<table>
+  <tr>
+    <td><strong>Lan number</strong></td>
+    <td><%= @lan.lan_number %></td>
+  </tr>
+  <tr>
+    <td><strong>Lan name</strong></td>
+    <td><%= @lan.lan_name %></td>
+  </tr>
+  <tr>
+    <td><strong>Lan description</strong></td>
+    <td><%= @lan.lan_description %></td>
+  </tr>
+</table>
 
-<p>
-  <strong>Lan name:</strong>
-  <%= @lan.lan_name %>
-</p>
+<!-- Show the existing VLANs in a table. Note that partials shorten the code. -->
+<h3>Existing VLANs within the <%= @lan.lan_name %></h3>
+<table>
+  <thead>
+  <tr>
+    <th>No.</th>
+    <th>VLAN Number</th>
+    <th>VLAN Name</th>
+    <th>Static IP Start</th>
+    <th>Static IP End</th>
+    <th>Subnet Mask</th>
+    <th>Gateway</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <!--
+    As the render method iterates over the @lan.vlans collection,
+    it assigns each vlan to a local variable named the same as the partial,
+    in this case vlan, which is then available in the partial for us to show.
+  -->
+  <!-- The following either will do. --> 
+  <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
+  <tbody>
+    <%= render @lan.vlans %>
+  </tbody>
+</table>
 
-<p>
-  <strong>Lan description:</strong>
-  <%= @lan.lan_description %>
-</p>
+<!-- Create a VLAN using partial vlans/form -->
+<%= render "vlans/form" %>
 
-<%= link_to 'Edit', edit_lan_path(@lan) %> |
-<%= link_to 'Back', lans_path %>
+<div>
+  <p><%= link_to 'Edit LAN', edit_lan_path(@lan) %> | <%= link_to 'Back to LANs', lans_path %></p>
+</div>
+

@@ -1,0 +1,29 @@
+<% if notice %>
+  <p id="notice"><%= notice %></p>
+<% end %>
+
+<h3>IPAMS Home Page</h3>
+<% @lans.each do |lan| %>
+<div class="entry">
+  <p><b style="color:red;"><%= lan.lan_name %></b>: <%= lan.lan_description %></p>
+</div>
+<% end %>
+
+<div>
+  <p>Targets(Nov. 14, 2014 Fri.):</p>
+  <ol>
+    <li>Switch views between LANs, VLANs, IP addresses, departments, users at one's will.</li>
+    <li>Search for anything with any key word and their combinations.</li>
+    <li>List the info in any order necessary.</li>
+    <li>Operate only in an appropriate view.</li>
+  </ol>
+</div>
+
+<div>
+  <h3>An i18n demo:</h3>
+  <p>Displays Hello World in English or Simplified Chinese according to your locale:<%= t('.hello')%></p>
+</div>
+
+<div>
+  <p><%= link_to "LANs", controller: "lans" %></p>
+</div>
