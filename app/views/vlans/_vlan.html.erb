@@ -1,0 +1,28 @@
+<!-- Partial to list the VLANs in a table with index -->
+<!-- Comment count, the hidden method _counter. -->
+<!--
+  See http://www.web-development-blog.co.uk/2009/02/18/57/
+  When rendering a collection of partials in Rails you can access
+  a sneaky iteration counter from inside each partial using the partial
+  name appended with _counter, which starts from 0.
+ -->
+<!--
+  As the render method iterates over the @lan.vlans collection,
+  it assigns each vlan to a local variable named the same as the partial,
+  in this case vlan which is then available in the partial for us to show.
+-->
+<tr>
+  <td><%= vlan_counter + 1 %></td>
+  <td><%= vlan.lan_id %></td>
+  <td><%= vlan.vlan_number %></td>
+  <td><%= vlan.vlan_name %></td>
+  <td><%= vlan.static_ip_start %></td>
+  <td><%= vlan.static_ip_end %></td>
+  <td><%= vlan.subnet_mask %></td>
+  <td><%= vlan.gateway %></td>
+  <td><%= vlan.vlan_description %></td>  
+  <td><%= link_to 'Show', vlan %></td>
+  <td><%= link_to 'Edit', edit_vlan_path(vlan) %></td>
+  <td><%= link_to 'Destroy', vlan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>
+

@@ -1,14 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Ipams</title>
+  <title>IPAMS</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
 
-<%= yield %>
+<body class="<%= controller.controller_name %>">
+  <div id="banner">
+    <%= image_tag("rails_small.png") %>
+    <%= @page_title || "IP Address Management System (IPAMS) 14.11.0" %> 
+  </div>
 
+  <div id="columns">
+    <div id="side">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><%= link_to "LANs", controller: "lans" %></li>
+        <li><%= link_to "VLANs", controller: "vlans" %></li>
+        <li><%= link_to "Addresses", controller: "addresses" %></li>
+        <li><%= link_to "Departments", controller: "departments" %></li>
+        <li><%= link_to "Users", controller: "users" %></li>
+        <li><%= link_to "Search", controller: "search" %></li>
+        <li><%= link_to "Help", controller: "help" %></li>
+      </ul>
+    </div>
+    <div id="main">
+      <%= yield %>
+    </div>
+  </div>
 </body>
 </html>

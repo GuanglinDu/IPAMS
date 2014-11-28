@@ -20,3 +20,6 @@
 
 # swap files
 *.swp
+
+# the only one bash file
+run.sh

@@ -1,0 +1,9 @@
+zh_CN:
+
+  welcome:
+    index:
+      hello: "世界，你好！"
+
+  layouts:
+    application:
+      LANs_view: "LAN视图"
