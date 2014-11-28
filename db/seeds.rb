@@ -33,6 +33,7 @@ vlan22_of_lan2 = Vlan.create!(lan_id: lan2.id, vlan_number: 22, vlan_name: "VLAN
   vlan_description: "Storey 2 of Building DC")
 
 # Test data for table departments
+Address.delete_all
 User.delete_all
 Department.delete_all
 dept_geophysics = Department.create!(dept_name: "Geophysics", location: "Building Geophysics")
@@ -54,7 +55,12 @@ user2_of_dept_computer = User.create!(department_id: dept_computer.id, name: "Ob
   cell_phone: 13962345678, email: "nobody6@example.com", building: "Main", storey: 2, room: 202) 
 
 # Test data for table addresses
-
+dt1 = DateTime.now
+dt2 = dt1 + 365*5 # 5 years later
+ip1 = Address.create!(vlan_id: vlan11_of_lan1.id, user_id: user1_of_dept_geophysics.id,
+   ip: "192.168.0.1", usage: "Office PC", start_date: dt1, end_date: dt2, application_form: "none")
+ip2 = Address.create!(vlan_id: vlan11_of_lan1.id, user_id: user2_of_dept_geophysics.id,
+   ip: "192.168.0.2", usage: "Office PC", start_date: dt1, end_date: dt2, application_form: "none")
 
 # Test data for table reserved_addresses
 

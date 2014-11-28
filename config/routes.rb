@@ -1,11 +1,7 @@
 Ipams::Application.routes.draw do
-  get "address/index"
-  get "vlans_perspective/index"
-  get "users_perspective/index"
+  get "welcome/index"
   get "help/index"
   get "search/index"
-
-  get "welcome/index"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -17,6 +13,7 @@ Ipams::Application.routes.draw do
 
     resources :lans
     resources :vlans
+    resources :addresses
     resources :reserved_addresses
 
     resources :departments
