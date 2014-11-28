@@ -10,6 +10,7 @@
     <thead>
     <tr>
       <th>No.</th>
+      <th>LAN ID</th>
       <th>VLAN Number</th>
       <th>VLAN Name</th>
       <th>Static IP Start</th>
@@ -24,7 +25,8 @@
     </thead>
     <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
     <tbody>
-      <%= render lan.vlans %>
+      <!-- %= render lan.vlans % -->
+      <%= render :partial => 'vlan', collection: lan.vlans %> 
     </tbody>
   </table>
 </div>

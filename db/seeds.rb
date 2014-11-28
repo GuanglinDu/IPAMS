@@ -9,6 +9,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Test data for table lans
+ReservedAddress.delete_all
 Vlan.delete_all
 Lan.delete_all
 
@@ -31,6 +32,11 @@ vlan21_of_lan2 = Vlan.create!(lan_id: lan2.id, vlan_number: 21, vlan_name: "VLAN
 vlan22_of_lan2 = Vlan.create!(lan_id: lan2.id, vlan_number: 22, vlan_name: "VLAN_22", subnet_mask: "255.255.255.0",
   gateway: "192.168.3.254", static_ip_start: "192.168.3.0", static_ip_end: "192.168.3.255", 
   vlan_description: "Storey 2 of Building DC")
+
+# Test data for table reserved_addresses
+ReservedAddress.create!(vlan_id: vlan11_of_lan1.id, ip: "192.168.0.0", description: "subnet number")
+ReservedAddress.create!(vlan_id: vlan11_of_lan1.id, ip: "192.168.0.255", description: "broadcast address")
+ReservedAddress.create!(vlan_id: vlan11_of_lan1.id, ip: "192.168.0.254", description: "subnet mask")
 
 # Test data for table departments
 Address.delete_all
@@ -62,7 +68,6 @@ ip1 = Address.create!(vlan_id: vlan11_of_lan1.id, user_id: user1_of_dept_geophys
 ip2 = Address.create!(vlan_id: vlan11_of_lan1.id, user_id: user2_of_dept_geophysics.id,
    ip: "192.168.0.2", usage: "Office PC", start_date: dt1, end_date: dt2, application_form: "none")
 
-# Test data for table reserved_addresses
 
 # Test data for table histories
 
