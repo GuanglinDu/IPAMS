@@ -1,8 +1,8 @@
 class VlansController < ApplicationController
   #include CurrentVlan
 
-  before_action :set_lan, only: [:create, :show, :edit, :update, :destroy]
   before_action :set_vlan, :only => [:show, :edit, :update, :destroy]
+  before_action :set_lan, only: [:create, :show, :edit, :update, :destroy]
 
   def index
     @lans = Lan.order(:lan_number)
@@ -43,7 +43,8 @@ class VlansController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_lan
-      @lan = Lan.find(params[:lan_id])
+      #@lan = Lan.find(params[:lan_id])
+      @lan = Lan.find(@vlan.lan_id)
     end
 
     def set_vlan
