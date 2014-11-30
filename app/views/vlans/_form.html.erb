@@ -11,7 +11,7 @@
   <%= f.label :"Description:" %><%= f.text_area :vlan_description, rows: 6 %><br />  
   <p>
     <!--
-      Pass lan_id value in params when clicking the submit button.
+      Pass lan_id value in params when clicking the submit button using name & value options.
       See http://stackoverflow.com/questions/17916316/is-there-a-way-to-pass-params-when-clicking-submit-button-in-simple-form-view-in
     -->
     <%= f.label :"Click to create:" %><%= f.button :submit, name: "lan_id", value: @lan.id %>
