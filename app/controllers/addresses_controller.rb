@@ -3,6 +3,9 @@ class AddressesController < ApplicationController
     @addresses = Address.all
   end
 
+  def new
+  end
+
   def show
   end
 
