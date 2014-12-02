@@ -1,7 +1,8 @@
 <!-- Edit a VLAN -->
 <h3>Edit VLAN <b style="color:red"><%= @vlan.vlan_name %></b> inside <%= @lan.lan_name %></h3>
 
-<%= form_for([@lan, @vlan]) do |f| %>
+<!-- %= form_for([@lan, @vlan]) do |f| % -->
+<%= form_for(@vlan) do |f| %>
   <%= f.label :"Number:" %><%= f.text_field :vlan_number %><br />
   <%= f.label :"Name:" %><%= f.text_field :vlan_name %><br />
   <%= f.label :"Static IP Start:" %><%= f.text_field :static_ip_start %><br />
