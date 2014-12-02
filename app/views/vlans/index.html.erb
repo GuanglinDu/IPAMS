@@ -1,6 +1,10 @@
 <h1>Vlans#index</h1>
 <p>Find me in app/views/vlans/index.html.erb</p>
 
+<% if notice %>
+  <p id="notice"><%= notice %></p>
+<% end %>
+
 <h3>Existing LANs & its VLANs</h3>
 <% @lans.each do |lan| %>
 <div class="entry">
@@ -47,6 +51,15 @@
     <li>List the IP addresses within a designated VLAN in ascending order (IPv4 at present)</li>
     <li>Import/export from/to CSV files.</li>
   </ol>
+</div>
+
+<div>
+  <h3>Import a CSV File</h3>
+  <%= form_tag import_vlans_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import CSV with headers", :name => "lan_id[#{lan_id => @lan.id}]" %>
+    <!-- %= f.button :submit, name: "lan_id", value: @lan.id % -->
+  <% end %>
 </div>
 
 <div>

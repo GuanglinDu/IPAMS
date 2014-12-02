@@ -12,7 +12,9 @@ Ipams::Application.routes.draw do
     root 'welcome#index', as: 'welcome'
 
     resources :lans
-    resources :vlans
+    resources :vlans do
+      collection { post :import }
+    end
     resources :addresses
     resources :reserved_addresses
 

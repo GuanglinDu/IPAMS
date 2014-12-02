@@ -2,7 +2,7 @@ class VlansController < ApplicationController
 #  include CurrentLan
 
   before_action :set_vlan, :only => [:show, :edit, :update, :destroy]
-  before_action :set_lan, only: [:create, :show, :edit, :update, :destroy]
+  before_action :set_lan, only: [:create, :show, :edit, :update, :destroy, :import]
 
   def index
     @lans = Lan.order(:lan_number)
@@ -34,19 +34,28 @@ class VlansController < ApplicationController
     end
   end
 
+  # Import a CSV file into table vlans
+  def import
+    Vlan.import(params[:file], @lan.id)
+    redirect_to root_url, notice: "VLANs imported."
+  end
+
   # Destroy a VLAN record
   def destroy
     @vlan.destroy
     redirect_to lan_path(@lan)
   end
 
+  # if ... else block is not bug-free
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_lan
       if params[:lan_id] then
         @lan = Lan.find(params[:lan_id])
-      else
+      elif @vlan
         @lan = Lan.find(@vlan.lan_id)
+      else
+        "Handle error"
       end
     end
 
