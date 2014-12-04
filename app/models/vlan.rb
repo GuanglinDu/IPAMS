@@ -13,17 +13,33 @@ class Vlan < ActiveRecord::Base
   # it will attempt to create a new VLAN.
   #def self.import(file, lan_id)
   def self.import(file)
-    CSV.foreach(file, headers: true) do |row|
+    CSV.foreach(file.path, headers: true) do |row|
       vlan_hash = row.to_hash
       #vlan_hash[:lan_id] = lan_id # append the lan_id FK
-      vlan = Vlan.where(id: vlan_hash["id"])
+      #vlan = Vlan.where(id: vlan_hash["id"])
 
-      if vlan.count == 1
+      if vlan_exists(vlan_hash)
         vlan.first.update_attributes(vlan_hash)
       else
         Vlan.create!(vlan_hash)
       end
     end
+  end
+
+  # Determines if a VLAN already exists.
+  def self.vlan_exists(vlan_hash_to_import = {})
+    exist = false
+    vlans = Vlan.all # Array
+    vlans = vlans.to_a.map(&:serializable_hash) # to Hash
+    vlans.each do |vlan|
+      puts vlan
+      t = vlan.delete(:id)
+      if t == vlan_hash_to_import
+        exist = true
+      end 
+    end
+
+    return exist  
   end
 end
 

@@ -37,13 +37,14 @@ class VlansController < ApplicationController
   # Import a CSV file into table vlans
   def import
     Vlan.import(params[:file])
-    redirect_to root_url, notice: "VLANs imported."
+    redirect_to vlans_url, notice: "VLANs imported."
   end
 
   # Destroy a VLAN record
   def destroy
     @vlan.destroy
-    redirect_to lan_path(@lan)
+    #redirect_to lan_path(@lan)
+    redirect_to vlans_path
   end
 
   # if ... else block is not bug-free
@@ -51,10 +52,7 @@ class VlansController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_lan
       if params[:lan_id] then
-        @lan = Lan.find(params[:lan_i])
-      # Passed by import button in 
-      elif params[:data-lan_id]
-        @lan = Lan.find(params[:data-lan_id])
+        @lan = Lan.find(params[:lan_id])
       elif @vlan
         @lan = Lan.find(@vlan.lan_id)
       else
