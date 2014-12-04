@@ -36,7 +36,7 @@ class VlansController < ApplicationController
 
   # Import a CSV file into table vlans
   def import
-    Vlan.import(params[:file], @lan.id)
+    Vlan.import(params[:file])
     redirect_to root_url, notice: "VLANs imported."
   end
 
