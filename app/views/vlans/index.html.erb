@@ -57,7 +57,7 @@
   <h3>Import a CSV File</h3>
   <%= form_tag import_vlans_path, multipart: true do %>
     <%= file_field_tag :file %>
-    <%= submit_tag "Import CSV with headers", :name => "lan_id[#{lan_id => @lan.id}]" %>
+    <%= submit_tag "Import CSV with headers", data: {lan_id: @lan.id} %>
     <!-- %= f.button :submit, name: "lan_id", value: @lan.id % -->
   <% end %>
 </div>

@@ -51,7 +51,10 @@ class VlansController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_lan
       if params[:lan_id] then
-        @lan = Lan.find(params[:lan_id])
+        @lan = Lan.find(params[:lan_i])
+      # Passed by import button in 
+      elif params[:data-lan_id]
+        @lan = Lan.find(params[:data-lan_id])
       elif @vlan
         @lan = Lan.find(@vlan.lan_id)
       else
