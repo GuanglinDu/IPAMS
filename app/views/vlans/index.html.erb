@@ -54,8 +54,8 @@
 </div>
 
 <div>
-  <h3>Import a CSV File</h3>
-  <%= form_tag import_vlans_path, multipart: true do %>
+  <h3>Import VLANs from a CSV File</h3>
+  <%= form_tag({action: :import}, multipart: true) do %>
     <%= file_field_tag :file %>
     <%= submit_tag "Import CSV with headers" %>
     <!-- %= f.button :submit, name: "lan_id", value: @lan.id % -->
