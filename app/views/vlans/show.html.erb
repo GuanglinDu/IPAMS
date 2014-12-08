@@ -40,6 +40,8 @@
   <table>
     <thead>
     <tr>
+      <th>vlan_id</th>
+      <th>id</th>
       <th>IP Adress</th>
       <th>Description</th>
       <th></th>
@@ -47,18 +49,21 @@
       <th></th>
     </tr>
     </thead>
-  <% @vlan.reserved_addresses.each do |ra| %>
+    <% @vlan.reserved_addresses.each do |ra| %>
     <tbody>
     <tr>
+      <td><%= ra.vlan_id %></td>
+      <td><%= ra.id %></td>
       <td><%= ra.ip %></td>
       <td><%= ra.description %></td>
-      <td>Show</td>
-      <td>Edit</td>
-      <td>Destroy</td>
+      <th><%= link_to 'Show', reserved_address_path(ra) %></th>
+      <th><%= link_to 'Edit', edit_reserved_address_path(ra) %></th>
+      <th><%= link_to 'Destroy', reserved_addresses_path(ra), method: :delete, data:{ confirm: 'Are you sure?'} %></th>
     </tr>
     </tbody>
-  <% end %>
+    <% end %>
   </table>
+  <p><%= link_to "New Reserved Address", new_reserved_address_path %></p>
 </div>
 
 <!-- Show the IP address list of this VLAN -->

@@ -37,6 +37,9 @@ vlan22_of_lan2 = Vlan.create!(lan_id: lan2.id, vlan_number: 22, vlan_name: "VLAN
 ReservedAddress.create!(vlan_id: vlan11_of_lan1.id, ip: "192.168.0.0", description: "subnet number")
 ReservedAddress.create!(vlan_id: vlan11_of_lan1.id, ip: "192.168.0.255", description: "broadcast address")
 ReservedAddress.create!(vlan_id: vlan11_of_lan1.id, ip: "192.168.0.254", description: "subnet mask")
+ReservedAddress.create!(vlan_id: vlan12_of_lan1.id, ip: "192.168.1.0", description: "subnet number")
+ReservedAddress.create!(vlan_id: vlan12_of_lan1.id, ip: "192.168.1.255", description: "broadcast address")
+ReservedAddress.create!(vlan_id: vlan12_of_lan1.id, ip: "192.168.1.254", description: "subnet mask")
 
 # Test data for table departments
 Address.delete_all
