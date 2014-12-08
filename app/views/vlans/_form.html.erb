@@ -1,7 +1,9 @@
-<!-- This is a partial to create a VLAN -->
-<h3>Create a New VLAN within the <%= @lan.lan_name %></h3>
+<!-- This is a partial to create a new VLAN -->
+<h3>Create a New VLAN in the designated LAN.</h3>
 
-<%= form_for(@lan.vlans.build) do |f| %>
+<%= form_for(@vlan) do |f| %>
+  <!-- Select the LAN in which to create the new VLAN -->
+  <%= f.label :"Create in LAN:" %><%= f.collection_select :lan_id, Lan.all, :id, :lan_name, prompt: true %><br />
   <%= f.label :"Number:" %><%= f.text_field :vlan_number %><br />
   <%= f.label :"Name:" %><%= f.text_field :vlan_name %><br />
   <%= f.label :"Static IP Start:" %><%= f.text_field :static_ip_start %><br />
@@ -14,6 +16,7 @@
       Pass lan_id value in params when clicking the submit button using name & value options.
       See http://stackoverflow.com/questions/17916316/is-there-a-way-to-pass-params-when-clicking-submit-button-in-simple-form-view-in
     -->
-    <%= f.label :"Click to create:" %><%= f.button :submit, name: "lan_id", value: @lan.id %>
+    <!-- %= f.label :"Click to create:" >< f.button :submit, name: "lan_id", value: @lan.id % -->
+    <%= f.label :"Click to create:" %><%= f.button :submit %>
   </p>
 <% end %>

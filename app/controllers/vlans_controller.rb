@@ -7,10 +7,27 @@ class VlansController < ApplicationController
     @vlans = Vlan.order(:vlan_number)
   end
 
-  # Create a VLAN record
+  # GET /vlans/new
+  def new
+    @vlan = Vlan.new
+    # Before creating, the LAN has to be selected. Hence, retrieve all the VLANs.
+    #@lans = Lan.all
+  end
+
+  # Create a new VLAN
   def create
-    @vlan = @vlans.create(vlan_params)
-    redirect_to vlans_path
+    @vlan = Vlan.new(vlan_params)
+
+    respond_to do |format|
+      if @vlan.save
+        format.html { redirect_to vlans_path, notice: 'VLAN was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @vlan }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @vlan.errors, status: :unprocessable_entity }
+      end
+    end
+    #redirect_to vlans_path
   end
 
   # Updates are implemented by methods edit and update
@@ -24,7 +41,7 @@ class VlansController < ApplicationController
       if @vlan.update(vlan_params)
         #1st argument of redirect_to is an array, in order to build the correct route to the nested resource vlan
         #format.html { redirect_to [@vlan.lan, @vlan], notice: 'Comment was successfully updated.' }
-        format.html { redirect_to @vlan.lan, notice: 'Comment was successfully updated.' }
+        format.html { redirect_to @vlan, notice: 'Comment was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
