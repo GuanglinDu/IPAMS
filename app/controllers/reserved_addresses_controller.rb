@@ -1,7 +1,7 @@
 class ReservedAddressesController < ApplicationController
   def index
   end
-    before_action :set_department, only: [:show, :edit, :update, :destroy]
+    before_action :set_reserved_address, only: [:show, :edit, :update, :destroy]
 
   # GET /reservedAddresses
   # GET /reservedAddresses.json
@@ -65,8 +65,8 @@ class ReservedAddressesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_department
-      @department = Department.find(params[:id])
+    def set_reserved_address
+      @reserved_address = ReservedAddress.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
