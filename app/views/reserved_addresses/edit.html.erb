@@ -1,0 +1,16 @@
+<!-- Edit a VLAN -->
+<h3>Edit Reserved IP Address <b style="color:red"><%= @reserved_address.ip %></b></h3>
+
+<!-- %= form_for([@lan, @vlan]) do |f| % -->
+<%= form_for(@reserved_address) do |f| %>
+  <%= f.label :"IP:" %><%= f.text_field :ip %><br />
+  <%= f.label :"Description:" %><%= f.text_area :description, rows: 6 %><br />  
+  <p>
+    <%= f.label :"Click to update:" %><%= f.submit %>
+  </p>
+<% end %>
+
+<div>
+  <p><%= link_to 'Back to VLAN', vlan_path(Vlan.find(@reserved_address.vlan_id)) %> | <%= link_to 'Home', controller: "welcome" %></p>
+</div>
+
