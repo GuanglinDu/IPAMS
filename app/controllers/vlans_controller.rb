@@ -2,24 +2,23 @@ class VlansController < ApplicationController
 #  include CurrentLan
 
   before_action :set_vlan, :only => [:show, :edit, :update, :destroy]
-  before_action :set_lan, only: [:create, :show, :edit, :update, :destroy, :import]
 
   def index
-    @lans = Lan.order(:lan_number)
+    @vlans = Vlan.order(:vlan_number)
   end
 
   # Create a VLAN record
   def create
-    @vlan = @lan.vlans.create(vlan_params)
-    redirect_to lan_path(@lan)
+    @vlan = @vlans.create(vlan_params)
+    redirect_to vlans_path
   end
 
   # Updates are implemented by methods edit and update
   def edit
   end 
  
-  # PUT /lans/:lan_id/vlans/:id
-  # PUT /lans/:lan_id/vlans/:id.xml
+  # PUT /vlans/:id
+  # PUT /vlans/:id.xml
   def update
     respond_to do |format|
       if @vlan.update(vlan_params)
@@ -43,26 +42,14 @@ class VlansController < ApplicationController
   # Destroy a VLAN record
   def destroy
     @vlan.destroy
-    #redirect_to lan_path(@lan)
     redirect_to vlans_path
   end
 
-  # if ... else block is not bug-free
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_lan
-      if params[:lan_id] then
-        @lan = Lan.find(params[:lan_id])
-      elif @vlan
-        @lan = Lan.find(@vlan.lan_id)
-      else
-        "Handle error"
-      end
-    end
 
+    # Use callbacks to share common setup or constraints between actions.
     def set_vlan
       @vlan = Vlan.find(params[:id])
-      #@vlan = @lan.vlans.find(params[:id]) # also do
     end
   
     # Never trust parameters from the scary internet, only allow the white list through.

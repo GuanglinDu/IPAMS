@@ -1,5 +1,5 @@
 <!-- Edit a VLAN -->
-<h3>Edit VLAN <b style="color:red"><%= @vlan.vlan_name %></b> inside <%= @lan.lan_name %></h3>
+<h3>Edit VLAN <b style="color:red"><%= @vlan.vlan_name %></b></h3>
 
 <!-- %= form_for([@lan, @vlan]) do |f| % -->
 <%= form_for(@vlan) do |f| %>
@@ -16,6 +16,6 @@
 <% end %>
 
 <div>
-  <p><%= link_to 'Back to LAN', lan_path(@lan) %> | <%= link_to 'Home', controller: "welcome" %></p>
+  <p><%= link_to 'Back to VLANs', vlans_path %> | <%= link_to 'Home', controller: "welcome" %></p>
 </div>
 
