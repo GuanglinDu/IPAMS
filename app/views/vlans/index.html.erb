@@ -6,9 +6,7 @@
 <% end %>
 
 <h3>Existing LANs & its VLANs</h3>
-<% @lans.each do |lan| %>
 <div class="entry">
-  <p><b style="color:red;"><%= lan.lan_name %></b>: <%= lan.lan_description %></p>
   <!-- VLAN list -->
   <table>
     <thead>
@@ -30,11 +28,10 @@
     <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
     <tbody>
       <!-- %= render lan.vlans % -->
-      <%= render :partial => 'vlan', collection: lan.vlans %> 
+      <%= render :partial => 'vlan', collection: @vlans %> 
     </tbody>
   </table>
 </div>
-<% end %>
 
 <div>
   <h3>Other Operations:</h3>

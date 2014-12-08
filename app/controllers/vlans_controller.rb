@@ -17,8 +17,8 @@ class VlansController < ApplicationController
   def edit
   end 
  
-  # PUT /lans/:lan_id/vlans/:id
-  # PUT /lans/:lan_id/vlans/:id.xml
+  # PUT /vlans/:id
+  # PUT /vlans/:id.xml
   def update
     respond_to do |format|
       if @vlan.update(vlan_params)
