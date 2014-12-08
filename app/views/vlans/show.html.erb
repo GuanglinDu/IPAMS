@@ -1,5 +1,5 @@
 <!-- Show a VLAN -->
-<h3>VLAN <b style="color:red"><%= @vlan.vlan_name %></b> inside the <!-- %= @lan.lan_name % --></h3>
+<h3>VLAN <b style="color:red"><%= @vlan.vlan_name %></b></h3>
 
 <table>
   <tbody>
@@ -67,5 +67,5 @@
 </div>
 
 <div>
-  <p><!-- %= link_to 'Back to LAN', lan_path(@lan) % --> | <%= link_to 'Home', controller: "welcome" %></p>
+  <p><%= link_to 'Back to VLANs', vlans_path %> | <%= link_to 'Home', controller: "welcome" %></p>
 </div>

@@ -6,9 +6,7 @@
 <% end %>
 
 <h3>Existing LANs & its VLANs</h3>
-<% @lans.each do |lan| %>
 <div class="entry">
-  <p><b style="color:red;"><%= lan.lan_name %></b>: <%= lan.lan_description %></p>
   <!-- VLAN list -->
   <table>
     <thead>
@@ -30,11 +28,10 @@
     <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
     <tbody>
       <!-- %= render lan.vlans % -->
-      <%= render :partial => 'vlan', collection: lan.vlans %> 
+      <%= render :partial => 'vlan', collection: @vlans %> 
     </tbody>
   </table>
 </div>
-<% end %>
 
 <div>
   <h3>Other Operations:</h3>
@@ -54,7 +51,31 @@
 </div>
 
 <div>
-  <h3>Import VLANs from a CSV File</h3>
+  <h3>Import VLANs from a CSV File as the following template shows</h3>
+  <table>
+  <thead>
+    <th>lan_id</th>
+    <th>vlan_number</th>
+    <th>vlan_name</th>
+    <th>static_ip_start</th>
+    <th>static_ip_end</th>
+    <th>subnet_mask</th>
+    <th>gateway</th>
+    <th>vlan_description</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>12</td>
+      <td>22</td>
+      <td>VLAN-Main-Building</td>
+      <td>192.168.1.0</td>
+      <td>192.168.1.255</td>
+      <td>255.255.255.0</td>
+      <td>192.168.1.254</td>
+      <td>Main Building</td>
+    </tr>
+  </tbody>
+  </table>
   <%= form_tag({action: :import}, multipart: true) do %>
     <%= file_field_tag :file %>
     <%= submit_tag "Import CSV with headers" %>
