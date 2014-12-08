@@ -29,7 +29,7 @@ class LansController < ApplicationController
 
     respond_to do |format|
       if @lan.save
-        format.html { redirect_to @lan, notice: 'Lan was successfully created.' }
+        format.html { redirect_to @lan, notice: 'LAN was successfully created.' }
         format.json { render action: 'show', status: :created, location: @lan }
       else
         format.html { render action: 'new' }

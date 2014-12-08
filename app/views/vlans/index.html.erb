@@ -5,7 +5,7 @@
   <p id="notice"><%= notice %></p>
 <% end %>
 
-<h3>Existing LANs & its VLANs</h3>
+<h3>Existing VLANs</h3>
 <div class="entry">
   <!-- VLAN list -->
   <table>
@@ -27,25 +27,19 @@
     </thead>
     <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
     <tbody>
-      <!-- %= render lan.vlans % -->
+      <!-- %= render vlans % -->
       <%= render :partial => 'vlan', collection: @vlans %> 
     </tbody>
   </table>
-</div>
-
-<div>
-  <h3>Other Operations:</h3>
-  <ul>
-    <!-- Create a new VLAN in the LANs perspective -->
-    <li>Create a new VLAN from the LANs (link show ): <%= link_to "LANs", lans_path %></li>
-  </ul>
+  <!-- Create a new VLAN -->
+  <p><%= link_to "New VLAN", new_vlan_path %></p>
 </div>
 
 <div>
   <h3>TODOs</h3>
   <ol>
-    <li>List the VLANs in any order required</li>
-    <li>List the IP addresses within a designated VLAN in ascending order (IPv4 at present)</li>
+    <li>List the VLANs in any order required;</li>
+    <li>List the IP addresses within a designated VLAN in ascending order (IPv4 at present);</li>
     <li>Import/export from/to CSV files.</li>
   </ol>
 </div>
