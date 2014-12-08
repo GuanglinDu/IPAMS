@@ -30,7 +30,8 @@ class ReservedAddressesController < ApplicationController
 
     respond_to do |format|
       if @reserved_address.save
-        format.html { redirect_to vlan_path(Vlan.find(params[:reserved_address][:vlan_id]), notice: 'Department was successfully created.' }
+        #format.html { redirect_to vlan_path(Vlan.find(params[:reserved_address][:vlan_id]), notice: 'Department was successfully created.' }
+        format.html { redirect_to vlans_path, notice: 'Department was successfully created.' }
         format.json { render action: 'show', status: :created, location: @reserved_address }
       else
         format.html { render action: 'new' }
