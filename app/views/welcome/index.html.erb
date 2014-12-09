@@ -4,8 +4,8 @@
 
 <h3>IPAMS Home Page</h3>
 <% @lans.each do |lan| %>
-<div class="entry">
-  <p><b style="color:red;"><%= lan.lan_name %></b>: <%= lan.lan_description %></p>
+<div>
+  <b style="color:red;"><%= lan.lan_name %></b>: <%= lan.lan_description %>
 </div>
 <% end %>
 

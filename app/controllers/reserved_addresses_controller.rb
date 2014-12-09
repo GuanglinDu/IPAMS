@@ -1,76 +1,82 @@
 class ReservedAddressesController < ApplicationController
   def index
   end
-    before_action :set_department, only: [:show, :edit, :update, :destroy]
+    before_action :set_reserved_address, only: [:show, :edit, :update, :destroy]
 
-  # GET /reservedAddresses
-  # GET /reservedAddresses.json
+  # GET /reserved_addresses
+  # GET /reserved_addresses.json
   def index
-    @reservedAddresses = ReservedAddresses.all
+    @reserved_addresses = ReservedAddress.all
   end
 
-  # GET /reservedAddresses/1
-  # GET /reservedAddresses/1.json
+  # GET /reserved_addresses/1
+  # GET /reserved_addresses/1.json
   def show
   end
 
-  # GET /reservedAddresses/new
+  # GET /reserved_addresses/new
   def new
-    @department = ReservedAddresses.new
+    @reserved_address = ReservedAddress.new
   end
 
-  # GET /reservedAddresses/1/edit
+  # GET /reserved_addresses/1/edit
   def edit
   end
 
-  # POST /reservedAddresses
-  # POST /reservedAddresses.json
+  # POST /reserved_addresses
+  # POST /reserved_addresses.json
   def create
-    @department = ReservedAddresses.new(department_params)
+    @reserved_address = ReservedAddress.new(reserved_address_params)
 
     respond_to do |format|
-      if @department.save
-        format.html { redirect_to @department, notice: 'Department was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @department }
+      if @reserved_address.save
+        format.html { redirect_to vlan_path(Vlan.find(@reserved_address.vlan_id)), notice: 'Reserved address was successfully created.' }
+        #format.html { redirect_to @reserved_address, notice: 'Reserved address was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @reserved_address }
       else
         format.html { render action: 'new' }
-        format.json { render json: @department.errors, status: :unprocessable_entity }
+        format.json { render json: @reserved_address.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /reservedAddresses/1
-  # PATCH/PUT /reservedAddresses/1.json
+  # PATCH/PUT /reserved_addresses/1
+  # PATCH/PUT /reserved_addresses/1.json
   def update
     respond_to do |format|
-      if @department.update(department_params)
-        format.html { redirect_to @department, notice: 'Department was successfully updated.' }
+      if @reserved_address.update(reserved_address_params)
+        format.html { redirect_to vlan_path(find_vlan(@reserved_address)), notice: 'Department was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @department.errors, status: :unprocessable_entity }
+        format.json { render json: @reserved_address.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /reservedAddresses/1
-  # DELETE /reservedAddresses/1.json
+  # DELETE /reserved_addresses/1
+  # DELETE /reserved_addresses/1.json
   def destroy
-    @department.destroy
+    @reserved_address.destroy
     respond_to do |format|
-      format.html { redirect_to reservedAddresses_url }
+      format.html { redirect_to reserved_addresses_url }
       format.json { head :no_content }
     end
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
-    def set_department
-      @department = Department.find(params[:id])
+    def set_reserved_address
+      @reserved_address = ReservedAddress.find(params[:id])
+    end
+
+    def find_vlan(reserved_address)
+      Vlan.find(reserved_address.vlan_id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def department_params
-      params.require(:department).permit(:dept_name, :location)
+    def reserved_address_params
+      params[:reserved_address].permit(:vlan_id, :ip, :description)
     end
 end

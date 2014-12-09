@@ -21,7 +21,7 @@
   <td><%= vlan.subnet_mask %></td>
   <td><%= vlan.gateway %></td>
   <td><%= vlan.vlan_description %></td>  
-  <td><%= link_to 'Show', vlan %></td>
+  <td><%= link_to 'Show', vlan, lan_id: vlan.lan_id %></td>
   <td><%= link_to 'Edit', edit_vlan_path(vlan) %></td>
   <td><%= link_to 'Destroy', vlan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>
