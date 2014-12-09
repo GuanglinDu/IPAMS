@@ -70,8 +70,9 @@ class VlansController < ApplicationController
     end
   
     # Never trust parameters from the scary internet, only allow the white list through.
+    # lan_id is FK.
     def vlan_params
-      params[:vlan].permit(:vlan_number, :vlan_name, :static_ip_start, :static_ip_end,
+      params[:vlan].permit(:lan_id, :vlan_number, :vlan_name, :static_ip_start, :static_ip_end,
         :subnet_mask, :gateway, :vlan_description)
     end
 end
