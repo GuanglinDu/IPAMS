@@ -1,10 +1,12 @@
 <h1>Vlans#index</h1>
 <p>Find me in app/views/vlans/index.html.erb</p>
 
-<h3>Existing LANs & its VLANs</h3>
-<% @lans.each do |lan| %>
+<% if notice %>
+  <p id="notice"><%= notice %></p>
+<% end %>
+
+<h3>Existing VLANs</h3>
 <div class="entry">
-  <p><b style="color:red;"><%= lan.lan_name %></b>: <%= lan.lan_description %></p>
   <!-- VLAN list -->
   <table>
     <thead>
@@ -25,28 +27,54 @@
     </thead>
     <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
     <tbody>
-      <!-- %= render lan.vlans % -->
-      <%= render :partial => 'vlan', collection: lan.vlans %> 
+      <!-- %= render vlans % -->
+      <%= render :partial => 'vlan', collection: @vlans %> 
     </tbody>
   </table>
-</div>
-<% end %>
-
-<div>
-  <h3>Other Operations:</h3>
-  <ul>
-    <!-- Create a new VLAN in the LANs perspective -->
-    <li>Create a new VLAN from the LANs perspective (link show ): <%= link_to "LANs", lans_path %></li>
-  </ul>
+  <!-- Create a new VLAN -->
+  <p><%= link_to "New VLAN", new_vlan_path %></p>
 </div>
 
 <div>
   <h3>TODOs</h3>
   <ol>
-    <li>List the VLANs in any order required</li>
-    <li>List the IP addresses within a designated VLAN in ascending order (IPv4 at present)</li>
+    <li>List the VLANs in any order required;</li>
+    <li>List the IP addresses within a designated VLAN in ascending order (IPv4 at present);</li>
     <li>Import/export from/to CSV files.</li>
   </ol>
+</div>
+
+<div>
+  <h3>Import VLANs from a CSV File as the following template shows</h3>
+  <table>
+  <thead>
+    <th>lan_id</th>
+    <th>vlan_number</th>
+    <th>vlan_name</th>
+    <th>static_ip_start</th>
+    <th>static_ip_end</th>
+    <th>subnet_mask</th>
+    <th>gateway</th>
+    <th>vlan_description</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>12</td>
+      <td>22</td>
+      <td>VLAN-Main-Building</td>
+      <td>192.168.1.0</td>
+      <td>192.168.1.255</td>
+      <td>255.255.255.0</td>
+      <td>192.168.1.254</td>
+      <td>Main Building</td>
+    </tr>
+  </tbody>
+  </table>
+  <%= form_tag({action: :import}, multipart: true) do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import CSV with headers" %>
+    <!-- %= f.button :submit, name: "lan_id", value: @lan.id % -->
+  <% end %>
 </div>
 
 <div>

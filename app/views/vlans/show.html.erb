@@ -1,8 +1,16 @@
 <!-- Show a VLAN -->
-<h3>VLAN <b style="color:red"><%= @vlan.vlan_name %></b> inside the <%= @lan.lan_name %></h3>
+<h3>VLAN <b style="color:red"><%= @vlan.vlan_name %></b></h3>
 
 <table>
   <tbody>
+  <tr>
+    <td><b>lan_id</b></td>
+    <td><%= @vlan.lan_id %></td>
+  </tr>
+  <tr>
+    <td><b>id</b></td>
+    <td><%= @vlan.id %></td>
+  </tr>
   <tr>
     <td><b>Number</b></td>
     <td><%= @vlan.vlan_number %></td>
@@ -36,10 +44,12 @@
 
 <!-- Reserved addresses list -->
 <div>
-  <p>Reserved addresses list</p> 
+  <p>Reserved Addresses List</p> 
   <table>
     <thead>
     <tr>
+      <th>vlan_id</th>
+      <th>id</th>
       <th>IP Adress</th>
       <th>Description</th>
       <th></th>
@@ -47,18 +57,21 @@
       <th></th>
     </tr>
     </thead>
-  <% @vlan.reserved_addresses.each do |ra| %>
+    <% @vlan.reserved_addresses.each do |ra| %>
     <tbody>
     <tr>
+      <td><%= ra.vlan_id %></td>
+      <td><%= ra.id %></td>
       <td><%= ra.ip %></td>
       <td><%= ra.description %></td>
-      <td>Show</td>
-      <td>Edit</td>
-      <td>Destroy</td>
+      <th><%= link_to 'Show', reserved_address_path(ra) %></th>
+      <th><%= link_to 'Edit', edit_reserved_address_path(ra) %></th>
+      <th><%= link_to 'Destroy', reserved_addresses_path(ra), method: :delete, data:{ confirm: 'Are you sure?'} %></th>
     </tr>
     </tbody>
-  <% end %>
+    <% end %>
   </table>
+  <p><%= link_to "New Reserved Address", new_reserved_address_path %></p>
 </div>
 
 <!-- Show the IP address list of this VLAN -->
@@ -67,5 +80,5 @@
 </div>
 
 <div>
-  <p><%= link_to 'Back to LAN', lan_path(@lan) %> | <%= link_to 'Home', controller: "welcome" %></p>
+  <p><%= link_to 'Back to VLANs', vlans_path %> | <%= link_to 'Home', controller: "welcome" %></p>
 </div>
