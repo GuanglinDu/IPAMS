@@ -3,9 +3,9 @@
 
 <%= form_for(@vlan) do |f| %>
   <!-- Select the LAN in which to create the new VLAN -->
-  <%= f.label :"Create in LAN:" %><%= f.collection_select :lan_id, Lan.all, :id, :lan_name, prompt: true %><br />
-  <%= f.label :"Number:" %><%= f.text_field :vlan_number %><br />
-  <%= f.label :"Name:" %><%= f.text_field :vlan_name %><br />
+  <%= f.label :"Create in LAN:" %><%= f.collection_select(:lan_id, Lan.all, :id, :lan_name, prompt: true) %><br />
+  <%= f.label :"VLAN Number:" %><%= f.text_field :vlan_number %><br />
+  <%= f.label :"VLAN Name:" %><%= f.text_field :vlan_name %><br />
   <%= f.label :"Static IP Start:" %><%= f.text_field :static_ip_start %><br />
   <%= f.label :"Static IP End:" %><%= f.text_field :static_ip_end %><br />
   <%= f.label :"Mask:" %><%= f.text_field :subnet_mask %><br />
