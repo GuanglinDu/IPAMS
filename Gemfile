@@ -44,3 +44,9 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+# bootstrap-x-editable-rails 
+gem 'bootstrap-sass'
+gem 'autoprefixer-rails'
+gem 'bootstrap-x-editable-rails'
+ 
