@@ -14,6 +14,8 @@
 <tr>
   <td><%= vlan_counter + 1 %></td>
   <td><%= vlan.lan_id %></td>
+  <!-- Call the helper method from the controller to retrieve the LAN name -->
+  <td><%= find_lan_name(vlan.lan_id) %></td>
   <td><%= vlan.vlan_number %></td>
   <td><%= vlan.vlan_name %></td>
   <td><%= vlan.static_ip_start %></td>
