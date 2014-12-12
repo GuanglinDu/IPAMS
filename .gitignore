@@ -20,6 +20,7 @@
 
 # swap files
 *.swp
+*.rb.swo
 
 # the only one bash file
 run.sh
