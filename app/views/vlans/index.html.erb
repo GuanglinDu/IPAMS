@@ -12,7 +12,8 @@
     <thead>
     <tr>
       <th>No.</th>
-      <th>LAN ID</th>
+      <th>lan_id</th>
+      <th>LAN Name</th>
       <th>VLAN Number</th>
       <th>VLAN Name</th>
       <th>Static IP Start</th>
@@ -33,15 +34,6 @@
   </table>
   <!-- Create a new VLAN -->
   <p><%= link_to "New VLAN", new_vlan_path %></p>
-</div>
-
-<div>
-  <h3>TODOs</h3>
-  <ol>
-    <li>List the VLANs in any order required;</li>
-    <li>List the IP addresses within a designated VLAN in ascending order (IPv4 at present);</li>
-    <li>Import/export from/to CSV files.</li>
-  </ol>
 </div>
 
 <div>
@@ -75,6 +67,15 @@
     <%= submit_tag "Import CSV with headers" %>
     <!-- %= f.button :submit, name: "lan_id", value: @lan.id % -->
   <% end %>
+</div>
+
+<div>
+  <h3>TODOs</h3>
+  <ol>
+    <li>List the VLANs in any order required;</li>
+    <li>List the IP addresses within a designated VLAN in ascending order (IPv4 at present);</li>
+    <li>Import/export from/to CSV files.</li>
+  </ol>
 </div>
 
 <div>
