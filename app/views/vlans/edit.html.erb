@@ -3,13 +3,38 @@
 
 <!-- %= form_for([@lan, @vlan]) do |f| % -->
 <%= form_for(@vlan) do |f| %>
-  <%= f.label :"Number:" %><%= f.text_field :vlan_number %><br />
-  <%= f.label :"Name:" %><%= f.text_field :vlan_name %><br />
-  <%= f.label :"Static IP Start:" %><%= f.text_field :static_ip_start %><br />
-  <%= f.label :"Static IP End:" %><%= f.text_field :static_ip_end %><br />
-  <%= f.label :"Mask:" %><%= f.text_field :subnet_mask %><br />
-  <%= f.label :"Gateway:" %><%= f.text_field :gateway %><br />
-  <%= f.label :"Description:" %><%= f.text_area :vlan_description, rows: 6 %><br />  
+  <table>
+  <tbody>
+    <tr>
+      <td><%= f.label :"Number:" %></td>
+      <td><%= f.text_field :vlan_number %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :"Name:" %></td>
+      <td><%= f.text_field :vlan_name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :"Static IP Start:" %></td>
+      <td><%= f.text_field :static_ip_start %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :"Static IP End:" %></td>
+      <td><%= f.text_field :static_ip_end %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :"Mask:" %></td>
+      <td><%= f.text_field :subnet_mask %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :"Gateway:" %></td>
+      <td><%= f.text_field :gateway %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :"Description:" %></td>
+      <td><%= f.text_area :vlan_description, rows: 6 %></td>
+    </tr>
+  </tbody>
+  </table>
   <p>
     <%= f.label :"Click to update:" %><%= f.submit %>
   </p>
