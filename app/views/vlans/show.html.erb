@@ -62,7 +62,9 @@
     <tr>
       <td><%= ra.vlan_id %></td>
       <td><%= ra.id %></td>
-      <td><%= ra.ip %></td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= ra.id %>" data-model="reserved_address" data-name="ip" data-url="<%= reserved_address_url(ra) %> data-title="Reserved Address"><%= ra.ip %></a>
+      </td>
       <td><%= ra.description %></td>
       <th><%= link_to 'Show', reserved_address_path(ra) %></th>
       <th><%= link_to 'Edit', edit_reserved_address_path(ra) %></th>
