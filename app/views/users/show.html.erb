@@ -40,5 +40,9 @@
   <%= @user.department %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<p>
+  <%= link_to edit_user_path(@user), class: 'btn btn-info' do %>
+    <i class="glyphicon glyphicon-pencil"></i> Edit
+  <% end %>
+    | <%= link_to 'Back', users_path, class: 'btn btn-primary' %>
+</p>
