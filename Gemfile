@@ -44,9 +44,12 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
-# bootstrap-x-editable-rails 
+# Bootstrap 3 support.
+# See http://www.gotealeaf.com/blog/integrating-rails-and-bootstrap-part-1/
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
+
+# In-place editing support
+# See https://github.com/GuanglinDu/bootstrap-x-editable-rails-demo 
 gem 'bootstrap-x-editable-rails'
  
