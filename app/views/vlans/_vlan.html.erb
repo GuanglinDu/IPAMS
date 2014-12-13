@@ -15,7 +15,8 @@
   <td><%= vlan_counter + 1 %></td>
   <td><%= vlan.lan_id %></td>
   <!-- Call the helper method from the controller to retrieve the LAN name -->
-  <td><%= find_lan_name(vlan.lan_id) %></td>
+  <!--  find_lan_name(vlan.lan_id) -->
+  <td><%= Lan.find(vlan.lan_id).lan_name %></td>
   <td><%= vlan.vlan_number %></td>
   <td><%= vlan.vlan_name %></td>
   <td><%= vlan.static_ip_start %></td>
@@ -23,8 +24,16 @@
   <td><%= vlan.subnet_mask %></td>
   <td><%= vlan.gateway %></td>
   <td><%= vlan.vlan_description %></td>  
-  <td><%= link_to 'Show', vlan, lan_id: vlan.lan_id %></td>
-  <td><%= link_to 'Edit', edit_vlan_path(vlan) %></td>
-  <td><%= link_to 'Destroy', vlan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <td><%= link_to 'Show', vlan, lan_id: vlan.lan_id, class: 'btn btn-primary btn-xs' %></td>
+  <td>
+    <%= link_to edit_vlan_path(vlan), class: 'btn btn-info btn-xs' do %>
+      <i class="glyphicon glyphicon-edit"></i> Edit
+    <% end %>
+  </td>
+  <td>
+    <%= link_to vlan, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
+      <i class="glyphicon glyphicon-remove"></i> Destroy
+    <% end %>
+  </td>
 </tr>
 

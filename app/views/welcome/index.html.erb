@@ -25,5 +25,7 @@
 </div>
 
 <div>
-  <p><%= link_to "LANs", controller: "lans" %></p>
+  <%= link_to lans_path, class: 'btn btn-success' do %>
+    <i class="glyphicon glyphicon-arrow-right"></i> Go to LANs 
+  <% end %>
 </div>

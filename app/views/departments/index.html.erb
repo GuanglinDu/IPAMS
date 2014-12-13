@@ -1,6 +1,6 @@
-<h1>Listing departments</h1>
+<h1>Listing Departments</h1>
 
-<table>
+<table class="table table-striped table-condensed">
   <thead>
     <tr>
       <th>No.</th>
@@ -19,9 +19,17 @@
         <td><%= counter %></td>
         <td><%= department.dept_name %></td>
         <td><%= department.location %></td>
-        <td><%= link_to 'Show', department %></td>
-        <td><%= link_to 'Edit', edit_department_path(department) %></td>
-        <td><%= link_to 'Destroy', department, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', department, class: 'btn btn-primary btn-xs' %></td>
+        <td>
+          <%= link_to edit_department_path(department), class: 'btn btn-info btn-xs' do %>
+            <i class="glyphicon glyphicon-edit"></i> Edit
+          <% end %>
+        </td>
+        <td>
+          <%= link_to department, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
+            <i class="glyphicon glyphicon-remove"></i> Destroy
+          <% end %>
+        </td>
       </tr>
       <% counter += 1 %>
     <% end %>
@@ -30,4 +38,6 @@
 
 <br>
 
-<%= link_to 'New Department', new_department_path %>
+<%= link_to new_department_path, class: 'btn btn-success' do %>
+  <i class="glyphicon glyphicon-plus"></i> New Department
+<% end %>
