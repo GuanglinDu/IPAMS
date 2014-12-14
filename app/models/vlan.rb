@@ -11,7 +11,6 @@ class Vlan < ActiveRecord::Base
   # Check to see if the VLAN already exists in the database. if it does,
   # it will then attempt to update the existing VLAN. If not, 
   # it will attempt to create a new VLAN.
-  #def self.import(file, lan_id)
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       vlan_hash = row.to_hash

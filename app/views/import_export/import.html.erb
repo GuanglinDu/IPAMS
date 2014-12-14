@@ -1,0 +1,35 @@
+<!-- Import & export tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><%= link_to 'Import', import_export_import_path %></li>
+  <li><%= link_to 'Export', import_export_export_path %></li>
+</ul>
+
+<h1>ImportExport#import</h1>
+<p>Find me in app/views/import_export/import.html.erb</p>
+
+<p>Select What to Import, VLANs or IP Addresses?</p>
+<div role="form" class="form-inline">
+  <div class="form-group radio">
+    <label>
+      <input type="radio" name="loginTypeRadios" id="loginTypeExisting" value="existing_user" checked>
+      VLANs
+    </label>
+  </div>
+  <div class="form-group radio">
+    <label>
+      <input type="radio" name="loginTypeRadios" id="loginTypeNew" value="new_user">
+      IP Addresses
+    </label>
+  </div>
+
+  <!-- VLANs import/export -->
+  <%= form_tag({action: :import}, multipart: true) do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import CSV with headers" %>
+    <!-- %= f.button :submit, name: "lan_id", value: @lan.id % -->
+  <% end %>
+</div>
+
+<div>
+  <p>Download an import template here</p>
+</div>

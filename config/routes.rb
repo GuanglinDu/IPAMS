@@ -1,4 +1,6 @@
 Ipams::Application.routes.draw do
+  get "import_export/import"
+  get "import_export/export"
   get "welcome/index"
   get "help/index"
   get "search/index"
