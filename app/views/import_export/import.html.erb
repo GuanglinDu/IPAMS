@@ -11,28 +11,13 @@
   <h4>Step 1: Download importing templates to get your data ready:</h4>
 </div>
 
+<!-- VLANs import/export, based on https://github.com/bootstrap-ruby/rails-bootstrap-forms -->
 <div>
   <h4>Step 2: Select What to import, locate the CSV file & submit:</h4>
-</div>
-
-<div role="form" class="form-inline">
-  <div class="form-group radio">
-    <label>
-      <input type="radio" name="loginTypeRadios" id="loginTypeExisting" value="existing_user" checked>
-        VLANs
-    </label>
-  </div>
-  <div class="form-group radio">
-    <label>
-      <input type="radio" name="loginTypeRadios" id="loginTypeNew" value="new_user">
-        IP Addresses
-    </label>
-  </div>
-
-  <!-- VLANs import/export, based on https://github.com/bootstrap-ruby/rails-bootstrap-forms -->
   <%= bootstrap_form_tag url: '/import_export/do' do |f| %>
+    <%= f.select :import_id, options_for_select(["VLANs", "IP Addresses"]) %>
     <%= f.file_field :file %>
-    <%= f.submit "Import CSV with headers" %>
+    <%= f.submit "Import..." %>
   <% end %>
 </div>
 
