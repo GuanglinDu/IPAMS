@@ -1,7 +1,9 @@
 class ReservedAddressesController < ApplicationController
+
+  before_action :set_reserved_address, only: [:show, :edit, :update, :destroy]
+
   def index
   end
-    before_action :set_reserved_address, only: [:show, :edit, :update, :destroy]
 
   # GET /reserved_addresses
   # GET /reserved_addresses.json
@@ -80,3 +82,4 @@ class ReservedAddressesController < ApplicationController
       params[:reserved_address].permit(:vlan_id, :ip, :description)
     end
 end
+
