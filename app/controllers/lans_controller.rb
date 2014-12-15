@@ -29,9 +29,11 @@ class LansController < ApplicationController
 
     respond_to do |format|
       if @lan.save
+        flash[:success] = 'Lan was successfully created.'
         format.html { redirect_to @lan, notice: 'LAN was successfully created.' }
         format.json { render action: 'show', status: :created, location: @lan }
       else
+        flash[:danger] = 'There was a problem creating the Lan.'
         format.html { render action: 'new' }
         format.json { render json: @lan.errors, status: :unprocessable_entity }
       end
@@ -43,9 +45,11 @@ class LansController < ApplicationController
   def update
     respond_to do |format|
       if @lan.update(lan_params)
+        flash[:success] = 'Lan was successfully updated.'
         format.html { redirect_to @lan, notice: 'Lan was successfully updated.' }
         format.json { head :no_content }
       else
+        flash[:danger] = 'There was a problem updating the Lan.'
         format.html { render action: 'edit' }
         format.json { render json: @lan.errors, status: :unprocessable_entity }
       end

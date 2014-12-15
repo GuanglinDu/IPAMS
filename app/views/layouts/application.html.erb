@@ -11,9 +11,18 @@
   <!-- Bootstrap navbar -->
   <%= render 'shared/navigation' %>
 
-  <div id="main-container" class="container-fluid">
+  <div id="main-container" class="container">
     <div class="row">
-      <div><%= yield %></div>
+      <div class="col-xs-12">
+        <% flash.each do |name, msg| -%>
+          <%= content_tag :div, msg, class: "alert alert-dismissible alert-#{name}" %>
+        <% end -%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <%= yield %>
+      </div>
     </div>
   </div>
 </body>

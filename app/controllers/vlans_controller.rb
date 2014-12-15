@@ -1,5 +1,4 @@
 class VlansController < ApplicationController
-#  include CurrentLan
 
   before_action :set_vlan, :only => [:show, :edit, :update, :destroy]
 
@@ -10,8 +9,6 @@ class VlansController < ApplicationController
   # GET /vlans/new
   def new
     @vlan = Vlan.new
-    # Before creating, the LAN has to be selected. Hence, retrieve all the VLANs.
-    #@lans = Lan.all
   end
 
   # Create a new VLAN
@@ -20,14 +17,15 @@ class VlansController < ApplicationController
 
     respond_to do |format|
       if @vlan.save
+        flash[:success] = 'VLAN was successfully created.'
         format.html { redirect_to vlans_path, notice: 'VLAN was successfully created.' }
         format.json { render action: 'show', status: :created, location: @vlan }
       else
+        flash[:danger] = 'There was a problem creating the VLAN.'
         format.html { render action: 'new' }
         format.json { render json: @vlan.errors, status: :unprocessable_entity }
       end
     end
-    #redirect_to vlans_path
   end
 
   # Updates are implemented by methods edit and update
@@ -39,11 +37,13 @@ class VlansController < ApplicationController
   def update
     respond_to do |format|
       if @vlan.update(vlan_params)
+        flash[:success] = 'VLAN was successfully updated.'
         #1st argument of redirect_to is an array, in order to build the correct route to the nested resource vlan
         #format.html { redirect_to [@vlan.lan, @vlan], notice: 'Comment was successfully updated.' }
         format.html { redirect_to @vlan, notice: 'Comment was successfully updated.' }
         format.json { head :no_content }
       else
+        flash[:danger] = 'There was a problem updating the VLAN.'
         format.html { render action: 'edit' }
         format.json { render json: @vlan.errors, status: :unprocessable_entity }
       end
@@ -77,3 +77,4 @@ class VlansController < ApplicationController
     end
 
 end
+
