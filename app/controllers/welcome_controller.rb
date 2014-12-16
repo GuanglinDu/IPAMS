@@ -1,7 +1,5 @@
-# The data for VLANs perspective can be retrieved here. 
 class WelcomeController < ApplicationController
-  
-  # Gets the list of lans and vlans 
+  # Gets the list of LANs 
   def index
     @lans = Lan.order(:lan_number)
   end

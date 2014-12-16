@@ -1,0 +1,23 @@
+<!-- Import & export tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><%= link_to 'Import', import_export_import_path %></li>
+  <li><%= link_to 'Export', import_export_export_path %></li>
+</ul>
+
+<h1>ImportExport#import</h1>
+<p>Find me in app/views/import_export/import.html.erb</p>
+
+<div>
+  <h4>Step 1: Download importing templates to get your data ready.</h4>
+</div>
+
+<!-- VLANs import/export, based on https://github.com/bootstrap-ruby/rails-bootstrap-forms -->
+<div>
+  <h4>Step 2: Select What to import, locate the CSV file & submit.</h4>
+  <%= bootstrap_form_tag url: '/import_export/index' do |f| %>
+    <%= f.select :import_id, options_for_select(["VLANs", "IP Addresses"]) %>
+    <%= f.file_field :file %>
+    <%= f.submit "Import..." %>
+  <% end %>
+</div>
+

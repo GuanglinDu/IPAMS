@@ -1,5 +1,4 @@
 <!-- app/views/shared/_navigation.html.erb -->
-
 <nav class="navbar navbar-default" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -9,8 +8,9 @@
       <%= link_to "Addresses", addresses_path, class: 'navbar-brand' %>
       <%= link_to "Departments", departments_path, class: 'navbar-brand' %>
       <%= link_to "Users", users_path, class: 'navbar-brand' %>
-      <a class="navbar-brand" href="/search/index.html">Search</a>
-      <a class="navbar-brand" href="/help/index.html">Help</a>
+      <%= link_to "Import/Export", import_export_index_path, class: 'navbar-brand' %>
+      <%= link_to "Search", search_index_path, class: 'navbar-brand' %>
+      <%= link_to "Help", help_index_path, class: 'navbar-brand' %>
     </div>
   </div>
 </nav>

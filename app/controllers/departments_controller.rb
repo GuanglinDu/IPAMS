@@ -28,9 +28,11 @@ class DepartmentsController < ApplicationController
 
     respond_to do |format|
       if @department.save
-        format.html { redirect_to @department, notice: 'Department was successfully created.' }
+        flash[:success] = 'Department was successfully created.'
+        format.html { redirect_to @department }
         format.json { render action: 'show', status: :created, location: @department }
       else
+        flash[:danger] = 'There was a problem creating the Department.'
         format.html { render action: 'new' }
         format.json { render json: @department.errors, status: :unprocessable_entity }
       end
@@ -42,9 +44,11 @@ class DepartmentsController < ApplicationController
   def update
     respond_to do |format|
       if @department.update(department_params)
-        format.html { redirect_to @department, notice: 'Department was successfully updated.' }
+        flash[:success] = 'Department was successfully updated.'
+        format.html { redirect_to @department }
         format.json { head :no_content }
       else
+        flash[:danger] = 'There was a problem updating the Department.'
         format.html { render action: 'edit' }
         format.json { render json: @department.errors, status: :unprocessable_entity }
       end
@@ -72,3 +76,4 @@ class DepartmentsController < ApplicationController
       params.require(:department).permit(:dept_name, :location)
     end
 end
+

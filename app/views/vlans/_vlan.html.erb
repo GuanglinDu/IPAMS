@@ -14,16 +14,32 @@
 <tr>
   <td><%= vlan_counter + 1 %></td>
   <td><%= vlan.lan_id %></td>
-  <!-- Call the helper method from the controller to retrieve the LAN name -->
-  <!--  find_lan_name(vlan.lan_id) -->
-  <td><%= Lan.find(vlan.lan_id).lan_name %></td>
-  <td><%= vlan.vlan_number %></td>
-  <td><%= vlan.vlan_name %></td>
-  <td><%= vlan.static_ip_start %></td>
-  <td><%= vlan.static_ip_end %></td>
-  <td><%= vlan.subnet_mask %></td>
-  <td><%= vlan.gateway %></td>
-  <td><%= vlan.vlan_description %></td>  
+  <!-- Call the helper method from the helper class to retrieve the LAN name -->
+  <!-- Or call the model directly: Lan.find(vlan.lan_id).lan_name -->
+  <td><%= find_lan_name(vlan.lan_id) %></td>
+  <td>
+    <a href="#" data-xeditable="true" data-pk="<%= vlan.id %>" data-model="vlan" data-name="vlan_number" data-url="<%= vlan_path(vlan) %>" data-title="VLAN Number"><%= vlan.vlan_number %></a>
+  </td>
+  <td>
+    <a href="#" data-xeditable="true" data-pk="<%= vlan.id %>" data-model="vlan" data-name="vlan_name" data-url="<%= vlan_path(vlan) %>" data-title="VLAN Name"><%= vlan.vlan_name %></a>
+  </td>
+  <td>
+    <a href="#" data-xeditable="true" data-pk="<%= vlan.id %>" data-model="vlan" data-name="static_ip_start" data-url="<%= vlan_path(vlan) %>" data-title="Static IP Start"><%= vlan.static_ip_start %></a>
+  </td>
+  <td>
+    <a href="#" data-xeditable="true" data-pk="<%= vlan.id %>" data-model="vlan" data-name="static_ip_end" data-url="<%= vlan_path(vlan) %>" data-title="Static IP End"><%= vlan.static_ip_end %></a>
+  </td>
+  <td>
+    <a href="#" data-xeditable="true" data-pk="<%= vlan.id %>" data-model="vlan" data-name="subnet_mask" data-url="<%= vlan_path(vlan) %>" data-title="Subnet Mask"><%= vlan.subnet_mask %></a>
+  </td>
+  <td>
+    <a href="#" data-xeditable="true" data-pk="<%= vlan.id %>" data-model="vlan" data-name="gateway" data-url="<%= vlan_path(vlan) %>" data-title="Gateway"><%= vlan.gateway %></a>
+  </td>
+  <td>
+    <a href="#" data-xeditable="true" data-pk="<%= vlan.id %>" data-model="vlan" data-name="vlan_description" data-url="<%= vlan_path(vlan) %>" data-title="Description"><%= vlan.vlan_description %></a>
+  </td>
+
+  <!-- Links -->  
   <td><%= link_to 'Show', vlan, lan_id: vlan.lan_id, class: 'btn btn-primary btn-xs' %></td>
   <td>
     <%= link_to edit_vlan_path(vlan), class: 'btn btn-info btn-xs' do %>

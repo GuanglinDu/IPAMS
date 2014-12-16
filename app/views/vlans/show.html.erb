@@ -17,34 +17,46 @@
   </tr>
   <tr>
     <td><b>Name</b></td>
-    <td><%= @vlan.vlan_name %></td>
+    <td>
+      <a href="#" data-xeditable="true" data-pk="<%= @vlan.id %>" data-model="vlan" data-name="vlan_name" data-url="<%= vlan_path(@vlan) %>" data-title="VLAN Name"><%= @vlan.vlan_name %></a>
+    </td>
   </tr>
   <tr>
     <td><b>Static IP Start</b></td>
-    <td><%= @vlan.static_ip_start %></td>
+    <td>
+      <a href="#" data-xeditable="true" data-pk="<%= @vlan.id %>" data-model="vlan" data-name="static_ip_start" data-url="<%= vlan_path(@vlan) %>" data-title="Static IP Start"><%= @vlan.static_ip_start %></a>
+    </td>
   </tr>
   <tr>
     <td><b>Static IP End</b></td>
-    <td><%= @vlan.static_ip_end %></td>
+    <td>
+      <a href="#" data-xeditable="true" data-pk="<%= @vlan.id %>" data-model="vlan" data-name="static_ip_end" data-url="<%= vlan_path(@vlan) %>" data-title="Static IP End"><%= @vlan.static_ip_end %></a>
+    </td>
   </tr>
   <tr>
     <td><b>Subnet Mask</b></td>
-    <td><%= @vlan.subnet_mask %></td>
+    <td>
+      <a href="#" data-xeditable="true" data-pk="<%= @vlan.id %>" data-model="vlan" data-name="subnet_mask" data-url="<%= vlan_path(@vlan) %>" data-title="Subnet Mask"><%= @vlan.subnet_mask %></a>
+    </td>
   </tr>
   <tr>
     <td><b>Gateway</b></td>
-    <td><%= @vlan.gateway %></td>
+    <td>
+      <a href="#" data-xeditable="true" data-pk="<%= @vlan.id %>" data-model="vlan" data-name="gateway" data-url="<%= vlan_path(@vlan) %>" data-title="Gateway"><%= @vlan.gateway %></a>
+    </td>
   </tr>
   <tr>
     <td><b>Description</b></td>
-    <td><%= @vlan.vlan_description %></td>
+    <td>
+      <a href="#" data-xeditable="true" data-pk="<%= @vlan.id %>" data-model="vlan" data-name="vlan_description" data-url="<%= vlan_path(@vlan) %>" data-title="Description"><%= @vlan.vlan_description %></a>
+    </td>
   </tr>
   </tbody>
 </table>
 
-<!-- Reserved addresses list -->
+<!-- Reserved address list -->
 <div>
-  <p>Reserved Addresses List</p> 
+  <h4>Reserved Address List</h4> 
   <table class="table table-striped table-condensed">
     <thead>
     <tr>
@@ -69,8 +81,16 @@
         <a href="#" data-xeditable="true" data-pk="<%= ra.id %>" data-model="reserved_address" data-name="description" data-url="<%= reserved_address_url(ra) %>" data-title="Description"><%= ra.description %></a>
 	  </td>
       <th><%= link_to 'Show', reserved_address_path(ra), class: 'btn btn-primary btn-xs' %></th>
-      <th><%= link_to 'Edit', edit_reserved_address_path(ra), class: 'btn btn-info btn-xs' %></th>
-      <th><%= link_to 'Destroy', reserved_addresses_path(ra), method: :delete, data:{ confirm: 'Are you sure?'}, class: 'btn btn-danger btn-xs' %></th>
+      <td>
+        <%= link_to edit_reserved_address_path(ra), class: 'btn btn-info btn-xs' do%>
+          <i class="glyphicon glyphicon-edit"></i>Edit
+        <% end %>
+      </td>
+      <td>
+        <%= link_to reserved_addresses_path(ra), method: :delete, data:{ confirm: 'Are you sure?'}, class: 'btn btn-danger btn-xs' do%>
+          <i class="glyphicon glyphicon-remove"></i>Destroy
+        <% end %>
+      </td>
     </tr>
     </tbody>
     <% end %>
