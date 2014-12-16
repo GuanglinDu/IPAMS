@@ -2,6 +2,18 @@
 <h3>Create a New VLAN in the designated LAN.</h3>
 
 <%= form_for(@vlan) do |f| %>
+  <% if @vlan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@vlan.errors.count, "error") %> prohibited this vlan from being saved:</h2>
+
+      <ul>
+      <% @vlan.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <!-- Select the LAN in which to create the new VLAN -->
   <%= f.label :"Create in LAN:" %><%= f.collection_select(:lan_id, Lan.all, :id, :lan_name, prompt: true) %><br />
   <%= f.label :"VLAN Number:" %><%= f.text_field :vlan_number %><br />

@@ -27,6 +27,10 @@ Ipams::Application.routes.draw do
     get "welcome/index"
     get "help/index"
     get "search/index"
+
+    # Templates downloads
+    get "import_export/vlan_importing_template"
+    get "import_export/ip_address_importing_template"
   end
 
   # Example of regular route:

@@ -1,22 +1,21 @@
-<ul class="nav nav-tabs" role="tablist">
-  <li class="active"><%= link_to 'Index', import_export_index_path %></li>
-  <li><%= link_to 'Import', import_export_import_path %></li>
-  <li><%= link_to 'Export', import_export_export_path %></li>
-</ul>
-
 <!-- VLANs import based on https://github.com/bootstrap-ruby/rails-bootstrap-forms -->
 <div class="row">
   <!-- The import column -->
   <div class="col-xs-6">
     <h3>To Import</h3>
     <div>
-      <h5>Step 1: Download templates to get your data ready.</h5>
+      <h5><b>Step 1</b>: Download templates to get your data ready (<font color="red">Note: The file must be saved in UTF-8 encoding!</font>).</h5>
+      <%= link_to "VLAN importing template", import_export_vlan_importing_template_path, class: 'btn btn-success' %>
+      <%= link_to "IP address importing template", import_export_ip_address_importing_template_path, class: 'btn btn-success' %>
     </div>
 
     <!-- Bootstrap and ‘form_tag’ vs. ‘form_for’: http://seanmcevoy.com/bootstrap-form_tag-vs-form_for/ -->
     <div>
-      <h5>Step 2: Select What to import, locate the CSV file & submit.</h5>
+      <h5><b>Step 2</b>: Select What to import, locate the CSV file & import.</h5>
       <%= bootstrap_form_tag url: import_export_import_path, multipart: true, class: 'form-horizontal' do |f| %>
+        <!-- Handle form_tag errors as in the case form_for?
+          http://stackoverflow.com/questions/4129229/rails-restoring-contents-of-non-model-form-that-uses-form-tag
+        -->
         <div class="form-group">
           <div class="col-xs-4">
             <%= f.select :option_id, options_for_select(["VLANs", "IP Addresses"]) %>
