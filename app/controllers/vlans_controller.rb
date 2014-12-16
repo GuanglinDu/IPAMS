@@ -18,7 +18,7 @@ class VlansController < ApplicationController
     respond_to do |format|
       if @vlan.save
         flash[:success] = 'VLAN was successfully created.'
-        format.html { redirect_to vlans_path, notice: 'VLAN was successfully created.' }
+        format.html { redirect_to vlans_path }
         format.json { render action: 'show', status: :created, location: @vlan }
       else
         flash[:danger] = 'There was a problem creating the VLAN.'
@@ -39,8 +39,8 @@ class VlansController < ApplicationController
       if @vlan.update(vlan_params)
         flash[:success] = 'VLAN was successfully updated.'
         #1st argument of redirect_to is an array, in order to build the correct route to the nested resource vlan
-        #format.html { redirect_to [@vlan.lan, @vlan], notice: 'Comment was successfully updated.' }
-        format.html { redirect_to @vlan, notice: 'Comment was successfully updated.' }
+        #format.html { redirect_to [@vlan.lan, @vlan], notice: 'VLAN was successfully updated.' }
+        format.html { redirect_to @vlan }
         format.json { head :no_content }
       else
         flash[:danger] = 'There was a problem updating the VLAN.'

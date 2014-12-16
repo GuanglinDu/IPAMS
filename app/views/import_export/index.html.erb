@@ -1,22 +1,45 @@
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><%= link_to 'Index', import_export_index_path %></li>
+  <li><%= link_to 'Import', import_export_import_path %></li>
+  <li><%= link_to 'Export', import_export_export_path %></li>
+</ul>
+
 <!-- VLANs import based on https://github.com/bootstrap-ruby/rails-bootstrap-forms -->
 <div class="row">
+  <!-- The import column -->
   <div class="col-xs-6">
-    <h3>Import</h3>
+    <h3>To Import</h3>
     <div>
       <h5>Step 1: Download templates to get your data ready.</h5>
     </div>
+
+    <!-- Bootstrap and ‘form_tag’ vs. ‘form_for’: http://seanmcevoy.com/bootstrap-form_tag-vs-form_for/ -->
     <div>
       <h5>Step 2: Select What to import, locate the CSV file & submit.</h5>
-      <%= bootstrap_form_tag url: import_export_import_path do |f| %>
-        <%= f.select :import_id, options_for_select(["VLANs", "IP Addresses"]) %>
-        <%= f.file_field :file %>
-        <%= f.submit "Import..." %>
+      <%= bootstrap_form_tag url: import_export_import_path, multipart: true, class: 'form-horizontal' do |f| %>
+        <div class="form-group">
+          <div class="col-xs-4">
+            <%= f.select :option_id, options_for_select(["VLANs", "IP Addresses"]) %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-8">
+            <%= f.file_field :file %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-offset-8 col-xs-4">
+            <%= f.submit "Import", class: 'btn btn-danger' %>
+          </div>
+        </div>
       <% end %>
     </div>
   </div>
 
+  <!-- The export column -->
   <div class="col-xs-6">
-    <h3>Export</h3>
+    <h3>To Export</h3>
+      <p>TODOs</p>
   </div>
 </div>
 

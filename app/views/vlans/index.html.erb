@@ -32,38 +32,12 @@
   </p>
 </div>
 
+<!-- VLANs import/export -->
 <div>
-  <h3>Import VLANs from a CSV File as the following template shows</h3>
-  <table class="table table-condensed">
-  <thead>
-    <th>lan_id</th>
-    <th>vlan_number</th>
-    <th>vlan_name</th>
-    <th>static_ip_start</th>
-    <th>static_ip_end</th>
-    <th>subnet_mask</th>
-    <th>gateway</th>
-    <th>vlan_description</th>
-  </thead>
-  <tbody>
-    <tr>
-      <td>12</td>
-      <td>22</td>
-      <td>VLAN-Main-Building</td>
-      <td>192.168.1.0</td>
-      <td>192.168.1.255</td>
-      <td>255.255.255.0</td>
-      <td>192.168.1.254</td>
-      <td>Main Building</td>
-    </tr>
-  </tbody>
-  </table>
-
-  <!-- VLANs import/export -->
+  <h4>Import VLANs from a CSV file (template available)</h4>
   <%= form_tag({action: :import}, multipart: true) do %>
     <%= file_field_tag :file %>
-    <%= submit_tag "Import CSV with headers" %>
-    <!-- %= f.button :submit, name: "lan_id", value: @lan.id % -->
+    <%= submit_tag "Import", class: 'btn btn-danger' %>
   <% end %>
 </div>
 
