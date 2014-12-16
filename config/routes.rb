@@ -1,7 +1,4 @@
 Ipams::Application.routes.draw do
-  get "welcome/index"
-  get "help/index"
-  get "search/index"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -22,6 +19,13 @@ Ipams::Application.routes.draw do
 
     resources :departments
     resources :users
+
+    get "import_export/index"
+    get "import_export/import"
+    get "import_export/export"
+    get "welcome/index"
+    get "help/index"
+    get "search/index"
   end
 
   # Example of regular route:

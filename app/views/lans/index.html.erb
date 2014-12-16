@@ -1,6 +1,6 @@
-<h1>Listing LANs</h1>
+<h3>Listing LANs</h3>
 
-<table class="table table-condensed">
+<table class="table table-striped">
   <thead>
   <tr>
     <th>LAN Number</th>
@@ -16,8 +16,12 @@
   <% @lans.each do |lan| %>
     <tr>
       <td><%= lan.lan_number %></td>
-      <td><%= lan.lan_name %></td>
-      <td><%= lan.lan_description %></td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= lan.id %>" data-model="lan" data-name="lan_name" data-url="<%= lan_path(lan) %>" data-title="LAN Name"><%= lan.lan_name %></a>
+      </td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= lan.id %>" data-model="lan" data-name="lan_description" data-url="<%= lan_path(lan) %>" data-title="LAN Description"><%= lan.lan_description %></a>
+      </td>
       <td><%= link_to 'Show', lan, class: 'btn btn-primary btn-xs' %></td>
       <td>
         <%= link_to edit_lan_path(lan), class: 'btn btn-info btn-xs' do %>

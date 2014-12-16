@@ -44,6 +44,7 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
 # Bootstrap 3 support.
 # See http://www.gotealeaf.com/blog/integrating-rails-and-bootstrap-part-1/
 gem 'bootstrap-sass'
@@ -52,4 +53,10 @@ gem 'autoprefixer-rails'
 # In-place editing support
 # See https://github.com/GuanglinDu/bootstrap-x-editable-rails-demo 
 gem 'bootstrap-x-editable-rails'
+
+# Rails-bootstrap-forms is a Rails form builder that makes it super easy to create
+# beautiful-looking forms with Twitter Bootstrap 3+.
+# Wraps the standard Rails form helpers so it's practically a drop-in replacement.
+# See https://github.com/bootstrap-ruby/rails-bootstrap-forms
+gem 'bootstrap_form'
  
