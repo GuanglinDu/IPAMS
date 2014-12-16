@@ -81,8 +81,16 @@
         <a href="#" data-xeditable="true" data-pk="<%= ra.id %>" data-model="reserved_address" data-name="description" data-url="<%= reserved_address_url(ra) %>" data-title="Description"><%= ra.description %></a>
 	  </td>
       <th><%= link_to 'Show', reserved_address_path(ra), class: 'btn btn-primary btn-xs' %></th>
-      <th><%= link_to 'Edit', edit_reserved_address_path(ra), class: 'btn btn-info btn-xs' %></th>
-      <th><%= link_to 'Destroy', reserved_addresses_path(ra), method: :delete, data:{ confirm: 'Are you sure?'}, class: 'btn btn-danger btn-xs' %></th>
+      <td>
+        <%= link_to edit_reserved_address_path(ra), class: 'btn btn-info btn-xs' do%>
+          <i class="glyphicon glyphicon-edit"></i>Edit
+        <% end %>
+      </td>
+      <td>
+        <%= link_to reserved_addresses_path(ra), method: :delete, data:{ confirm: 'Are you sure?'}, class: 'btn btn-danger btn-xs' do%>
+          <i class="glyphicon glyphicon-remove"></i>Destroy
+        <% end %>
+      </td>
     </tr>
     </tbody>
     <% end %>
