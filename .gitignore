@@ -21,6 +21,7 @@
 # swap files
 *.swp
 *.rb.swo
-
+*.swo
+*.swn
 # the only one bash file
 run.sh
