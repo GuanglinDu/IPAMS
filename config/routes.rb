@@ -22,6 +22,7 @@ Ipams::Application.routes.draw do
 
     get "import_export/index"
     get "import_export/import"
+    post "import_export/import"
     get "import_export/export"
     get "welcome/index"
     get "help/index"
