@@ -18,7 +18,7 @@ class VlansController < ApplicationController
     respond_to do |format|
       if @vlan.save
         flash[:success] = 'VLAN was successfully created.'
-        format.html { redirect_to vlans_path }
+        format.html { redirect_to vlans_path, notice: 'VLAN was successfully created.' }
         format.json { render action: 'show', status: :created, location: @vlan }
       else
         flash[:danger] = 'There was a problem creating the VLAN.'
@@ -37,10 +37,10 @@ class VlansController < ApplicationController
   def update
     respond_to do |format|
       if @vlan.update(vlan_params)
-        flash[:success] = 'VLAN was successfully updated.'
+        flash[:success] = 'Vlan was successfully updated.'
         #1st argument of redirect_to is an array, in order to build the correct route to the nested resource vlan
         #format.html { redirect_to [@vlan.lan, @vlan], notice: 'VLAN was successfully updated.' }
-        format.html { redirect_to @vlan }
+        format.html { redirect_to @vlan, notice: 'Vlan was successfully updated.' }
         format.json { head :no_content }
       else
         flash[:danger] = 'There was a problem updating the VLAN.'
@@ -52,8 +52,9 @@ class VlansController < ApplicationController
 
   # Import a CSV file into table vlans
   def import
-    Vlan.import(params[:file])
-    redirect_to vlans_url, notice: "VLANs imported."
+    flash[:success] = 'VLANs were successfully imported.'
+    #Vlan.import(params[:file])
+    redirect_to vlans_url
   end
 
   # Destroy a VLAN record

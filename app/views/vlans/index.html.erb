@@ -32,15 +32,6 @@
   </p>
 </div>
 
-<!-- VLANs import/export -->
-<div>
-  <h4>Import VLANs from a CSV file (template available)</h4>
-  <%= form_tag({action: :import}, multipart: true) do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import", class: 'btn btn-danger' %>
-  <% end %>
-</div>
-
 <div>
   <h3>TODOs</h3>
   <ol>
