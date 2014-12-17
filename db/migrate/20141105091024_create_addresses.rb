@@ -7,7 +7,6 @@ class CreateAddresses < ActiveRecord::Migration
       t.datetime :end_date
       t.string :application_form
       t.references :vlan, index: true
-      t.references :department, index: true
       t.references :user, index: true
 
       t.timestamps
