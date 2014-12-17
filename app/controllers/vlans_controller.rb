@@ -51,6 +51,8 @@ class VlansController < ApplicationController
   end
 
   # Import a CSV file into table vlans
+  # 1. Importing from CSV in Rails: http://kyle.conarro.com/importing-from-csv-in-rails
+  # 2. Rails: Use controller for import: https://github.com/rest-client/rest-client
   def import
     flash[:success] = 'VLANs were successfully imported.'
     #Vlan.import(params[:file])
@@ -77,5 +79,8 @@ class VlansController < ApplicationController
         :subnet_mask, :gateway, :vlan_description)
     end
 
+  # Import support
+  def import
+  end
 end
 

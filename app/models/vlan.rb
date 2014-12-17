@@ -23,21 +23,25 @@ class Vlan < ActiveRecord::Base
       if vlan_exists(vlan_hash)
         vlan.first.update_attributes(vlan_hash)
       else
-        Vlan.create!(vlan_hash)
+        Vlan.create(vlan_hash)
       end
     end
   end
 
+  # Find FK lan_id with lan_name
+  def find_lan_id(lan_name)
+  end
+  
   # Determines if a VLAN already exists.
   def self.vlan_exists(vlan_hash_to_import = {})
     exist = false
     vlans = Vlan.all # Array
     vlans = vlans.to_a.map(&:serializable_hash) # to Hash
     vlans.each do |vlan|
-      puts vlan
       t = vlan.delete(:id)
       if t == vlan_hash_to_import
         exist = true
+        break
       end 
     end
 
