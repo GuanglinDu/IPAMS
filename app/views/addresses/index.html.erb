@@ -25,8 +25,12 @@
       <td><%= count %></td>
       <td><%= address.vlan_id %></td>
       <td><%= address.user_id %></td>
-      <td><%= address.ip %></td>
-      <td><%= address.usage %></td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="address_ip" data-url="<%= address_path(address) %>" data-title="Address IP"><%= address.ip %></a>
+      </td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="address_usage" data-url="<%= address_path(address) %>" data-title="Usage"><%= address.usage %></a>
+      </td>
       <td><%= address.application_form %></td>
       <td><%= address.start_date%></td>
       <td><%= address.end_date %></td>
