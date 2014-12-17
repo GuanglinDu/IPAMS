@@ -18,12 +18,10 @@
       <tr>
         <td><%= counter %></td>
         <td>
-          <a href="#" data-xeditable="true" data-pk="<%= department.id %>" data-model="department" data-name="dept__name" data-url="<%= department_path(department) %>" data-title="Dept Name"><%= department.dept_name %></a>
+          <a href="#" data-xeditable="true" data-pk="<%= department.id %>" data-model="department" data-name="dept_name" data-url="<%= department_path(department) %>" data-title="Dept Name"><%= department.dept_name %></a>
         </td>
-        <!-- <td>%= department.dept_name %></td> -->
-        <!-- <td>%= department.location %></td> -->
         <td>
-          <a href="#" data-xeditable="true" data-pk="<%= department.id %>" data-model="department" data-name="department_location" data-url="<%= department_path(department) %>" data-title="Location"><%= department.location %></a>
+          <a href="#" data-xeditable="true" data-pk="<%= department.id %>" data-model="department" data-name="location" data-url="<%= department_path(department) %>" data-title="Location"><%= department.location %></a>
         </td>
         <td><%= link_to 'Show', department, class: 'btn btn-primary btn-xs' %></td>
         <td>
