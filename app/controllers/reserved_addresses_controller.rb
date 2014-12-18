@@ -32,10 +32,12 @@ class ReservedAddressesController < ApplicationController
 
     respond_to do |format|
       if @reserved_address.save
+        flash[:success] = 'Reserved address was successfully created.'
         format.html { redirect_to vlan_path(Vlan.find(@reserved_address.vlan_id)), notice: 'Reserved address was successfully created.' }
         #format.html { redirect_to @reserved_address, notice: 'Reserved address was successfully created.' }
         format.json { render action: 'show', status: :created, location: @reserved_address }
       else
+        flash[:danger] = 'Reserved address was NOT created.'
         format.html { render action: 'new' }
         format.json { render json: @reserved_address.errors, status: :unprocessable_entity }
       end
@@ -59,11 +61,9 @@ class ReservedAddressesController < ApplicationController
   # DELETE /reserved_addresses/1
   # DELETE /reserved_addresses/1.json
   def destroy
+    find_vlan(@reserved_address)
     @reserved_address.destroy
-    respond_to do |format|
-      format.html { redirect_to reserved_addresses_url }
-      format.json { head :no_content }
-    end
+    redirect_to vlan_path(@vlan_id) 
   end
 
   private
@@ -74,7 +74,7 @@ class ReservedAddressesController < ApplicationController
     end
 
     def find_vlan(reserved_address)
-      Vlan.find(reserved_address.vlan_id)
+      @vlan_id = Vlan.find(reserved_address.vlan_id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

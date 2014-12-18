@@ -1,7 +1,7 @@
 class Vlan < ActiveRecord::Base
   require 'csv'
 
-  validates :vlan_number, :vlan_name, :gateway, :static_ip_start, :static_ip_end, presence: true, uniqueness: true
+  validates :vlan_name, :gateway, :static_ip_start, :static_ip_end, presence: true, uniqueness: true
   validates :vlan_description, presence: true, length: { minimum: 5 }
 
   belongs_to :lan
