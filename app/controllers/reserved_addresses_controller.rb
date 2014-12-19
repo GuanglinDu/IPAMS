@@ -33,7 +33,7 @@ class ReservedAddressesController < ApplicationController
     respond_to do |format|
       if @reserved_address.save
         flash[:success] = 'Reserved address was successfully created.'
-        format.html { redirect_to vlan_path(Vlan.find(@reserved_address.vlan_id)), notice: 'Reserved address was successfully created.' }
+        format.html { redirect_to vlan_path(find_vlan(@reserved_address)), notice: 'Reserved address was successfully created.' }
         #format.html { redirect_to @reserved_address, notice: 'Reserved address was successfully created.' }
         format.json { render action: 'show', status: :created, location: @reserved_address }
       else
@@ -63,7 +63,7 @@ class ReservedAddressesController < ApplicationController
   def destroy
     find_vlan(@reserved_address)
     @reserved_address.destroy
-    redirect_to vlan_path(@vlan_id) 
+    redirect_to vlan_path(@vlan) 
   end
 
   private
@@ -74,7 +74,8 @@ class ReservedAddressesController < ApplicationController
     end
 
     def find_vlan(reserved_address)
-      @vlan_id = Vlan.find(reserved_address.vlan_id)
+      @vlan = Vlan.find(reserved_address.vlan_id)
+      return @vlan
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
