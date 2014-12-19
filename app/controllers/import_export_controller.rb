@@ -12,18 +12,18 @@ class ImportExportController < ApplicationController
     file_name = params[:filename]
     
     if params[:file]
-      flash[:success] = "VLANs were successfully imported. #{params.to_s}"
+      flash[:success] = "#{option_id} were successfully imported. #{params.to_s}"
       if option_id == "IP Addresses"
         #Address.import(params[:file])
         # Redirect to the VLANs page to show the result
         redirect_to addresses_path 
       else # VLANs 
-        #Vlan.import(params[:file])
+        Vlan.import(params[:file])
         # Redirect to the VLANs page to show the result
         redirect_to vlans_path 
       end      
     else
-      flash[:failure] = "VLANs were NOT imported as no valid CSV file selected. #{params.to_s}"
+      flash[:failure] = "#{option_id} were NOT imported as no valid CSV file selected. #{params.to_s}"
       redirect_to import_export_index_path 
     end
   end

@@ -55,7 +55,7 @@ class VlansController < ApplicationController
   # 2. Rails: Use controller for import: https://github.com/rest-client/rest-client
   def import
     flash[:success] = 'VLANs were successfully imported.'
-    #Vlan.import(params[:file])
+    Vlan.import(params[:file])
     redirect_to vlans_url
   end
 
