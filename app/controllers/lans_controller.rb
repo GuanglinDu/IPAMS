@@ -10,7 +10,6 @@ class LansController < ApplicationController
   # GET /lans/1
   # GET /lans/1.json
   def show
-    #@lan = Lan.find(params[:id])
   end
 
   # GET /lans/new
@@ -67,6 +66,7 @@ class LansController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_lan
       @lan = Lan.find(params[:id])
