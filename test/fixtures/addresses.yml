@@ -7,7 +7,6 @@ one:
   end_date: 2014-11-05 17:10:24
   application_form: MyText
   vlan_id: 
-  department_id: 
   user_id: 
 
 two:
@@ -17,5 +16,4 @@ two:
   end_date: 2014-11-05 17:10:24
   application_form: MyText
   vlan_id: 
-  department_id: 
   user_id: 
