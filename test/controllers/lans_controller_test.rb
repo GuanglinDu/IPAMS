@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class LansControllerTest < ActionController::TestCase
+  # Load a Lan object from fixtures lans
   setup do
     @lan = lans(:one)
   end
@@ -9,6 +10,13 @@ class LansControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:lans)
+
+    # Verifies HTML elements <tr><td><a></a></td></tr>
+    assert_select 'tr td a', minimum: 3 
+    # Verifies class selectors btn, btn-primary, btn-xs
+    assert_select '.btn', minimum: 2 
+    assert_select '.btn-primary', minimum: 2 
+    assert_select '.btn-xs', minimum: 2 
   end
 
   test "should get new" do
@@ -16,9 +24,12 @@ class LansControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  # Test action create. See lan.rb for lan_number, lan_name & lan_description validation
   test "should create lan" do
-    assert_difference('Lan.count') do
-      post :create, lan: { lan_description: @lan.lan_description, lan_name: @lan.lan_name, lan_number: @lan.lan_number }
+    assert_difference('Lan.count', 1, "A new Lan should be added to the test db") do
+      # The following cannot work as it cannot pass the model validation
+      #post :create, lan: { lan_description: @lan.lan_description, lan_name: @lan.lan_name, lan_number: @lan.lan_number }
+      post :create, lan: { lan_description: 'Created by lans_controller_test.rb', lan_name: 'Unamed LAN', lan_number: Lan.count + 1 }
     end
 
     assert_redirected_to lan_path(assigns(:lan))
@@ -47,3 +58,4 @@ class LansControllerTest < ActionController::TestCase
     assert_redirected_to lans_path
   end
 end
+

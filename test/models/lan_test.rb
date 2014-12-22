@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class LanTest < ActiveSupport::TestCase
-  fixtures :lans
+  # All fixtures are already loaded in test_helper.rb
+  #fixtures :lans
 
   #setup do
   #  @lan = Lan.new
@@ -55,9 +56,10 @@ class LanTest < ActiveSupport::TestCase
     lan = Lan.new(lan_number: 10, lan_name: lans(:one).lan_name,
       lan_description: "Bla bla bla bal")
     assert lan.invalid?, "lan_name must be unique"    
-    #assert_equal ["has already been taken"], lan.errors[:lan_name]
+
     # If you want to avoid using a hard-coded string for the Active Record error,
     # you can compare the response against its built-in error message table.
+    #assert_equal ["has already been taken"], lan.errors[:lan_name]
     assert_equal [I18n.translate('errors.messages.taken')], lan.errors[:lan_name]
   end
 end
