@@ -1,7 +1,12 @@
 require 'test_helper'
 
+# http://guides.rubyonrails.org/testing.html
+# 3.3 What to Include in Your Unit Tests
+# Ideally, you would like to include a test for everything which could possibly break.
+# It's a good practice to have at least one test for each of your validations
+# and at least one test for every method in your model.
 class LanTest < ActiveSupport::TestCase
-  # All fixtures are already loaded in test_helper.rb
+  # All fixtures were already loaded in test_helper.rb
   #fixtures :lans
 
   #setup do
@@ -26,7 +31,7 @@ class LanTest < ActiveSupport::TestCase
     assert_equal [], lan.errors[:lan_name] # nill error
 
     lan.lan_name = "bla"
-    assert lan.invalid?, "lan should be invalid with description shorter than 5-char"
+    assert lan.invalid?, "lan should be invalid with description shorter than 5 characters"
     assert_equal ["is too short (minimum is 5 characters)"], lan.errors[:lan_name]
   end
 
@@ -43,7 +48,9 @@ class LanTest < ActiveSupport::TestCase
     assert_equal ["is too short (minimum is 5 characters)"], lan.errors[:lan_description]
   end
 
-  # lan_number uniqueness validation with fixtures
+  # lan_number uniqueness validation with fixture one
+  # Note: Fixtures are Active Record objects!
+  # http://guides.rubyonrails.org/testing.html#the-low-down-on-fixtures
   test "A LAN is not valid without a unique lan_number" do
     lan = Lan.new(lan_number: lans(:one).lan_number, lan_name: "Main Building",
       lan_description: "Bla bla bla bal")
@@ -51,7 +58,7 @@ class LanTest < ActiveSupport::TestCase
     assert_equal ["has already been taken"], lan.errors[:lan_number]
   end
 
-  # lan_name uniqueness validation with fixtures
+  # lan_name uniqueness validation with fixture one
   test "A LAN is not valid without a unique lan_name" do
     lan = Lan.new(lan_number: 10, lan_name: lans(:one).lan_name,
       lan_description: "Bla bla bla bal")
