@@ -1,8 +1,8 @@
 class CreateVlans < ActiveRecord::Migration
   def change
     create_table :vlans do |t|
-      t.integer :vlan_number, unique: true
-      t.string :vlan_name, unique: true
+      t.integer :vlan_number
+      t.string :vlan_name
       t.string :subnet_mask
       t.string :gateway, unique: true
       t.string :static_ip_start, unique: true
