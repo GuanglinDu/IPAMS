@@ -19,8 +19,19 @@ class Vlan < ActiveRecord::Base
   # The VLANs importing CSV template with 1st row as the headers:
   # lan_name   vlan_number vlan_name static_ip_start static_ip_end  subnet_mask   gateway	 vlan_description
   # Legacy LAN 23	   VLAN_23   192.168.23.0    192.168.23.255 255.255.255.0 192.168.23.254 Main Building
-  def self.import(file)
-    CSV.foreach(file.path, headers: true) do |row| # CSV::Row is part Array &part Hash
+  # Creates a class method as does Vlan.import
+  def self.import(file = nil)
+    # Returning message
+    msg = "File name is empty" 
+    # If the file is non-existant ...
+    return msg unless File.exists?(file)
+
+    # Checks whether the 1st line is the correct headers (attributes)
+    headers = ["lan_name", "vlan_number", "vlan_name","static_ip_start",
+      "static_ip_end", "subnet_mask", "gateway", "vlan_description"]
+    # Checks to see if the headers are correct
+    row_count = 1
+    CSV.foreach(file.path, headers: true) do |row| # CSV::Row is part Array & part Hash
       vhash = row.to_hash # temporary VLAN record hash
 
       # Find FK lan_id
