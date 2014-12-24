@@ -13,60 +13,61 @@ class LanTest < ActiveSupport::TestCase
   #  @lan = Lan.new
   #end
 
-  # New Lan with all attributes empty should be invalid
+  # New Lan with all attributes empty should be invalid, i.e.,
+  # lan_number, lan_name, lan_description presence validation
   test "LAN attributes must not be empty" do
-    @lan = Lan.new
-    assert @lan.invalid?
-    assert @lan.errors[:lan_number].any?
-    assert @lan.errors[:lan_name].any?
-    assert @lan.errors[:lan_description].any?
+    lan1 = Lan.new
+    assert lan1.invalid?, "Lan object with all attributes empty should be invalid"
+    assert lan1.errors[:lan_number].any?, "lan_number must not be blank"
+    assert lan1.errors[:lan_name].any?, "lan_name must not be blank"
+    assert lan1.errors[:lan_description].any?, "lan_description must not be blank"
   end
 
   # lan_name length validation
-  test "LAN name must be 5-char long at minimum" do
-    lan = Lan.new(lan_number: 101, lan_name: "Main Building",
+  test "lan_name must be 5-char long at minimum" do
+    lan2 = Lan.new(lan_number: 101, lan_name: "Main Building",
       lan_description: "Bla bla bla bal")
 
-    assert lan.valid?, "lan should be valid"
-    assert_equal [], lan.errors[:lan_name] # nill error
+    assert lan2.valid?, "lan should be valid"
+    assert_equal [], lan2.errors[:lan_name] # nill error
 
-    lan.lan_name = "bla"
-    assert lan.invalid?, "lan should be invalid with description shorter than 5 characters"
-    assert_equal ["is too short (minimum is 5 characters)"], lan.errors[:lan_name]
+    lan2.lan_name = "bla"
+    assert lan2.invalid?, "lan should be invalid with description shorter than 5 characters"
+    assert_equal ["is too short (minimum is 5 characters)"], lan2.errors[:lan_name]
   end
 
   # lan_description length validation
   test "LAN description must be 5-char long at minimum" do
-    lan = Lan.new(lan_number: 101, lan_name: "Main Building",
+    lan3 = Lan.new(lan_number: 101, lan_name: "Main Building",
       lan_description: "Bla bla bla bal")
 
-    assert lan.valid?, "lan should be valid"
-    assert_equal [], lan.errors[:lan_description] # nill error
+    assert lan3.valid?, "lan should be valid"
+    assert_equal [], lan3.errors[:lan_description] # the latter returns a nill Array [] 
 
-    lan.lan_description = "bla"
-    assert lan.invalid?, "lan should be invalid with description shorter than 5-char"
-    assert_equal ["is too short (minimum is 5 characters)"], lan.errors[:lan_description]
+    lan3.lan_description = "bla"
+    assert lan3.invalid?, "lan should be invalid with description shorter than 5-char"
+    assert_equal ["is too short (minimum is 5 characters)"], lan3.errors[:lan_description]
   end
 
-  # lan_number uniqueness validation with fixture one
+  # lan_number uniqueness validation against fixture one
   # Note: Fixtures are Active Record objects!
   # http://guides.rubyonrails.org/testing.html#the-low-down-on-fixtures
   test "A LAN is not valid without a unique lan_number" do
-    lan = Lan.new(lan_number: lans(:one).lan_number, lan_name: "Main Building",
+    lan4 = Lan.new(lan_number: lans(:one).lan_number, lan_name: "Main Building",
       lan_description: "Bla bla bla bal")
-    assert lan.invalid?, "lan_number must be unique"    
-    assert_equal ["has already been taken"], lan.errors[:lan_number]
+    assert lan4.invalid?, "lan_number must be unique"    
+    assert_equal ["has already been taken"], lan4.errors[:lan_number]
   end
 
-  # lan_name uniqueness validation with fixture one
+  # lan_name uniqueness validation against fixture one
   test "A LAN is not valid without a unique lan_name" do
-    lan = Lan.new(lan_number: 10, lan_name: lans(:one).lan_name,
+    lan5 = Lan.new(lan_number: 10, lan_name: lans(:one).lan_name,
       lan_description: "Bla bla bla bal")
-    assert lan.invalid?, "lan_name must be unique"    
+    assert lan5.invalid?, "lan_name must be unique"    
 
     # If you want to avoid using a hard-coded string for the Active Record error,
     # you can compare the response against its built-in error message table.
-    #assert_equal ["has already been taken"], lan.errors[:lan_name]
-    assert_equal [I18n.translate('errors.messages.taken')], lan.errors[:lan_name]
+    #assert_equal ["has already been taken"], lan5.errors[:lan_name]
+    assert_equal [I18n.translate('errors.messages.taken')], lan5.errors[:lan_name]
   end
 end
