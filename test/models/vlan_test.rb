@@ -93,7 +93,16 @@ class VlanTest < ActiveSupport::TestCase
   end
 
   ###### Import/export tests ######
-  test "blank file name should not be imported" do
+  test "blank file name should be invalid in importing" do
+    assert_equal "File name is empty", Vlan.import("file_non_existing.csv"),
+      "Non-existing file should be invalid"
+  end
+
+  # 
+  test "1st row of the VLAN CSV file should be headers" do
+    assert File.exists?("#{Rails.root}/public/download/vlan_importing_template.csv"),
+      "vlan_importing_template.csv should exist"
+
   end
 
 end
