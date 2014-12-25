@@ -60,3 +60,11 @@ gem 'bootstrap-x-editable-rails'
 # See https://github.com/bootstrap-ruby/rails-bootstrap-forms
 gem 'bootstrap_form'
  
+# Pretty print your Ruby objects with style -- in full color and with proper indentation
+# http://github.com/michaeldv/awesome_print
+# http://rubyinrails.com/2014/05/integrate-awesome_print-with-rails-console/
+group :development do
+  gem 'awesome_print'
+end
+
+

@@ -73,7 +73,11 @@ class Vlan < ActiveRecord::Base
 
   # Finds FK lan_id with the given lan_name
   def self.find_lan_id(lan_name = nil)
-    lan_id = -999 # An impossible PK, meaning lan_id not found
+    # Demo to output to rails console or test running console
+    #puts "hi, rails consoe"
+   
+     # An impossible PK id, meaning lan_id not found
+    lan_id = -999
 
     # If lan_name is nil or blank (nil != blank), return -999
     return lan_id unless lan_name
