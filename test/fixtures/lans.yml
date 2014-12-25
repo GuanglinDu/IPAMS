@@ -2,10 +2,10 @@
 
 one:
   lan_number: 1
-  lan_name: Test LAN 1
+  lan_name: Test LAN
   lan_description: For test only
 
 two:
   lan_number: 2
-  lan_name: Main Office Building
+  lan_name: Main Building
   lan_description: Barak Obama Network

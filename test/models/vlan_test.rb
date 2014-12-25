@@ -93,16 +93,34 @@ class VlanTest < ActiveSupport::TestCase
   end
 
   ###### Import/export tests ######
-  test "blank file name should be invalid in importing" do
-    assert_equal "File name is empty", Vlan.import("file_non_existing.csv"),
-      "Non-existing file should be invalid"
+
+  # Tests class method find_lan_id
+  test "should return invalid lan_id" do
+    assert_equal -999, Vlan.find_lan_id(nil), "Nil lan_name should return lan_id -999"
+    assert_equal -999, Vlan.find_lan_id(""), "Blank lan_name should return lan_id -999"
   end
 
-  # 
-  test "1st row of the VLAN CSV file should be headers" do
-    assert File.exists?("#{Rails.root}/public/download/vlan_importing_template.csv"),
-      "vlan_importing_template.csv should exist"
+  # Tests against fixtures lans
+  test "should return valid lan_id" do
+    lan_id = Vlan.find_lan_id("Test LAN") # see fixtures lans
+    #assert_not_same -999, lan_id, "should return a valid lan_id" 
+    assert -999 < lan_id, "should return a positive integer lan_id" 
+  end
 
+  # Tests class method import 
+  test "should fail importing" do
+    msg =  Vlan.import("file_non_existing.csv") # message Hash returned
+    assert_not msg[:success], "Non-existing CSV file should be unsuccessful"
+    assert_equal "Invalid file name", msg[:error], "Non-existing CSV file error"
+  end
+
+  # Notice: this is test against the lan fixtures instead of the development db! 
+  test "should import successfully" do
+    file_name = "#{Rails.root}/public/download/vlan_importing_template.csv"
+    assert File.exists?(file_name), "vlan_importing_template.csv should exist"
+    msg =  Vlan.import("file_non_existing.csv") # message Hash returned
+    assert msg[:success], "Import should be successful"
+    assert_not_equal "errors",  msg[:error], "should NOT be the same"
   end
 
 end
