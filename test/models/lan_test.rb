@@ -15,7 +15,7 @@ class LanTest < ActiveSupport::TestCase
 
   # New Lan with all attributes empty should be invalid, i.e.,
   # lan_number, lan_name, lan_description presence validation
-  test "LAN attributes must not be empty" do
+  test "attributes must not be empty" do
     lan1 = Lan.new
     assert lan1.invalid?, "Lan object with all attributes empty should be invalid"
     assert lan1.errors[:lan_number].any?, "lan_number must not be blank"
@@ -25,7 +25,7 @@ class LanTest < ActiveSupport::TestCase
 
   # lan_name length validation
   test "lan_name must be 5-char long at minimum" do
-    lan2 = Lan.new(lan_number: 101, lan_name: "Main Building",
+    lan2 = Lan.new(lan_number: 1000, lan_name: "Main Building 1000",
       lan_description: "Bla bla bla bal")
 
     assert lan2.valid?, "lan should be valid"
@@ -37,22 +37,22 @@ class LanTest < ActiveSupport::TestCase
   end
 
   # lan_description length validation
-  test "LAN description must be 5-char long at minimum" do
-    lan3 = Lan.new(lan_number: 101, lan_name: "Main Building",
+  test "description must be 5-char long at minimum" do
+    lan3 = Lan.new(lan_number: 1001, lan_name: "Main Building 1001",
       lan_description: "Bla bla bla bal")
 
     assert lan3.valid?, "lan should be valid"
     assert_equal [], lan3.errors[:lan_description] # the latter returns a nill Array [] 
 
     lan3.lan_description = "bla"
-    assert lan3.invalid?, "lan should be invalid with description shorter than 5-char"
+    assert lan3.invalid?, "Lan should be invalid with description shorter than 5-char"
     assert_equal ["is too short (minimum is 5 characters)"], lan3.errors[:lan_description]
   end
 
   # lan_number uniqueness validation against fixture one
   # Note: Fixtures are Active Record objects!
   # http://guides.rubyonrails.org/testing.html#the-low-down-on-fixtures
-  test "A LAN is not valid without a unique lan_number" do
+  test "should be invalid without a unique lan_number" do
     lan4 = Lan.new(lan_number: lans(:one).lan_number, lan_name: "Main Building",
       lan_description: "Bla bla bla bal")
     assert lan4.invalid?, "lan_number must be unique"    
@@ -60,8 +60,8 @@ class LanTest < ActiveSupport::TestCase
   end
 
   # lan_name uniqueness validation against fixture one
-  test "A LAN is not valid without a unique lan_name" do
-    lan5 = Lan.new(lan_number: 10, lan_name: lans(:one).lan_name,
+  test "should be invalid without a unique lan_name" do
+    lan5 = Lan.new(lan_number: 1002, lan_name: lans(:one).lan_name,
       lan_description: "Bla bla bla bal")
     assert lan5.invalid?, "lan_name must be unique"    
 

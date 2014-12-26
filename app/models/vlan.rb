@@ -37,6 +37,13 @@ class Vlan < ActiveRecord::Base
       return msg
     end
 
+    # If the file is non-existant ...
+    if file.instance_of?(String) and !(File.file?(file)) 
+      msg[:success] << false 
+      msg[:info] << "File doesn't exist!" 
+      return msg
+    end
+
     # ??File submitted through html file doesn't exist!
     # http://guides.rubyonrails.org/form_helpers.html#uploading-files
     # 5.1 What Gets Uploaded
@@ -46,20 +53,17 @@ class Vlan < ActiveRecord::Base
       msg[:success] << true 
       msg[:info] << "File is an instance of StringIO!" 
     elsif file.instance_of?(File) 
-      # If the file is non-existant ...
-      unless File.file?(file.to_s)
-        msg[:success] << false 
-        msg[:info] << "File doesn't exist!" 
-        return msg
-      end
-    else 
-      msg[:success] << false 
-      msg[:info] << "Unkonw File type, has to be StringIO or File!" 
-      return msg
+      msg[:success] << true 
+      msg[:info] << "File is an instance of File!" 
+    else # ActionDispatch::Http::UploadedFile 
+      msg[:success] << true 
+      msg[:info] << "Must be ActionDispatch::Http::UploadedFile type? #{file.class}" 
     end
 
     # Gets the file path
-    file_path = file.path
+    file_path = file
+    file_path = file.path unless file.instance_of?(String)
+    #puts "file_path = #{file_path}"
 
     # TODO: Checks to see if the headers are correct
 
@@ -115,8 +119,7 @@ class Vlan < ActiveRecord::Base
     lan_id = -999
 
     # If lan_name is nil or blank (nil != blank), return -999
-    return lan_id unless lan_name
-    return lan_id if lan_name == ""
+    return lan_id if lan_name.nil? or lan_name == ""
 
     #lan = Lan.where({lan_name: lan_name}) # Note: returns an ActiveRecord::Relation object
     lan1 = Lan.find_by lan_name: lan_name # returns an Lan object

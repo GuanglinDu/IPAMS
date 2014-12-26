@@ -21,7 +21,7 @@ class ImportExportController < ApplicationController
         redirect_to addresses_path 
       else # VLANs 
         msg = Vlan.import(params[:file])
-        flash[:success] = "VLANs were successfully imported. #{msg[:success].to_s};#{msg[:info].to_s}"
+        flash[:success] = "VLANs were imported.msg:{success:#{msg[:success].to_s}};info:{#{msg[:info].to_s}}"
         # Redirect to the VLANs page to show the result
         redirect_to vlans_path 
       end      
