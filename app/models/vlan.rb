@@ -26,46 +26,81 @@ class Vlan < ActiveRecord::Base
   # Legacy LAN 23	   VLAN_23   192.168.23.0    192.168.23.255 255.255.255.0 192.168.23.254 Main Building
   # Creates a class method as does Vlan.import
   def self.import(file = nil)
-    # A Hash object to contain the returning messages
-    msg = { success: false, error: ""  }    
+    # A Hash object to contain the returning messages (one message for each row)
+    # The values are Array objects to contain the importing results for each row
+    msg = { success: [], info: [] }    
 
-    # If the file is non-existant ...
-    unless File.exists?(file)
-      msg[:error] = "Invalid file name" 
+    # If file is nil or blank (nil != blank)
+    if file.nil? or file == ""
+      msg[:success] << false 
+      msg[:info] << "File name is nil or blank!" 
       return msg
     end
 
+    # ??File submitted through html file doesn't exist!
+    # http://guides.rubyonrails.org/form_helpers.html#uploading-files
+    # 5.1 What Gets Uploaded
+    # The object in the params hash is an instance of a subclass of IO. Depending on the size
+    # of the uploaded file it may in fact be a StringIO or an instance of File backed by a temporary file.
+    if file.instance_of?(StringIO)
+      msg[:success] << true 
+      msg[:info] << "File is an instance of StringIO!" 
+    elsif file.instance_of?(File) 
+      # If the file is non-existant ...
+      unless File.file?(file.to_s)
+        msg[:success] << false 
+        msg[:info] << "File doesn't exist!" 
+        return msg
+      end
+    else 
+      msg[:success] << false 
+      msg[:info] << "Unkonw File type, has to be StringIO or File!" 
+      return msg
+    end
+
+    # Gets the file path
+    file_path = file.path
+
     # TODO: Checks to see if the headers are correct
 
-    row_count = 0
-    msg[:error] = "errors"
-    CSV.foreach(file.path, headers: true) do |row| # CSV::Row is part Array & part Hash
+    # Imports row after row
+    CSV.foreach(file_path, headers: true) do |row| # CSV::Row is part Array & part Hash
       vhash = row.to_hash # temporary VLAN record hash
 
       # Find FK lan_id
-      lan_id = self.find_lan_id(vhash[:lan_name])
+      # Note: Do not use Symbol :lan_name here! Or will not be found. Very weird!
+      # Hence, use String instead of Symbol as the Hash key where necessary
+      lan_id = find_lan_id(vhash["lan_name"])
      
-      # Go to the next row if invalid lan_id was found 
-      next unless lan_id > 0
+      # Go to the next row if an invalid lan_id was found 
+      unless lan_id > 0
+        msg[:success] << false 
+        msg[:info] << "Cannot find FK lan_id" 
+        next
+      end
 
-      msg[:error] << "," << lan_id.to_s
-      msg[:success] = true
-
-      vhash[:lan_id] = lan_id # appends the lan_id FK
-      
       # Remove lan_name field from the row as it's not a field of table vlans
-      #vhash.delete(:lan_name)
+      vhash.delete("lan_name")
+      # and appends the FK lan_id
+      vhash["lan_id"] = lan_id
+      #puts vhash
       
       # Validation, see http://guides.rubyonrails.org/active_record_validations.html
       # vlan.first.update_attributes(vhash)
       # Vlan.create!(vhash)
-      # Need to feedback the result to the user in the future release
-     # tv = Vlan.new(vhash) # temporary VLAN record
-     # if tv.invalid? # invalid? triggers the validation
-     #   next # no continue in Ruby!
-     # else
-     #   tv.save
-     # end
+      # TODO: Need to feedback the result to the user in the future release
+      s1 = "lan_id: " << lan_id.to_s # a temporary string
+      tv = Vlan.new(vhash) # temporary VLAN record
+      if tv.invalid? # invalid? triggers the model validation
+        msg[:success] << false
+        s1 << ", invalid Vlan"
+      else
+        msg[:success] << true
+        s1 << ", saved"
+        tv.save
+      end
+
+      msg[:info] << s1
     end
 
     return msg

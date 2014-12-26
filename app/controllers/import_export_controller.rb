@@ -7,18 +7,21 @@ class ImportExportController < ApplicationController
   end
 
   def import
-    #flash[:success] = "VLANs were successfully imported. option_id=#{params[:option_id]}, filename=#{params[:file].path}"
     option_id = params[:option_id]
     file_name = params[:filename]
     
+    # Calls model Vlan class method directly
     if params[:file]
-      flash[:success] = "#{option_id} were successfully imported. #{params.to_s}"
+      #flash[:success] = "#{option_id} were successfully imported. filename=#{params[:file].path}"
+      #flash[:success] = "#{option_id} were successfully imported. #{params.to_s}"
       if option_id == "IP Addresses"
+        flash[:success] = "IP Addresses were successfully imported. #{params.to_s}"
         #Address.import(params[:file])
         # Redirect to the VLANs page to show the result
         redirect_to addresses_path 
       else # VLANs 
-        Vlan.import(params[:file])
+        msg = Vlan.import(params[:file])
+        flash[:success] = "VLANs were successfully imported. #{msg[:success].to_s};#{msg[:info].to_s}"
         # Redirect to the VLANs page to show the result
         redirect_to vlans_path 
       end      
