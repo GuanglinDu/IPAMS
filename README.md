@@ -19,5 +19,6 @@ How-tos
 
 History
 ------
+<ol>20141225: Gem awesome print added to beautify irb and rails console output.</ol>
 <ol>201412: In-place editing added and Bootstrap UI used.</ol>
 <ol>20141021: Scaffold pushed.</ol>
