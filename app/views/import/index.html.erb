@@ -5,14 +5,14 @@
     <h3>To Import</h3>
     <div>
       <h5><b>Step 1</b>: Download templates to get your data ready (<font color="red">Note: The file must be saved in UTF-8 encoding!</font>).</h5>
-      <%= link_to "VLAN importing template", import_export_vlan_importing_template_path, class: 'btn btn-success' %>
-      <%= link_to "IP address importing template", import_export_ip_address_importing_template_path, class: 'btn btn-success' %>
+      <%= link_to "VLAN importing template", import_vlan_importing_template_path, class: 'btn btn-success' %>
+      <%= link_to "IP address importing template", import_ip_address_importing_template_path, class: 'btn btn-success' %>
     </div>
 
     <!-- Bootstrap and ‘form_tag’ vs. ‘form_for’: http://seanmcevoy.com/bootstrap-form_tag-vs-form_for/ -->
     <div>
       <h5><b>Step 2</b>: Select What to import, locate the CSV file & import.</h5>
-      <%= bootstrap_form_tag url: import_export_import_path, multipart: true, class: 'form-horizontal' do |f| %>
+      <%= bootstrap_form_tag url: import_import_path, multipart: true, class: 'form-horizontal' do |f| %>
         <!-- Handle form_tag errors as in the case form_for?
           http://stackoverflow.com/questions/4129229/rails-restoring-contents-of-non-model-form-that-uses-form-tag
         -->
@@ -37,7 +37,7 @@
 
   <!-- The export column -->
   <div class="col-xs-6">
-    <h3>To Export</h3>
+    <h3>Info</h3>
       <p>TODOs</p>
   </div>
 </div>

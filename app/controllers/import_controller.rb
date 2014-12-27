@@ -1,8 +1,8 @@
-class ImportExportController < ApplicationController
-  # Import/export based on CSV format
+class ImportController < ApplicationController
+  # Import based on CSV format
   require 'csv'
 
-  # Entry to importing/exporting
+  # Entry to importing
   def index
   end
 
@@ -27,15 +27,8 @@ class ImportExportController < ApplicationController
       end      
     else
       flash[:failure] = "#{option_id} were NOT imported as no valid CSV file selected. #{params.to_s}"
-      redirect_to import_export_index_path 
+      redirect_to import_index_path 
     end
-  end
-
-  def export
-    flash[:success] = 'VLANs were successfully exported.'
-
-    # Redirect to the index page to show the result
-    redirect_to import_export_index_path 
   end
 
   def info

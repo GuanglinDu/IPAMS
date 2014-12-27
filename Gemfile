@@ -67,4 +67,12 @@ group :development do
   gem 'awesome_print'
 end
 
+# Debugs with byebug
+# http://guides.rubyonrails.org/debugging_rails_applications.html
+#gem 'byebug'
+
+# pry-byebug is better
+# https://github.com/deivid-rodriguez/pry-byebug
+# https://www.youtube.com/watch?v=D37ZTlqK_1o 
+gem 'pry-byebug'
 

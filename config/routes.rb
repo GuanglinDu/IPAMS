@@ -20,17 +20,19 @@ Ipams::Application.routes.draw do
     resources :departments
     resources :users
 
-    get "import_export/index"
-    get "import_export/import"
-    post "import_export/import"
-    get "import_export/export"
+    get "import/index"
+    get "import/import"
+    post "import/import"
+    get "export/index"
+    get "export/export"
+    post "export/export"
     get "welcome/index"
     get "help/index"
     get "search/index"
 
     # Templates downloads
-    get "import_export/vlan_importing_template"
-    get "import_export/ip_address_importing_template"
+    get "import/vlan_importing_template"
+    get "import/ip_address_importing_template"
   end
 
   # Example of regular route:
