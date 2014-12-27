@@ -11,4 +11,9 @@ module VlansHelper
     end
     name
   end
+
+  def find_user(id)
+    @user = User.find(id)
+    @department = Department.find(@user.department_id)
+  end
 end
