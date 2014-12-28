@@ -1,3 +1,4 @@
+# All models are accessible to both helpers & views
 module VlansHelper
   # Helper methods accessiable from the views. See
   # http://api.rubyonrails.org/classes/AbstractController/Helpers/ClassMethods.html#method-i-helper_method

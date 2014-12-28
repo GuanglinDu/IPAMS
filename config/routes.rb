@@ -33,6 +33,8 @@ Ipams::Application.routes.draw do
     # Templates downloads
     get "import/vlan_importing_template"
     get "import/ip_address_importing_template"
+
+    resources :system_users
   end
 
   # Example of regular route:

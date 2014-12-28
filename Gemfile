@@ -34,7 +34,12 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
+# https://github.com/bundler/bundler/issues/2410
+#gem 'bcrypt-ruby', '~> 3.1.2', :github => 'rking/bcrypt-ruby'
+#gem 'bcrypt-ruby', '~> 3.1.6', :github => 'codahale/bcrypt-ruby'
+# Cannot fetch from rubygems.org, use github instead
+gem 'bcrypt', '~> 3.1.9', :github => 'codahale/bcrypt-ruby'
+gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
 # gem 'unicorn'

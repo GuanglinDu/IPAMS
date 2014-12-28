@@ -34,21 +34,17 @@ class ImportController < ApplicationController
   def info
   end
 
-  # Templates downloading
+  # Templates download
   def vlan_importing_template
-    send_file(
-      "#{Rails.root}/public/download/vlan_importing_template.csv",
+    send_file("#{Rails.root}/public/download/vlan_importing_template.csv",
         filename: "vlan_importing_template.csv",
-        type: "application/pdf/docx/html/htm/doc"
-    )
+        type: "application/pdf/docx/html/htm/doc")
   end
 
   def ip_address_importing_template
-    send_file(
-      "#{Rails.root}/public/download/ip_address_importing_template.csv",
+    send_file("#{Rails.root}/public/download/ip_address_importing_template.csv",
         filename: "ip_address_importing_template.csv",
-        type: "application/pdf/docx/html/htm/doc"
-    )
+        type: "application/pdf/docx/html/htm/doc")
   end
 
   private

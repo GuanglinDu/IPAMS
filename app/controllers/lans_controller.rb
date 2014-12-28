@@ -4,7 +4,7 @@ class LansController < ApplicationController
   # GET /lans
   # GET /lans.json
   def index
-    @lans = Lan.all
+    @lans = Lan.order(:lan_number)
   end
 
   # GET /lans/1

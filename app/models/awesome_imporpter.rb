@@ -1,5 +1,4 @@
-# See http://kyle.conarro.com/importing-from-csv-in-rails
-
+# See for prototype: http://kyle.conarro.com/importing-from-csv-in-rails
 class AwesomeImporter
   include ActiveModel::Model
 

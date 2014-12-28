@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217060914) do
+ActiveRecord::Schema.define(version: 20141228140229) do
 
   create_table "addresses", force: true do |t|
     t.string   "ip"
@@ -66,6 +66,13 @@ ActiveRecord::Schema.define(version: 20141217060914) do
   end
 
   add_index "reserved_addresses", ["vlan_id"], name: "index_reserved_addresses_on_vlan_id"
+
+  create_table "system_users", force: true do |t|
+    t.string   "name"
+    t.string   "password_digest"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"
