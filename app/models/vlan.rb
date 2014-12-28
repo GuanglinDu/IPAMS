@@ -55,9 +55,9 @@ class Vlan < ActiveRecord::Base
     elsif file.instance_of?(File) 
       msg[:success] << true 
       msg[:info] << "File is an instance of File!" 
-    else # ActionDispatch::Http::UploadedFile 
+    else # ActionDispatch::Http::UploadedFile by html form 
       msg[:success] << true 
-      msg[:info] << "Must be ActionDispatch::Http::UploadedFile type? #{file.class}" 
+      msg[:info] << "Must be the ActionDispatch::Http::UploadedFile type? #{file.class}" 
     end
 
     # Gets the file path
