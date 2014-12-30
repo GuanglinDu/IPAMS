@@ -1,9 +1,3 @@
-GIT
-  remote: https://github.com/codahale/bcrypt-ruby.git
-  revision: b82c7140eb4ecedc20ab3a7c0d0801667d1907b3
-  specs:
-    bcrypt (3.1.9)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -35,6 +29,7 @@ GEM
     autoprefixer-rails (4.0.2.1)
       execjs
     awesome_print (1.2.0)
+    bcrypt (3.1.9)
     bcrypt-ruby (3.1.5)
       bcrypt (>= 3.1.3)
     bootstrap-sass (3.3.1.0)
@@ -141,7 +136,7 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   awesome_print
-  bcrypt (~> 3.1.9)!
+  bcrypt (~> 3.1.9)
   bcrypt-ruby (~> 3.1.2)
   bootstrap-sass
   bootstrap-x-editable-rails
