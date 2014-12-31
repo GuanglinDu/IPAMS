@@ -43,7 +43,7 @@ class AddressesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     # lan_id is FK.
     def address_params
-      params[:address].permit(:vlan_id, :user_id, :ip, :usage, :start_date, :end_date,
+      params[:address].permit(:vlan_id, :user_id, :ip, :mac_address, :usage, :start_date, :end_date,
         :application_form)
     end
 end
