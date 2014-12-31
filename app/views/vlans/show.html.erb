@@ -99,6 +99,7 @@
     <tr>
       <th>NO.</th>
       <th>IP Address</th>
+      <th>MAC Address</th>
       <th>Usage</th>
       <th>User Name</th>
       <th>Dept Name</th>
@@ -123,6 +124,9 @@
       <td><%= count %></td>
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="ip" data-url="<%= address_path(addr) %>" data-title="IP Address"><%= addr.ip %></a>
+     </td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="mac_address" data-url="<%= address_path(addr) %>" data-title="MAC Address"><%= addr.mac_address %></a>
      </td>
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="usage" data-url="<%= address_path(addr) %>" data-title="Usage"><%= addr.usage %></a>
