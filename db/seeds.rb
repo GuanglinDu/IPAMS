@@ -39,7 +39,8 @@ ReservedAddress.create!(vlan_id: vlan11_of_lan1.id, ip: "192.168.0.255", descrip
 ReservedAddress.create!(vlan_id: vlan11_of_lan1.id, ip: "192.168.0.254", description: "subnet mask")
 ReservedAddress.create!(vlan_id: vlan12_of_lan1.id, ip: "192.168.1.0", description: "subnet number")
 ReservedAddress.create!(vlan_id: vlan12_of_lan1.id, ip: "192.168.1.255", description: "broadcast address")
-ReservedAddress.create!(vlan_id: vlan12_of_lan1.id, ip: "192.168.1.254", description: "subnet mask")
+# Or creates this way
+vlan12_of_lan1.reserved_addresses.create(ip: "192.168.1.254", description: "subnet mask")
 
 # Test data for table departments
 Address.delete_all
