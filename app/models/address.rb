@@ -1,4 +1,6 @@
 class Address < ActiveRecord::Base
+  validates :ip, presence: true, uniqueness: true
+
   belongs_to :vlan
   belongs_to :user
   has_many :histories, dependent: :destroy
