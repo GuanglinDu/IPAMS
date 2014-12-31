@@ -41,7 +41,8 @@ end
 # Cannot fetch from rubygems.org, use github instead(git clone git://...)
 #gem 'bcrypt', '~> 3.1.9', :github => 'codahale/bcrypt-ruby'
 # This enable git clone https://...
-gem 'bcrypt', '~> 3.1.9', :git => 'https://github.com/codahale/bcrypt-ruby.git'
+gem 'bcrypt', '~> 3.1.9'
+#gem 'bcrypt', :git => 'https://github.com/codahale/bcrypt-ruby.git'
 gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
@@ -77,10 +78,11 @@ end
 
 # Debugs with byebug
 # http://guides.rubyonrails.org/debugging_rails_applications.html
-#gem 'byebug'
+gem 'byebug'
 
 # pry-byebug is better
 # https://github.com/deivid-rodriguez/pry-byebug
 # https://www.youtube.com/watch?v=D37ZTlqK_1o 
+# gem 'byebug', '~> 3.5.1', :git => 'https://github.com/deivid-rodriguez/byebug.git'
 gem 'pry-byebug'
 
