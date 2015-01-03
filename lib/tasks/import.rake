@@ -7,7 +7,7 @@ namespace :import do
   # To contain the import result 
   IMPORT_LOG = "#{Rails.root}/tmp/IMPORT_LOG.txt" 
 
-  desc "imports LANs data from a CVS file (IPAMS-specific)"
+  desc "imports LANs from a CVS file (IPAMS-specific)"
   task lans: :environment do
     require 'csv'
   
@@ -43,7 +43,55 @@ namespace :import do
       log_file.puts note
     end
     
-    puts "*** LANs data imported!"
+    puts "*** LANs imported!"
+  end
+
+  # Imports VLAN info
+  # A VLAN has 1 FK lan_id to be resolved
+  desc "imports VLANs from a CVS file (IPAMS-specific)"
+  task vlans: :environment do
+    require 'csv' 
+ 
+    # Opens the IMPORT_LOG.txt file
+    log_file = File.open(IMPORT_LOG, "w")
+  end
+
+  # Imports IPs with VLAN info
+  # An IP has 2 FKs vlan_id & user_id to resolve
+  desc "imports IPs from a CVS file (IPAMS-specific)"
+  task ips: :environment do
+    require 'csv'
+  
+    # Opens the IMPORT_LOG.txt file
+    log_file = File.open(IMPORT_LOG, "w")
+   
+    file_path = "#{Rails.root}/public/download/ips_importing_template.csv" 
+    CSV.foreach(file_path, headers: true) do |row| # CSV::Row is part Array & part Hash
+      iph = row.to_hash # temporary IP hash
+      
+      note = "OK" # importing result
+      # Determines whether the Vlan exists. If yes, updates it;
+      # Note: Using iph[:vlan_name] leads to failing finding the lan_name from Hash h1!!!
+      if Vlan.exists? vlan_name: iph["vlan_name"]
+        note = "OK. Updated!"
+        vl1 = Vlan.find_by vlan_name: iph["vlan_name"]
+        Vlan.update vl1.id, h1
+      else # or, creates a new Lan
+        new_vlan = Vlan.new(h1)
+        if new_vlan.valid?
+          note = "OK. Newly created VLAN!"
+          new_vlan.save
+        else
+          note = new_vlan.errors.inspect # = to_s
+        end
+      end
+
+      # Logs the result for each row
+      #h1[:note] = note
+      log_file.puts note
+    end
+    
+    puts "*** IP address data imported!"
   end
 end
 

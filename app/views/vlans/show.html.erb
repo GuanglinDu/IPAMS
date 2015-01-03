@@ -42,6 +42,69 @@
   </tbody>
 </table>
 
+<!-- Show the IP address list of this VLAN -->
+<!-- Tale addresses PK...FK: vlan_id, user_id...department_id -->
+<div>
+  <h4>Listing IP Addresses of VLAN <%= @vlan.vlan_name %>:</h4>
+  <table class="table table-striped table-condensed">
+  <thead>
+    <tr>
+      <th>NO.</th>
+      <th>IP Address</th>
+      <th>MAC Address</th>
+      <th>Usage</th>
+      <th>User Name</th>
+      <th>Dept Name</th>
+      <th>Office Phone</th>
+      <th>Cell Phone</th>
+      <th>Building</th>
+      <th>Locaiton</th>
+      <th>Storey</th>
+      <th>Room</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Application Form</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% count = 0 %>
+  <!-- TODO: Needs to implement a customized order algorith -->
+  <!-- % @vlan.addresses.order(:ip).each do |addr| % -->
+  <% @vlan.addresses.each do |addr| %>
+    <% count += 1 %>
+    <!-- @user & @department come from vlans_helper.rb -->
+    <% find_user(addr.user_id) %>
+    <tr>
+      <td><%= count %></td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="ip" data-url="<%= address_path(addr) %>" data-title="IP Address"><%= addr.ip %></a>
+     </td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="mac_address" data-url="<%= address_path(addr) %>" data-title="MAC Address"><%= addr.mac_address %></a>
+     </td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="usage" data-url="<%= address_path(addr) %>" data-title="Usage"><%= addr.usage %></a>
+      </td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= @user.id %>" data-model="user" data-name="name" data-url="<%= user_path(@user) %>" data-title="User Name"><%= @user.name %></a>
+        <%=  %>
+      </td>
+      <td><%= @department.dept_name %></td>
+      <td><%= @user.office_phone %></td>
+      <td><%= @user.cell_phone %></td>
+      <td><%= @user.building %></td>
+      <td><%= @department.location %></td>
+      <td><%= @user.storey %></td>
+      <td><%= @user.room %></td>
+      <td><%= addr.start_date %></td>
+      <td><%= addr.end_date %></td>
+      <td><%= addr.application_form %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  </table>
+</div>
+
 <!-- Reserved address list -->
 <div>
   <h4>Reserved Address List</h4> 
@@ -88,67 +151,6 @@
       <i class="glyphicon glyphicon-plus"></i> New Reserved Address
     <% end %>
   </p>
-</div>
-
-<!-- Show the IP address list of this VLAN -->
-<!-- Tale addresses PK...FK: vlan_id, user_id...department_id -->
-<div>
-  <h4>Listing IP Addresses of VLAN <%= @vlan.vlan_name %>:</h4>
-  <table class="table table-striped table-condensed">
-  <thead>
-    <tr>
-      <th>NO.</th>
-      <th>IP Address</th>
-      <th>MAC Address</th>
-      <th>Usage</th>
-      <th>User Name</th>
-      <th>Dept Name</th>
-      <th>Office Phone</th>
-      <th>Cell Phone</th>
-      <th>Building</th>
-      <th>Locaiton</th>
-      <th>Storey</th>
-      <th>Room</th>
-      <th>Start Date</th>
-      <th>End Date</th>
-      <th>Application Form</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% count = 0 %>
-  <% @vlan.addresses.each do |addr| %>
-    <% count += 1 %>
-    <!-- @user & @department come from vlans_helper.rb -->
-    <% find_user(addr.user_id) %>
-    <tr>
-      <td><%= count %></td>
-      <td>
-        <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="ip" data-url="<%= address_path(addr) %>" data-title="IP Address"><%= addr.ip %></a>
-     </td>
-      <td>
-        <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="mac_address" data-url="<%= address_path(addr) %>" data-title="MAC Address"><%= addr.mac_address %></a>
-     </td>
-      <td>
-        <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="usage" data-url="<%= address_path(addr) %>" data-title="Usage"><%= addr.usage %></a>
-      </td>
-      <td>
-        <a href="#" data-xeditable="true" data-pk="<%= @user.id %>" data-model="user" data-name="name" data-url="<%= user_path(@user) %>" data-title="User Name"><%= @user.name %></a>
-        <%=  %>
-      </td>
-      <td><%= @department.dept_name %></td>
-      <td><%= @user.office_phone %></td>
-      <td><%= @user.cell_phone %></td>
-      <td><%= @user.building %></td>
-      <td><%= @department.location %></td>
-      <td><%= @user.storey %></td>
-      <td><%= @user.room %></td>
-      <td><%= addr.start_date %></td>
-      <td><%= addr.end_date %></td>
-      <td><%= addr.application_form %></td>
-    </tr>
-  <% end %>
-  </tbody>
-  </table>
 </div>
 
 <div>
