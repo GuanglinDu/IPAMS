@@ -26,7 +26,7 @@ namespace :init do
     vlans.each do |vlan|
       #puts vlan.vlan_name
       # Retrieves the IP address range & converts them to integers
-      # TODO: validates the addresses in the model
+      # Note: validates the addresses in the model
       ip1 = vlan.static_ip_start.split('.') # string split to string arrays
       ip2 = vlan.static_ip_end.split('.')
       (ip1[0].to_i..ip2[0].to_i).each do |i0|
