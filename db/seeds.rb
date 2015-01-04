@@ -68,9 +68,9 @@ user2_of_dept_computer = User.create!(department_id: dept_computer.id, name: "Ob
 dt1 = DateTime.now
 dt2 = dt1 + 365*5 # 5 years later
 ip1 = Address.create!(vlan_id: vlan11_of_lan1.id, user_id: user1_of_dept_geophysics.id,
-   ip: "192.168.0.1", usage: "Office PC", start_date: dt1, end_date: dt2, application_form: "none")
+   ip: "192.168.0.0", usage: "Office PC", start_date: dt1, end_date: dt2, application_form: "none")
 ip2 = Address.create!(vlan_id: vlan11_of_lan1.id, user_id: user2_of_dept_geophysics.id,
-   ip: "192.168.0.2", usage: "Office PC", start_date: dt1, end_date: dt2, application_form: "none")
+   ip: "192.168.0.1", usage: "Office PC", start_date: dt1, end_date: dt2, application_form: "none")
 
 
 # Test data for table histories
