@@ -133,9 +133,9 @@ namespace :import do
     # Opens the IMPORT_LOG.txt file
     log_file = File.open(IMPORT_LOG, "w")
    
-    file_path = "#{Rails.root}/public/download/ips_importing_template.csv" 
+    file_path = "#{Rails.root}/public/download/ip_address_importing_template.csv" 
     CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
-      iph = strip_whitespace(raw_row) # temporary ip hash
+      iph = strip_whitespace(raw_row) # temporary IP hash
 
       # Resolves talbe users' FK department_id
       department1 = Department.find_by(dept_name: iph["dept_name"])
@@ -154,36 +154,41 @@ namespace :import do
       vlan_id = vlan1.id
 
       # Resolves table addresses' FKs user_id & creates a new User if not found
-      user1 = User.find_by(user_name: iph["user_name"])
+      user1 = User.find_by(name: iph["name"])
       unless user1
-        user1 = User.new(department_id: department_id, name: iph["name"], office_phone: iph["office_phone"],
-          cell_phone: iph["cell_phone"], email: iph["email"], building: iph["building"], storey: iph["storey"],
-          room: iph["room"])
+        user1 = User.new(department_id: department_id, name: iph["name"], office_phone: iph["office_phone"].to_i,
+          cell_phone: iph["cell_phone"].to_i, email: iph["email"], building: iph["building"], storey: iph["storey"].to_i,
+          room: iph["room"].to_i)
         if user1.valid?
-          log_file.puts "New user #{iph["user_name"]} created!"
+          log_file.puts "New user #{iph["name"]} created!"
           user1.save
         else
-          log_file.puts "ERROR: Cannot create User: #{iph["user_name"]}"
+          log_file.puts "ERROR: Cannot create User: #{iph["name"]}"
           next
         end
+      else # update user
+        user_hash = {department_id: department_id,
+          name: iph["name"], office_phone: iph["office_phone"].to_i, cell_phone: iph["cell_phone"].to_i,
+           email: iph["email"], building: iph["building"], storey: iph["storey"].to_i, room: iph["room"].to_i}
+        User.update user1.id, user_hash
       end
       user_id = user1.id
 
       note = "OK" # importing result
-      # Determines whether the Vlan exists. If yes, updates it;
-      # Note: Using iph[:vlan_name] leads to failing finding the lan_name from Hash h1!!!
-      if Vlan.exists? vlan_name: iph["vlan_name"]
+      # IP addresses need updating only. Do not create new IP addresses.
+      # Determines whether the IP address exists. If yes, updates it;
+      # Note: Using iph[:ip] leads to failing finding the lan_name from Hash h1!!!
+      ip1 = Address.find_by(ip: iph["ip"])
+      unless ip1
+        log_file.puts "ERROR: Cannot find IP address: #{iph["ip"]}"
+        next
+      else # updates
         note = "OK. Updated!"
-        vl1 = Vlan.find_by vlan_name: iph["vlan_name"]
-        Vlan.update vl1.id, h1
-      else # or, creates a new Lan
-        new_vlan = Vlan.new(h1)
-        if new_vlan.valid?
-          note = "OK. Newly created VLAN!"
-          new_vlan.save
-        else
-          note = new_vlan.errors.inspect # = to_s
-        end
+        # Extracts the IP address hash from iph, appending the 2 FKs
+        ip_hash = {vlan_id: vlan_id, user_id: user_id,
+          ip: iph["ip"], mac_address: iph["mac_address"], usage: iph["usage"],
+          application_form: iph["application_form"], start_date: iph["start_date"], end_date: iph["end_date"] }
+        Address.update ip1.id, ip_hash
       end
 
       # Logs the result for each row
@@ -191,7 +196,7 @@ namespace :import do
       log_file.puts note
     end
     
-    puts "*** IP address data imported!"
+    puts "*** IP addresses imported!"
   end
 
   private

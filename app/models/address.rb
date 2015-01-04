@@ -1,5 +1,6 @@
 class Address < ActiveRecord::Base
   validates :ip, presence: true, uniqueness: true
+  validates :mac_address, uniqueness: true
 
   belongs_to :vlan
   belongs_to :user
