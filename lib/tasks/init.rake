@@ -21,17 +21,23 @@ namespace :init do
 
     # Intializes VLAN by VLAN by populating with the IP addresses
     vlans = Vlan.all # ActiveRecord::Relation
+    #vlans = Vlan.find_by(vlan_name: 'home-test')
+    #[vlans].each do |vlan|
     vlans.each do |vlan|
       #puts vlan.vlan_name
       # Retrieves the IP address range & converts them to integers
-      # TODO: validates the addresses in the model
+      # Note: validates the addresses in the model
       ip1 = vlan.static_ip_start.split('.') # string split to string arrays
       ip2 = vlan.static_ip_end.split('.')
       (ip1[0].to_i..ip2[0].to_i).each do |i0|
+        s0 = i0.to_s + '.'
         (ip1 [1].to_i..ip2[1].to_i).each do |i1|
+          s1 = s0 + i1.to_s + '.'
           (ip1 [2].to_i..ip2[2].to_i).each do |i2|
+            s2 = s1 + i2.to_s + '.'
             (ip1 [3].to_i..ip2[3].to_i).each do |i3|
-              addr = i0.to_s << '.' << i1.to_s << '.' << i2.to_s << '.' <<i3.to_s 
+              #addr = i0.to_s << '.' << i1.to_s << '.' << i2.to_s << '.' <<i3.to_s 
+              addr = s2 + i3.to_s 
               vlan.addresses.create(user_id: user1.id, ip: addr)
             end
           end

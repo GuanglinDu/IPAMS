@@ -1,3 +1,3 @@
-department_name,location,ip_address,usage,start_date,end_date,application_form,user_name,office_phone_number,cell_phone_number,email_address,building_name,storey_number,room_number
-,,192.168.23.0,,,,,,,,,,,
-,,192.168.24.0,,,,,,,,,,,
+vlan_name,dept_name,ip,mac_address,usage,start_date,end_date,application_form,name,office_phone,cell_phone,email,building,storey,room
+VLAN_12,Geology Dept,192.168.1.1,d4:85:64:a6:5d:2f,HP PC,2015-01-04 11:26:31 UTC,2015-01-04 11:26:31 UTC,none,San Zhang,6666,139,example@example.com,Kingdergarten,2,404
+VLAN_12,Geology Dept,192.168.1.2,d4:85:64:a6:5d:2e,Mac OS,2015-01-04 11:26:31 UTC,2015-01-04 11:26:31 UTC,none,Si Li,6666,139,example@example.com,Kingdergarten,2,404
