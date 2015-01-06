@@ -79,8 +79,5 @@ class VlansController < ApplicationController
         :subnet_mask, :gateway, :vlan_description)
     end
 
-  # Import support
-  def import
-  end
 end
 
