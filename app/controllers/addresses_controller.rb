@@ -56,7 +56,11 @@ class AddressesController < ApplicationController
    # Resolves FK user_id before saving the modified @address
    def find_user_id(name)
      user = User.find_by(name: name)
-     user ||= User.find_by(name: 'NOBODY')
+     unless user
+       u1 = Department.find_by(dept_name: 'NONEXISTENT').users.create(name: name)
+       user = u1 if u1.valid?
+       user ||= User.find_by(name: 'NOBODY')
+     end
      user.id
    end
 end
