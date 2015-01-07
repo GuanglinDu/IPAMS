@@ -24,9 +24,10 @@ class AddressesController < ApplicationController
   # PATCH/PUT /addresss/1.json
   def update
     respond_to do |format|
-      if @address.update(address_params)
-        # Updates the FK user_id here?
-
+      # Updates the FK user_id here
+      pars = address_params
+      pars[:user_id] = find_user_id(pars[:user_id])
+      if @address.update(pars)
         flash[:success] = "Address was successfully updated. #{address_params.inspect}"
         format.html { redirect_to addresses_path }
         format.json { head :no_content }
@@ -53,6 +54,9 @@ class AddressesController < ApplicationController
     end
 
    # Resolves FK user_id before saving the modified @address
-   def find_user_id
+   def find_user_id(name)
+     user = User.find_by(name: name)
+     user ||= User.find_by(name: 'NOBODY')
+     user.id
    end
 end
