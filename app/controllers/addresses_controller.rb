@@ -1,5 +1,8 @@
 class AddressesController < ApplicationController
   before_action :set_address, only: [:show, :edit, :update, :destroy]
+  # Updates FK user_id
+  #before_update
+
 
   def index
     @addresses = Address.all
@@ -21,8 +24,11 @@ class AddressesController < ApplicationController
   # PATCH/PUT /addresss/1.json
   def update
     respond_to do |format|
-      if @address.update(address_params)
-        flash[:success] = 'Address was successfully updated.'
+      # Updates the FK user_id here
+      pars = address_params
+      pars[:user_id] = find_user_id(pars[:user_id])
+      if @address.update(pars)
+        flash[:success] = "Address was successfully updated. #{address_params.inspect}"
         format.html { redirect_to addresses_path }
         format.json { head :no_content }
       else
@@ -46,4 +52,11 @@ class AddressesController < ApplicationController
       params[:address].permit(:vlan_id, :user_id, :ip, :mac_address, :usage, :start_date, :end_date,
         :application_form)
     end
+
+   # Resolves FK user_id before saving the modified @address
+   def find_user_id(name)
+     user = User.find_by(name: name)
+     user ||= User.find_by(name: 'NOBODY')
+     user.id
+   end
 end

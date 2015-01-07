@@ -8,17 +8,13 @@ Ipams::Application.routes.draw do
   scope '(:locale)' do
     root 'welcome#index', as: 'welcome'
 
-    resources :lans
+    resources :lans, :addresses, :reserved_addresses, :departments, :users
 
     resources :vlans do
       collection { post :import }
     end
 
-    resources :addresses
-    resources :reserved_addresses
-
-    resources :departments
-    resources :users
+    resources :system_users
 
     get "import/index"
     get "import/import"
@@ -30,11 +26,9 @@ Ipams::Application.routes.draw do
     get "help/index"
     get "search/index"
 
-    # Templates downloads
+    # Template downloads
     get "import/vlan_importing_template"
     get "import/ip_address_importing_template"
-
-    resources :system_users
   end
 
   # Example of regular route:
