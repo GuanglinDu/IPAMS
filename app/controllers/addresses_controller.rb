@@ -26,7 +26,11 @@ class AddressesController < ApplicationController
     respond_to do |format|
       # Updates the FK user_id here
       pars = address_params
-      pars[:user_id] = find_user_id(pars[:user_id])
+      name = pars[:user_id]
+      if name
+        pars[:user_id] = find_user_id(name) unless integer?(name)
+      end
+      #pars[:room] = find_user_id(pars[:room])
       if @address.update(pars)
         flash[:success] = "Address was successfully updated. #{address_params.inspect}"
         format.html { redirect_to addresses_path }
@@ -49,7 +53,7 @@ class AddressesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     # lan_id is FK.
     def address_params
-      params[:address].permit(:vlan_id, :user_id, :ip, :mac_address, :usage, :start_date, :end_date,
+      params[:address].permit(:vlan_id, :user_id, :room, :ip, :mac_address, :usage, :start_date, :end_date,
         :application_form)
     end
 
