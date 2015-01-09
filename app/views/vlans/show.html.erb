@@ -93,7 +93,9 @@
       <td><%= @user.building %></td>
       <td><%= @department.location %></td>
       <td><%= @user.storey %></td>
-      <td><%= @user.room %></td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= addr.user_id %>" data-model="user" data-name="room" data-url="<%= user_path(@user) %>" data-title="Room Number"><%= @user.room %></a>
+      </td>
       <td><%= addr.start_date %></td>
       <td><%= addr.end_date %></td>
       <td><%= addr.application_form %></td>
