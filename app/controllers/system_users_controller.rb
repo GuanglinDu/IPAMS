@@ -4,7 +4,7 @@ class SystemUsersController < ApplicationController
   # GET /system_users
   # GET /system_users.json
   def index
-    @system_users = SystemUser.order(:name)
+    @system_users = SystemUser.order(:email)
   end
 
   # GET /system_users/1
@@ -14,7 +14,6 @@ class SystemUsersController < ApplicationController
 
   # GET /system_users/new
   def new
-    @system_user = SystemUser.new
   end
 
   # GET /system_users/1/edit
@@ -24,19 +23,6 @@ class SystemUsersController < ApplicationController
   # POST /system_users
   # POST /system_users.json
   def create
-    @system_user = SystemUser.new(system_user_params)
-
-    respond_to do |format|
-      if @system_user.save
-        flash[:success] = "System user #{@system_user.name} was successfully created."
-        #format.html { redirect_to @system_user, notice: 'System user was successfully created.' }
-        format.html { redirect_to system_users_url, notice: "User #{@system_user.name} was successfully created." }
-        format.json { render action: 'show', status: :created, location: @system_user }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @system_user.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PATCH/PUT /system_users/1
@@ -44,8 +30,8 @@ class SystemUsersController < ApplicationController
   def update
     respond_to do |format|
       if @system_user.update(system_user_params)
-        flash[:success] = "System user #{@system_user.name} was successfully updated."
-        format.html { redirect_to system_user_url, notice: "System user #{@system_user.name} was successfully updated." }
+        flash[:success] = "System user #{@system_user.email} was successfully updated."
+        format.html { redirect_to system_user_url, notice: "System user #{@system_user.email} was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -72,6 +58,6 @@ class SystemUsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def system_user_params
-      params.require(:system_user).permit(:name, :password, :password_confirmation)
+      params.require(:system_user).permit(:email)
     end
 end

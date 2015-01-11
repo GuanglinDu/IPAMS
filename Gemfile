@@ -41,9 +41,9 @@ end
 # Cannot fetch from rubygems.org, use github instead(git clone git://...)
 #gem 'bcrypt', '~> 3.1.9', :github => 'codahale/bcrypt-ruby'
 # This enable git clone https://...
-gem 'bcrypt', '~> 3.1.9'
+#gem 'bcrypt', '~> 3.1.9'
 #gem 'bcrypt', :git => 'https://github.com/codahale/bcrypt-ruby.git'
-gem 'bcrypt-ruby', '~> 3.1.2'
+#gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
 # gem 'unicorn'
@@ -85,4 +85,12 @@ gem 'byebug'
 # https://www.youtube.com/watch?v=D37ZTlqK_1o 
 # gem 'byebug', '~> 3.5.1', :git => 'https://github.com/deivid-rodriguez/byebug.git'
 gem 'pry-byebug'
+
+# System user authentication with devise
+# https://github.com/plataformatec/devise
+gem 'devise'
+
+# System user authorization with pundit, added on Jan. 11, 2014
+# https://github.com/elabs/pundit
+gem 'pundit'
 
