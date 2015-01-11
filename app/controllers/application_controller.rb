@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
+  include Pundit
+
   # Select locale according to user's selection
-  before_action :set_i18n_locale_from_params 
+  before_action :set_i18n_locale_from_params, :authenticate_system_user!
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

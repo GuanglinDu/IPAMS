@@ -1,5 +1,6 @@
 Ipams::Application.routes.draw do
 
+  devise_for :system_users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -13,8 +14,6 @@ Ipams::Application.routes.draw do
     resources :vlans do
       collection { post :import }
     end
-
-    resources :system_users
 
     get "import/index"
     get "import/import"
