@@ -67,4 +67,8 @@ class AddressesController < ApplicationController
      end
      user.id
    end
+
+   def integer?(str)
+     /\A[+-]?d+\z/ === str
+   end
 end
