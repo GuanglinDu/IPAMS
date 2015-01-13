@@ -1,7 +1,7 @@
 <!-- app/views/shared/_navigation.html.erb -->
 <nav class="navbar navbar-default" role="navigation">
   <div class="container">
-    <div class="navbar-header">
+    <div class="navbar-header col-xs-9">
       <%= link_to "Home", welcome_path, class: 'navbar-brand' %>
       <%= link_to "LANs", lans_path, class: 'navbar-brand' %>
       <%= link_to "VLANs", vlans_path, class: 'navbar-brand' %>
@@ -12,6 +12,14 @@
       <%= link_to "Export", export_index_path, class: 'navbar-brand' %>
       <%= link_to "Search", search_index_path, class: 'navbar-brand' %>
       <%= link_to "Help", help_index_path, class: 'navbar-brand' %>
+    </div>
+    <div class="col-xs-3">
+      <% if system_user_signed_in? %>
+        Signed in as <%= current_system_user.email %><br /> 
+        <%= link_to "Sign out", destroy_system_user_session_path, :method => :delete %>
+      <% else %>
+        <%= link_to "Sign up", new_system_user_registration_path %> or <%= link_to "sign in", new_system_user_session_path %>
+      <% end %>
     </div>
   </div>
 </nav>
