@@ -5,8 +5,6 @@
   <thead>
   <tr>
     <th>No.</th>
-    <th>vlan_id</th>
-    <th>user_id</th>
     <th>IP Address</th>
     <th>MAC Address</th>
     <th>Usage</th>
@@ -23,11 +21,7 @@
   <% @addresses.each do |address| %>
     <tr>
       <td><%= count %></td>
-      <td><%= address.vlan_id %></td>
-      <td><%= address.user_id %></td>
-      <td>
-        <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="ip" data-url="<%= address_path(address) %>" data-title="Address IP"><%= address.ip %></a>
-      </td>
+      <td><%= address.ip %></td>
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="mac_address" data-url="<%= address_path(address) %>" data-title="MAC Address"><%= address.mac_address %></a>
       </td>

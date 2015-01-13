@@ -88,22 +88,26 @@
         <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="user_id" data-url="<%= address_path(addr) %>" data-title="User Name"><%= @user.name %></a>
       </td>
       <td><%= @department.dept_name %></td>
-      <td><%= @user.office_phone %></td>
-      <td><%= @user.cell_phone %></td>
-      <td><%= @user.building %></td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= addr.user_id %>" data-model="user" data-name="office_phone" data-url="<%= user_path(@user) %>" data-title="Office Phone"><%= @user.office_phone %></a>
+      </td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= addr.user_id %>" data-model="user" data-name="cell_phone" data-url="<%= user_path(@user) %>" data-title="Cell Phone"><%= @user.cell_phone %></a>
+      </td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= addr.user_id %>" data-model="user" data-name="building" data-url="<%= user_path(@user) %>" data-title="Building"><%= @user.building %></a>
+      </td>
       <td><%= @department.location %></td>
-      <td><%= @user.storey %></td>
+      <!--<td><%= @user.storey %></td>-->
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= addr.user_id %>" data-model="user" data-name="storey" data-url="<%= user_path(@user) %>" data-title="Storey"><%= @user.storey %></a>
+      </td>
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= addr.user_id %>" data-model="user" data-name="room" data-url="<%= user_path(@user) %>" data-title="Room Number"><%= @user.room %></a>
       </td>
       <td><%= addr.start_date %></td>
       <td><%= addr.end_date %></td>
       <td><%= addr.application_form %></td>
-      <td>
-        <%= link_to edit_reserved_address_path(addr), class: 'btn btn-info btn-xs' do%>
-          <i class="glyphicon glyphicon-edit"></i>Edit
-        <% end %>
-      </td>
     </tr>
   <% end %>
   </tbody>
