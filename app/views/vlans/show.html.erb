@@ -85,7 +85,7 @@
       </td>
       <!-- Has to update FK user_id if @user.name changes. Should be submitted to AddressesController. -->
       <td>
-        <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="user_id" data-url="<%= address_path(addr) %>" data-title="User Name"><%= @user.name %></a>
+        <a href="#" data-xeditable="true" data-pk="<%= addr.user_id %>" data-model="address" data-name="user_id" data-url="<%= address_path(addr) %>" data-title="User Name"><%= @user.name %></a>
       </td>
       <td><%= @department.dept_name %></td>
       <td>
