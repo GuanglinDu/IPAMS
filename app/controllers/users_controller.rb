@@ -41,7 +41,14 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params)
+      # Updates the FK department_id here
+      pars = user_params
+      name = pars[:department_id]
+      if name
+        pars[:department_id] = find_department_id(name) unless integer?(name)
+      end
+
+      if @user.update(pars)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,4 +78,14 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :office_phone, :cell_phone, :email, :building, :storey, :room, :department_id)
     end
+
+   def find_department_id(name)
+     dept = Department.find_by(dept_name: name)
+     dept ||= Department.find_by(dept_name: 'NONEXISTENT')
+     dept.id
+   end
+
+   def integer?(str)
+     /\A[+-]?d+\z/ === str
+   end
 end

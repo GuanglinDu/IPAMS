@@ -30,7 +30,7 @@ class AddressesController < ApplicationController
       if name
         pars[:user_id] = find_user_id(name) unless integer?(name)
       end
-      #pars[:room] = find_user_id(pars[:room])
+
       if @address.update(pars)
         flash[:success] = "Address was successfully updated. #{address_params.inspect}"
         format.html { redirect_to addresses_path }
