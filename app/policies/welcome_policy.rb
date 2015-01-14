@@ -1,7 +1,4 @@
-class HelpPolicy < ApplicationPolicy
-  def index?
-    true
-  end
+class WelcomePolicy < Struct.new(:system_user, :welcome)
 
   class Scope < Scope
     def resolve
