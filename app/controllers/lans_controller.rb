@@ -5,6 +5,7 @@ class LansController < ApplicationController
   # GET /lans.json
   def index
     @lans = Lan.order(:lan_number)
+    authorize @lans
   end
 
   # GET /lans/1
