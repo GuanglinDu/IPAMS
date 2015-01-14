@@ -1,0 +1,4 @@
+class LanPolicy < ApplicationPolicy
+
+end
+

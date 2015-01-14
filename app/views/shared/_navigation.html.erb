@@ -15,6 +15,7 @@
         <%= link_to "Help", help_index_path, class: 'navbar-brand' %>
       </div>
       <!-- System user sign in/out links -->
+      <!--https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-edit-their-password -->
       <div class="col-xs-3">
         <% if system_user_signed_in? %>
           Signed in as <%= current_system_user.email %><br /> 
