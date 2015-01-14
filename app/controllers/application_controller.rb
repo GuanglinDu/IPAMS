@@ -57,8 +57,8 @@ class ApplicationController < ActionController::Base
 
    def user_not_authorized
      flash[:error] = "You are not authorized to perform this action."
-     self.response_body = nil # This should resolve the redirect root.
-     redirect_to request.headers["Referer"] || help_index_path
+     #self.response_body = nil # This should resolve the redirect root.
+     #redirect_to request.headers["Referer"] || help_index_path
    end 
 end
 

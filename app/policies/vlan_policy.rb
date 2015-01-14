@@ -1,8 +1,4 @@
-class HelpPolicy < ApplicationPolicy
-  def index?
-    true
-  end
-
+class VlanPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope
