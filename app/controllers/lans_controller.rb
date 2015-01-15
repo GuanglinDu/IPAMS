@@ -1,5 +1,6 @@
 class LansController < ApplicationController
   before_action :set_lan, only: [:show, :edit, :update, :destroy]
+  #after_action :verify_authorized
 
   # GET /lans
   # GET /lans.json

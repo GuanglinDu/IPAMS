@@ -1,8 +1,6 @@
 <h3>IPAMS Home Page</h3>
-<% @lans.each do |lan| %>
-<div>
-  <b style="color:red;"><%= lan.lan_name %></b>: <%= lan.lan_description %>
-</div>
+<% if current_system_user.nobody? %>
+  <strong>You must ask the administrator to assign your role to dive deep. </strong>
 <% end %>
 
 <div>

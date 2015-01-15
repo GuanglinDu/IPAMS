@@ -1,5 +1,6 @@
-# See https://github.com/RailsApps/rails-devise-roles/
-# See https://github.com/RailsApps/rails-devise-pundit
+# https://github.com/plataformatec/devise
+# https://github.com/RailsApps/rails-devise-roles/
+# https://github.com/RailsApps/rails-devise-pundit
 # http://stackoverflow.com/questions/22213152/where-is-user-admin-defined-in-rails-devise-pundit-starter-app
 class SystemUser < ActiveRecord::Base
   # nobody: 0, guest: 1, operator: 2, expert: 3, admin: 4 

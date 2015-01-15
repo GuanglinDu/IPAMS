@@ -1,8 +1,8 @@
 # http://blog.carbonfive.com/2013/10/21/migrating-to-pundit-from-cancan/
 # Note: A User is an IP address user while a sys_user is a SystemUser
 class ApplicationPolicy
-  # SystemUser performing the action & the model
-  # instance upon which action is performed
+  # SystemUser performing the action &
+  # the model instance upon which action is performed
   attr_reader :system_user, :record
 
   def initialize(system_user, record)
