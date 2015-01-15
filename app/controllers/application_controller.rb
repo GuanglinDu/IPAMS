@@ -3,20 +3,20 @@
 class ApplicationController < ActionController::Base
   include Pundit # authorization mechanism
 
+  # Prevent CSRF attacks by raising an exception.
+  # For APIs, you may want to use :null_session instead.
+  protect_from_forgery with: :exception
+
   # http://stackoverflow.com/questions/26241357/overriding-devise-sessionscontroller-destroy
   #skip_before_filter :verify_signed_out_user
   #skip_before_action :verify_signed_out_user
-  #to tackle:  Filter chain halted as :verify_signed_out_user
+  #to tackle: Filter chain halted as :verify_signed_out_user
   skip_before_filter :verify_signed_out_user, only: :destroy
 
   #before_filter :authenticate_system_user!
   before_filter :configure_permitted_parameters, if: :devise_controller?
   # Selects locale according to user's selection & athenticates users
   before_action :set_i18n_locale_from_params, :authenticate_system_user!
-
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
 
   # Notice: Global authorizing causes problem in Devise ?
   # Verify that controller actions are authorized. Optional, but good.
