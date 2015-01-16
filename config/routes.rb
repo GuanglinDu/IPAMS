@@ -1,17 +1,13 @@
 Ipams::Application.routes.draw do
-
-  devise_for :system_users
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # i18n
   scope '(:locale)' do
+    devise_for :system_users
     root 'welcome#index', as: 'welcome'
-
     resources :lans, :addresses, :reserved_addresses, :departments, :users
-
     resources :vlans do
       collection { post :import }
     end
