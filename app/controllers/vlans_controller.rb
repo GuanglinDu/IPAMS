@@ -1,9 +1,10 @@
 class VlansController < ApplicationController
-
   before_action :set_vlan, :only => [:show, :edit, :update, :destroy]
+  #after_action :verify_authorized
 
   def index
     @vlans = Vlan.order(:vlan_number)
+    authorize @vlans
   end
 
   # GET /vlans/new

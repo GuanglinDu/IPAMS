@@ -15,13 +15,15 @@
         <%= link_to "Help", help_index_path, class: 'navbar-brand' %>
       </div>
       <!-- System user sign in/out links -->
+      <!--https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-edit-their-password -->
       <div class="col-xs-3">
         <% if system_user_signed_in? %>
           Signed in as <%= current_system_user.email %><br /> 
-          <%= link_to "Sign out", destroy_system_user_session_path, :method => :delete %> | 
+          <%= link_to "Sign out", destroy_system_user_session_path, :method => :delete, class: 'navbar-link' %> | 
           <%= link_to "Reset password", edit_system_user_registration_path %>
         <% else %>
-          <%= link_to "Sign up", new_system_user_registration_path %> or <%= link_to "sign in", new_system_user_session_path %>
+          <%= link_to "Sign up", new_system_user_registration_path, class: 'navbar-link' %> |
+          <%= link_to "Sign in", new_system_user_session_path, class: 'navbar-link' %>
         <% end %>
       </div>
     </div>
