@@ -1,6 +1,6 @@
 class LansController < ApplicationController
   before_action :set_lan, only: [:show, :edit, :update, :destroy]
-  #after_action :verify_authorized
+  after_action :verify_authorized
 
   # GET /lans
   # GET /lans.json
@@ -12,21 +12,25 @@ class LansController < ApplicationController
   # GET /lans/1
   # GET /lans/1.json
   def show
+    authorize @lan
   end
 
   # GET /lans/new
   def new
     @lan = Lan.new
+    authorize @lan
   end
 
   # GET /lans/1/edit
   def edit
+    authorize @lan
   end
 
   # POST /lans
   # POST /lans.json
   def create
     @lan = Lan.new(lan_params)
+    authorize @lan
 
     respond_to do |format|
       if @lan.save
@@ -44,6 +48,8 @@ class LansController < ApplicationController
   # PATCH/PUT /lans/1
   # PATCH/PUT /lans/1.json
   def update
+    authorize @lan
+
     respond_to do |format|
       if @lan.update(lan_params)
         flash[:success] = 'Lan was successfully updated.'
@@ -60,6 +66,8 @@ class LansController < ApplicationController
   # DELETE /lans/1
   # DELETE /lans/1.json
   def destroy
+    authorize @lan
+
     @lan.destroy
     respond_to do |format|
       format.html { redirect_to lans_url }
