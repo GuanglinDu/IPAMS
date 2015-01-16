@@ -146,7 +146,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  autoprefixer-rails
+  autoprefixer-rails (~> 4.0.2.2)
   awesome_print
   bootstrap-sass
   bootstrap-x-editable-rails

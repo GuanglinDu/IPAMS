@@ -58,7 +58,7 @@ end
 # Bootstrap 3 support.
 # See http://www.gotealeaf.com/blog/integrating-rails-and-bootstrap-part-1/
 gem 'bootstrap-sass'
-gem 'autoprefixer-rails'
+gem 'autoprefixer-rails', '~> 4.0.2.2'
 
 # In-place editing support
 # See https://github.com/GuanglinDu/bootstrap-x-editable-rails-demo 
@@ -95,3 +95,6 @@ gem 'devise'
 # https://github.com/elabs/pundit
 gem 'pundit'
 
+# To fix TypeError: Cannot read property 'process' of undefined
+# caused by autoprefixer-rails gem 5.0 
+#gem 'therubyracer', platform: :ruby
