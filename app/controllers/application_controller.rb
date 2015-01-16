@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
       { locale: I18n.locale }
     end
 
-    # Customize Pundit user: https://github.com/elabs/pundit
+    # Customizes Pundit user other than current_user: https://github.com/elabs/pundit
     def pundit_user
       SystemUser.find_by(email: current_system_user.email)
     end
