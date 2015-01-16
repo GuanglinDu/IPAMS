@@ -29,8 +29,10 @@
         <% end %>
       </td>
       <td>
-        <%= link_to lan, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
-          <i class="glyphicon glyphicon-remove"></i> Destroy
+        <% if policy(lan).destroy? %>
+          <%= link_to lan, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
+            <i class="glyphicon glyphicon-remove"></i> Destroy
+          <% end %>
         <% end %>
       </td>
     </tr>
