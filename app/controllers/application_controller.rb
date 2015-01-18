@@ -8,25 +8,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   # http://stackoverflow.com/questions/26241357/overriding-devise-sessionscontroller-destroy
-  #skip_before_filter :verify_signed_out_user
   #skip_before_action :verify_signed_out_user
   #to tackle: Filter chain halted as :verify_signed_out_user
-  skip_before_filter :verify_signed_out_user, only: :destroy
+  #skip_before_filter :verify_signed_out_user, only: :destroy
 
-  #before_filter :authenticate_system_user!
   before_filter :configure_permitted_parameters, if: :devise_controller?
   # Selects locale according to user's selection & athenticates users
   before_action :set_i18n_locale_from_params, :authenticate_system_user!
 
   # Notice: Global authorizing causes unauthorization problem in Devise!!!
-  # Verify that controller actions are authorized. Optional, but good.
-  # Enforces access right checks for individuals resources
-  #after_filter :verify_authorized, except: :index
-  #after_action :verify_authorized, :except => :index
-  # Enforces access right checks for collections
-  #after_filter :verify_policy_scoped, only: :index
-  #after_action :verify_policy_scoped, :only => :index
-
   # Globally rescue Authorization Errors in controller.
   # Returning 403 Forbidden if permission is denied
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
