@@ -1,20 +1,23 @@
 class VlansController < ApplicationController
   before_action :set_vlan, :only => [:show, :edit, :update, :destroy]
-  #after_action :verify_authorized
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: :index
 
   def index
     @vlans = Vlan.order(:vlan_number)
-    authorize @vlans
+    policy_scope(@vlans)
   end
 
   # GET /vlans/new
   def new
     @vlan = Vlan.new
+    authorize @vlan
   end
 
   # Create a new VLAN
   def create
     @vlan = Vlan.new(vlan_params)
+    authorize @vlan
 
     respond_to do |format|
       if @vlan.save
@@ -29,13 +32,20 @@ class VlansController < ApplicationController
     end
   end
 
+  def show
+    authorize @vlan
+  end 
+
   # Updates are implemented by methods edit and update
   def edit
+    authorize @vlan
   end 
- 
+
   # PUT /vlans/:id
   # PUT /vlans/:id.xml
   def update
+    authorize @vlan
+
     respond_to do |format|
       if @vlan.update(vlan_params)
         flash[:success] = 'Vlan was successfully updated.'
@@ -62,6 +72,8 @@ class VlansController < ApplicationController
 
   # Destroy a VLAN record
   def destroy
+    authorize @vlan
+
     @vlan.destroy
     redirect_to vlans_path
   end
@@ -79,6 +91,5 @@ class VlansController < ApplicationController
       params[:vlan].permit(:lan_id, :vlan_number, :vlan_name, :static_ip_start, :static_ip_end,
         :subnet_mask, :gateway, :vlan_description)
     end
-
 end
 

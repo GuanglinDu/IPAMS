@@ -1,7 +1,7 @@
 class LanPolicy < ApplicationPolicy
   # Role nobody can do nothing
   def index?
-      not system_user.nobody?
+    not system_user.nobody?
   end
 
   # Only an expert or an administrator can create/update/edit a Lan 

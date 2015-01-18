@@ -1,28 +1,35 @@
 class AddressesController < ApplicationController
   before_action :set_address, only: [:show, :edit, :update, :destroy]
-  # Updates FK user_id
-  #before_update
-
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: :index
 
   def index
     @addresses = Address.all
+    policy_scope(@addresses)
   end
 
   def new
+    @address = Address.new
+    authorize @address
   end
 
   def show
+    authorize @address
   end
 
   def edit
+    authorize @address
   end
 
   def destroy
+    authorize @address
   end
   
   # PATCH/PUT /addresss/1
   # PATCH/PUT /addresss/1.json
   def update
+    authorize @address
+
     respond_to do |format|
       # Updates the FK user_id here
       pars = address_params
