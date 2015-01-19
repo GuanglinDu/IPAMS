@@ -76,7 +76,8 @@
     <% find_user(addr.user_id) %>
     <tr>
       <td><%= count %></td>
-      <td><%= addr.ip %></td>
+      <td><%unless @user.name = "NOBODY" addr.ip %></td>
+      <td><font color=blue><%= addr.ip %></font></td>
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="mac_address" data-url="<%= address_path(addr) %>" data-title="MAC Address"><%= addr.mac_address %></a>
      </td>
@@ -93,7 +94,7 @@
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= addr.user_id %>" data-model="user" data-name="office_phone" data-url="<%= user_path(@user) %>" data-title="Office Phone"><%= @user.office_phone %></a>
       </td>
-      <td>
+      <td> 
         <a href="#" data-xeditable="true" data-pk="<%= addr.user_id %>" data-model="user" data-name="cell_phone" data-url="<%= user_path(@user) %>" data-title="Cell Phone"><%= @user.cell_phone %></a>
       </td>
       <td>
