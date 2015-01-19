@@ -13,7 +13,6 @@
 -->
 <tr>
   <td><%= vlan_counter + 1 %></td>
-  <td><%= vlan.lan_id %></td>
   <!-- Call the helper method from the helper class to retrieve the LAN name -->
   <!-- Or call the model directly: Lan.find(vlan.lan_id).lan_name -->
   <td><%= find_lan_name(vlan.lan_id) %></td>
@@ -40,16 +39,24 @@
   </td>
 
   <!-- Links -->  
-  <td><%= link_to 'Show', vlan, lan_id: vlan.lan_id, class: 'btn btn-primary btn-xs' %></td>
-  <td>
+  <% if policy(vlan).show? %>
+    <td><%= link_to 'Show', vlan, lan_id: vlan.lan_id, class: 'btn btn-primary btn-xs' %></td>
+  <% end %>
+
+  <% if policy(vlan).edit? %>
+    <td>
     <%= link_to edit_vlan_path(vlan), class: 'btn btn-info btn-xs' do %>
       <i class="glyphicon glyphicon-edit"></i> Edit
     <% end %>
-  </td>
-  <td>
+    </td>
+  <% end %>
+
+  <% if policy(vlan).destroy? %>
+    <td>
     <%= link_to vlan, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
       <i class="glyphicon glyphicon-remove"></i> Destroy
     <% end %>
-  </td>
+    </td>
+  <% end %>
 </tr>
 

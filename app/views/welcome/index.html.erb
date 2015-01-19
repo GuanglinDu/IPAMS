@@ -1,5 +1,5 @@
 <h3>IPAMS Home Page</h3>
-<% if current_system_user.nobody? %>
+<% if policy(:welcome).tip? %>
   <p><strong>You must ask the administrator to assign your role to dive deep. </strong></p>
 <% end %>
 

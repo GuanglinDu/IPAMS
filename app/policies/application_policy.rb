@@ -10,16 +10,19 @@ class ApplicationPolicy
     @record = record
   end
 
+  # Role nobody can do nothing
   def index?
-    false
+    not system_user.nobody?
   end
 
   def show?
-    scope.where(:id => record.id).exists?
+    #scope.where(:id => record.id).exists?
+    not system_user.nobody?
   end
 
+  # Only an expert or an administrator can create/update/edit 
   def create?
-    false
+    system_user.expert? or system_user.admin?
   end
 
   def new?
@@ -27,15 +30,16 @@ class ApplicationPolicy
   end
 
   def update?
-    false
+    create? 
   end
 
   def edit?
     update?
   end
 
+  # Only admin can destroy
   def destroy?
-    false
+    system_user.admin?
   end
 
   def scope
