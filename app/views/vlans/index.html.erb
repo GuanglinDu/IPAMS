@@ -5,7 +5,6 @@
     <thead>
     <tr>
       <th>No.</th>
-      <th>lan_id</th>
       <th>LAN Name</th>
       <th>VLAN Number</th>
       <th>VLAN Name</th>
@@ -26,10 +25,13 @@
     </tbody>
   </table>
   <!-- Create a new VLAN -->
-  <p><%= link_to new_vlan_path, class: 'btn btn-success' do %>
-    <i class="glyphicon glyphicon-plus"></i> New VLAN
+  <% if policy(:vlan).new? %>
+    <p>
+    <%= link_to new_vlan_path, class: 'btn btn-success' do %>
+      <i class="glyphicon glyphicon-plus"></i> New VLAN
     <% end %>
-  </p>
+    </p>
+  <% end %>
 </div>
 
 <div>
