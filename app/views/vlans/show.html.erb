@@ -76,8 +76,13 @@
     <% find_user(addr.user_id) %>
     <tr>
       <td><%= count %></td>
-      <td><%unless @user.name = "NOBODY" addr.ip %></td>
-      <td><font color=blue><%= addr.ip %></font></td>
+      <td>
+        <% if @user.name == "NOBODY" %>
+          <%= addr.ip %>
+        <% else %>
+          <font color=blue><%= addr.ip %></font>
+        <% end %>
+      </td>
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="mac_address" data-url="<%= address_path(addr) %>" data-title="MAC Address"><%= addr.mac_address %></a>
      </td>
