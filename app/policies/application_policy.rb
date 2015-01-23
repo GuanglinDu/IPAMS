@@ -30,7 +30,7 @@ class ApplicationPolicy
   end
 
   def update?
-    create? 
+    system_user.operator? or system_user.expert? or system_user.admin?
   end
 
   def edit?
