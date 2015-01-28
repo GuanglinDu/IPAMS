@@ -50,9 +50,10 @@ end
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# http://www.talkingquickly.co.uk/2014/01/deploying-rails-apps-to-a-vps-with-capistrano-v3/
 #gem 'capistrano', group: :development
-gem 'capistrano-passenger'
+#gem 'capistrano-passenger'
+
+# http://www.talkingquickly.co.uk/2014/01/deploying-rails-apps-to-a-vps-with-capistrano-v3/
 gem 'capistrano', '~> 3.1.0'
 
 # rails specific capistrano funcitons
