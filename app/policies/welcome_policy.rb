@@ -4,4 +4,9 @@ class WelcomePolicy < Struct.new(:system_user, :welcome)
   def index?
     true
   end
+
+  # Shows the tip that nobody must ask for authorization
+  def tip?
+    system_user.nobody?
+  end
 end

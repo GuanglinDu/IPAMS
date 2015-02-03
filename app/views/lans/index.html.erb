@@ -22,10 +22,16 @@
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= lan.id %>" data-model="lan" data-name="lan_description" data-url="<%= lan_path(lan) %>" data-title="LAN Description"><%= lan.lan_description %></a>
       </td>
-      <td><%= link_to 'Show', lan, class: 'btn btn-primary btn-xs' %></td>
       <td>
-        <%= link_to edit_lan_path(lan), class: 'btn btn-info btn-xs' do %>
-          <i class="glyphicon glyphicon-edit"></i> Edit
+        <% if policy(lan).show? %>
+          <%= link_to 'Show', lan, class: 'btn btn-primary btn-xs' %>
+        <% end %>
+      </td>
+      <td>
+        <% if policy(lan).edit? %>
+          <%= link_to edit_lan_path(lan), class: 'btn btn-info btn-xs' do %>
+            <i class="glyphicon glyphicon-edit"></i> Edit
+          <% end %>
         <% end %>
       </td>
       <td>
@@ -46,8 +52,10 @@
   <%= link_to welcome_path, class: 'btn btn-success' do %>
     <i class="glyphicon glyphicon-home"></i> Home
   <% end %>
-  | <%= link_to new_lan_path, class: 'btn btn-success' do %>
+  <% if policy(:lan).new? %>
+    |<%= link_to new_lan_path, class: 'btn btn-success' do %>
       <i class="glyphicon glyphicon-plus"></i> New LAN
     <% end %>
+  <% end %>
 </div>
 

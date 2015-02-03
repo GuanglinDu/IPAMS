@@ -50,7 +50,23 @@ end
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano', group: :development
+#gem 'capistrano', group: :development
+#gem 'capistrano-passenger'
+
+# http://www.talkingquickly.co.uk/2014/01/deploying-rails-apps-to-a-vps-with-capistrano-v3/
+gem 'capistrano', '~> 3.1.0'
+
+# rails specific capistrano funcitons
+gem 'capistrano-rails', '~> 1.1.0'
+
+# integrate bundler with capistrano
+gem 'capistrano-bundler'
+
+# if you are using RBENV
+gem 'capistrano-rbenv', "~> 2.0", require: false 
+
+# Use the Unicorn app server
+gem 'unicorn'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
@@ -98,3 +114,6 @@ gem 'pundit'
 # To fix TypeError: Cannot read property 'process' of undefined
 # caused by autoprefixer-rails gem 5.0 
 #gem 'therubyracer', platform: :ruby
+
+gem 'thin'
+
