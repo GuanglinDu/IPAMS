@@ -79,13 +79,13 @@ end
 
 # Debugs with byebug
 # http://guides.rubyonrails.org/debugging_rails_applications.html
-gem 'byebug'
+#gem 'byebug'
 
 # pry-byebug is better
 # https://github.com/deivid-rodriguez/pry-byebug
 # https://www.youtube.com/watch?v=D37ZTlqK_1o 
-# gem 'byebug', '~> 3.5.1', :git => 'https://github.com/deivid-rodriguez/byebug.git'
-gem 'pry-byebug'
+#gem 'byebug', '~> 3.5.1', :git => 'https://github.com/deivid-rodriguez/byebug.git'
+#gem 'pry-byebug'
 
 # System user authentication with devise
 # https://github.com/plataformatec/devise
