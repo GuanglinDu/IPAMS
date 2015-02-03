@@ -98,3 +98,5 @@ gem 'pundit'
 # To fix TypeError: Cannot read property 'process' of undefined
 # caused by autoprefixer-rails gem 5.0 
 #gem 'therubyracer', platform: :ruby
+
+gem 'thin'
