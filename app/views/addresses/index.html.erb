@@ -31,11 +31,9 @@
     <tr>
       <td><%= count %></td>
       <td>
-        <% if @user.name == "NOBODY" %>
-          <%= address.ip %>
-        <% else %>
-          <font color=blue><%= address.ip %></font>
-        <% end %>
+        <% clr = "green" %>
+        <% clr = "red" if @user.name == "NOBODY" %>
+        <font color="<%= clr %>"><%= address.ip %></font>
       </td>
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="mac_address" data-url="<%= address_path(address) %>" data-title="MAC Address"><%= address.mac_address %></a>
