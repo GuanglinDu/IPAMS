@@ -1,11 +1,13 @@
 class AddressesController < ApplicationController
   before_action :set_address, only: [:show, :edit, :update, :destroy]
-  after_action :verify_authorized, except: :index
-  after_action :verify_policy_scoped, only: :index
+  after_action :verify_authorized
+  #after_action :verify_authorized, except: :index
+  #after_action :verify_policy_scoped, only: :index
 
   def index
     @addresses = Address.all
-    policy_scope(@addresses)
+    authorize @addresses
+    #policy_scope(@addresses)
   end
 
   def new

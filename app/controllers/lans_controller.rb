@@ -1,13 +1,15 @@
 class LansController < ApplicationController
   before_action :set_lan, only: [:show, :edit, :update, :destroy]
-  after_action :verify_authorized, except: :index
-  after_action :verify_policy_scoped, only: :index
+  #after_action :verify_authorized, except: :index
+  after_action :verify_authorized
+  #after_action :verify_policy_scoped, only: :index
 
   # GET /lans
   # GET /lans.json
   def index
     @lans = Lan.order(:lan_number)
-    policy_scope(@lans)
+    authorize @lans
+    #policy_scope(@lans)
   end
 
   # GET /lans/1

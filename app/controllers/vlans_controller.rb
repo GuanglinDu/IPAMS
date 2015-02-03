@@ -1,11 +1,13 @@
 class VlansController < ApplicationController
   before_action :set_vlan, :only => [:show, :edit, :update, :destroy]
-  after_action :verify_authorized, except: :index
-  after_action :verify_policy_scoped, only: :index
+  #after_action :verify_authorized, except: :index
+  after_action :verify_authorized
+  #after_action :verify_policy_scoped, only: :index
 
   def index
     @vlans = Vlan.order(:vlan_number)
-    policy_scope(@vlans)
+    authorize @vlans
+    #policy_scope(@vlans)
   end
 
   # GET /vlans/new
