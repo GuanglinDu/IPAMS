@@ -63,7 +63,7 @@ gem 'capistrano-rails', '~> 1.1.0'
 gem 'capistrano-bundler'
 
 # if you are using RBENV
-gem 'capistrano-rbenv', "~> 2.0" 
+gem 'capistrano-rbenv', "~> 2.0", require: false 
 
 # Use the Unicorn app server
 gem 'unicorn'
@@ -114,3 +114,6 @@ gem 'pundit'
 # To fix TypeError: Cannot read property 'process' of undefined
 # caused by autoprefixer-rails gem 5.0 
 #gem 'therubyracer', platform: :ruby
+
+gem 'thin'
+
