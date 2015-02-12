@@ -27,5 +27,3 @@
 # Ignore the only one bash file
 run.sh
 
-# Ignore the *.xls files
-*.xls
