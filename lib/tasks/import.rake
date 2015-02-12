@@ -204,7 +204,11 @@ namespace :import do
     # Strips the whitespaces from both the key and the value
     def strip_whitespace(raw_row = {})
       row = {}
-      raw_row.each{|k, v| row[k.strip] = v.strip}
+      raw_row.each do |k, v|
+        vt = nil
+        vt = v.strip if v
+        row[k.strip] = vt
+      end
       row.to_hash
     end
 end
