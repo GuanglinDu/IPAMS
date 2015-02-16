@@ -32,7 +32,7 @@ class UsersController < ApplicationController
         format.html { redirect_to @user }
         format.json { render action: 'show', status: :created, location: @user }
       else
-        flash[:danger] = 'User was NOT successfully created.'
+        flash[:error] = 'User was NOT successfully created.'
         format.html { render action: 'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -56,12 +56,12 @@ class UsersController < ApplicationController
           format.html { redirect_to @user }
           format.json { head :no_content }
         else
-          flash[:danger] = 'User was NOT successfully updated.'
+          flash[:error] = 'User was NOT successfully updated.'
           format.html { render action: 'edit' }
           format.json { render json: @user.errors, status: :unprocessable_entity }
         end
       else
-        flash[:danger] = 'User NOBODY cannot be updated.'
+        flash[:alert] = 'User NOBODY CANNOT be updated.'
         format.html { redirect_to @user }
         format.json { head :no_content }
       end
@@ -73,7 +73,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy unless nobody?
     respond_to do |format|
-      flash[:danger] = 'User NOBODY cannot be destroyed.' if nobody?
+      flash[:alert] = 'User NOBODY CANNOT be destroyed.' if nobody?
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
