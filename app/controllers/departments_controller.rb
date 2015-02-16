@@ -32,7 +32,7 @@ class DepartmentsController < ApplicationController
         format.html { redirect_to @department }
         format.json { render action: 'show', status: :created, location: @department }
       else
-        flash[:danger] = 'There was a problem creating the Department.'
+        flash[:error] = 'There was a problem creating the Department.'
         format.html { render action: 'new' }
         format.json { render json: @department.errors, status: :unprocessable_entity }
       end
@@ -49,12 +49,12 @@ class DepartmentsController < ApplicationController
           format.html { redirect_to @department }
           format.json { head :no_content }
         else
-          flash[:danger] = 'There was a problem updating the Department.'
+          flash[:error] = 'There was a problem updating the Department.'
           format.html { render action: 'edit' }
           format.json { render json: @department.errors, status: :unprocessable_entity }
         end
       else
-        flash[:danger] = 'NONEXISTENT department cannot be updated.'
+        flash[:alert] = 'NONEXISTENT department CANNOT be updated.'
         format.html { redirect_to @department }
         format.json { head :no_content }
       end
@@ -66,7 +66,7 @@ class DepartmentsController < ApplicationController
   def destroy
     @department.destroy unless nonexistent_dept?
     respond_to do |format|
-      flash[:danger] = 'NONEXISTENT department cannot be destroyed.' if nonexistent_dept?
+      flash[:alert] = 'NONEXISTENT department CANNOT be destroyed.' if nonexistent_dept?
       format.html { redirect_to departments_url }
       format.json { head :no_content }
     end
