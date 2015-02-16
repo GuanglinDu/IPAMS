@@ -28,9 +28,11 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        flash[:success] = 'User was successfully created.'
+        format.html { redirect_to @user }
         format.json { render action: 'show', status: :created, location: @user }
       else
+        flash[:danger] = 'User was NOT successfully created.'
         format.html { render action: 'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -48,12 +50,20 @@ class UsersController < ApplicationController
         pars[:department_id] = find_department_id(name) unless integer?(name)
       end
 
-      if @user.update(pars)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { head :no_content }
+      unless nobody? 
+       if @user.update(pars)
+          flash[:success] = 'User was successfully updated.'
+          format.html { redirect_to @user }
+          format.json { head :no_content }
+        else
+          flash[:danger] = 'User was NOT successfully updated.'
+          format.html { render action: 'edit' }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        flash[:danger] = 'User NOBODY cannot be updated.'
+        format.html { redirect_to @user }
+        format.json { head :no_content }
       end
     end
   end
@@ -61,14 +71,16 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
+    @user.destroy unless nobody?
     respond_to do |format|
+      flash[:danger] = 'User NOBODY cannot be destroyed.' if nobody?
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
@@ -77,6 +89,11 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :office_phone, :cell_phone, :email, :building, :storey, :room, :department_id)
+    end
+
+    # Protect user NOBODY from being updated
+    def nobody?
+      @user.name == "NOBODY"
     end
 
    def find_department_id(name)
