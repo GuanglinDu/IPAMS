@@ -36,7 +36,6 @@ namespace :init do
           (ip1 [2].to_i..ip2[2].to_i).each do |i2|
             s2 = s1 + i2.to_s + '.'
             (ip1 [3].to_i..ip2[3].to_i).each do |i3|
-              #addr = i0.to_s << '.' << i1.to_s << '.' << i2.to_s << '.' <<i3.to_s 
               addr = s2 + i3.to_s 
               vlan.addresses.create(user_id: user1.id, ip: addr)
             end
@@ -45,7 +44,7 @@ namespace :init do
       end
     end
 
-    puts "*** Table vlans initialized. #{vlans.count} VLANs."
+    puts "*** Table vlans initialized: #{vlans.count} VLANs."
   end
 end
 
