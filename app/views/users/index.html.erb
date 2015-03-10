@@ -30,7 +30,7 @@
       <td><%= user.building %></td>
       <td><%= user.storey %></td>
       <td><%= user.room %></td>
-      <td><%= find_department_name(user.department_id) %></td>
+      <td><%= user.department_id %></td>
       <td><%= link_to 'Show', user, class: 'btn btn-primary btn-xs' %></td>
       <td>
         <%= link_to edit_user_path(user), class: 'btn btn-info btn-xs' do %>
