@@ -110,6 +110,8 @@ namespace :import do
 
       note = "OK" # importing result
       # Determines whether the Department exists. If yes, updates it;
+      # Note: Using h1[:dept_name] leads to failing finding the dept_name from Hash h1!!!
+      if Department.exists? dept_name: h1["dept_name"]
         note = "OK. Updated!"
         d1 = Department.find_by dept_name: h1["dept_name"]
         Department.update d1.id, h1
@@ -218,4 +220,3 @@ namespace :import do
       row.to_hash.with_indifferent_access
     end
 end
-
