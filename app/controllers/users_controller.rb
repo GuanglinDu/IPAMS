@@ -43,13 +43,14 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      # Updates the FK department_id here
+      # Updates the FK department_id here as only department name is manipulated
       pars = user_params
       name = pars[:department_id]
       if name
         pars[:department_id] = find_department_id(name) unless integer?(name)
       end
 
+      # Prevents user NOBODY from being modified
       unless nobody? 
        if @user.update(pars)
           flash[:success] = 'User was successfully updated.'
@@ -96,6 +97,8 @@ class UsersController < ApplicationController
       @user.name == "NOBODY"
     end
 
+   # dept_name must exist, or department NONEXISTENT will be assigned.
+   # No new department to be created.
    def find_department_id(name)
      dept = Department.find_by(dept_name: name)
      dept ||= Department.find_by(dept_name: 'NONEXISTENT')
