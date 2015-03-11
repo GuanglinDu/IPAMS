@@ -1,8 +1,6 @@
 # See Intro to Rake by Shneems: https://www.youtube.com/watch?v=gR0YfJrg9pg
 # Dependency task :environment which is a Rails rake task loading models, etc.
 
-require 'active_support/core_ext'
-
 # Imports data to table lans, vlans, departments (IPAMS-specific)
 # TODO: Importing should be availabe through the web UI.
 namespace :import do
@@ -16,7 +14,7 @@ namespace :import do
     # Opens the IMPORT_LOG.txt file
     log_file = File.open(IMPORT_LOG, "w")
    
-    file_path = "#{Rails.root}/tmp/lans_importing_template.csv" 
+    file_path = "#{Rails.root}/public/download/lans_importing_template.csv" 
     CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
       h1 = strip_whitespace(raw_row) # temporary hash
 
@@ -54,18 +52,14 @@ namespace :import do
     # Opens the IMPORT_LOG.txt file
     log_file = File.open(IMPORT_LOG, "w")
 
-    file_path = "#{Rails.root}/tmp/vlan_importing_template.csv" 
+    file_path = "#{Rails.root}/public/download/vlan_importing_template.csv" 
     CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
       vh1 = strip_whitespace(raw_row)
-
+      
       # Resolves lan_id by replacing the lan_name key-value pair with lan_id pair
-      ln = vh1["lan_name"]
-      ln = vh1[:lan_name] unless ln
-      ln = ln.strip if ln
-
-      lan1 = Lan.find_by(:lan_name => ln)
+      lan1 = Lan.find_by(lan_name: vh1['lan_name'])
       unless lan1
-        log_file.puts "lan_name: #{ln} not found!"
+        log_file.puts "lan_name: #{vh1['lan_name']} not found!"
         next
       end
       vh1.delete('lan_name')
@@ -102,7 +96,13 @@ namespace :import do
     # Opens the IMPORT_LOG.txt file
     log_file = File.open(IMPORT_LOG, "w")
    
-    file_path = "#{Rails.root}/tmp/departments_importing_template.csv" 
+    file_path = "#{Rails.root}/public/download/departments_importing_template.csv" 
+    CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
+      h1 = strip_whitespace(raw_row) # temporary hash
+
+      note = "OK" # importing result
+      # Determines whether the Department exists. If yes, updates it;
+      # Note: Using h1[:dept_name] leads to failing finding the dept_name from Hash h1!!!
     CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
       h1 = strip_whitespace(raw_row) # temporary hash
 
@@ -213,9 +213,3 @@ namespace :import do
       raw_row.each do |k, v|
         vt = nil
         vt = v.strip if v
-        row[k] = vt
-      end
-      row.to_hash.with_indifferent_access
-    end
-end
-
