@@ -14,7 +14,6 @@
     <th>Department</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
   </thead>
   <tbody>
@@ -23,20 +22,36 @@
   <% count += 1 %>
     <tr>
       <td><%= count %></td>
-      <td><%= user.name %></td>
-      <td><%= user.office_phone %></td>
-      <td><%= user.cell_phone %></td>
-      <td><%= user.email %></td>
-      <td><%= user.building %></td>
-      <td><%= user.storey %></td>
-      <td><%= user.room %></td>
-      <td><%= user.department_id %></td>
-      <td><%= link_to 'Show', user, class: 'btn btn-primary btn-xs' %></td>
       <td>
-        <%= link_to edit_user_path(user), class: 'btn btn-info btn-xs' do %>
-          <i class="glyphicon glyphicon-edit"></i> Edit
-        <% end %>
+        <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="name" data-url="<%= user_path(user) %>" data-title="User Name"><%= user.name %></a>
       </td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="office_phone" data-url="<%= user_path(user) %>" data-title="Office Phone"><%= user.office_phone %></a>
+      </td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="cell_phone" data-url="<%= user_path(user) %>" data-title="Mobile"><%= user.cell_phone %></a>
+      </td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="email" data-url="<%= user_path(user) %>" data-title="Email"><%= user.email %></a>
+      </td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="building" data-url="<%= user_path(user) %>" data-title="Building"><%= user.building %></a>
+      </td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="storey" data-url="<%= user_path(user) %>" data-title="Mobile"><%= user.storey %></a>
+      </td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="room" data-url="<%= user_path(user) %>" data-title="Room"><%= user.room %></a>
+      </td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="department_id" data-url="<%= user_path(user) %>" data-title="Department"><%= find_department_name(user.department_id) %></a>
+      </td>
+      <td><%= link_to 'Show', user, class: 'btn btn-primary btn-xs' %></td>
+      <!-- Editing link disabled since in-line editing supported
+         link_to edit_user_path(user), class: 'btn btn-info btn-xs' do
+           class="glyphicon glyphicon-edit" Edit
+         end
+      -->
       <td>
         <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
           <i class="glyphicon glyphicon-remove"></i> Destroy

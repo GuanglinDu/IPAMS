@@ -35,7 +35,7 @@
 
 <p>
   <strong>Department:</strong>
-  <%= @user.department %>
+  <%= find_department_name(@user.department_id) %> (id: <%= @user.department_id %>)
 </p>
 
 <p>
