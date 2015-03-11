@@ -52,7 +52,7 @@ namespace :import do
     # Opens the IMPORT_LOG.txt file
     log_file = File.open(IMPORT_LOG, "w")
 
-    file_path = "#{Rails.root}/public/download/vlan_importing_template.csv" 
+    file_path = "#{Rails.root}/tmp/vlan_importing_template.csv" 
     CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
       vh1 = strip_whitespace(raw_row)
       
@@ -96,13 +96,7 @@ namespace :import do
     # Opens the IMPORT_LOG.txt file
     log_file = File.open(IMPORT_LOG, "w")
    
-    file_path = "#{Rails.root}/public/download/departments_importing_template.csv" 
-    CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
-      h1 = strip_whitespace(raw_row) # temporary hash
-
-      note = "OK" # importing result
-      # Determines whether the Department exists. If yes, updates it;
-      # Note: Using h1[:dept_name] leads to failing finding the dept_name from Hash h1!!!
+    file_path = "#{Rails.root}/tmp/departments_importing_template.csv" 
     CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
       h1 = strip_whitespace(raw_row) # temporary hash
 
@@ -213,3 +207,8 @@ namespace :import do
       raw_row.each do |k, v|
         vt = nil
         vt = v.strip if v
+        row[k] = vt
+      end
+      row.to_hash.with_indifferent_access
+    end
+end
