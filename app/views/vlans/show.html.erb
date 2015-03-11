@@ -50,11 +50,10 @@
       <th>MAC Address</th>
       <th>Usage</th>
       <th>User Name</th>
-      <th>Dept Name</th>
+      <th>Department</th>
       <th>Office Phone</th>
-      <th>Cell Phone</th>
+      <th>Mobile</th>
       <th>Building</th>
-      <th>Locaiton</th>
       <th>Storey</th>
       <th>Room</th>
       <th>Start Date</th>
@@ -88,7 +87,7 @@
         <a href="#" data-xeditable="true" data-pk="<%= addr.user_id %>" data-model="address" data-name="user_id" data-url="<%= address_path(addr) %>" data-title="User Name"><%= @user.name %></a>
       </td>
       <td>
-        <a href="#" data-xeditable="true" data-pk="<%= @user.id %>" data-model="user" data-name="department_id" data-url="<%= user_path(@user) %>" data-title="Dept Name"><%= @department.dept_name %></a>
+        <a href="#" data-xeditable="true" data-pk="<%= @user.id %>" data-model="user" data-name="department_id" data-url="<%= user_path(@user) %>" data-title="Department Name"><%= @department.dept_name %></a>
       </td>
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= addr.user_id %>" data-model="user" data-name="office_phone" data-url="<%= user_path(@user) %>" data-title="Office Phone"><%= @user.office_phone %></a>
@@ -99,9 +98,6 @@
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= addr.user_id %>" data-model="user" data-name="building" data-url="<%= user_path(@user) %>" data-title="Building"><%= @user.building %></a>
       </td>
-      <td>
-        <a href="#" data-xeditable="true" data-pk="<%= @user.department_id %>" data-model="department" data-name="location" data-url="<%= department_path(@department) %>" data-title="Location"><%= @department.location %></a>
-</td>
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= addr.user_id %>" data-model="user" data-name="storey" data-url="<%= user_path(@user) %>" data-title="Storey"><%= @user.storey %></a>
       </td>
