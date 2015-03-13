@@ -154,12 +154,12 @@ namespace :import do
       department_id = department1.id
 
       # Resolves table addresses' FKs vlan_id
-      vlan1 = Vlan.find_by(vlan_name: iph["vlan_name"])
-      unless vlan1
-        log_file.puts "ERROR: Cannot find FK of vlan_name: #{iph["vlan_name"]}"
-        next
-      end
-      vlan_id = vlan1.id
+      #vlan1 = Vlan.find_by(vlan_name: iph["vlan_name"])
+      #unless vlan1
+      #  log_file.puts "ERROR: Cannot find FK of vlan_name: #{iph["vlan_name"]}"
+      #  next
+      #end
+      #vlan_id = vlan1.id
 
       # Resolves table addresses' FKs user_id & creates a new User if not found
       user1 = User.find_by(name: iph["name"])
@@ -191,6 +191,9 @@ namespace :import do
         log_file.puts "ERROR: Cannot find IP address: #{iph["ip"]}"
         next
       else # updates
+        # Let's resolve FK vlan_id with the IP address
+        vlan_id = ip1.vlan_id
+
         note = "OK. Updated!"
         # Extracts the IP address hash from iph, appending the 2 FKs
         ip_hash = {vlan_id: vlan_id, user_id: user_id,
