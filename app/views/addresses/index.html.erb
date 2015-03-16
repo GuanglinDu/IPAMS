@@ -65,7 +65,9 @@
         <a href="#" data-xeditable="true" data-pk="<%= address.user_id %>" data-model="user" data-name="room" data-url="<%= user_path(@user) %>" data-title="Room Number"><%= @user.room %></a>
       </td>
       <td><%= address.application_form %></td>
-      <td><%= address.start_date%></td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="start_date" data-url="<%= address_path(address) %>" data-title="Start Date"><%= address.start_date%></a>
+      </td>
       <td><%= address.end_date %></td>
       <td><%= link_to 'Show', address, class: 'btn btn-primary btn-xs' %></td>
       <td>
