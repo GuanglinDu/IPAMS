@@ -104,7 +104,9 @@
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= addr.user_id %>" data-model="user" data-name="room" data-url="<%= user_path(@user) %>" data-title="Room Number"><%= @user.room %></a>
       </td>
-      <td><%= addr.start_date %></td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="start_date" data-url="<%= address_path(addr) %>" data-title="Start Date"><%= addr.start_date %></a>
+</td>
       <td><%= addr.end_date %></td>
       <td><%= addr.application_form %></td>
     </tr>
