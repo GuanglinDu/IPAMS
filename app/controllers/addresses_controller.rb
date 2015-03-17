@@ -63,7 +63,7 @@ class AddressesController < ApplicationController
     # lan_id is FK.
     def address_params
       params[:address].permit(:vlan_id, :user_id, :room, :ip, :mac_address, :usage, :start_date, :end_date,
-        :application_form)
+        :application_form, :assigner)
     end
 
    # Resolves FK user_id before saving the modified @address
