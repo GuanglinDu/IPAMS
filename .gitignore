@@ -18,10 +18,12 @@
 # LibreOffice cache files
 *.~*#
 
-# swap files
+# Swap files
 *.swp
 *.rb.swo
 *.swo
 *.swn
-# the only one bash file
+
+# Ignore the only one bash file
 run.sh
+
