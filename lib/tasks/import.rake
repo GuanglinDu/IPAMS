@@ -146,12 +146,12 @@ namespace :import do
       department_id = department1.id
 
       # Resolves table addresses' FKs vlan_id
-      vlan1 = Vlan.find_by(vlan_name: iph["vlan_name"])
-      unless vlan1
-        log_file.puts "ERROR: Cannot find FK of vlan_name: #{iph["vlan_name"]}"
-        next
-      end
-      vlan_id = vlan1.id
+      #vlan1 = Vlan.find_by(vlan_name: iph["vlan_name"])
+      #unless vlan1
+      #  log_file.puts "ERROR: Cannot find FK of vlan_name: #{iph["vlan_name"]}"
+      #  next
+      #end
+      #vlan_id = vlan1.id
 
       # Resolves table addresses' FKs user_id & creates a new User if not found
       user1 = User.find_by(name: iph["name"])
@@ -183,12 +183,21 @@ namespace :import do
         log_file.puts "ERROR: Cannot find IP address: #{iph["ip"]}"
         next
       else # updates
+        # Let's resolve FK vlan_id with the IP address
+        vlan_id = ip1.vlan_id
+
         note = "OK. Updated!"
         # Extracts the IP address hash from iph, appending the 2 FKs
         ip_hash = {vlan_id: vlan_id, user_id: user_id,
           ip: iph["ip"], mac_address: iph["mac_address"], usage: iph["usage"],
           application_form: iph["application_form"], start_date: iph["start_date"], end_date: iph["end_date"] }
-        Address.update ip1.id, ip_hash
+        if user1.name == 'NOBODY' # updates non-existing records
+          address_update(ip1, ip_hash)
+        else # Outputs duplicate records
+          log_file.puts "--- Warnning: duplicate records:"
+          log_file.puts "Existing: #{ip_hash.to_s}"
+          log_file.puts "Importing: " + address_to_s(ip1, user1) 
+        end
       end
 
       # Logs the result for each row
@@ -204,8 +213,34 @@ namespace :import do
     # Strips the whitespaces from both the key and the value
     def strip_whitespace(raw_row = {})
       row = {}
-      raw_row.each{|k, v| row[k.strip] = v.strip}
-      row.to_hash
+      raw_row.each do |k, v|
+        vt = nil
+        vt = v.strip if v
+        row[k] = vt
+      end
+      row.to_hash.with_indifferent_access
+    end
+
+    # See the implementation of taks ips above
+    # addr: an Address object
+    # addr_hash: the IP address hash to be imported 
+    def address_update(addr, addr_hash)
+      Address.update addr.id, addr_hash
+    end
+
+    # addr: an Address object
+    def address_to_s(addr, user)
+      "ip: " + addr.ip + ", " + 
+        "MAC :" + atrribute_to_s(addr.mac_address) + ", " + 
+        "Usage: " + atrribute_to_s(addr.usage) + ", " +
+        "User: " + atrribute_to_s(user.name) + ", " +
+        "start_date: " + atrribute_to_s(addr.start_date) + ", " +
+        "Assigner: " + atrribute_to_s(addr.assigner) 
+    end
+
+    def atrribute_to_s(field)
+      s1 = ""
+      s1 = field.to_s if field
+      s1
     end
 end
-
