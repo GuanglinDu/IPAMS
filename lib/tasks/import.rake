@@ -195,8 +195,15 @@ namespace :import do
           address_update(ip1, ip_hash)
         else # Outputs duplicate records
           log_file.puts "--- Warnning: duplicate records:"
-          log_file.puts "Existing: #{ip_hash.to_s}"
-          log_file.puts "Importing: " + address_to_s(ip1, user1) 
+          log_file.puts "Existing:\n" +
+            "ip: " + iph["ip"] + ", " + 
+            "MAC :" + atrribute_to_s(iph["mac_address"]) + ", " + 
+            "Usage: " + atrribute_to_s(iph["usage"]) + ", " +
+            "User: " + atrribute_to_s(user1.name) + ", " +
+            "start_date: " + atrribute_to_s(iph["start_date"]) + ", " +
+            "Assigner: " + atrribute_to_s(iph["assigner"])
+
+          log_file.puts "Importing:\n" + address_to_s(ip1, user1) 
         end
       end
 
