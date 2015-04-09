@@ -6,6 +6,7 @@
 namespace :import do
   # To contain the import result 
   IMPORT_LOG = "#{Rails.root}/tmp/IMPORT_LOG.txt" 
+  IMPORT_DIFF = "#{Rails.root}/tmp/IMPORT_DIFF.html" 
 
   desc "imports LANs from a CVS file (IPAMS-specific)"
   task lans: :environment do
@@ -13,6 +14,7 @@ namespace :import do
   
     # Opens the IMPORT_LOG.txt file
     log_file = File.open(IMPORT_LOG, "w")
+    diff_file = File.open(IMPORT_DIFF, "w")
    
     file_path = "#{Rails.root}/tmp/lans_importing_template.csv" 
     CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
@@ -155,6 +157,7 @@ namespace :import do
 
       # Resolves table addresses' FKs user_id & creates a new User if not found
       user1 = User.find_by(name: iph["name"])
+      diff_file = File.open(IMPORT_DIFF, "w")
       unless user1
         user1 = User.new(department_id: department_id, name: iph["name"], office_phone: iph["office_phone"].to_i,
           cell_phone: iph["cell_phone"].to_i, email: iph["email"], building: iph["building"], storey: iph["storey"].to_i,
@@ -195,7 +198,18 @@ namespace :import do
           address_update(ip1, ip_hash)
         else # Outputs duplicate records
           log_file.puts "--- Warnning: duplicate records:"
-          log_file.puts "Existing:\n" +
+
+          create_html_header(diff_file) 
+          diff_file.puts "Existing:\n"
+          old_attr = ["ip: " + iph["ip"] + ", ",
+            "MAC :" + atrribute_to_s(iph["mac_address"]) + ", " + 
+            "Usage: " + atrribute_to_s(iph["usage"]) + ", " +
+            "User: " + atrribute_to_s(user1.name) + ", " +
+            "start_date: " + atrribute_to_s(iph["start_date"]) + ", " +
+            "Assigner: " + atrribute_to_s(iph["assigner"])]
+          diff_file.puts old_attr
+
+          diff_file.puts "Existing:\n" +
             "ip: " + iph["ip"] + ", " + 
             "MAC :" + atrribute_to_s(iph["mac_address"]) + ", " + 
             "Usage: " + atrribute_to_s(iph["usage"]) + ", " +
@@ -203,7 +217,9 @@ namespace :import do
             "start_date: " + atrribute_to_s(iph["start_date"]) + ", " +
             "Assigner: " + atrribute_to_s(iph["assigner"])
 
-          log_file.puts "Importing:\n" + address_to_s(ip1, user1) 
+          diff_file.puts "Importing:\n" + address_to_s(ip1, user1) + "ok:\n"
+ 
+          append_html_tail(diff_file)
         end
       end
 
@@ -248,6 +264,33 @@ namespace :import do
     def atrribute_to_s(field)
       s1 = ""
       s1 = field.to_s if field
-      s1
+      s1.strip
+    end
+
+    def compare_value(v1, v2)
+      result = ["", ""]
+      v1 = atrribute_to_s(v1)
+      v2 = atrribute_to_s(v2)
+ 
+      if v1 == v2
+        result[0] = result[1] = v1
+      else
+        result[0] = v1
+        result[1] = %{<b> + #{v2} + </b>}
+      end  
+    end
+
+    def create_old_attr_array(attr)
+    end
+
+    def create_new_attr_array(attr)
+    end
+
+    def create_html_header(diff_file)
+      diff_file.puts %{<!DOCTYPE html>\n<html>\<head>\n<meta charset="utf-8" />\n<title></title>\n</head>\n<body>\n}
+    end
+
+    def append_html_tail(diff_file)
+      diff_file.puts %{\n</body></html>}
     end
 end
