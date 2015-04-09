@@ -203,27 +203,29 @@ namespace :import do
           diff_file.puts "Existing:\n"
           old_attr = [["ip: " + iph["ip"]], ["MAC :" + atrribute_to_s(iph["mac_address"])], [ "Usage: " + atrribute_to_s(iph["usage"])], ["User: " + atrribute_to_s(user1.name)], ["start_date: " + atrribute_to_s(iph["start_date"])], ["Assigner: " + atrribute_to_s(iph["assigner"])]]
 
+
+          diff_file.puts "************************************************************"
           diff_file.puts old_attr
 
-          diff_file.puts "#{old_attr[0]}, #{old_attr[1]}, #{old_attr[2]}, #{old_attr[3]}, #{old_attr[4]}, #{old_attr[5]}"
+          #diff_file.puts "#{old_attr[0]}, #{old_attr[1]}, #{old_attr[2]}, #{old_attr[3]}, #{old_attr[4]}, #{old_attr[5]}"
 
-          diff_file.puts "Existing:\n" +
-            "ip: " + iph["ip"] + ", " + 
-            "MAC :" + atrribute_to_s(iph["mac_address"]) + ", " + 
-            "Usage: " + atrribute_to_s(iph["usage"]) + ", " +
-            "User: " + atrribute_to_s(user1.name) + ", " +
-            "start_date: " + atrribute_to_s(iph["start_date"]) + ", " +
-            "Assigner: " + atrribute_to_s(iph["assigner"])
+          #diff_file.puts "Existing:\n" +
+          #  "ip: " + iph["ip"] + ", " + 
+          #  "MAC :" + atrribute_to_s(iph["mac_address"]) + ", " + 
+          #  "Usage: " + atrribute_to_s(iph["usage"]) + ", " +
+          #  "User: " + atrribute_to_s(user1.name) + ", " +
+          #  "start_date: " + atrribute_to_s(iph["start_date"]) + ", " +
+          #  "Assigner: " + atrribute_to_s(iph["assigner"])
 
-          diff_file.puts "Importing:\n" + address_to_s(ip1, user1) + "ok:\n"
+          #diff_file.puts "Importing:\n" + address_to_s(ip1, user1) + "ok:\n"
 
           #new_attr = [address_to_s(ip1, user1)]
 
           new_attr = [["ip: " + ip1.ip], ["MAC :" + atrribute_to_s(ip1.mac_address)], ["Usage: " + atrribute_to_s(ip1.usage)], ["User: " + atrribute_to_s(user1.name)], ["start_date: " + atrribute_to_s(ip1.start_date)], ["Assigner: " + atrribute_to_s(ip1.assigner)]]
 
-          diff_file.puts new_attr
+          #diff_file.puts new_attr
 
-          diff_file.puts "****************************************************************"
+          diff_file.puts "************************************************************"
 
           diff_file.puts compare_value(old_attr[0], new_attr[0])
           diff_file.puts compare_value(old_attr[1], new_attr[1])
@@ -232,10 +234,10 @@ namespace :import do
           diff_file.puts compare_value(old_attr[4], new_attr[4])
           diff_file.puts compare_value(old_attr[5], new_attr[5])
 
-          diff_file.puts "****************************************************************"
- 
-          diff_file.puts new_attr
-          diff_file.puts old_attr
+          diff_file.puts "<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>\n"
+          diff_file.puts "\n"
+          #diff_file.puts new_attr
+          #diff_file.puts old_attr
 
           append_html_tail(diff_file)
         end
@@ -294,7 +296,7 @@ namespace :import do
         result[0] = result[1] = v1
       else
         result[0] = v1
-        result[1] = %{<b> + #{v2} + </b>}
+        result[1] = %{<b>  #{v2}  </b>}
       end  
     end
 
