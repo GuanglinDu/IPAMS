@@ -153,14 +153,6 @@ namespace :import do
       end
       department_id = department1.id
 
-      # Resolves table addresses' FKs vlan_id
-      #vlan1 = Vlan.find_by(vlan_name: iph["vlan_name"])
-      #unless vlan1
-      #  log_file.puts "ERROR: Cannot find FK of vlan_name: #{iph["vlan_name"]}"
-      #  next
-      #end
-      #vlan_id = vlan1.id
-
       # Resolves table addresses' FKs user_id & creates a new User if not found
       user1 = User.find_by(name: iph["name"])
       unless user1
@@ -187,6 +179,9 @@ namespace :import do
       # Determines whether the IP address exists. If yes, updates it;
       # Note: Using iph[:ip] leads to failing finding the lan_name from Hash h1!!!
       ip1 = Address.find_by(ip: iph["ip"])
+      puts "ip1 = #{ip1.ip}"
+      #puts iph.to_s
+
       unless ip1
         log_file.puts "ERROR: Cannot find IP address: #{iph["ip"]}"
         next
