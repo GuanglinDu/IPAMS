@@ -223,13 +223,16 @@ namespace :import do
 
           diff_file.puts new_attr
 
-          puts "***********************************"
-          compare_value(old_attr[0], new_attr[0])
-          compare_value(old_attr[1], new_attr[1])
-          compare_value(old_attr[2], new_attr[2])
-          compare_value(old_attr[3], new_attr[3])
-          compare_value(old_attr[4], new_attr[4])
-          compare_value(old_attr[5], new_attr[5])
+          diff_file.puts "****************************************************************"
+
+          diff_file.puts compare_value(old_attr[0], new_attr[0])
+          diff_file.puts compare_value(old_attr[1], new_attr[1])
+          diff_file.puts compare_value(old_attr[2], new_attr[2])
+          diff_file.puts compare_value(old_attr[3], new_attr[3])
+          diff_file.puts compare_value(old_attr[4], new_attr[4])
+          diff_file.puts compare_value(old_attr[5], new_attr[5])
+
+          diff_file.puts "****************************************************************"
  
           diff_file.puts new_attr
           diff_file.puts old_attr
