@@ -8,6 +8,7 @@ require 'active_support/core_ext'
 namespace :import do
   # To contain the import result 
   IMPORT_LOG = "#{Rails.root}/tmp/IMPORT_LOG.txt" 
+  IMPORT_DIFF = "#{Rails.root}/tmp/IMPORT_DIFF.html" 
 
   desc "imports LANs from a CVS file (IPAMS-specific)"
   task lans: :environment do
@@ -15,6 +16,7 @@ namespace :import do
   
     # Opens the IMPORT_LOG.txt file
     log_file = File.open(IMPORT_LOG, "w")
+    diff_file = File.open(IMPORT_DIFF, "w")
    
     file_path = "#{Rails.root}/tmp/lans_importing_template.csv" 
     CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
@@ -140,8 +142,11 @@ namespace :import do
   
     # Opens the IMPORT_LOG.txt file
     log_file = File.open(IMPORT_LOG, "w")
+    diff_file = File.open(IMPORT_DIFF, "w")
    
     file_path = "#{Rails.root}/tmp/ip_address_importing_template.csv" 
+    create_html_header(diff_file)
+ 
     CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
       iph = strip_whitespace(raw_row) # temporary IP hash
 
@@ -156,9 +161,16 @@ namespace :import do
       # Resolves table addresses' FKs user_id & creates a new User if not found
       user1 = User.find_by(name: iph["name"])
       unless user1
-        user1 = User.new(department_id: department_id, name: iph["name"], office_phone: iph["office_phone"].to_i,
-          cell_phone: iph["cell_phone"].to_i, email: iph["email"], building: iph["building"], storey: iph["storey"].to_i,
+        user1 = User.new(
+          department_id: department_id,
+          name: iph["name"],
+          office_phone: iph["office_phone"].to_i,
+          cell_phone: iph["cell_phone"].to_i,
+          email: iph["email"],
+          building: iph["building"],
+          storey: iph["storey"].to_i,
           room: iph["room"].to_i)
+
         if user1.valid?
           log_file.puts "New user #{iph["name"]} created!"
           user1.save
@@ -167,9 +179,15 @@ namespace :import do
           next
         end
       else # update user
-        user_hash = {department_id: department_id,
-          name: iph["name"], office_phone: iph["office_phone"].to_i, cell_phone: iph["cell_phone"].to_i,
-           email: iph["email"], building: iph["building"], storey: iph["storey"].to_i, room: iph["room"].to_i}
+        user_hash = { department_id: department_id,
+          name: iph["name"],
+          office_phone: iph["office_phone"].to_i,
+          cell_phone: iph["cell_phone"].to_i,
+          email: iph["email"],
+          building: iph["building"],
+          storey: iph["storey"].to_i,
+          room: iph["room"].to_i }
+
         User.update user1.id, user_hash
       end
       user_id = user1.id
@@ -191,10 +209,51 @@ namespace :import do
 
         note = "OK. Updated!"
         # Extracts the IP address hash from iph, appending the 2 FKs
-        ip_hash = {vlan_id: vlan_id, user_id: user_id,
-          ip: iph["ip"], mac_address: iph["mac_address"], usage: iph["usage"],
-          application_form: iph["application_form"], start_date: iph["start_date"], end_date: iph["end_date"] }
-        Address.update ip1.id, ip_hash
+        ip_hash = { vlan_id: vlan_id,
+          user_id: user_id,
+          ip: iph["ip"],
+          mac_address: iph["mac_address"],
+          usage: iph["usage"],
+          application_form: iph["application_form"],
+          start_date: iph["start_date"],
+          end_date: iph["end_date"] }
+
+        if user1.name == 'NOBODY' # updates non-existing records
+          address_update(ip1, ip_hash)
+        else # Outputs duplicate records
+          log_file.puts "--- Warnning: duplicate records:"
+          diff_file.puts "<br />**** Existing *******************<br />"
+
+          old_attr = ["ip: " + iph["ip"],
+            "MAC: " + atrribute_to_s(iph["mac_address"]),
+            "Usage: " + atrribute_to_s(iph["usage"]),
+            "User: " + atrribute_to_s(user1.name),
+            "start_date: " + atrribute_to_s(iph["start_date"]),
+            "Assigner: " + atrribute_to_s(iph["assigner"])]
+          diff_file.puts old_attr
+
+          new_attr = ["ip: " + ip1.ip,
+            "MAC: " + atrribute_to_s(ip1.mac_address),
+            "Usage: " + atrribute_to_s(ip1.usage),
+            "User: " + atrribute_to_s(user1.name),
+            "start_date: " + atrribute_to_s(ip1.start_date),
+            "Assigner: " + atrribute_to_s(ip1.assigner)]
+
+          #diff_file.puts new_attr
+
+          diff_file.puts "<br />*** To import ***********<br />"
+
+          diff_file.puts compare_value(old_attr[0], new_attr[0])[1]
+          diff_file.puts compare_value(old_attr[1], new_attr[1])[1]
+          diff_file.puts compare_value(old_attr[2], new_attr[2])[1]
+          diff_file.puts compare_value(old_attr[3], new_attr[3])[1]
+          diff_file.puts compare_value(old_attr[4], new_attr[4])[1]
+          diff_file.puts compare_value(old_attr[5], new_attr[5])[1]
+
+          diff_file.puts "<br />~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br />"
+          #diff_file.puts new_attr
+          #diff_file.puts old_attr
+        end
       end
 
       # Logs the result for each row
@@ -202,6 +261,7 @@ namespace :import do
       log_file.puts note
     end
     
+    append_html_tail(diff_file)
     puts "*** IP addresses imported!"
   end
 
@@ -216,5 +276,64 @@ namespace :import do
         row[k] = vt
       end
       row.to_hash.with_indifferent_access
+    end
+
+    # See the implementation of taks ips above
+    # addr: an Address object
+    # addr_hash: the IP address hash to be imported 
+    def address_update(addr, addr_hash)
+      Address.update addr.id, addr_hash
+    end
+
+    # addr: an Address object
+    def address_to_s(addr, user)
+      "ip: " + addr.ip + ", " + 
+      "MAC :" + atrribute_to_s(addr.mac_address) + ", " + 
+      "Usage: " + atrribute_to_s(addr.usage) + ", " +
+      "User: " + atrribute_to_s(user.name) + ", " +
+      "start_date: " + atrribute_to_s(addr.start_date) + ", " +
+      "Assigner: " + atrribute_to_s(addr.assigner) 
+    end
+
+    def atrribute_to_s(field)
+      s1 = ""
+      s1 = field.to_s if field
+      s1.strip
+    end
+
+    def compare_value(v1, v2)
+      result = ["", ""]
+      v1 = atrribute_to_s(v1)
+      v2 = atrribute_to_s(v2)
+ 
+      if v1 == v2
+        result[0] = result[1] = v1
+      else
+        result[0] = v1
+        result[1] = %{<b>#{v2}</b>}
+      end
+
+      result
+    end
+
+    def create_old_attr_array(attr)
+    end
+
+    def create_new_attr_array(attr)
+    end
+
+    def create_html_header(diff_file)
+      diff_file.puts %{<!DOCTYPE html>}
+      diff_file.puts %{<html>}
+      diff_file.puts %{<head>}
+      diff_file.puts %{<meta charset="utf-8" />}
+      diff_file.puts %{<title></title>}
+      diff_file.puts %{</head>}
+      diff_file.puts %{<body>}
+    end
+
+    def append_html_tail(diff_file)
+      diff_file.puts %{\n</body>}
+      diff_file.puts %{</html>}
     end
 end

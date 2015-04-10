@@ -116,4 +116,3 @@ gem 'pundit'
 #gem 'therubyracer', platform: :ruby
 
 gem 'thin'
-
