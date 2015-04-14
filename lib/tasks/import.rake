@@ -217,8 +217,12 @@ namespace :import do
           application_form: iph["application_form"],
           start_date: iph["start_date"],
           end_date: iph["end_date"] }
+        
+         # Resolves user name from User.find_by(id: ip1.user_id)
+         user2 = User.find_by(id: ip1.user_id)
 
-        if user1.name == 'NOBODY' # updates non-existing records
+        #if user1.name == 'NOBODY' # updates non-existing records
+        if user2.name == 'NOBODY' # updates non-existing records
           address_update(ip1, ip_hash)
         else # Outputs duplicate records
           log_file.puts "--- Warnning: duplicate records:"
