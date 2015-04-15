@@ -2,6 +2,9 @@
 # Dependency task :environment which is a Rails rake task loading models, etc.
 
 require 'active_support/core_ext'
+require_relative 'import_helpers'
+
+include ImportHelpers
 
 # Imports data to table lans, vlans, departments (IPAMS-specific)
 # TODO: Importing should be availabe through the web UI.
