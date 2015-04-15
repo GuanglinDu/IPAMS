@@ -224,32 +224,31 @@ namespace :import do
          # Resolves user name from User.find_by(id: ip1.user_id)
          user2 = User.find_by(id: ip1.user_id)
 
-        #if user1.name == 'NOBODY' # updates non-existing records
         if user2.name == 'NOBODY' # updates non-existing records
           address_update(ip1, ip_hash)
         else # Outputs duplicate records
           log_file.puts "--- Warnning: duplicate records:"
           diff_file.puts "<br />**** Existing *******************<br />"
 
-          old_attr = ["ip: " + iph["ip"],
+
+          old_attr = ["ip: " + ip1.ip,
+            "MAC: " + atrribute_to_s(ip1.mac_address),
+            "Usage: " + atrribute_to_s(ip1.usage),
+            "User: " + atrribute_to_s(user2.name),
+            "start_date: " + atrribute_to_s(ip1.start_date),
+            "Assigner: " + atrribute_to_s(ip1.assigner)]
+
+          diff_file.puts old_attr
+
+          new_attr = ["ip: " + iph["ip"],
             "MAC: " + atrribute_to_s(iph["mac_address"]),
             "Usage: " + atrribute_to_s(iph["usage"]),
             "User: " + atrribute_to_s(user1.name),
             "start_date: " + atrribute_to_s(iph["start_date"]),
             "Assigner: " + atrribute_to_s(iph["assigner"])]
-          diff_file.puts old_attr
-
-          new_attr = ["ip: " + ip1.ip,
-            "MAC: " + atrribute_to_s(ip1.mac_address),
-            "Usage: " + atrribute_to_s(ip1.usage),
-            "User: " + atrribute_to_s(user1.name),
-            "start_date: " + atrribute_to_s(ip1.start_date),
-            "Assigner: " + atrribute_to_s(ip1.assigner)]
 
           #diff_file.puts new_attr
-
           diff_file.puts "<br />*** To import ***********<br />"
-
           diff_file.puts compare_value(old_attr[0], new_attr[0])[1]
           diff_file.puts compare_value(old_attr[1], new_attr[1])[1]
           diff_file.puts compare_value(old_attr[2], new_attr[2])[1]
