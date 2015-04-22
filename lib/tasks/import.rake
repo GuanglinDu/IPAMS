@@ -203,14 +203,12 @@ namespace :import do
           update_address(ip1, ip_hash)
         else # Outputs duplicate records
           log_file.puts "--- Warnning: duplicate records:"
+
           diff_file.puts "<br />**** Existing *******************<br />"
+          old_attr = ImportHelpers::address_to_a(ip1, user2.name)
+          diff_file.puts ImportHelpers::address_to_s(ip1, user2.name)
 
-          old_attr = [ImportHelpers::address_info_to_s(ip1.ip, ip1.mac_address, ip1.usage,
-            user2.name, ip1.start_date, ip1.assigner)]
-          diff_file.puts old_attr
-
-          new_attr = [ImportHelpers::address_info_to_s(iph["ip"], iph["mac_address"], iph["usage"],
-            user1.name, iph["start_date"], iph["assigner"])]
+          new_attr = ImportHelpers::hash_to_a(iph, user1.name)
           ImportHelpers::output_comparision_result(old_attr, new_attr, diff_file)
         end
       end
