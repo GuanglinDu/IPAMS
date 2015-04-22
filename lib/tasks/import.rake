@@ -199,8 +199,8 @@ namespace :import do
 
          # Resolves user name from User.find_by(id: ip1.user_id)
         user2 = User.find_by(id: ip1.user_id)
-        if user2.name == 'NOBODY' # updates non-existing records
-          address_update(ip1, ip_hash)
+        if user2.name == 'NOBODY' || update?(iph["update"]) # updates non-existing records
+          update_address(ip1, ip_hash)
         else # Outputs duplicate records
           log_file.puts "--- Warnning: duplicate records:"
           diff_file.puts "<br />**** Existing *******************<br />"
@@ -224,17 +224,12 @@ namespace :import do
     puts "*** IP addresses imported!"
   end
 
-  #test module
-  desc "imports IPs from a CVS file (IPAMS-specific)"
-  task testme: :environment do
-   ImportHelpers::test 
-  end
-
   private
+
     # See the implementation of taks ips above
     # addr: an Address object
     # addr_hash: the IP address hash to be imported 
-    def address_update(addr, addr_hash)
+    def update_address(addr, addr_hash)
       Address.update addr.id, addr_hash
     end
     
@@ -248,5 +243,16 @@ namespace :import do
         start_date: iph["start_date"],
         end_date: iph["end_date"]
       }
+    end
+
+    # nil is false, while 0 is true (Non-nil is true).
+    def update?(str)
+      r = nil
+      if str && str.instance_of?(String)
+        str.strip!
+        str.downcase!
+        r = 1 if str == 'y' || str == 'yes'
+      end
+      return r
     end
  end
