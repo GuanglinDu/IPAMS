@@ -1,5 +1,4 @@
 module ImportHelpers
-
   def output_comparision_result(old_attr, new_attr, diff_file)
     diff_file.puts "<br />*** To import ***********<br />"
     0.upto(5) do |i|
@@ -59,7 +58,7 @@ module ImportHelpers
 
   # Formats the User object to one Hash object
   def user_to_h(department_id, iph)
-    h = {
+   {
       department_id: department_id,
       name: iph["name"],
       office_phone: iph["office_phone"].to_i,
@@ -68,7 +67,7 @@ module ImportHelpers
       building: iph["building"],
       storey: iph["storey"].to_i,
       room: iph["room"].to_i
-     } 
+   } 
   end
 
   # addr: an Address object
