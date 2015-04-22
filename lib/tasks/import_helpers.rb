@@ -70,13 +70,30 @@ module ImportHelpers
    } 
   end
 
-  # addr: an Address object
-  def address_info_to_s(ip, mac_address, usage, name, start_date, assigner)
-    "ip: " + ip + ", " + 
-    "MAC :" + atrribute_to_s(mac_address) + ", " + 
-    "Usage: " + atrribute_to_s(usage) + ", " +
+  def hash_to_a(ip, name)
+    ["ip: " + ip["ip"],
+    "MAC :" + atrribute_to_s(ip["mac_address"]), 
+    "Usage: " + atrribute_to_s(ip["usage"]),
+    "User: " + atrribute_to_s(name),
+    "start_date: " + atrribute_to_s(ip["start_date"]),
+    "Assigner: " + atrribute_to_s(ip["assigner"])]
+  end
+
+  def address_to_a(ip, name)
+    ["ip: " + ip.ip,
+    "MAC :" + atrribute_to_s(ip.mac_address), 
+    "Usage: " + atrribute_to_s(ip.usage),
+    "User: " + atrribute_to_s(name),
+    "start_date: " + atrribute_to_s(ip.start_date),
+    "Assigner: " + atrribute_to_s(ip.assigner)]
+  end
+
+  def address_to_s(ip, name)
+    "ip: " + ip.ip + ", " + 
+    "MAC :" + atrribute_to_s(ip.mac_address) + ", " + 
+    "Usage: " + atrribute_to_s(ip.usage) + ", " +
     "User: " + atrribute_to_s(name) + ", " +
-    "start_date: " + atrribute_to_s(start_date) + ", " +
-    "Assigner: " + atrribute_to_s(assigner) 
+    "start_date: " + atrribute_to_s(ip.start_date) + ", " +
+    "Assigner: " + atrribute_to_s(ip.assigner) 
   end
 end
