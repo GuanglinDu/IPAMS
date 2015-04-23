@@ -202,14 +202,18 @@ namespace :import do
         if user2.name == 'NOBODY' || update?(iph["update"]) # updates non-existing records
           update_address(ip1, ip_hash)
         else # Outputs duplicate records
-          log_file.puts "--- Warnning: duplicate records:"
-
-          diff_file.puts "<br />**** Existing *******************<br />"
           old_attr = ImportHelpers::address_to_a(ip1, user2.name)
-          diff_file.puts ImportHelpers::address_to_s(ip1, user2.name)
-
           new_attr = ImportHelpers::hash_to_a(iph, user1.name)
-          ImportHelpers::output_comparision_result(old_attr, new_attr, diff_file)
+
+          if old_attr != new_attr
+            log_file.puts "--- Warnning: duplicate records:"
+
+            diff_file.puts "<br />**** Existing *******************<br />"
+            diff_file.puts ImportHelpers::address_to_s(ip1, user2.name)
+
+            new_attr = ImportHelpers::hash_to_a(iph, user1.name)         
+            ImportHelpers::output_comparision_result(old_attr, new_attr, diff_file)
+          end
         end
       end
 
