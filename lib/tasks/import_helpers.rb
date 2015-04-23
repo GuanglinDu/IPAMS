@@ -58,16 +58,14 @@ module ImportHelpers
 
   # Formats the User object to one Hash object
   def user_to_h(department_id, iph)
-   {
-      department_id: department_id,
-      name: iph["name"],
-      office_phone: iph["office_phone"].to_i,
-      cell_phone: iph["cell_phone"].to_i,
-      email: iph["email"],
-      building: iph["building"],
-      storey: iph["storey"].to_i,
-      room: iph["room"].to_i
-   } 
+    {department_id: department_id,
+    name: iph["name"],
+    office_phone: iph["office_phone"].to_i,
+    cell_phone: iph["cell_phone"].to_i,
+    email: iph["email"],
+    building: iph["building"],
+    storey: iph["storey"].to_i,
+    room: iph["room"].to_i} 
   end
 
   def hash_to_a(ip, name)
