@@ -28,7 +28,7 @@
       </td>
       <td>
         <% if user.name != "NOBODY" %>
-          <% uas = user.addresses %><% i=0 %><% uas.each do |addr| %><%= addr.ip %><%= "; " if i < uas.count-1 %><br /><% i+=1 %><% end %>
+          <% user.addresses.each do |addr| %><%= addr.ip %><br /><% end %>
         <% end %>
       </td>
       <td>
