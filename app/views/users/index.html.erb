@@ -5,6 +5,7 @@
   <tr>
     <th>NO.</th>
     <th>Name</th>
+    <th>IP Address</th>
     <th>Office phone</th>
     <th>Cell phone</th>
     <th>Email</th>
@@ -24,6 +25,12 @@
       <td><%= count %></td>
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="name" data-url="<%= user_path(user) %>" data-title="User Name"><%= user.name %></a>
+      </td>
+      <td>
+        <% if user.name == "NOBODY" %>
+        <% elsif %>
+          <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="name" data-url="<%= user_path(user) %>" data-title="IP Address"><% uas = user.addresses %><% i = 0 %><% uas.each do |addr| %><%= addr.ip %><%= "; \n" if i < uas.count - 1 %><% i += 1 %><% end %></a>
+        <% end %>
       </td>
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="office_phone" data-url="<%= user_path(user) %>" data-title="Office Phone"><%= user.office_phone %></a>
@@ -64,9 +71,3 @@
 
 <br>
 
-<p>
-  <!-- link_to new_user_path, class: 'btn btn-success' do 
-    i class="glyphicon glyphicon-plus" >/i> New User
-   end 
--->
-</p>
