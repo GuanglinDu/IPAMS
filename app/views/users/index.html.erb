@@ -27,9 +27,8 @@
         <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="name" data-url="<%= user_path(user) %>" data-title="User Name"><%= user.name %></a>
       </td>
       <td>
-        <% if user.name == "NOBODY" %>
-        <% elsif %>
-          <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="name" data-url="<%= user_path(user) %>" data-title="IP Address"><% uas = user.addresses %><% i = 0 %><% uas.each do |addr| %><%= addr.ip %><%= "; \n" if i < uas.count - 1 %><% i += 1 %><% end %></a>
+        <% if user.name != "NOBODY" %>
+          <% uas = user.addresses %><% i=0 %><% uas.each do |addr| %><%= addr.ip %><%= "; " if i < uas.count-1 %><br /><% i+=1 %><% end %>
         <% end %>
       </td>
       <td>
