@@ -23,7 +23,8 @@
   </thead>
   <tbody>
   <% count = 1 %>
-  <% @addresses.each do |address| %>
+  <% @addresses.each do |address_obj| %>
+    <% address = address_obj.clone %><!-- To be nullified to free mem -->
     <% find_user(address.user_id) %>
     <tr>
       <td><%= count %></td>
@@ -82,6 +83,8 @@
       </td>
     </tr>
     <% count += 1 %>
+    <% address = nil %>
+    <% GC.start %>
   <% end %>
   </tbody>
 </table>

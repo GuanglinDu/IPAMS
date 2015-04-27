@@ -19,8 +19,9 @@
   </thead>
   <tbody>
   <% count = 0 %>
-  <% @users.each do |user| %>
-  <% count += 1 %>
+  <% @users.each do |user_obj| %>
+    <% user = user_obj.clone %><!-- To be nullified to free mem -->
+    <% count += 1 %>
     <tr>
       <td><%= count %></td>
       <td>
@@ -64,6 +65,7 @@
         <% end %>
       </td>
     </tr>
+    <% user = nil %>
   <% end %>
   </tbody>
 </table>
