@@ -119,10 +119,10 @@
       </td>
     </tr>
     <% addr = nil %>
-    <% GC.start %><!-- Garbage collecting to free mem -->
   <% end %>
   </tbody>
   </table>
+  <% GC.start %><!-- Garbage collecting to free mem -->
 </div>
 
 <!-- Reserved address list -->
