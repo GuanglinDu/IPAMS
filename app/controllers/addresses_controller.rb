@@ -6,6 +6,7 @@ class AddressesController < ApplicationController
 
   def index
     @addresses = Address.all
+    #id_range = (Address.first.id..Address.last.id)
     authorize @addresses
     #policy_scope(@addresses)
   end
