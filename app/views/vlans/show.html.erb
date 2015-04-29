@@ -67,6 +67,7 @@
   <!-- TODO: Needs to implement a customized order algorith -->
   <!-- % @vlan.addresses.order(:ip).each do |addr| % -->
   <% @vlan.addresses.each do |addr_obj| %>
+    <!-- Address.find(id) -->
     <% addr = addr_obj.clone %><!-- To be nullified to free mem latter -->
     <% count += 1 %>
     <!-- @user & @department come from vlans_helper.rb -->
