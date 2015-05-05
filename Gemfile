@@ -1,5 +1,5 @@
-source 'https://rubygems.org'
-#source 'http://rubygems.org'
+#source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #gem 'rails', '4.0.3'
@@ -115,4 +115,9 @@ gem 'pundit'
 # caused by autoprefixer-rails gem 5.0 
 #gem 'therubyracer', platform: :ruby
 
+# Uses the lightweight httpd server thin instead of the default Webricks
 gem 'thin'
+
+# Paginates with will_paginate-bootstrap
+# See https://github.com/bootstrap-ruby/will_paginate-bootstrap
+gem 'will_paginate-bootstrap'
