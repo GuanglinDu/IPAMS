@@ -1,12 +1,14 @@
 class AddressesController < ApplicationController
+  include IPAMSConstants
+
   before_action :set_address, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized
   #after_action :verify_authorized, except: :index
   #after_action :verify_policy_scoped, only: :index
 
   def index
-    @addresses = Address.all
-    #id_range = (Address.first.id..Address.last.id)
+    #@addresses = Address.all # mem killer!
+    @addresses = Address.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     authorize @addresses
     #policy_scope(@addresses)
   end
