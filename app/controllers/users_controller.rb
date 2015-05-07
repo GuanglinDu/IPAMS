@@ -1,10 +1,13 @@
 class UsersController < ApplicationController
+  include IPAMSConstants
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    #@users = User.all # mem killer!
+    @users = User.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
   end
 
   # GET /users/1
