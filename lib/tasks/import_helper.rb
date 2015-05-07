@@ -1,5 +1,5 @@
-module ImportHelpers
-  def output_comparision_result(old_attr, new_attr, diff_file)
+module ImportHelper
+  def output_comparison_result(old_attr, new_attr, diff_file)
     diff_file.puts "<br />*** To import ***********<br />"
     0.upto(5) do |i|
       arr = compare_value(old_attr[i], new_attr[i]) # an Array object
@@ -49,9 +49,13 @@ module ImportHelpers
   def strip_whitespace(raw_row = {})
     row = {}
     raw_row.each do |k, v|
-      vt = nil
-      vt = v.strip if v
-      row[k] = vt
+      if v.instance_of? String
+        vt = nil
+        vt = v.strip if v
+        row[k] = vt
+      else
+        row[k] = v
+      end
     end
     row.to_hash.with_indifferent_access
   end

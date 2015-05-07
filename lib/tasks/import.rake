@@ -1,29 +1,23 @@
 # See Intro to Rake by Shneems: https://www.youtube.com/watch?v=gR0YfJrg9pg
 # Dependency task :environment which is a Rails rake task loading models, etc.
-
 require 'active_support/core_ext'
-require_relative 'import_helpers'
+require 'csv'
+require_relative 'import_helper'
+require_relative 'file_helper'
 
-include ImportHelpers
+include ImportHelper
 
 # Imports data to table lans, vlans, departments (IPAMS-specific)
 # TODO: Importing should be availabe through the web UI.
 namespace :import do
-  # To contain the import result 
-  IMPORT_LOG = "#{Rails.root}/tmp/IMPORT_LOG.txt" 
-  IMPORT_DIFF = "#{Rails.root}/tmp/IMPORT_DIFF.html" 
+  log_file = File.open(FileHelper::IMPORT_LOG, "w")
+  diff_file = File.open(FileHelper::IMPORT_DIFF, "w")
 
   desc "imports LANs from a CVS file (IPAMS-specific)"
   task lans: :environment do
-    require 'csv'
-  
-    # Opens the IMPORT_LOG.txt file
-    log_file = File.open(IMPORT_LOG, "w")
-    diff_file = File.open(IMPORT_DIFF, "w")
-   
-    file_path = "#{Rails.root}/tmp/lans_importing_template.csv" 
+    file_path = FileHelper::LAN_IMPORT_SOURCE_FILE
     CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
-      h1 = ImportHelpers::strip_whitespace(raw_row) # temporary hash
+      h1 = ImportHelper::strip_whitespace(raw_row) # temporary hash
 
       note = "OK" # importing result
       # Determines whether the Lan exists. If yes, updates it;
@@ -41,7 +35,6 @@ namespace :import do
           note = new_lan.errors.inspect # = to_s
         end
       end
-
       # Logs the result for each row
       #h1[:note] = note
       log_file.puts note
@@ -54,14 +47,13 @@ namespace :import do
   # A VLAN has 1 FK lan_id to resolve
   desc "imports VLANs from a CVS file (IPAMS-specific)"
   task vlans: :environment do
-    require 'csv' 
- 
-    # Opens the IMPORT_LOG.txt file
-    log_file = File.open(IMPORT_LOG, "w")
-
-    file_path = "#{Rails.root}/tmp/vlan_importing_template.csv" 
+    #require 'csv' 
+    # Opens the FileHelper::IMPORT_LOG.txt file
+    #log_file = File.open(FileHelper::IMPORT_LOG, "w")
+    #file_path = "#{Rails.root}/tmp/vlan_importing_template.csv" 
+    file_path = FileHelper::VLAN_IMPORT_SOURCE_FILE
     CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
-      vh1 = ImportHelpers::strip_whitespace(raw_row)
+      vh1 = ImportHelper::strip_whitespace(raw_row)
       puts vh1
 
       # Resolves lan_id by replacing the lan_name key-value pair with lan_id pair
@@ -104,14 +96,13 @@ namespace :import do
 
   desc "imports Departments from a CVS file (IPAMS-specific)"
   task departments: :environment do
-    require 'csv'
-  
-    # Opens the IMPORT_LOG.txt file
-    log_file = File.open(IMPORT_LOG, "w")
-   
-    file_path = "#{Rails.root}/tmp/departments_importing_template.csv" 
+    #require 'csv'
+    # Opens the FileHelper::IMPORT_LOG.txt file
+    #log_file = File.open(FileHelper::IMPORT_LOG, "w")
+    #file_path = "#{Rails.root}/tmp/departments_importing_template.csv" 
+    file_path = FileHelper::DEPARTMENT_IMPORT_SOURCE_FILE
     CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
-      h1 = ImportHelpers::strip_whitespace(raw_row) # temporary hash
+      h1 = ImportHelper::strip_whitespace(raw_row) # temporary hash
 
       note = "OK" # importing result
       # Determines whether the Department exists. If yes, updates it;
@@ -141,17 +132,17 @@ namespace :import do
   # An IP has 2 FKs vlan_id & user_id to resolve
   desc "imports IPs from a CVS file (IPAMS-specific)"
   task ips: :environment do
-    require 'csv'
-  
-    # Opens the IMPORT_LOG.txt file
-    log_file = File.open(IMPORT_LOG, "w")
-    diff_file = File.open(IMPORT_DIFF, "w")
-   
-    file_path = "#{Rails.root}/tmp/ip_address_importing_template.csv" 
-    ImportHelpers::create_html_header(diff_file)
+    #require 'csv'
+    # Opens the FileHelper::IMPORT_LOG.txt file
+    #log_file = File.open(FileHelper::IMPORT_LOG, "w")
+    #diff_file = File.open(FileHelper::IMPORT_DIFF, "w")
+    #file_path = "#{Rails.root}/tmp/ip_address_importing_template.csv" 
+    file_path = FileHelper::IP_IMPORT_SOURCE_FILE
+
+    ImportHelper::create_html_header(diff_file)
  
     CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
-      iph = ImportHelpers::strip_whitespace(raw_row) # temporary IP hash
+      iph = ImportHelper::strip_whitespace(raw_row) # temporary IP hash
 
       # Resolves talbe users' FK department_id
       department1 = Department.find_by(dept_name: iph["dept_name"])
@@ -164,7 +155,7 @@ namespace :import do
       # Resolves table addresses' FKs user_id & creates a new User if not found
       user1 = User.find_by(name: iph["name"])
       unless user1
-        user1 = User.new(ImportHelpers::user_to_h(department_id, iph))
+        user1 = User.new(ImportHelper::user_to_h(department_id, iph))
 
         if user1.valid?
           log_file.puts "New user #{iph["name"]} created!"
@@ -174,7 +165,7 @@ namespace :import do
           next
         end
       else # update user
-        User.update user1.id, ImportHelpers::user_to_h(department_id, iph)
+        User.update user1.id, ImportHelper::user_to_h(department_id, iph)
       end
       user_id = user1.id
 
@@ -202,17 +193,17 @@ namespace :import do
         if user2.name == 'NOBODY' || update?(iph["update"]) # updates non-existing records
           update_address(ip1, ip_hash)
         else # Outputs duplicate records
-          old_attr = ImportHelpers::address_to_a(ip1, user2.name)
-          new_attr = ImportHelpers::hash_to_a(iph, user1.name)
+          old_attr = ImportHelper::address_to_a(ip1, user2.name)
+          new_attr = ImportHelper::hash_to_a(iph, user1.name)
 
           if old_attr != new_attr
             log_file.puts "--- Warnning: duplicate records:"
 
             diff_file.puts "<br />**** Existing *******************<br />"
-            diff_file.puts ImportHelpers::address_to_s(ip1, user2.name)
+            diff_file.puts ImportHelper::address_to_s(ip1, user2.name)
 
-            new_attr = ImportHelpers::hash_to_a(iph, user1.name)         
-            ImportHelpers::output_comparision_result(old_attr, new_attr, diff_file)
+            new_attr = ImportHelper::hash_to_a(iph, user1.name)         
+            ImportHelper::output_comparison_result(old_attr, new_attr, diff_file)
           end
         end
       end
@@ -222,7 +213,7 @@ namespace :import do
       log_file.puts note
     end
     
-    ImportHelpers::append_html_tail(diff_file)
+    ImportHelper::append_html_tail(diff_file)
     puts "*** IP addresses imported!"
   end
 
