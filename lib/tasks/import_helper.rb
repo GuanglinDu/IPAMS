@@ -1,7 +1,7 @@
-module ImportHelper
-  def output_comparison_result(old_attr, new_attr, diff_file)
-    diff_file.puts "<br />*** To import ***********<br />"
-    0.upto(5) do |i|
+module ImportHelpers
+  def output_comparision_result(old_attr, new_attr, diff_file)
+    diff_file.puts "<br />*** To import ***<br />"
+    0.upto(old_attr.count-1) do |i|
       arr = compare_value(old_attr[i], new_attr[i]) # an Array object
       diff_file.puts arr[1]
     end
@@ -72,9 +72,9 @@ module ImportHelper
     room: iph["room"].to_i} 
   end
 
-  def hash_to_a(ip, name)
-    ["ip: " + ip["ip"],
-    "MAC :" + atrribute_to_s(ip["mac_address"]), 
+  def address_hash_to_a(ip, name)
+    ["IP: " + ip["ip"],
+    "MAC: " + atrribute_to_s(ip["mac_address"]), 
     "Usage: " + atrribute_to_s(ip["usage"]),
     "User: " + atrribute_to_s(name),
     "start_date: " + atrribute_to_s(ip["start_date"]),
@@ -82,8 +82,8 @@ module ImportHelper
   end
 
   def address_to_a(ip, name)
-    ["ip: " + ip.ip,
-    "MAC :" + atrribute_to_s(ip.mac_address), 
+    ["IP: " + ip.ip,
+    "MAC: " + atrribute_to_s(ip.mac_address), 
     "Usage: " + atrribute_to_s(ip.usage),
     "User: " + atrribute_to_s(name),
     "start_date: " + atrribute_to_s(ip.start_date),
@@ -91,8 +91,8 @@ module ImportHelper
   end
 
   def address_to_s(ip, name)
-    "ip: " + ip.ip + ", " + 
-    "MAC :" + atrribute_to_s(ip.mac_address) + ", " + 
+    "IP: " + ip.ip + ", " + 
+    "MAC: " + atrribute_to_s(ip.mac_address) + ", " + 
     "Usage: " + atrribute_to_s(ip.usage) + ", " +
     "User: " + atrribute_to_s(name) + ", " +
     "start_date: " + atrribute_to_s(ip.start_date) + ", " +
