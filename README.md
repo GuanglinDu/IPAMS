@@ -8,14 +8,24 @@ Status
 * Is under intense development and far from maturity;
 * Branch develop is always the most rececent commit;
 * ERD (Entity Relationship Diagram) is under folder architecture & drawn with Dia;
+* Supports only IPv4 at present.
  
 How-tos
 ------
-* git clone ...
+* git clone https://github.com/guanglindu/ipams.git
 * rake db:migrate
-* rake db:seed
-* start the server: rails server
+* rake db:seed (Note: for development only; for production, please create or import the VLAN data.)
+* rake init:vlans (rake init:VLAN-NAME to initialize a specific VLAN)
+* start the server locally: rails server
 * Browse it locally: http://localhost:3000
+
+Importing Existing Data (Administrators only)
+------
+* Importing templates reside public/downloads. The data should be exported in UTF-8 encoded CSV files with the same file base name as the templates and copied to fold tmp.
+* File tmp/IMPORT_LOG.txt updates after each import.
+* File tmp/IMPORT_DIFF.html shows the difference if there're conflicts in the IP address importing.
+* The update attribute is optional in the IP address importing template to tell the importer to import this record anyway.
+* On a terminal at folder ipams, use command 'rake --tasks' to show the available IPAMS-specific tasks.
 
 History
 ------

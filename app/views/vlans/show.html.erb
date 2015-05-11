@@ -40,8 +40,13 @@
 
 <!-- Show the IP address list of this VLAN -->
 <!-- Tale addresses PK...FK: vlan_id, user_id...department_id -->
+<%= page_entries_info @addresses %><br />
+<%= will_paginate @addresses, renderer: BootstrapPagination::Rails %>
+
+<!-- Index display: http://stackoverflow.com/questions/4566620/getting-the-current-item-number-or-index-when-using-will-paginate-in-rails-app -->
+<% count = @addresses.offset %>
+
 <div>
-  <h4>Listing IP Addresses of VLAN <%= @vlan.vlan_name %>:</h4>
   <table class="table table-striped table-condensed">
   <thead>
     <tr>
@@ -63,10 +68,10 @@
     </tr>
   </thead>
   <tbody>
-  <% count = 0 %>
   <!-- TODO: Needs to implement a customized order algorith -->
-  <!-- % @vlan.addresses.order(:ip).each do |addr| % -->
-  <% @vlan.addresses.each do |addr| %>
+  <%# @vlan.addresses.each do |addr_obj| %>
+  <% @addresses.each do |addr_obj| %>
+    <% addr = addr_obj.clone %><!-- To be nullified to free mem latter -->
     <% count += 1 %>
     <!-- @user & @department come from vlans_helper.rb -->
     <% find_user(addr.user_id) %>
@@ -116,10 +121,15 @@
         <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="assigner" data-url="<%= address_path(addr) %>" data-title="Assigner"><%= addr.assigner %></a>
       </td>
     </tr>
+    <% addr = nil %>
   <% end %>
   </tbody>
   </table>
+  <% GC.start %><!-- Garbage collecting to free mem -->
 </div>
+
+<%= page_entries_info @addresses %><br />
+<%= will_paginate @addresses, renderer: BootstrapPagination::Rails %>
 
 <!-- Reserved address list -->
 <div>

@@ -178,78 +178,98 @@ namespace :import do
       end
       user_id = user1.id
 
-      note = "OK" # importing result
+      note = "??? Ooops, nothing done!" # importing result
       # IP addresses need updating only. Do not create new IP addresses.
       # Determines whether the IP address exists. If yes, updates it;
       # Note: Using iph[:ip] leads to failing finding the lan_name from Hash h1!!!
       ip1 = Address.find_by(ip: iph["ip"])
-      puts "ip1 = #{ip1.ip}"
       #puts iph.to_s
 
       unless ip1
-        log_file.puts "ERROR: Cannot find IP address: #{iph["ip"]}"
+        note = "ERROR: IP address NOT found!"
+        display_n_log "#{ip1.ip}: #{note}", log_file
         next
       else # updates
         # Let's resolve FK vlan_id with the IP address
         vlan_id = ip1.vlan_id
-
-        note = "OK. Updated!"
         # Extracts the IP address hash from iph, appending the 2 FKs
         ip_hash = create_ip_hash(vlan_id, user_id, iph)
 
-         # Resolves user name from User.find_by(id: ip1.user_id)
+        # Resolves user name from User.find_by(id: ip1.user_id)
         user2 = User.find_by(id: ip1.user_id)
-        if user2.name == 'NOBODY' || update?(iph["update"]) # updates non-existing records
+        # Only imports nonexistent, flaged as yes or new records
+        if user2.name == 'NOBODY' || update?(iph["update"]) || new_record?(ip1, iph) 
           update_address(ip1, ip_hash)
+          note = "Imported/Updated successfully!"
         else # Outputs duplicate records
-          log_file.puts "--- Warnning: duplicate records:"
-
-          diff_file.puts "<br />**** Existing *******************<br />"
           old_attr = ImportHelpers::address_to_a(ip1, user2.name)
-          diff_file.puts ImportHelpers::address_to_s(ip1, user2.name)
+          new_attr = ImportHelpers::address_hash_to_a(iph, user1.name)
 
-          new_attr = ImportHelpers::hash_to_a(iph, user1.name)
-          ImportHelpers::output_comparision_result(old_attr, new_attr, diff_file)
+          note = "The existing is identical with the one to be imported. Ignored!"
+          if old_attr != new_attr
+            log_file.puts "--- Warnning: duplicate records:"
+            diff_file.puts "<br />*** Existing ***<br />"
+            diff_file.puts ImportHelpers::address_to_s(ip1, user2.name)
+            new_attr = ImportHelpers::address_hash_to_a(iph, user1.name)         
+            ImportHelpers::output_comparision_result(old_attr, new_attr, diff_file)
+            note = "Conflict with the existing, not imported, diff output!"
+          end
         end
       end
-
-      # Logs the result for each row
-      #h1[:note] = note
-      log_file.puts note
+      display_n_log "#{ip1.ip}: #{note}", log_file
     end
     
     ImportHelpers::append_html_tail(diff_file)
-    puts "*** IP addresses imported!"
+    puts "*** IP addresses importing done!"
   end
 
   private
 
-    # See the implementation of taks ips above
-    # addr: an Address object
-    # addr_hash: the IP address hash to be imported 
+    # Outputs a prompt & logs the result for each row (IP address)
+    def display_n_log(msg, log_file)
+      puts msg
+      log_file.puts msg
+    end
+
+    # See the implementation of task ips above
+    # addr, an Address object; addr_hash, the IP address hash to be imported 
     def update_address(addr, addr_hash)
       Address.update addr.id, addr_hash
     end
     
     def create_ip_hash(vlan_id, user_id, iph)
-      { vlan_id: vlan_id,
-        user_id: user_id,
-        ip: iph["ip"],
-        mac_address: iph["mac_address"],
-        usage: iph["usage"],
-        application_form: iph["application_form"],
-        start_date: iph["start_date"],
-        end_date: iph["end_date"]
-      }
+      {vlan_id: vlan_id,
+      user_id: user_id,
+      ip: iph["ip"],
+      mac_address: iph["mac_address"],
+      usage: iph["usage"],
+      application_form: iph["application_form"],
+      start_date: iph["start_date"],
+      end_date: iph["end_date"]}
     end
 
-    # nil is false, while 0 is true (Non-nil is true).
+    # Attention: In Ruby, nil is false, while 0 is true (Non-nil is true).
     def update?(str)
       r = nil
       if str && str.instance_of?(String)
         str.strip!
         str.downcase!
         r = 1 if str == 'y' || str == 'yes'
+      end
+      return r
+    end
+
+    # Determines whether the record to be imported is new according to the datetime
+    # ip, the existing Address record; iph, the Hash to be imported as a new Address record
+    def new_record?(ip, iph)
+      r = nil
+      # Creates a TimeWithZone instance from the String object
+      new_start_date = Time.zone.parse(iph["start_date"]) if iph["start_date"] 
+      if ip.start_date && new_start_date  
+        r = new_start_date > ip.start_date
+      # The existing record has no start_date
+      elsif new_start_date && !(ip.start_date)  
+        r = 1
       end
       return r
     end

@@ -10,9 +10,10 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+// require turbolinks: disabled due to its conflict with Bootstrap in-place editing.
+//
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require bootstrap-sprockets
 //= require bootstrap3-editable/bootstrap-editable
 //= require_tree .
