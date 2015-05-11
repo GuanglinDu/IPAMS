@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<!-- http://www.tutorialspark.com/twitterBootstrap/TwitterBootstrap_Collapsible_Accordion_data_Attributes.php -->
+<head>
+  <title>Twitter Bootstrap : Collapse accordion using Data Attributes</title>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+</head>
+
+<style>
+.DemoBS2{
+    margin:20px;
+}
+p{
+    background:#444;
+    color:#4ee255;
+    padding:10px;
+    margin:10px 0px;
+    border:2px solid #fa4b2a;
+    border-radius:10px;
+    box-shadow:4px 4px 4px #ccc;
+}
+</style>
+
+<body>
+<div class="DemoBS2">
+  <!-- Toogle Buttons -->
+    <button type="button" class="btn btn-warning" 
+  data-toggle="collapse" data-target="#toggle-example">Click to Toogle 192.168.1.1 ...</button>
+ 
+    <div id="toggle-example" class="collapse in">
+      <p>If you don't like something, <b>change it</b>. 
+	  If you can't change it, change your <b>attitude</b>.</p></div>
+</div>
+</body>
+</html>
