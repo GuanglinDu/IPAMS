@@ -14,8 +14,7 @@
       <h5><b>Step 2</b>: Select What to import, locate the CSV file & import.</h5>
       <%= bootstrap_form_tag url: import_import_path, multipart: true, class: 'form-horizontal' do |f| %>
         <!-- Handle form_tag errors as in the case form_for?
-          http://stackoverflow.com/questions/4129229/rails-restoring-contents-of-non-model-form-that-uses-form-tag
-        -->
+          http://stackoverflow.com/questions/4129229/rails-restoring-contents-of-non-model-form-that-uses-form-tag -->
         <div class="form-group">
           <div class="col-xs-4">
             <%= f.select :option_id, options_for_select(["VLANs", "IP Addresses"]) %>

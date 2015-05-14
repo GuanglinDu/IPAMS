@@ -7,7 +7,23 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     #@users = User.all # mem killer!
-    @users = User.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
+    keywords = params[:search]
+    keywords = keywords.strip if keywords
+
+    # No keywords, no search; paginate all, instead.
+    @users = nil
+    if keywords && keywords != "" 
+      #search = Sunspot.search(Address)
+      search = User.search do
+        fulltext keywords
+      end 
+      # Type Sunspot::Search::PaginatedCollection < Array
+      @users = search.results
+    else
+      @users = User.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
+    end
+
+    authorize @users
   end
 
   # GET /users/1

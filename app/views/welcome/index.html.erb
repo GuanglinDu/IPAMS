@@ -1,24 +1,26 @@
-<h3>IPAMS Home Page</h3>
-<% if policy(:welcome).tip? %>
-  <p><strong>You must ask the administrator to assign your role to dive deep. </strong></p>
-<% end %>
-
-<div>
-  <p>TODOs(Nov. 14, 2014 Fri.):</p>
-  <ol>
-    <li><del>Switch views between LANs, VLANs, IP addresses, departments, users at one's will.</del>Done!</li>
-    <li>Search for anything with any key word and their combinations.</li>
-    <li>List the info in any order necessary.</li>
-  </ol>
-</div>
-
-<div>
-  <h3>An i18n demo:</h3>
-  <p>Displays Hello World in English or Simplified Chinese according to your locale:<%= t('.hello')%></p>
-</div>
-
-<div>
-  <%= link_to lans_path, class: 'btn btn-success' do %>
-    <i class="glyphicon glyphicon-arrow-right"></i> Go to LANs 
+<div class="row">
+  <h3>IPAMS Home Page</h3>
+  <% if policy(:welcome).tip? %>
+    <p><strong>You must ask the administrator to assign your role to dive deep. </strong></p>
   <% end %>
+
+  <div>
+    <p>TODOs(Nov. 14, 2014 Fri.):</p>
+    <ol>
+      <li><del>Switch views between LANs, VLANs, IP addresses, departments, users at one's will.</del>Done!</li>
+      <li>Search for anything with any key word and their combinations.</li>
+      <li>List the info in any order necessary.</li>
+    </ol>
+  </div>
+
+  <div>
+    <h3>An i18n demo:</h3>
+    <p>Displays Hello World in English or Simplified Chinese according to your locale:<%= t('.hello')%></p>
+  </div>
+
+  <div>
+    <%= link_to lans_path, class: 'btn btn-success' do %>
+      <i class="glyphicon glyphicon-arrow-right"></i> Go to LANs 
+    <% end %>
+  </div>
 </div>

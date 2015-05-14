@@ -4,4 +4,9 @@ class Lan < ActiveRecord::Base
   validates :lan_number, :lan_name, uniqueness: true
 
   has_many :vlans, dependent: :destroy
+
+  searchable do
+    string :lan_name
+    integer :lan_number
+  end
 end

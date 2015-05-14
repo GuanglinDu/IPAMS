@@ -5,4 +5,14 @@ class Address < ActiveRecord::Base
   belongs_to :vlan
   belongs_to :user
   has_many :histories, dependent: :destroy
+
+  # Searches with Sunspot
+  searchable do
+    text :usage
+    text :ip
+    text :mac_address
+    text :assigner
+    text :start_date
+    text :end_date
+  end
 end

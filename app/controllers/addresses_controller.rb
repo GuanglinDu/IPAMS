@@ -7,8 +7,23 @@ class AddressesController < ApplicationController
   #after_action :verify_policy_scoped, only: :index
 
   def index
-    #@addresses = Address.all # mem killer!
-    @addresses = Address.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
+    keywords = params[:search]
+    keywords = keywords.strip if keywords
+
+    # No keywords, no search
+    @addresses = nil
+    if keywords && keywords != "" 
+      #search = Sunspot.search(Address)
+      search = Address.search do
+       fulltext keywords
+      end 
+      # Type Sunspot::Search::PaginatedCollection < Array
+      @addresses = search.results
+    else
+      # paginate returns object os type User::ActiveRecord_Relation < ActiveRecord::Relation
+      @addresses = Address.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
+    end
+
     authorize @addresses
     #policy_scope(@addresses)
   end
