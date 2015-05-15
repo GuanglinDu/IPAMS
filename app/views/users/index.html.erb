@@ -35,6 +35,7 @@
     <th></th>
   </tr>
   </thead>
+
   <tbody>
   <% @users.each do |user_obj| %>
     <% user = user_obj.clone %><!-- To be nullified to free mem -->
@@ -46,7 +47,19 @@
       </td>
       <td>
         <% if user.name != "NOBODY" %>
-          <% user.addresses.each do |addr| %><%= addr.ip %><br /><% end %>
+          <% if user.addresses.count >= 2 %>
+
+          <div class="folding_margin">
+          <!-- Toogle Buttons -->
+            <button type="button" class="btn btn-xs" 
+  data-toggle="collapse" data-target="#tx_<%= user.id%>"><%= uas = user.addresses.first.ip %></button>
+ 
+              <div id="tx_<%= user.id%>" class="collapse">
+                <% ubs = user.addresses %><%ubs.each do |addr| %><%= addr.ip %><br /><% end %>
+              </div>
+          </div>
+          <%elsif  ucs = user.addresses %><%ucs.each do |addr| %><%= addr.ip %><br /><% end %>
+          <% end %>
         <% end %>
       </td>
       <td>
