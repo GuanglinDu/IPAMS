@@ -15,6 +15,9 @@
 /log
 /tmp
 /vendor
+# Have to reconfigure solr in development environment
+# See http://www.zeebar.com/technotes/sunspot-solr-in-rails4-production
+/solr
 
 # LibreOffice cache files
 *.~*#
