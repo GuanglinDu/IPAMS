@@ -13,8 +13,9 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
-/log/*.lck
+/log/*.log.lck
 /tmp
+/vendor/*
 
 # LibreOffice cache files
 *.~*#
