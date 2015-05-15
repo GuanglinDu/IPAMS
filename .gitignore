@@ -11,11 +11,10 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
-# Ignore all logfiles and tempfiles.
-/log/*.log
-/log/*.log.lck
+# Ignores all logfiles, temp files & vendor folder.
+/log
 /tmp
-/vendor/*
+/vendor
 
 # LibreOffice cache files
 *.~*#
@@ -25,9 +24,6 @@
 *.rb.swo
 *.swo
 *.swn
-
-# Ignores the only one bash file
-run.sh
 
 # Ignores the Sunspot search index data 
 # See http://stackoverflow.com/questions/20129493/sunspot-solr-gem-gitignore
