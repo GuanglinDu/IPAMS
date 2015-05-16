@@ -40,7 +40,7 @@ class VlansController < ApplicationController
     @addresses = Address.where(vlan_id: @vlan.id).paginate(page: params[:page],
       per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     authorize @vlan
-    #, @addresses
+    authorize @addresses
   end 
 
   # Updates are implemented by methods edit and update

@@ -122,3 +122,11 @@ gem 'thin'
 # Paginates with will_paginate-bootstrap
 # See https://github.com/bootstrap-ruby/will_paginate-bootstrap
 gem 'will_paginate-bootstrap'
+
+# Full-text search support with Sunspot
+# See https://github.com/outoftime/sunspot/wiki
+gem 'sunspot_rails'
+# optional pre-packaged Solr distribution for use in development
+gem 'sunspot_solr'
+
+gem 'progress_bar'
