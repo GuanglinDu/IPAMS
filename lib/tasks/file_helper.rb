@@ -1,6 +1,6 @@
 module FileHelper
-  #ROOT_PATH = ROOT_PATH
-  ROOT_PATH = "./"
+  #ROOT_PATH = "../.."
+  ROOT_PATH = "#{Rails.root}"
 
   #IMPORT_LOG = ROOT_PATH.join('tmp/IMPORT_LOG.txt')
 

@@ -1,4 +1,4 @@
-module ImportHelpers
+module ImportHelper
   def output_comparision_result(old_attr, new_attr, diff_file)
     diff_file.puts "<br />*** To import ***<br />"
     0.upto(old_attr.count-1) do |i|
