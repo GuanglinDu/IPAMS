@@ -51,20 +51,18 @@ end
 # gem 'unicorn'
 
 # Use Capistrano for deployment
+# http://www.talkingquickly.co.uk/2014/01/deploying-rails-apps-to-a-vps-with-capistrano-v3/
 #gem 'capistrano', group: :development
 #gem 'capistrano-passenger'
 
-# http://www.talkingquickly.co.uk/2014/01/deploying-rails-apps-to-a-vps-with-capistrano-v3/
-gem 'capistrano', '~> 3.1.0'
-
 # rails specific capistrano funcitons
-gem 'capistrano-rails', '~> 1.1.0'
+#gem 'capistrano-rails', '~> 1.1.0'
 
 # integrate bundler with capistrano
-gem 'capistrano-bundler'
+#gem 'capistrano-bundler'
 
 # if you are using RBENV
-gem 'capistrano-rbenv', "~> 2.0", require: false 
+#gem 'capistrano-rbenv', "~> 2.0", require: false 
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
@@ -125,5 +123,4 @@ gem 'will_paginate-bootstrap'
 gem 'sunspot_rails'
 # optional pre-packaged Solr distribution for use in development
 gem 'sunspot_solr'
-
 gem 'progress_bar'
