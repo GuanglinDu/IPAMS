@@ -102,7 +102,26 @@
     </fieldType>
     <!-- A specialized field for geospatial search. If indexed, this fieldType must not be multivalued. -->
     <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate"/>
+
+    <!-- Matching substrings in fulltext search
+      https://github.com/sunspot/sunspot/wiki/Matching-substrings-in-fulltext-search -->
+    <fieldType class="solr.TextField" name="text_pre" positionIncrementGap="100">
+      <analyzer type="index">
+        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <!-- To match prefix -->
+        <!-- filter class="solr.EdgeNGramFilterFactory"/ -->
+        <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="10" side="front"/>
+        <!-- To match arbitrary substrings -->
+        <!-- filter class="solr.NGramFilterFactory"/ -->
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+    </fieldType>
   </types>
+
   <fields>
     <!-- Valid attributes for fields:
      name: mandatory - the name for the field
@@ -250,6 +269,11 @@
     <dynamicField name="*_llm" stored="false" type="location" multiValued="true" indexed="true"/>
     <dynamicField name="*_lls" stored="true" type="location" multiValued="false" indexed="true"/>
     <dynamicField name="*_llms" stored="true" type="location" multiValued="true" indexed="true"/>
+
+    <!-- Matching substrings in fulltext search
+      https://github.com/sunspot/sunspot/wiki/Matching-substrings-in-fulltext-search -->
+    <dynamicField name="*_textp" stored="false" type="text_pre" multiValued="true" indexed="true"/>
+
     <field name="textSpell" stored="false" type="textSpell" multiValued="true" indexed="true"/>
     <!-- required by Solr 4 -->
     <field name="_version_" type="string" indexed="true" stored="true" multiValued="false" />

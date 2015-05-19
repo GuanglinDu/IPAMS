@@ -6,9 +6,11 @@ class User < ActiveRecord::Base
   has_many :histories, through: :addresses
 
   searchable do
-    text :name, :email, :building
-    text :office_phone
-    text :cell_phone
-    text :room
+    text :name, as: :name_textp
+    text :email, as: :eamil_textp
+    text :building, as: :building_textp
+    text :office_phone, as: :office_phone_textp
+    text :cell_phone, as: :cell_phone_textp
+    text :room, as: :room_textp
   end
 end
