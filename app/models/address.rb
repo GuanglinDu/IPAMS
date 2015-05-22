@@ -11,9 +11,8 @@ class Address < ActiveRecord::Base
   # https://github.com/sunspot/sunspot/wiki/Matching-substrings-in-fulltext-search
   searchable do
     text :usage, :as => :usage_textp
-    #text :ip
     text :ip, :as => :ip_textp
-    #text :mac_address
+    #text :ip
     text :mac_address, :as => :mac_address_textp
     text :assigner, :as => :assigner_textp
     time :start_date

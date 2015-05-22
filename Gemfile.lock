@@ -83,6 +83,8 @@ GEM
     pundit (0.3.0)
       activesupport (>= 3.0.0)
     rack (1.5.2)
+    rack-ssl (1.4.1)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.1.8)
@@ -169,6 +171,7 @@ DEPENDENCIES
   jquery-rails
   progress_bar
   pundit
+  rack-ssl (~> 1.4.1)
   rails (= 4.1.8)
   sass-rails (~> 4.0.0)
   sdoc
