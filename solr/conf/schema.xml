@@ -46,7 +46,7 @@
 <schema name="sunspot" version="1.0">
   <types>
     <!-- field type definitions. The "name" attribute is
-       just a label to be used by field definitions.  The "class"
+       just a label to be used by field definitions. The "class"
        attribute and any other attributes determine the real
        behavior of the fieldType.
          Class names starting with "solr" refer to java classes in the
@@ -84,8 +84,7 @@
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="tfloat" class="solr.TrieFloatField" omitNorms="true"/>
     <!-- *** This fieldType is used by Sunspot! *** -->
-    <fieldType name="tdate" class="solr.TrieDateField"
-               omitNorms="true"/>
+    <fieldType name="tdate" class="solr.TrieDateField" omitNorms="true"/>
 
     <!-- Special field type for spell correction. Be careful about
          adding filters here, as they apply *before* your values go in
@@ -103,20 +102,23 @@
     <!-- A specialized field for geospatial search. If indexed, this fieldType must not be multivalued. -->
     <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate"/>
 
-    <!-- Matching substrings in fulltext search
+    <!-- Match prefix/substring in fulltext search
       https://github.com/sunspot/sunspot/wiki/Matching-substrings-in-fulltext-search -->
     <fieldType class="solr.TextField" name="text_pre" positionIncrementGap="100">
       <analyzer type="index">
         <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <!-- tokenizer class="solr.StandardTokenizerFactory"/ -->
+        <!-- filter class="solr.StandardFilterFactory"/ -->
         <filter class="solr.LowerCaseFilterFactory"/>
-        <!-- To match prefix -->
-        <!-- filter class="solr.EdgeNGramFilterFactory"/ -->
-        <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="10" side="front"/>
-        <!-- To match arbitrary substrings -->
-        <!-- filter class="solr.NGramFilterFactory"/ -->
+        <!-- Prefix matching. Attention: maxGramSize must be appropriate, or the full text matching might be not found. -->
+        <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="15" side="front"/>
+        <!-- Arbitrary substring matching -->
+        <!-- filter class="solr.NGramFilterFactory" minGramSize="2" maxGramSize="15" side="front"/ -->
       </analyzer>
       <analyzer type="query">
+        <!-- tokenizer class="solr.StandardTokenizerFactory"/ -->
         <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+        <!-- filter class="solr.StandardFilterFactory"/ -->
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
     </fieldType>
@@ -270,7 +272,7 @@
     <dynamicField name="*_lls" stored="true" type="location" multiValued="false" indexed="true"/>
     <dynamicField name="*_llms" stored="true" type="location" multiValued="true" indexed="true"/>
 
-    <!-- Matching substrings in fulltext search
+    <!-- Match prefix/substrings in fulltext search
       https://github.com/sunspot/sunspot/wiki/Matching-substrings-in-fulltext-search -->
     <dynamicField name="*_textp" stored="false" type="text_pre" multiValued="true" indexed="true"/>
 
