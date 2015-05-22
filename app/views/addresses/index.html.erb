@@ -33,7 +33,6 @@
       <th>Office Phone</th>
       <th>Cell Phone</th>
       <th>Building</th>
-      <th>Locaiton</th>
       <th>Storey</th>
       <th>Room</th>
     <th>Application Form</th>
@@ -77,9 +76,6 @@
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= address.user_id %>" data-model="user" data-name="building" data-url="<%= user_path(@user) %>" data-title="Building"><%= @user.building %></a>
       </td>
-      <td>
-        <a href="#" data-xeditable="true" data-pk="<%= @user.department_id %>" data-model="department" data-name="location" data-url="<%= department_path(@department) %>" data-title="Location"><%= @department.location %></a>
-</td>
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= address.user_id %>" data-model="user" data-name="storey" data-url="<%= user_path(@user) %>" data-title="Storey"><%= @user.storey %></a>
       </td>

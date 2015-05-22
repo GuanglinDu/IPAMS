@@ -13,8 +13,6 @@ class ApplicationController < ActionController::Base
   #skip_before_filter :verify_signed_out_user, only: :destroy
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
-  # Forces https  
-  #before_filter :redirect_to_https
   # Selects locale according to user's selection & athenticates users
   before_action :set_i18n_locale_from_params, :authenticate_system_user!
 
@@ -67,8 +65,4 @@ class ApplicationController < ActionController::Base
      #self.response_body = nil # This should resolve the redirect root.
      redirect_to request.headers["Referer"] || welcome_path
    end 
-
-   #def redirect_to_https
-   #  redirect_to :protocol => "https://" unless request.ssl?
-   #end
 end
