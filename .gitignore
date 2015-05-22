@@ -21,7 +21,9 @@
 /solr/data
 /solr/default/data
 /solr/development
+/solr/production
 /solr/test
+/solr/pids
 
 # LibreOffice cache files
 *.~*#
@@ -32,6 +34,6 @@
 *.swo
 *.swn
 
-# Ignores the Sunspot search index data 
-# See http://stackoverflow.com/questions/20129493/sunspot-solr-gem-gitignore
-#solr/data
+# Ignores https certificates
+*.crt
+*.key  
