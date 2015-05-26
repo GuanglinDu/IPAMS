@@ -1,17 +1,19 @@
-<h1>Listing Departments</h1>
+<h4>Listing Departments</h4>
+<!-- Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap -->
+<%= page_entries_info @departments %><br />
+<%= will_paginate @departments, renderer: BootstrapPagination::Rails %>
 
 <table class="table table-striped table-condensed">
   <thead>
-    <tr>
-      <th>No.</th>
-      <th>Dept name</th>
-      <th>Location</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+  <tr>
+    <th>No.</th>
+    <th>Dept name</th>
+    <th>Location</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
   </thead>
-
   <tbody>
     <% counter = 1 %>
     <% @departments.each do |department| %>

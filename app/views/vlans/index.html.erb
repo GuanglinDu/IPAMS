@@ -1,4 +1,7 @@
 <h3>Listing VLANs</h3>
+<!-- Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap -->
+<%= page_entries_info @vlans %><br />
+<%= will_paginate @vlans, renderer: BootstrapPagination::Rails %>
 <div>
   <!-- VLAN list -->
   <table class="table table-striped table-condensed">

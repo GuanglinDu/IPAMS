@@ -111,9 +111,9 @@
         <!-- filter class="solr.StandardFilterFactory"/ -->
         <filter class="solr.LowerCaseFilterFactory"/>
         <!-- Prefix matching. Attention: maxGramSize must be appropriate, or the full text matching might be not found. -->
-        <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="15" side="front"/>
+        <filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="15" side="front"/>
         <!-- Arbitrary substring matching -->
-        <!-- filter class="solr.NGramFilterFactory" minGramSize="2" maxGramSize="15" side="front"/ -->
+        <!-- filter class="solr.NGramFilterFactory" minGramSize="1" maxGramSize="15" side="front"/ -->
       </analyzer>
       <analyzer type="query">
         <!-- tokenizer class="solr.StandardTokenizerFactory"/ -->
