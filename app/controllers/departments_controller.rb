@@ -1,10 +1,15 @@
 class DepartmentsController < ApplicationController
+  include IPAMSConstants
+
   before_action :set_department, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized
 
   # GET /departments
   # GET /departments.json
   def index
-    @departments = Department.all
+    #@departments = Department.all # mem killer
+    @departments = Department.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
+    authorize @departments
   end
 
   # GET /departments/1

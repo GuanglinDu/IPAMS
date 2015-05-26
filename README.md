@@ -35,6 +35,7 @@ Importing Existing Data (Administrators only)
 
 History
 ------
+<ol>20150522: Implement prefix-matching search in Addresses views & Users view. No cross-table search support at present.</ol>
 <ol>20150520: Implement most of the basic features.</ol>
 <ol>20150116: Implement authorization with Pundit and IP address editing in Vlans & Addresses views.</ol>
 <ol>20150114: Update to Rails 4.1.8 to use ActiveRecord::Enum in role-based authorization with Pundit.</ol>

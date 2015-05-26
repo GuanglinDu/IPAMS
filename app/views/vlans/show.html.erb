@@ -63,7 +63,6 @@
       <th>Room</th>
       <th>Start Date</th>
       <th>End Date</th>
-      <th>Application Form</th>
       <th>Assigner</th>
     </tr>
   </thead>
@@ -114,9 +113,8 @@
         <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="start_date" data-url="<%= address_path(addr) %>" data-title="Start Date"><%= addr.start_date %></a>
       </td>
       <td>
-        <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="end_date" data-url="<%= address_path(addr) %>" data-title="Start Date"><%= addr.end_date %></a>
+        <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="end_date" data-url="<%= address_path(addr) %>" data-title="End Date"><%= addr.end_date %></a>
       </td>
-      <td><%= addr.application_form %></td>
       <td>
         <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="assigner" data-url="<%= address_path(addr) %>" data-title="Assigner"><%= addr.assigner %></a>
       </td>
