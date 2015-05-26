@@ -1,4 +1,7 @@
 <h3>Listing LANs</h3>
+<!-- Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap -->
+<%= page_entries_info @lans %><br />
+<%= will_paginate @lans, renderer: BootstrapPagination::Rails %>
 
 <table class="table table-striped">
   <thead>
