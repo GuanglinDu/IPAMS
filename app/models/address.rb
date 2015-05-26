@@ -12,7 +12,6 @@ class Address < ActiveRecord::Base
   searchable do
     text :usage, :as => :usage_textp
     text :ip, :as => :ip_textp
-    #text :ip
     text :mac_address, :as => :mac_address_textp
     text :assigner, :as => :assigner_textp
     time :start_date
