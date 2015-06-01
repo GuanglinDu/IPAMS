@@ -124,3 +124,6 @@ gem 'sunspot_rails'
 # optional pre-packaged Solr distribution for use in development
 gem 'sunspot_solr'
 gem 'progress_bar'
+
+# Enables https
+gem 'rack-ssl', '~> 1.4.1'
