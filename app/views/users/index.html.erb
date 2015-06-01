@@ -89,11 +89,13 @@
            class="glyphicon glyphicon-edit" Edit
          end
       -->
+      <% if policy(user).destroy? %>
       <td>
         <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
           <i class="glyphicon glyphicon-remove"></i> Destroy
         <% end %>
       </td>
+      <% end %>
     </tr>
     <% user = nil %>
   <% end %>
