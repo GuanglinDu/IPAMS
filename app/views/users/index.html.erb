@@ -20,6 +20,7 @@
 
 <table class="table table-striped table-condensed">
   <thead>
+
   <tr>
     <th>NO.</th>
     <th>Name</th>
@@ -51,14 +52,17 @@
 
           <div class="folding_margin">
           <!-- Toogle Buttons -->
-            <button type="button" class="btn btn-xs" 
-  data-toggle="collapse" data-target="#tx_<%= user.id%>"><%= uas = user.addresses.first.ip %></button>
+            <button id="more" type="button" class="btn btn-xs" 
+  data-toggle="collapse" data-target="#tx_<%= user.id%>"><span class="glyphicon glyphicon-plus"></span><%= uas = user.addresses.first.ip %></button>
  
+              <!-- <div id="tx_<%= user.id%>" class="collapse">
+                <% ubs = user.addresses %><%ubs.each do |addr| %>&nbsp;&nbsp;&nbsp;<%= addr.ip %><br /><% end %>
+              </div>-->
               <div id="tx_<%= user.id%>" class="collapse">
-                <% ubs = user.addresses %><%ubs.each do |addr| %><%= addr.ip %><br /><% end %>
+                <% ubs = user.addresses %><%ubs.each do |addr| %>&nbsp;&nbsp;&nbsp;<%= addr.ip %><br /><% end %>
               </div>
           </div>
-          <%elsif  ucs = user.addresses %><%ucs.each do |addr| %><%= addr.ip %><br /><% end %>
+          <%elsif  ucs = user.addresses %><%ucs.each do |addr| %>&nbsp;&nbsp;&nbsp;<%= addr.ip %><br /><% end %>
           <% end %>
         <% end %>
       </td>
@@ -103,3 +107,6 @@
 
 <%= page_entries_info @users %><br />
 <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+<script src="myClick.js"></script> 
+<!-- <script src="../../assets/javascripts/folding.js"></script> -->
+<!-- <script src="../../assets/javascripts/folding.js"></script> -->
