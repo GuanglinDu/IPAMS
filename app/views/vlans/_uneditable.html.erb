@@ -1,0 +1,16 @@
+<tr>
+  <% vlan = uneditable %>
+  <td><%= uneditable_counter + 1 %></td>
+  <td><%= find_lan_name(vlan.lan_id) %></td>
+  <td><%= vlan.vlan_number %></td>
+  <td><%= vlan.vlan_name %></td>
+  <td><%= vlan.static_ip_start %></td>
+  <td><%= vlan.static_ip_end %></td>
+  <td><%= vlan.subnet_mask %></td>
+  <td><%= vlan.gateway %></td>
+  <td><%= vlan.vlan_description %></td>
+
+  <% if policy(vlan).show? %>
+    <td><%= link_to 'Show', vlan, lan_id: vlan.lan_id, class: 'btn btn-primary btn-xs' %></td>
+  <% end %>
+</tr>

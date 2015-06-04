@@ -1,0 +1,36 @@
+<!-- http://stackoverflow.com/questions/4566620/getting-the-current-item-number-or-index-when-using-will-paginate-in-rails-app -->
+<% users = uneditable %>
+<% count = users.offset %>
+
+<% users.each do |user| %>
+<% find_address(user.id) %>
+  <tr>
+    <td><%= count += 1 %></td>
+    <td><%= user.name %></td>
+    <td>
+      <% if user.name != "NOBODY" %>
+        <% if user.addresses.count >= 2 %>
+
+        <div class="folding_margin">
+        <!-- Toogle Buttons -->
+          <button type="button" class="btn btn-xs" data-toggle="collapse" data-target="#tx_<%= user.id%>"><%= uas = user.addresses.first.ip %></button>
+          <div id="tx_<%= user.id%>" class="collapse">
+            <% ubs = user.addresses %><%ubs.each do |addr| %><%= addr.ip %><br /><% end %>
+          </div>
+        </div>
+        <%elsif  ucs = user.addresses %><%ucs.each do |addr| %><%= addr.ip %><br /><% end %>
+        <% end %>
+      <% end %>
+    </td>
+    <td><%= user.office_phone %></td>
+    <td><%= user.cell_phone %></td>
+    <td><%= user.email %></td>
+    <td><%= user.building %></td>
+    <td><%= user.storey %></td>
+    <td><%= user.room %></td>
+    <td><%= find_department_name(user.department_id) %></td>
+    <td><%= @address.start_date %></td>
+    <td><%= @address.end_date %></td>
+    <td><%= @address.assigner %></td>
+    <td><%= link_to 'Show', user, class: 'btn btn-primary btn-xs' %></td>
+<% end %>

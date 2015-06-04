@@ -23,10 +23,12 @@
     </thead>
     <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
     <tbody>
-      <!-- %= render vlans % -->
-      <%= render :partial => 'vlan', collection: @vlans %> 
+      <% partial_name = "vlan" %>
+      <% partial_name = "uneditable" unless policy(@vlans).edit? %>
+      <%= render partial: partial_name, collection: @vlans %>
     </tbody>
   </table>
+
   <!-- Create a new VLAN -->
   <% if policy(:vlan).new? %>
     <p>
