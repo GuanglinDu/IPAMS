@@ -2,6 +2,7 @@
 <div class="row">
   <div class="col-xs-8">
     <h4>Listing Users</h4>
+    <!-- Header pagination -->
     <!-- Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap -->
     <%= page_entries_info @users %><br />
     <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
@@ -22,6 +23,9 @@
     <th>NO.</th>
     <th>Name</th>
     <th>IP Address</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Assigner</th>
     <th>Office phone</th>
     <th>Cell phone</th>
     <th>Email</th>
@@ -29,18 +33,17 @@
     <th>Storey</th>
     <th>Room</th>
     <th>Department</th>
-    <th>Start Date</th>
-    <th>End Date</th>
-    <th>Assigner</th>
     <th></th>
   </tr>
   </thead>
   <tbody>
-  <% partial_name = "editable" %>
-  <% partial_name = "uneditable" unless policy(@users).edit? %>
-  <%= render partial: partial_name, object: @users %>
+    <% partial_name = "editable" %>
+    <% partial_name = "uneditable" unless policy(@users).edit? %>
+    <%= render partial: partial_name, object: @users %>
   </tbody>
 </table>
 </div>
+
+<!-- Footer pagination -->
 <%= page_entries_info @users %><br />
 <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
