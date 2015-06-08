@@ -16,22 +16,21 @@
       <td>---</td>
       <td>---</td>
     <% elsif addresses.count >= 2 && user.name != "NOBODY" %>
-    <%# if addresses.count >= 2 %>
       <% count2 = 1 %>
       <% s1 = user.id.to_s %>
       <% s2 = s1 + "-" + count2.to_s %><!-- unique id names -->
       <% slicedAddrs = addresses.slice(1, addresses.count - 1)  %><!-- removes 1st one -->
+
       <td>
         <!-- Toggle links: http://getbootstrap.com/javascript/#collapseExample -->
-        
         <a class="btn btn-xs" data-toggle="collapse" data-target="#<%= s2 %>">
           <i class="glyphicon glyphicon-plus"><%= addresses.first.ip %></i>
         </a>
-
         <div id="<%= s2 %>" class="collapse">
           <% slicedAddrs.each do |addr| %><%= addr.ip %><br /><% end %>
         </div>
       </td>
+
       <% count2 += 1 %>
       <% s2 = s1 + "-" + count2.to_s %>
       <td>
@@ -42,6 +41,7 @@
           <% slicedAddrs.each do |addr| %><%= addr.start_date %><br /><% end %>
         </div>
       </td>
+
       <% count2 += 1 %>
       <% s2 = s1 + "-" + count2.to_s %>
       <td>
@@ -52,6 +52,7 @@
           <% slicedAddrs.each do |addr| %><%= addr.end_date %><br /><% end %>
         </div>
       </td>
+
       <% count2 += 1 %>
       <% s2 = s1 + "-" + count2.to_s %>
       <td>
@@ -64,7 +65,11 @@
       </td>
     <% else %>
       <td><% addresses.each do |addr| %><%= addr.ip %><% end %></td>
-      <td><% addresses.each do |addr| %><%= addr.start_date %><% end %></td>
+      <td>
+        <% addresses.each do |addr| %>
+          <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="start_date" data-url="<%= address_path(addr) %>" data-title="Start Date"><%= addr.start_date %></a>
+        <% end %>
+      </td>
       <td><% addresses.each do |addr| %><%= addr.end_date %><% end %></td>
       <td><% addresses.each do |addr| %><%= addr.assigner %><% end %></td>
     <% end %>
