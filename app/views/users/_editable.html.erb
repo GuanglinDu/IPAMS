@@ -1,0 +1,108 @@
+<% users = editable %>
+<!-- http://stackoverflow.com/questions/4566620/getting-the-current-item-number-or-index-when-using-will-paginate-in-rails-app -->
+<% count = users.offset %>
+
+<% users.each do |user| %>
+  <!-- addresses_helper: helpers for controllers and views -->
+  <% addresses = find_addresses_of_user(user) %>
+  <tr>
+    <td><%= count += 1 %></td>
+    <td>
+      <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="name" data-url="<%= user_path(user) %>" data-title="User Name"><%= user.name %></a>
+    </td>
+    <% if user.name == "NOBODY" %>
+      <td>---</td>
+      <td>---</td>
+      <td>---</td>
+      <td>---</td>
+    <% elsif addresses.count >= 2 && user.name != "NOBODY" %>
+      <% count2 = 1 %>
+      <% s1 = user.id.to_s %>
+      <% s2 = s1 + "-" + count2.to_s %><!-- unique id names -->
+      <% slicedAddrs = addresses.slice(1, addresses.count - 1)  %><!-- removes 1st one -->
+
+      <td>
+        <!-- Toggle links: http://getbootstrap.com/javascript/#collapseExample -->
+        <a class="btn btn-xs" data-toggle="collapse" data-target="#<%= s2 %>">
+          <i class="glyphicon glyphicon-plus"><%= addresses.first.ip %></i>
+        </a>
+        <div id="<%= s2 %>" class="collapse">
+          <% slicedAddrs.each do |addr| %><%= addr.ip %><br /><% end %>
+        </div>
+      </td>
+
+      <% count2 += 1 %>
+      <% s2 = s1 + "-" + count2.to_s %>
+      <td>
+        <a class="btn btn-xs" data-toggle="collapse" data-target="#<%= s2 %>">
+          <i class="glyphicon glyphicon-plus"><%= addresses.first.start_date %></i>
+        </a>
+        <div id="<%= s2 %>" class="collapse">
+          <% slicedAddrs.each do |addr| %><%= addr.start_date %><br /><% end %>
+        </div>
+      </td>
+
+      <% count2 += 1 %>
+      <% s2 = s1 + "-" + count2.to_s %>
+      <td>
+        <a class="btn btn-xs" data-toggle="collapse" data-target="#<%= s2 %>">
+          <i class="glyphicon glyphicon-plus"><%= addresses.first.end_date %></i>
+        </a>
+        <div id="<%= s2 %>" class="collapse">
+          <% slicedAddrs.each do |addr| %><%= addr.end_date %><br /><% end %>
+        </div>
+      </td>
+
+      <% count2 += 1 %>
+      <% s2 = s1 + "-" + count2.to_s %>
+      <td>
+        <a class="btn btn-xs" data-toggle="collapse" data-target="#<%= s2 %>">
+          <i class="glyphicon glyphicon-plus"><%= addresses.first.assigner %></i>
+        </a>
+        <div id="<%= s2 %>" class="collapse">
+          <% slicedAddrs.each do |addr| %><%= addr.assigner %><br /><% end %>
+        </div>
+      </td>
+    <% else %>
+      <td><% addresses.each do |addr| %><%= addr.ip %><% end %></td>
+      <td>
+        <% addresses.each do |addr| %>
+          <a href="#" data-xeditable="true" data-pk="<%= addr.id %>" data-model="address" data-name="start_date" data-url="<%= address_path(addr) %>" data-title="Start Date"><%= addr.start_date %></a>
+        <% end %>
+      </td>
+      <td><% addresses.each do |addr| %><%= addr.end_date %><% end %></td>
+      <td><% addresses.each do |addr| %><%= addr.assigner %><% end %></td>
+    <% end %>
+
+    <td>
+      <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="office_phone" data-url="<%= user_path(user) %>" data-title="Office Phone"><%= user.office_phone %></a>
+    </td>
+    <td>
+      <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="cell_phone" data-url="<%= user_path(user) %>" data-title="Mobile"><%= user.cell_phone %></a>
+    </td>
+    <td>
+      <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="email" data-url="<%= user_path(user) %>" data-title="Email"><%= user.email %></a>
+    </td>
+    <td>
+      <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="building" data-url="<%= user_path(user) %>" data-title="Building"><%= user.building %></a>
+    </td>
+    <td>
+      <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="storey" data-url="<%= user_path(user) %>" data-title="Mobile"><%= user.storey %></a>
+    </td>
+    <td>
+      <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="room" data-url="<%= user_path(user) %>" data-title="Room"><%= user.room %></a>
+    </td>
+    <td>
+      <a href="#" data-xeditable="true" data-pk="<%= user.id %>" data-model="user" data-name="department_id" data-url="<%= user_path(user) %>" data-title="Department"><%= find_department_name(user.department_id) %></a>
+    </td>
+
+    <td><%= link_to 'Show', user, class: 'btn btn-primary btn-xs' %></td>
+    <% if policy(user).destroy? %>
+    <td>
+      <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
+        <i class="glyphicon glyphicon-remove"></i> Destroy
+      <% end %>
+    </td>
+    <% end %>
+  </tr>
+<% end %>
