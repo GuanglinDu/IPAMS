@@ -3,7 +3,7 @@
 <% count = users.offset %>
 
 <% users.each do |user| %>
-  <td><%= count += 1 %></td>
+  <% count += 1 %>
   <!-- Show less info of NOBODY -->
   <% if user.name == "NOBODY" %>
     <%= render partial: "nobody", object: user, locals: { count: count } %>
