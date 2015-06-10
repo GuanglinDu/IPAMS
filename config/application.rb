@@ -21,5 +21,9 @@ module Ipams
     # config.i18n.default_locale = :de
     # Seems useless
     #config.autoload_paths += %W(#{config.root}/lib)
+
+    # Disable https in development
+    # See http://simonecarletti.com/blog/2011/05/configuring-rails-3-https-ssl/
+    config.force_ssl = false
   end
 end

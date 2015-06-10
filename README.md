@@ -5,7 +5,7 @@ A Ruby on Rails (RoR) based IP Address Management System. 基于Ruby on Rails (R
 
 Status
 ------
-* Is under intense development and far from maturity;
+* Feature-riched and ready for use now with fine-tunning features on the way;
 * Branch develop is always the most rececent commit;
 * ERD (Entity Relationship Diagram) is under folder architecture & drawn with Dia;
 * Supports only IPv4 at present.
@@ -27,8 +27,16 @@ Importing Existing Data (Administrators only)
 * The update attribute is optional in the IP address importing template to tell the importer to import this record anyway.
 * On a terminal at folder ipams, use command 'rake --tasks' to show the available IPAMS-specific tasks.
 
+Some tricks
+------
+Importing Existing Data (Administrators only)
+------
+* Please manually create tmp/IMPORT_LOG.txt & tmp/IMPORT_DIFF.txt files, creating the folder along.
+
 History
 ------
+<ol>20150522: Implement prefix-matching search in Addresses views & Users view. No cross-table search support at present.</ol>
+<ol>20150520: Implement most of the basic features.</ol>
 <ol>20150116: Implement authorization with Pundit and IP address editing in Vlans & Addresses views.</ol>
 <ol>20150114: Update to Rails 4.1.8 to use ActiveRecord::Enum in role-based authorization with Pundit.</ol>
 <ol>20150111: Use gem Devise to authenticate & gem Pundit to authorize, separately.</ol>

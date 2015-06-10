@@ -1,4 +1,7 @@
 <h3>Listing VLANs</h3>
+<!-- Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap -->
+<%= page_entries_info @vlans %><br />
+<%= will_paginate @vlans, renderer: BootstrapPagination::Rails %>
 <div>
   <!-- VLAN list -->
   <table class="table table-striped table-condensed">
@@ -20,10 +23,12 @@
     </thead>
     <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
     <tbody>
-      <!-- %= render vlans % -->
-      <%= render :partial => 'vlan', collection: @vlans %> 
+      <% partial_name = "vlan" %>
+      <% partial_name = "uneditable" unless policy(@vlans).edit? %>
+      <%= render partial: partial_name, collection: @vlans %>
     </tbody>
   </table>
+
   <!-- Create a new VLAN -->
   <% if policy(:vlan).new? %>
     <p>

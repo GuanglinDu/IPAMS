@@ -1,5 +1,9 @@
 module AddressesHelper
-  #def integer?(str)
-  #  /\A[+-]?d+\z/ === str
-  #end
+  def find_address(id)
+    @address = Address.find(id)
+  end
+
+  def find_addresses_of_user(user)
+    addresses = user.addresses
+  end
 end

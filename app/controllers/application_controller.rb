@@ -66,4 +66,3 @@ class ApplicationController < ActionController::Base
      redirect_to request.headers["Referer"] || welcome_path
    end 
 end
-

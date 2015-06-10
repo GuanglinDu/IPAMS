@@ -1,0 +1,11 @@
+<tr>
+  <% lan = uneditable %>
+  <td><%= lan.lan_number %></td>
+  <td><%= lan.lan_name %></td>
+  <td><%= lan.lan_description %></td>
+  <td>
+    <% if policy(lan).show? %>
+      <%= link_to 'Show', lan, class: 'btn btn-primary btn-xs' %>
+    <% end %>
+  </td>
+ </tr>

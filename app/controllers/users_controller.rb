@@ -16,6 +16,8 @@ class UsersController < ApplicationController
       #search = Sunspot.search(Address)
       search = User.search do
         fulltext keywords
+        # See http://www.whatibroke.com/?p=235
+        paginate :page => params[:page] || 1, :per_page => 30
       end 
       # Type Sunspot::Search::PaginatedCollection < Array
       @users = search.results
@@ -124,7 +126,7 @@ class UsersController < ApplicationController
      dept.id
    end
 
-   def integer?(str)
-     /\A[+-]?d+\z/ === str
-   end
+   #def integer?(str)
+    #/\A[+-]?d+\z/ === str
+   #end
 end

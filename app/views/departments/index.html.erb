@@ -1,46 +1,22 @@
-<h1>Listing Departments</h1>
+<h4>Listing Departments</h4>
+<!-- Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap -->
+<%= page_entries_info @departments %><br />
+<%= will_paginate @departments, renderer: BootstrapPagination::Rails %>
 
 <table class="table table-striped table-condensed">
   <thead>
-    <tr>
-      <th>No.</th>
-      <th>Dept name</th>
-      <th>Location</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+  <tr>
+    <th>No.</th>
+    <th>Dept name</th>
+    <th>Location</th>
+  </tr>
   </thead>
-
   <tbody>
-    <% counter = 1 %>
-    <% @departments.each do |department| %>
-      <tr>
-        <td><%= counter %></td>
-        <td>
-          <a href="#" data-xeditable="true" data-pk="<%= department.id %>" data-model="department" data-name="dept_name" data-url="<%= department_path(department) %>" data-title="Dept Name"><%= department.dept_name %></a>
-        </td>
-        <td>
-          <a href="#" data-xeditable="true" data-pk="<%= department.id %>" data-model="department" data-name="location" data-url="<%= department_path(department) %>" data-title="Location"><%= department.location %></a>
-        </td>
-        <td><%= link_to 'Show', department, class: 'btn btn-primary btn-xs' %></td>
-        <td>
-          <%= link_to edit_department_path(department), class: 'btn btn-info btn-xs' do %>
-            <i class="glyphicon glyphicon-edit"></i> Edit
-          <% end %>
-        </td>
-        <td>
-          <%= link_to department, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
-            <i class="glyphicon glyphicon-remove"></i> Destroy
-          <% end %>
-        </td>
-      </tr>
-      <% counter += 1 %>
-    <% end %>
+    <% partial_name = "departments" %>
+    <% partial_name = "uneditable" unless policy(@departments).edit? %>
+    <%= render partial: partial_name, object: @departments %>
   </tbody>
 </table>
-
-<br>
 
 <%= link_to new_department_path, class: 'btn btn-success' do %>
   <i class="glyphicon glyphicon-plus"></i> New Department

@@ -1,30 +1,39 @@
 class DepartmentsController < ApplicationController
+  include IPAMSConstants
+
   before_action :set_department, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized
 
   # GET /departments
   # GET /departments.json
   def index
-    @departments = Department.all
+    #@departments = Department.all # mem killer
+    @departments = Department.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
+    authorize @departments
   end
 
   # GET /departments/1
   # GET /departments/1.json
   def show
+    authorize @department
   end
 
   # GET /departments/new
   def new
     @department = Department.new
+    authorize @department
   end
 
   # GET /departments/1/edit
   def edit
+    authorize @department
   end
 
   # POST /departments
   # POST /departments.json
   def create
     @department = Department.new(department_params)
+    authorize @department
 
     respond_to do |format|
       if @department.save
@@ -42,6 +51,8 @@ class DepartmentsController < ApplicationController
   # PATCH/PUT /departments/1
   # PATCH/PUT /departments/1.json
   def update
+    authorize @department
+
     respond_to do |format|
       unless nonexistent_dept? 
         if @department.update(department_params)
@@ -64,6 +75,8 @@ class DepartmentsController < ApplicationController
   # DELETE /departments/1
   # DELETE /departments/1.json
   def destroy
+    authorize @department
+
     @department.destroy unless nonexistent_dept?
     respond_to do |format|
       flash[:alert] = 'NONEXISTENT department CANNOT be destroyed.' if nonexistent_dept?
