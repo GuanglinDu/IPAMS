@@ -8,7 +8,8 @@ class VlansController < ApplicationController
 
   def index
     #@vlans = Vlan.order(:vlan_number)
-    @vlans = Vlan.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE).order(:vlan_number)
+    @vlans = Vlan.paginate(page: params[:page],
+      per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE).order(:vlan_number)
     authorize @vlans
     #policy_scope(@vlans)
   end

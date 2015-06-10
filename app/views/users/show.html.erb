@@ -39,8 +39,10 @@
 </p>
 
 <p>
-  <%= link_to edit_user_path(@user), class: 'btn btn-info' do %>
-    <i class="glyphicon glyphicon-pencil"></i> Edit
+  <% if policy(@user).edit? %>
+    <%= link_to edit_user_path(@user), class: 'btn btn-info' do %>
+      <i class="glyphicon glyphicon-pencil"></i> Edit
+    <% end %>
   <% end %>
-    | <%= link_to 'Back', users_path, class: 'btn btn-primary' %>
+  <%= link_to 'Back', users_path, class: 'btn btn-primary' %>
 </p>

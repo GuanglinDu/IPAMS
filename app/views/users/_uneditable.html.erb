@@ -1,0 +1,25 @@
+<% users = uneditable %>
+<!-- http://stackoverflow.com/questions/4566620/getting-the-current-item-number-or-index-when-using-will-paginate-in-rails-app -->
+<% count = users.offset %>
+
+<% users.each do |user| %>
+  <% count += 1 %>
+  <!-- Show less info of NOBODY -->
+  <% if user.name == "NOBODY" %>
+    <%= render partial: "nobody", object: user, locals: { count: count } %>
+  <% else %>
+    <!-- addresses_helper: helpers for controllers and views -->
+    <% addresses = find_addresses_of_user(user) %>
+
+    <% if addresses.count >= 2 %>
+      <%= render partial: "row_with_multiple_ip", object: user,
+        locals: { count: count, user_ip_count: addresses.count, editable: false } %>
+      <% addresses.each do |addr| %>
+        <%= render partial: "subrow", object: addr, locals: { user: user, editable: false } %>
+      <% end %>
+    <% else %>
+        <%= render partial: "row_with_one_ip", object: user,
+          locals: { count: count, addresses: addresses, editable: false } %>
+    <% end %>
+  <% end %>
+<% end %>

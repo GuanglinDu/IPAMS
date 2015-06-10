@@ -126,7 +126,7 @@ class UsersController < ApplicationController
      dept.id
    end
 
-   def integer?(str)
-     /\A[+-]?d+\z/ === str
-   end
+   #def integer?(str)
+    #/\A[+-]?d+\z/ === str
+   #end
 end

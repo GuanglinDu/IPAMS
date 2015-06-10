@@ -14,13 +14,16 @@
 </tbody>
 </table>
 
+<!-- Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap -->
+<%= page_entries_info @vlans %><br />
+<%= will_paginate @vlans, renderer: BootstrapPagination::Rails %>
+
 <!-- Show the existing VLANs in a table. Note that partials shorten the code. -->
 <h3>Existing VLANs in the <%= @lan.lan_name %></h3>
 <table class="table table-condensed">
   <thead>
   <tr>
     <th>No.</th>
-    <th>lan_id</th>
     <th>LAN Name</th>
     <th>VLAN Number</th>
     <th>VLAN Name</th>
@@ -42,7 +45,9 @@
   <!-- The following either will do. --> 
   <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
   <tbody>
-    <%= render @lan.vlans %>
+    <% partial_name = "vlans/vlan" %>
+    <% partial_name = "vlans/uneditable" unless policy(@lan).edit? %>
+    <%= render partial: partial_name, collection: @vlans %>
   </tbody>
 </table>
 
@@ -54,4 +59,3 @@
       <i class="glyphicon glyphicon-edit"></i> Edit LAN
     <% end %>
 </div>
-
