@@ -2,12 +2,10 @@
 <% addr = subrow %>
 
 <tr>
-  <td class="hidden-row">
+  <td colspan="2" class="hidden-row">
     <div class="collapse <%= user.id.to_s %>"></div>
   </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
+
   <td class="hidden-row">
     <div class="collapse <%= user.id.to_s %>"><%= addr.ip %></div>
   </td>
@@ -31,31 +29,8 @@
       <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="assigner" data-url="<%= address_path(addr) %>" data-title="Assigner"><%= addr.assigner %></a>
     </div>
   </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
-  <td class="hidden-row">
+
+  <td colspan="7" class="hidden-row">
     <div class="collapse <%= user.id.to_s %>"></div>
   </td>
 </tr>
