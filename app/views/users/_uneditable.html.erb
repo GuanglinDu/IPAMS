@@ -1,37 +1,25 @@
-<!-- http://stackoverflow.com/questions/4566620/getting-the-current-item-number-or-index-when-using-will-paginate-in-rails-app -->
 <% users = uneditable %>
+<!-- http://stackoverflow.com/questions/4566620/getting-the-current-item-number-or-index-when-using-will-paginate-in-rails-app -->
 <% count = users.offset %>
 
 <% users.each do |user| %>
-  <% find_address(user.id) %>
-  <tr>
-    <td><%= count += 1 %></td>
-    <td><%= user.name %></td>
-    <td>
-      <% if user.name != "NOBODY" %>
-        <% if user.addresses.count >= 2 %>
-          <div class="folding_margin">
-            <!-- Toogle Buttons -->
-            <button type="button" class="btn btn-xs" data-toggle="collapse" data-target="#tx_<%= user.id%>"><%= uas = user.addresses.first.ip %></button>
-            <div id="tx_<%= user.id%>" class="collapse">
-              <% ubs = user.addresses %><%ubs.each do |addr| %><%= addr.ip %><br /><% end %>
-            </div>
-          </div>
-        <% else %>
-          <% ucs = user.addresses %><%ucs.each do |addr| %><%= addr.ip %><br /><% end %>
-       <% end %>
+  <td><%= count += 1 %></td>
+  <!-- Show less info of NOBODY -->
+  <% if user.name == "NOBODY" %>
+    <%= render partial: "nobody", object: user, locals: { count: count } %>
+  <% else %>
+    <!-- addresses_helper: helpers for controllers and views -->
+    <% addresses = find_addresses_of_user(user) %>
+
+    <% if addresses.count >= 2 %>
+      <%= render partial: "row_with_multiple_ip", object: user,
+        locals: { count: count, user_ip_count: addresses.count, editable: false } %>
+      <% addresses.each do |addr| %>
+        <%= render partial: "subrow", object: addr, locals: { user: user, editable: false } %>
+      <% end %>
+    <% else %>
+        <%= render partial: "row_with_one_ip", object: user,
+          locals: { count: count, addresses: addresses, editable: false } %>
     <% end %>
-    </td>
-    <td><%= user.office_phone %></td>
-    <td><%= user.cell_phone %></td>
-    <td><%= user.email %></td>
-    <td><%= user.building %></td>
-    <td><%= user.storey %></td>
-    <td><%= user.room %></td>
-    <td><%= find_department_name(user.department_id) %></td>
-    <td><%= @address.start_date %></td>
-    <td><%= @address.end_date %></td>
-    <td><%= @address.assigner %></td>
-    <td><%= link_to 'Show', user, class: 'btn btn-primary btn-xs' %></td>
-  </tr>
+  <% end %>
 <% end %>
