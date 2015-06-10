@@ -1,5 +1,6 @@
 class AddressesController < ApplicationController
   include IPAMSConstants
+  include ApplicationHelper 
 
   before_action :set_address, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized
