@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   include IPAMSConstants
+  include ApplicationHelper 
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 

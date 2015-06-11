@@ -1,61 +1,25 @@
-<!-- Rows containing the user's IP addresses -->
+<!--
+  Rows containing the user's IP addressesi
+  http://stackoverflow.com/questions/22688021/twitter-bootstrap-display-rest-of-a-table-rows-using-collapse-js
+  http://www.bootply.com/122871
+-->
 <% addr = subrow %>
+<% str = user.id.to_s %>
 
-<tr>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
+<tr class="collapse <%= str %>">
+  <td colspan="2"></td>
+  <td><%= addr.ip %></td>
+  <td >
+    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="mac_address" data-url="<%= address_path(addr) %>" data-title="MAC Address"><%= addr.mac_address %></a>
   </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
+  <td >
+    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="start_date" data-url="<%= address_path(addr) %>" data-title="Start Date"><%= addr.start_date %></a>
   </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"><%= addr.ip %></div>
+  <td >
+    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="end_date" data-url="<%= address_path(addr) %>" data-title="End Date"><%= addr.end_date %></a>
   </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>">
-      <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="mac_address" data-url="<%= address_path(addr) %>" data-title="MAC Address"><%= addr.mac_address %></a>
-    </div>
+  <td >
+    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="assigner" data-url="<%= address_path(addr) %>" data-title="Assigner"><%= addr.assigner %></a>
   </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>">
-      <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="start_date" data-url="<%= address_path(addr) %>" data-title="Start Date"><%= addr.start_date %></a>
-    </div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>">
-      <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="end_date" data-url="<%= address_path(addr) %>" data-title="End Date"><%= addr.end_date %></a>
-    </div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>">
-      <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="assigner" data-url="<%= address_path(addr) %>" data-title="Assigner"><%= addr.assigner %></a>
-    </div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
-  <td class="hidden-row">
-    <div class="collapse <%= user.id.to_s %>"></div>
-  </td>
+  <td colspan="7"></td>
 </tr>
