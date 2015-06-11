@@ -193,16 +193,16 @@ namespace :import do
           update_address(ip1, ip_hash)
           note = "Imported/Updated successfully!"
         else # Outputs duplicate records
-          old_attr = ImportHelpers::address_to_a(ip1, user2.name)
-          new_attr = ImportHelpers::address_hash_to_a(iph, user1.name)
+          old_attr = ImportHelper::address_to_a(ip1, user2.name)
+          new_attr = ImportHelper::address_hash_to_a(iph, user1.name)
 
           note = "The existing is identical with the one to be imported. Ignored!"
           if old_attr != new_attr
             log_file.puts "--- Warnning: duplicate records:"
             diff_file.puts "<br />*** Existing ***<br />"
-            diff_file.puts ImportHelpers::address_to_s(ip1, user2.name)
-            new_attr = ImportHelpers::address_hash_to_a(iph, user1.name)         
-            ImportHelpers::output_comparision_result(old_attr, new_attr, diff_file)
+            diff_file.puts ImportHelper::address_to_s(ip1, user2.name)
+            new_attr = ImportHelper::address_hash_to_a(iph, user1.name)         
+            ImportHelper::output_comparision_result(old_attr, new_attr, diff_file)
             note = "Conflict with the existing, not imported, diff output!"
           end
         end
@@ -210,7 +210,7 @@ namespace :import do
       display_n_log "#{ip1.ip}: #{note}", log_file
     end
     
-    ImportHelpers::append_html_tail(diff_file)
+    ImportHelper::append_html_tail(diff_file)
     puts "*** IP addresses importing done!"
   end
 
