@@ -1,4 +1,7 @@
-<!-- The main row with a user's info -->
+<!--
+  http://stackoverflow.com/questions/22688021/twitter-bootstrap-display-rest-of-a-table-rows-using-collapse-js
+  http://www.bootply.com/122871
+-->
 <% user = row_with_multiple_ip %>
 <tr>
   <td><%= count %></td>
@@ -6,7 +9,7 @@
     <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="name" data-url="<%= user_path(user) %>" data-title="User Name"><%= user.name %></a>
   </td>
   <td colspan="5" data-toggle="collapse" data-target=".<%= user.id.to_s %>" class="text-info">
-    <%= user_ip_count %> IP Addresses
+    <i class="glyphicon glyphicon-plus"><%= user_ip_count %>&nbsp;IP Addresses</i>
   </td>
   <td>
     <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="office_phone" data-url="<%= user_path(user) %>" data-title="Office Phone"><%= user.office_phone %></a>
