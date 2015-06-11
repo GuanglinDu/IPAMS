@@ -7,7 +7,9 @@
 #  $('.collapse').on 'show.bs.collapse', ->
 #    $('.collapse.in').collapse 'hide'
 
-# http://www.js2.coffee
+# How to add plus minus symbol to a bootstrap accordion
+# http://stackoverflow.com/questions/22242422/how-to-add-plus-minus-symbol-to-a-bootstrap-accordion
+# Coverted by http://www.js2.coffee
 $ ($) ->
   $('[data-toggle="collapse"]').on 'click', ->
     $this = $(this)
