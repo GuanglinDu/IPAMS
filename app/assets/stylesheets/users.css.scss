@@ -1,6 +1,14 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.hidden-row {
-  padding: 0 !important;
+
+// See https://jsfiddle.net/GuanglinDu/feoxt8yL/
+//.hidden-row {
+//  padding: 0 !important;
+//}
+
+// http://stackoverflow.com/questions/22688021/twitter-bootstrap-display-rest-of-a-table-rows-using-collapse-js
+// http://www.bootply.com/122871
+table .collapse.in {
+  display: table-row;
 }
