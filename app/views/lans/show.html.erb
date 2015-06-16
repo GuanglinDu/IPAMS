@@ -1,10 +1,10 @@
 <h3>The Current LAN</h3>
 <table class="table table-condensed">
- <thead>
-    <th><strong>LAN Number</strong></th>
-    <th><strong>LAN Name</strong></th>
-    <th><strong>LAN Description</strong></th>
- </thead>
+<thead>
+  <th><strong>LAN Number</strong></th>
+  <th><strong>LAN Name</strong></th>
+  <th><strong>LAN Description</strong></th>
+</thead>
 <tbody>
   <tr>
     <td><%= @lan.lan_number %></td>
@@ -44,7 +44,7 @@
   -->
   <!-- The following either will do. --> 
   <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
-  <tbody>
+  <tbody id="main-table-body">
     <% partial_name = "vlans/vlan" %>
     <% partial_name = "vlans/uneditable" unless policy(@lan).edit? %>
     <%= render partial: partial_name, collection: @vlans %>
