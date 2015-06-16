@@ -22,7 +22,7 @@
     </tr>
     </thead>
     <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
-    <tbody>
+    <tbody id="main-table-body">
       <% partial_name = "vlan" %>
       <% partial_name = "uneditable" unless policy(@vlans).edit? %>
       <%= render partial: partial_name, collection: @vlans %>

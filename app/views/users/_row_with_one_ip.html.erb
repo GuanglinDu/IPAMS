@@ -8,11 +8,7 @@
   </td>
 
   <% if addresses.count == 0 %>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td colspan="5"></td>
   <% else %>
     <% addresses.each do |addr| %>
       <td><%= addr.ip %></td>

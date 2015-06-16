@@ -17,3 +17,22 @@
 //= require bootstrap-sprockets
 //= require bootstrap3-editable/bootstrap-editable
 //= require_tree .
+
+/**
+ * Row update event handler delegated to element tbody.
+ * Event delegation is employed to handle events trigger by <td></td>.
+ */
+/*
+$(function() {
+  $("tbody").each(function(index) {
+    $(this).on("onAfterUpdate", function(event) {
+      console.log("Cell content updated!")
+    });
+  });
+});
+*/
+$(function() {
+  $("#main-table-body").on("onAfterUpdate", "td", function(event) {
+    console.log("Cell content updated!")
+  });
+});
