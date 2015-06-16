@@ -37,7 +37,7 @@
     <th></th>
   </tr>
   </thead>
-  <tbody>
+  <tbody id="main-table-body">
     <% partial_name = "editable" %>
     <% partial_name = "uneditable" unless policy(@users).edit? %>
     <%= render partial: partial_name, object: @users %>

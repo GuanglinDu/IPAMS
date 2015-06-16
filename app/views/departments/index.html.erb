@@ -9,9 +9,11 @@
     <th>No.</th>
     <th>Dept name</th>
     <th>Location</th>
+    <th>Address Count</th>
+    <th>VLAN List</th>
   </tr>
   </thead>
-  <tbody>
+  <tbody id="main-table-body">
     <% partial_name = "departments" %>
     <% partial_name = "uneditable" unless policy(@departments).edit? %>
     <%= render partial: partial_name, object: @departments %>
