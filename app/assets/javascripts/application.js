@@ -18,6 +18,13 @@
 //= require bootstrap3-editable/bootstrap-editable
 //= require_tree .
 
+/* Retrieves a record */
+var getRecord = function(dataURL) {
+  $.get(dataURL, function(response) {
+    return response;
+  });
+};
+
 /**
  * Row update event handler delegated to element tbody.
  * Event delegation is employed to handle events trigger by <td></td>.
@@ -32,7 +39,11 @@ $(function() {
 });
 */
 $(function() {
-  $("#main-table-body").on("onAfterUpdate", "td", function(event) {
-    console.log("Cell content updated!")
+  $("#main-table-body").on("onAfterUpdate", "td a", function(event, rowID, fieldName) {
+    console.log(rowID + ", " + fieldName);
+    var dataURL = $("#" + rowID + " #" + fieldName + " a").attr("data-url");
+        
+    event.stopPropagation();
   });
 });
+

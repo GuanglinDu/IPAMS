@@ -54,7 +54,7 @@ class AddressesController < ApplicationController
     authorize @address
 
     respond_to do |format|
-      # Updates the FK user_id here
+      # Updates the FK user_id here, converting a user name to a user_id
       pars = address_params
       name = pars[:user_id]
       if name
@@ -97,8 +97,4 @@ class AddressesController < ApplicationController
      end
      user.id
    end
-
-   #def integer?(str)
-     #/\A[+-]?d+\z/ === str
-   #end
 end
