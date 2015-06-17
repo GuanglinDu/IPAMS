@@ -18,5 +18,8 @@ $ ->
 
       success: (response, newValue) ->
         #if (response.success)
-        console.log "Update succeeded. tbody event handler triggered"
-        $(@).trigger('onAfterUpdate', @)
+        #console.log "Update succeeded. tbody event handler triggered"
+        fieldName = $(@).closest("td").attr("id");
+        rowID = $(@).closest("tr").attr("id"); # e.g., <tr id="row-114">
+        #$(@).trigger('onAfterUpdate', [@]) # @, the anchor element
+        $(@).trigger('onAfterUpdate', [rowID, fieldName])
