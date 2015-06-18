@@ -44,7 +44,7 @@
     <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="usage" data-url="<%= address_path(address) %>" data-title="Usage"><%= address.usage %></a>
   </td>
   <td id="user-name">
-    <a href="#" data-xeditable="true" data-pk="<%= address.user_id %>" data-model="address" data-name="user_id" data-url="<%= address_path(address) %>" data-title="User Name"><%= @user.name %></a>
+    <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="user_id" data-url="<%= address_path(address) %>" data-title="User Name"><%= @user.name %></a>
   </td>
   <td id="department-name">
     <a href="#" data-xeditable="true" data-pk="<%= @user.id %>" data-model="user" data-name="department_id" data-url="<%= user_path(@user) %>" data-title="Dept Name"><%= @department.dept_name %></a>

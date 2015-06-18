@@ -38,6 +38,10 @@ class AddressesController < ApplicationController
 
   def show
     authorize @address
+    respond_to do |format|
+      format.html
+      format.json { render json: {pk: @address.id, ip: @address.ip} }
+    end
   end
 
   def edit
@@ -55,7 +59,7 @@ class AddressesController < ApplicationController
 
     respond_to do |format|
       # Updates the FK user_id here, converting a user name to a user_id
-      pars = address_params
+      pars = address_params # access by reference
       name = pars[:user_id]
       if name
         pars[:user_id] = find_user_id(name) unless integer?(name)
@@ -64,7 +68,8 @@ class AddressesController < ApplicationController
       if @address.update(pars)
         flash[:success] = "Address was successfully updated. #{address_params.inspect}"
         format.html { redirect_to addresses_path }
-        format.json { head :no_content }
+        #format.json { head :no_content }
+        format.json { render json: { locale: I18n.locale, user_id: @user_id } }
       else
         flash[:danger] = 'There was a problem updating the Address.'
         format.html { render action: 'edit' }
@@ -95,6 +100,6 @@ class AddressesController < ApplicationController
        user = u1 if u1.valid?
        user ||= User.find_by(name: 'NOBODY')
      end
-     user.id
+     @user_id = user.id # accessable in the class scope
    end
 end

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   include IPAMSConstants
   include ApplicationHelper 
+  include DepartmentsHelper 
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
@@ -32,6 +33,21 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    authorize @user
+
+    respond_to do |format|
+      format.html
+      format.json { render json: {
+        pk: @user.id,
+        user_name: @user.name,
+        department: find_department_name(@user.department_id),
+        office_phone: @user.office_phone,
+        cell_phone: @user.cell_phone,
+        building: @user.building,
+        story: @user.storey,
+        room: @user.room }
+      }
+    end
   end
 
   # GET /users/new
