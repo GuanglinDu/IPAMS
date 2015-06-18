@@ -16,10 +16,11 @@ $ ->
         railsParams[$(@).data("model")][params.name] = params.value
         return railsParams
 
+      # See addresses_controller#show
+      # Triggers row update in application.js
       success: (response, newValue) ->
         #if (response.success)
-        #console.log "Update succeeded. tbody event handler triggered"
-        fieldName = $(@).closest("td").attr("id");
+        #console.log response 
+        cellName = $(@).closest("td").attr("id"); # e.g., <td id="user-name">
         rowID = $(@).closest("tr").attr("id"); # e.g., <tr id="row-114">
-        #$(@).trigger('onAfterUpdate', [@]) # @, the anchor element
-        $(@).trigger('onAfterUpdate', [rowID, fieldName])
+        $(@).trigger('onAfterUpdate', [ rowID, cellName, response ])
