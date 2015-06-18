@@ -64,7 +64,8 @@ class AddressesController < ApplicationController
       if @address.update(pars)
         flash[:success] = "Address was successfully updated. #{address_params.inspect}"
         format.html { redirect_to addresses_path }
-        format.json { head :no_content }
+        #format.json { head :no_content }
+        format.json { head :text/json, user_id: pars[:user_id] }
       else
         flash[:danger] = 'There was a problem updating the Address.'
         format.html { render action: 'edit' }
