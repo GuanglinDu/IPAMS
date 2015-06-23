@@ -70,14 +70,38 @@ var addressUserChanged = function(locale, dataURL, rowID) {
     type: "GET",
     dataType: "json",
     success: function(response) {
-      console.log("--- ajax ---");
-      console.log(response);
-      $("#" + rowID + " #department-name" + " a").attr("data-pk", response.pk); // department pk
-      $("#" + rowID + " #department-name" + " a").attr("data-url", locale.to_s + "/" + dataURL); // department url
-      $("#" + rowID + " #department-name" + " a").text(response.department); // department name
-      //$("#" + rowID + " #office-phone" + " a").attr("data-pk", response.pk); // office phone pk
-      //$("#" + rowID + " #office-phone" + " a").attr("data-url", locale.to_s + "/" + dataURL); // office phone url
-      //$("#" + rowID + " #office-phone" + " a").text(response.office_phone); // office phone
+      //console.log("--- ajax ---");
+      //console.log(response);
+      // department pk, url, name
+      $("#" + rowID + " #department-name" + " a")
+        .attr("data-pk", response.pk)
+        .attr("data-url", locale.to_s + "/" + dataURL)
+        .text(response.department);
+      // office phone pk, url, text
+      $("#" + rowID + " #office-phone" + " a")
+        .attr("data-pk", response.pk)
+        .attr("data-url", locale.to_s + "/" + dataURL)
+        .text(response.office_phone);
+      // cell phone pk, url, text
+      $("#" + rowID + " #cell-phone" + " a")
+        .attr("data-pk", response.pk)
+        .attr("data-url", locale.to_s + "/" + dataURL)
+        .text(response.cell_phone);
+      // building pk, url, name
+      $("#" + rowID + " #building" + " a")
+        .attr("data-pk", response.pk)
+        .attr("data-url", locale.to_s + "/" + dataURL)
+        .text(response.building);
+      // storey pk, url, name
+      $("#" + rowID + " #storey" + " a")
+        .attr("data-pk", response.pk)
+        .attr("data-url", locale.to_s + "/" + dataURL)
+        .text(response.story);
+      // room pk, url, text
+      $("#" + rowID + " #room" + " a")
+        .attr("data-pk", response.pk)
+        .attr("data-url", locale.to_s + "/" + dataURL)
+        .text(response.room);
     }
   });
 };

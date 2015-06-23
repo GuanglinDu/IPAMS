@@ -18,9 +18,8 @@ $ ->
 
       # See addresses_controller#show
       # Triggers row update in application.js
-      success: (response, newValue) ->
-        #if (response.success)
-        #console.log response 
+      success: (response) ->
+        #console.log(response)
         cellName = $(@).closest("td").attr("id"); # e.g., <td id="user-name">
         rowID = $(@).closest("tr").attr("id"); # e.g., <tr id="row-114">
         $(@).trigger('onAfterUpdate', [ rowID, cellName, response ])
