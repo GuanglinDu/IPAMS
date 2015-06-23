@@ -70,8 +70,8 @@ var addressUserChanged = function(locale, dataURL, rowID) {
     type: "GET",
     dataType: "json",
     success: function(response) {
-      console.log("--- ajax ---");
-      console.log(response);
+      //console.log("--- ajax ---");
+      //console.log(response);
       // department pk, url, name
       $("#" + rowID + " #department-name" + " a")
         .attr("data-pk", response.pk)
