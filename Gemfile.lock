@@ -56,6 +56,8 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.5)
     execjs (2.2.2)
+    font-awesome-sass (4.3.2.1)
+      sass (~> 3.2)
     highline (1.6.21)
     hike (1.2.3)
     i18n (0.7.0)
@@ -167,6 +169,7 @@ DEPENDENCIES
   bootstrap_form
   coffee-rails (~> 4.0.0)
   devise
+  font-awesome-sass
   jbuilder (~> 1.2)
   jquery-rails
   progress_bar

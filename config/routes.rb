@@ -7,7 +7,7 @@ Ipams::Application.routes.draw do
   scope '(:locale)' do
     devise_for :system_users
     root 'welcome#index', as: 'welcome'
-    resources :lans, :addresses, :reserved_addresses, :departments, :users
+    resources :lans, :addresses, :reserved_addresses, :departments, :users, :histories
     resources :vlans do
       collection { post :import }
     end
@@ -21,6 +21,8 @@ Ipams::Application.routes.draw do
     get "welcome/index"
     get "help/index"
     get "search/index"
+
+    #post "history/new"
 
     # Template downloads
     get "import/vlan_importing_template"
