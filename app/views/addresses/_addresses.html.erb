@@ -78,12 +78,6 @@
     <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="assigner" data-url="<%= address_path(address) %>" data-title="Assigner"><%= address.assigner %></a>
   </td>
   <td><%= link_to 'Show', address, class: 'btn btn-primary btn-xs' %></td>
-<td>
-  <% if policy(address).recycle? %>
-    <%= button_to [address.id, history], remote: true do %>
-      <i class="fa fa-recycle"></i>Recycle
-  <% end %>
-  <% end %> 
 </td>
 </tr>
 <% end %>
