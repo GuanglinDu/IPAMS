@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624043430) do
+ActiveRecord::Schema.define(version: 20150630014113) do
 
   create_table "addresses", force: true do |t|
     t.string   "ip"
@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(version: 20150624043430) do
     t.integer  "department_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
   end
 
   add_index "users", ["department_id"], name: "index_users_on_department_id"

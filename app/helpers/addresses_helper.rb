@@ -4,6 +4,6 @@ module AddressesHelper
   end
 
   def find_addresses_of_user(user)
-    addresses = user.addresses
+    user.addresses
   end
 end

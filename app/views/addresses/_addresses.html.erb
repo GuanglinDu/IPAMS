@@ -12,6 +12,7 @@
   <th>Usage</th>
   <th>User Name</th>
   <th>Dept Name</th>
+  <th>Title</th>
   <th>Office Phone</th>
   <th>Cell Phone</th>
   <th>Building</th>
@@ -49,29 +50,32 @@
   <td id="department-name">
     <a href="#" data-xeditable="true" data-pk="<%= @user.id %>" data-model="user" data-name="department_id" data-url="<%= user_path(@user) %>" data-title="Dept Name"><%= @department.dept_name %></a>
   </td>
+  <td id="user-title">
+    <a href="#" data-xeditable="true" data-pk="<%= @user.id %>" data-model="user" data-name="title" data-url="<%= user_path(@user) %>" data-title="Title"><%= @user.title %></a>
+  </td>
   <td id="office-phone">
-    <a href="#" data-xeditable="true" data-pk="<%= address.user_id %>" data-model="user" data-name="office_phone" data-url="<%= user_path(@user) %>" data-title="Office Phone"><%= @user.office_phone %></a>
+    <a href="#" data-xeditable="true" data-pk="<%= @user.id %>" data-model="user" data-name="office_phone" data-url="<%= user_path(@user) %>" data-title="Office Phone"><%= @user.office_phone %></a>
   </td>
   <td id="cell-phone">
-    <a href="#" data-xeditable="true" data-pk="<%= address.user_id %>" data-model="user" data-name="cell_phone" data-url="<%= user_path(@user) %>" data-title="Cell Phone"><%= @user.cell_phone %></a>
+    <a href="#" data-xeditable="true" data-pk="<%= @user.id %>" data-model="user" data-name="cell_phone" data-url="<%= user_path(@user) %>" data-title="Cell Phone"><%= @user.cell_phone %></a>
   </td>
   <td id="building">
-    <a href="#" data-xeditable="true" data-pk="<%= address.user_id %>" data-model="user" data-name="building" data-url="<%= user_path(@user) %>" data-title="Building"><%= @user.building %></a>
+    <a href="#" data-xeditable="true" data-pk="<%= @user.id %>" data-model="user" data-name="building" data-url="<%= user_path(@user) %>" data-title="Building"><%= @user.building %></a>
   </td>
   <td id="storey">
-    <a href="#" data-xeditable="true" data-pk="<%= address.user_id %>" data-model="user" data-name="storey" data-url="<%= user_path(@user) %>" data-title="Storey"><%= @user.storey %></a>
+    <a href="#" data-xeditable="true" data-pk="<%= @user.id %>" data-model="user" data-name="storey" data-url="<%= user_path(@user) %>" data-title="Storey"><%= @user.storey %></a>
   </td>
   <td id="room">
-    <a href="#" data-xeditable="true" data-pk="<%= address.user_id %>" data-model="user" data-name="room" data-url="<%= user_path(@user) %>" data-title="Room Number"><%= @user.room %></a>
+    <a href="#" data-xeditable="true" data-pk="<%= @user.id %>" data-model="user" data-name="room" data-url="<%= user_path(@user) %>" data-title="Room Number"><%= @user.room %></a>
   </td>
   <td id="start-date">
-    <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="start_date" data-url="<%= address_path(address) %>" data-title="Start Date"><%= address.start_date%></a>
+    <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="start_date" data-url="<%= address_path(address) %>" data-title="Start Date"><%= address.start_date %></a>
   </td>
   <td id="end-date">
-    <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="end_date" data-url="<%= address_path(address) %>" data-title="End Date"><%= address.end_date%></a>
+    <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="end_date" data-url="<%= address_path(address) %>" data-title="End Date"><%= address.end_date %></a>
   </td>
   <td id="assigner">
-    <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="assigner" data-url="<%= address_path(address) %>" data-title="Assigner"><%= address.assigner%></a>
+    <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="assigner" data-url="<%= address_path(address) %>" data-title="Assigner"><%= address.assigner %></a>
   </td>
   <td><%= link_to 'Show', address, class: 'btn btn-primary btn-xs' %></td>
 <td>

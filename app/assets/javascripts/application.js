@@ -23,8 +23,7 @@
  * by in-place editing of a single IP address user in the VLAN/Addresses views.
  * See in-place editing in lans.js.coffee. 
  *
- * Event delegation is employed to handle events trigger by elements <td><a></a></td>.
- *
+ * Event delegation is employed to handle events triggered by elements <td><a></a></td>.
  * In case of arrays, add event listeners this way:
  * $(function() {
  *   $("tbody").each(function(index) {
@@ -41,67 +40,126 @@
  */
 $(function() {
   $("#main-table-body").on("onAfterUpdate", "td a", function(event, rowID, cellName, response) {
-    // Table cell names, td element ids, we take interest
+    // The table cell names, i.e., the td element ids, we take interest
     // cell-name -> URI pattern 
     var cellNames = { "user-name": "users" }; // must use quotes when using hyphen
 
-    console.log(rowID + ", " + cellName);
+    //console.log("--- .ready() in applicaiton.js: " + rowID + ", " + cellName);
     // undefined/null/false = false
     if (cellNames[cellName] === "users") {
       var dataURL = "/users/" + response.user_id;
-      console.log("dataURL: " + dataURL);
-      addressUserChanged(response.locale, dataURL, rowID);
+      //console.log("dataURL: " + dataURL);
+      addressUserChanged(dataURL, rowID);
     }
   });
 
-  event.stopPropagation();
+  //event.stopPropagation();
 });
 
 /**
- * Updates the row when a IP address user changes in the Addresses/VLAN (VLANs -> VLAN) views.
+ * Updates the row when an IP address user changes in the Addresses/VLAN (VLANs -> VLAN) views.
  *
  * @param {String} locale - locale, either "en" or "zh_CN"
  * @param {String} dataURL - URL for ajax call
  * @param {String} rowID - the id attribute  of the row in editing as is <tr id="row-20">
  */
-var addressUserChanged = function(locale, dataURL, rowID) {
+var addressUserChanged = function(dataURL, rowID) {
+  // Retrieves the changed user's info. 
+  // See users_controller#show for the response object
   $.ajax({
     url: dataURL,
     type: "GET",
     dataType: "json",
+
     success: function(response) {
-      //console.log("--- ajax ---");
+      //console.log("--- addressUserChanged in applicaiton.js ---");
       //console.log(response);
+      var lang = response.locale; // locale is already String typed
+      //console.log(response.locale);
+
       // department pk, url, name
-      $("#" + rowID + " #department-name" + " a")
+      var deptName = $("#" + rowID + " #department-name" + " a")
         .attr("data-pk", response.pk)
-        .attr("data-url", locale.to_s + "/" + dataURL)
-        .text(response.department);
+        .attr("data-url", "/" + lang + dataURL);
+      if (response.department) {
+        deptName.removeClass("editable-empty");
+        deptName.text(response.department);
+      }
+      refreshInPlaceEditing(deptName, response.department);
+      
+      // user title pk, url, text
+      var userTitle = $("#" + rowID + " #user-title" + " a")
+        .attr("data-pk", response.pk)
+        .attr("data-url", "/" + lang + dataURL);
+      if (response.user_title) {
+          userTitle.removeClass("editable-empty");
+          userTitle.text(response.user_title);
+      }
+      refreshInPlaceEditing(userTitle, response.user_title);
+
       // office phone pk, url, text
-      $("#" + rowID + " #office-phone" + " a")
+      var officePhone = $("#" + rowID + " #office-phone" + " a")
         .attr("data-pk", response.pk)
-        .attr("data-url", locale.to_s + "/" + dataURL)
+        .attr("data-url", "/" + lang + dataURL)
         .text(response.office_phone);
+      refreshInPlaceEditing(officePhone, response.office_phone);
+
       // cell phone pk, url, text
-      $("#" + rowID + " #cell-phone" + " a")
+      var cellPhone = $("#" + rowID + " #cell-phone" + " a")
         .attr("data-pk", response.pk)
-        .attr("data-url", locale.to_s + "/" + dataURL)
+        .attr("data-url", "/" + lang + dataURL)
         .text(response.cell_phone);
+      refreshInPlaceEditing(cellPhone, response.cell_phone);
+
       // building pk, url, name
-      $("#" + rowID + " #building" + " a")
+      var buildingName = $("#" + rowID + " #building" + " a")
         .attr("data-pk", response.pk)
-        .attr("data-url", locale.to_s + "/" + dataURL)
+        .attr("data-url", "/" + lang + dataURL)
         .text(response.building);
+      refreshInPlaceEditing(buildingName, response.building);
+
       // storey pk, url, name
-      $("#" + rowID + " #storey" + " a")
+      var storeyNum = $("#" + rowID + " #storey" + " a")
         .attr("data-pk", response.pk)
-        .attr("data-url", locale.to_s + "/" + dataURL)
-        .text(response.story);
+        .attr("data-url", "/" + lang + dataURL)
+        .text(response.storey);
+      refreshInPlaceEditing(storeyNum, response.storey);
+
       // room pk, url, text
-      $("#" + rowID + " #room" + " a")
+      var roomNum = $("#" + rowID + " #room" + " a")
         .attr("data-pk", response.pk)
-        .attr("data-url", locale.to_s + "/" + dataURL)
+        .attr("data-url", "/" + lang + dataURL)
         .text(response.room);
+      refreshInPlaceEditing(roomNum, response.room);
     }
   });
 };
+
+/**
+ * Refreshes the in-place editing of a DOM node changed by other JS other than X-editable.
+ *
+ * @param {jQuery} obj - a jQuery object 
+ * @param {String} elemText - the text of the element to be freshed 
+ */
+var refreshInPlaceEditing = function(obj, elemText) {
+  // Removes the old editability first
+  // See https://github.com/vitalets/x-editable/issues/61
+  obj.editable("destroy");
+
+  // Then, refreshes the in-place editing once more
+  obj.editable({
+    ajaxOptions: {
+      type: "PUT",
+      dataType: "json"
+    },
+    value: elemText,
+    params: function(params) {
+      var railsParams;
+      railsParams = {};
+      railsParams[obj.data("model")] = {};
+      railsParams[obj.data("model")][params.name] = params.value;
+      return railsParams;
+    }
+  });
+};
+
