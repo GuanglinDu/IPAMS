@@ -43,17 +43,14 @@ $(function() {
     // The table cell names, i.e., the td element ids, we take interest
     // cell-name -> URI pattern 
     var cellNames = { "user-name": "users" }; // must use quotes when using hyphen
-
-    //console.log("--- .ready() in applicaiton.js: " + rowID + ", " + cellName);
     // undefined/null/false = false
     if (cellNames[cellName] === "users") {
       var dataURL = "/users/" + response.user_id;
-      //console.log("dataURL: " + dataURL);
       addressUserChanged(dataURL, rowID);
     }
   });
 
-  //event.stopPropagation();
+  //event.stopPropagation(); // event might be nil
 });
 
 /**
@@ -74,63 +71,57 @@ var addressUserChanged = function(dataURL, rowID) {
     success: function(response) {
       //console.log("--- addressUserChanged in applicaiton.js ---");
       //console.log(response);
-      var lang = response.locale; // locale is already String typed
-      //console.log(response.locale);
+      // locale is already String typed
+      var url = "/" + response.locale + dataURL;
 
       // department pk, url, name
       var deptName = $("#" + rowID + " #department-name" + " a")
         .attr("data-pk", response.pk)
-        .attr("data-url", "/" + lang + dataURL);
-      if (response.department) {
-        deptName.removeClass("editable-empty");
-        deptName.text(response.department);
-      }
-      refreshInPlaceEditing(deptName, response.department);
+        .attr("data-url", url)
+        .text(response.department);
+      refreshInPlaceEditing(deptName, response.department, url);
       
       // user title pk, url, text
       var userTitle = $("#" + rowID + " #user-title" + " a")
         .attr("data-pk", response.pk)
-        .attr("data-url", "/" + lang + dataURL);
-      if (response.user_title) {
-          userTitle.removeClass("editable-empty");
-          userTitle.text(response.user_title);
-      }
-      refreshInPlaceEditing(userTitle, response.user_title);
+        .attr("data-url", url)
+        .text(response.user_title);
+      refreshInPlaceEditing(userTitle, response.user_title, url);
 
       // office phone pk, url, text
       var officePhone = $("#" + rowID + " #office-phone" + " a")
         .attr("data-pk", response.pk)
-        .attr("data-url", "/" + lang + dataURL)
+        .attr("data-url", url)
         .text(response.office_phone);
-      refreshInPlaceEditing(officePhone, response.office_phone);
+      refreshInPlaceEditing(officePhone, response.office_phone, url);
 
       // cell phone pk, url, text
       var cellPhone = $("#" + rowID + " #cell-phone" + " a")
         .attr("data-pk", response.pk)
-        .attr("data-url", "/" + lang + dataURL)
+        .attr("data-url", url)
         .text(response.cell_phone);
-      refreshInPlaceEditing(cellPhone, response.cell_phone);
+      refreshInPlaceEditing(cellPhone, response.cell_phone, url);
 
       // building pk, url, name
       var buildingName = $("#" + rowID + " #building" + " a")
         .attr("data-pk", response.pk)
-        .attr("data-url", "/" + lang + dataURL)
+        .attr("data-url", url)
         .text(response.building);
-      refreshInPlaceEditing(buildingName, response.building);
+      refreshInPlaceEditing(buildingName, response.building, url);
 
       // storey pk, url, name
       var storeyNum = $("#" + rowID + " #storey" + " a")
         .attr("data-pk", response.pk)
-        .attr("data-url", "/" + lang + dataURL)
+        .attr("data-url", url)
         .text(response.storey);
-      refreshInPlaceEditing(storeyNum, response.storey);
+      refreshInPlaceEditing(storeyNum, response.storey, url);
 
       // room pk, url, text
       var roomNum = $("#" + rowID + " #room" + " a")
         .attr("data-pk", response.pk)
-        .attr("data-url", "/" + lang + dataURL)
+        .attr("data-url", url)
         .text(response.room);
-      refreshInPlaceEditing(roomNum, response.room);
+      refreshInPlaceEditing(roomNum, response.room, url);
     }
   });
 };
@@ -140,8 +131,9 @@ var addressUserChanged = function(dataURL, rowID) {
  *
  * @param {jQuery} obj - a jQuery object 
  * @param {String} elemText - the text of the element to be freshed 
+ * @param {url} url - the text of the element to be freshed 
  */
-var refreshInPlaceEditing = function(obj, elemText) {
+var refreshInPlaceEditing = function(obj, elemText, url) {
   // Removes the old editability first
   // See https://github.com/vitalets/x-editable/issues/61
   obj.editable("destroy");
@@ -149,6 +141,7 @@ var refreshInPlaceEditing = function(obj, elemText) {
   // Then, refreshes the in-place editing once more
   obj.editable({
     ajaxOptions: {
+      url: url,
       type: "PUT",
       dataType: "json"
     },
@@ -158,6 +151,7 @@ var refreshInPlaceEditing = function(obj, elemText) {
       railsParams = {};
       railsParams[obj.data("model")] = {};
       railsParams[obj.data("model")][params.name] = params.value;
+      console.log("railsParams: ", railsParams);
       return railsParams;
     }
   });
