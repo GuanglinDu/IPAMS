@@ -6,7 +6,7 @@
 <% str = user.id.to_s %>
 
 <tr class="collapse <%= str %>">
-  <td colspan="2"></td>
+  <td colspan="3"></td>
   <td><%= addr.ip %></td>
   <td >
     <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="mac_address" data-url="<%= address_path(addr) %>" data-title="MAC Address"><%= addr.mac_address %></a>

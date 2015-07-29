@@ -7,6 +7,9 @@ class AddressesController < ApplicationController
   #after_action :verify_authorized, except: :index
   #after_action :verify_policy_scoped, only: :index
 
+  # Resolves the FK user_id before updating a record
+  before_action :change_user_name_to_user_id, only: :update
+
   def index
     keywords = params[:search]
     keywords = keywords.strip if keywords
@@ -23,7 +26,7 @@ class AddressesController < ApplicationController
       # Type Sunspot::Search::PaginatedCollection < Array
       @addresses = search.results
     else
-      # paginate returns object os type User::ActiveRecord_Relation < ActiveRecord::Relation
+      # paginate returns object of type User::ActiveRecord_Relation < ActiveRecord::Relation
       @addresses = Address.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     end
 
@@ -58,15 +61,9 @@ class AddressesController < ApplicationController
     authorize @address
 
     respond_to do |format|
-      # Updates the FK user_id here, converting a user name to a user_id
-      pars = address_params # access by reference
-      name = pars[:user_id]
-      if name
-        pars[:user_id] = find_user_id(name) unless integer?(name)
-      end
-
-      if @address.update(pars)
-        flash[:success] = "Address was successfully updated. #{address_params.inspect}"
+      # Updates the FK user_id, converting a user name to a user_id
+      if @address.update(@pars)
+        flash[:success] = "Address was successfully updated. #{@pars.inspect}"
         format.html { redirect_to addresses_path }
         #format.json { head :no_content }
         format.json { render json: { locale: I18n.locale, user_id: @user_id } }
@@ -92,7 +89,20 @@ class AddressesController < ApplicationController
         :application_form, :assigner)
     end
 
+   # FindChanges user.name to user.id (FK user_id) as  
+   def change_user_name_to_user_id
+     # Updates the FK user_id here, converting a user name to a user_id
+     @pars = address_params # access by reference
+     if @pars.has_key?("user_id")
+       name = @pars[:user_id]
+       if name
+         @pars[:user_id] = find_user_id(name) unless integer?(name)
+       end
+     end
+   end
+
    # Resolves FK user_id before saving the modified @address
+   # If the user doesn't exist, create a new one belonging to the NONEXISTENT department
    def find_user_id(name)
      user = User.find_by(name: name)
      unless user

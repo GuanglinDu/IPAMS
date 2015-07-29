@@ -12,6 +12,9 @@
   <td>
     <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="name" data-url="<%= user_path(user) %>" data-title="User Name"><%= user.name %></a>
   </td>
+  <td>
+    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="title" data-url="<%= user_path(user) %>" data-title="Title"><%= user.title %></a>
+  </td>
   <td colspan="5" data-toggle="collapse" data-target=".<%= user.id.to_s %>" class="text-info">
     <button type="button" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-plus">&nbsp;<%= user_ip_count %>&nbsp;IP Addresses</i></button>
   </td>

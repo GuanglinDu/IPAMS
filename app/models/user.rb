@@ -12,5 +12,6 @@ class User < ActiveRecord::Base
     text :office_phone, as: :office_phone_textp
     text :cell_phone, as: :cell_phone_textp
     text :room, as: :room_textp
+    text :title, as: :title_textp
   end
 end

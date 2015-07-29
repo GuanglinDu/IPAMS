@@ -39,12 +39,14 @@ class UsersController < ApplicationController
       format.html
       format.json { render json: {
         pk: @user.id,
+        locale: I18n.locale,
         user_name: @user.name,
+        user_title: @user.title,
         department: find_department_name(@user.department_id),
         office_phone: @user.office_phone,
         cell_phone: @user.cell_phone,
         building: @user.building,
-        story: @user.storey,
+        storey: @user.storey,
         room: @user.room }
       }
     end
@@ -127,7 +129,8 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :office_phone, :cell_phone, :email, :building, :storey, :room, :department_id)
+      params.require(:user).permit(:name, :title,
+        :office_phone, :cell_phone, :email, :building, :storey, :room, :department_id)
     end
 
     # Protect user NOBODY from being updated
@@ -142,8 +145,4 @@ class UsersController < ApplicationController
      dept ||= Department.find_by(dept_name: 'NONEXISTENT')
      dept.id
    end
-
-   #def integer?(str)
-    #/\A[+-]?d+\z/ === str
-   #end
 end
