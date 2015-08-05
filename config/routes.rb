@@ -22,8 +22,6 @@ Ipams::Application.routes.draw do
     get "help/index"
     get "search/index"
 
-    #post "history/new"
-
     # Template downloads
     get "import/vlan_importing_template"
     get "import/ip_address_importing_template"

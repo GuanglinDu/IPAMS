@@ -66,7 +66,7 @@ class AddressesController < ApplicationController
         flash[:success] = "Address was successfully updated. #{@pars.inspect}"
         format.html { redirect_to addresses_path }
         #format.json { head :no_content }
-        format.json { render json: { locale: I18n.locale, user_id: @user_id } }
+        format.json { render json: { locale: I18n.locale, user_id: @user_id, recyclable: @address.recyclable }}
       else
         flash[:danger] = 'There was a problem updating the Address.'
         format.html { render action: 'edit' }
@@ -86,7 +86,7 @@ class AddressesController < ApplicationController
     # lan_id is FK.
     def address_params
       params[:address].permit(:vlan_id, :user_id, :room, :ip, :mac_address, :usage, :start_date, :end_date,
-        :application_form, :assigner)
+        :application_form, :assigner, :recyclable)
     end
 
    # FindChanges user.name to user.id (FK user_id) as  

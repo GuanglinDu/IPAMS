@@ -21,6 +21,7 @@
   <th>Start Date</th>
   <th>End Date</th>
   <th>Assigner</th>
+  <th>Recyclable</th>
   <th></th>
   <th></th>
   <th></th>
@@ -77,8 +78,19 @@
   <td id="assigner">
     <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="assigner" data-url="<%= address_path(address) %>" data-title="Assigner"><%= address.assigner %></a>
   </td>
+  <td id="recyclable">
+    <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="recyclable" data-url="<%= address_path(address) %>" data-title="Select options" data-type="checklist"><%= address.recyclable %></a>
+  </td>
   <td><%= link_to 'Show', address, class: 'btn btn-primary btn-xs' %></td>
-</td>
+  <td>
+    <% if policy(address).recycle? %>
+      <%#= link_to_if( address.recyclable == "false", "disrecyclable") do %>
+        <%= link_to histories_path(address_id: address.id), remote: true, method: :post, id: :btn_recycle, class: 'btn btn-success btn-xs' do %>
+          <i class="fa fa-recycle"></i> Recycle
+        <% end %>
+      <%# end %>
+    <% end %> 
+  </td>
 </tr>
 <% end %>
 </tbody>
