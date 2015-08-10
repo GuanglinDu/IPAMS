@@ -39,18 +39,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: {
-        pk: @user.id,
-        locale: I18n.locale,
-        user_name: @user.name,
-        user_title: @user.title,
-        department: find_department_name(@user.department_id),
-        office_phone: @user.office_phone,
-        cell_phone: @user.cell_phone,
-        building: @user.building,
-        storey: @user.storey,
-        room: @user.room }
-      }
+      format.json { render json: user_info_in_json }
     end
   end
 
@@ -90,7 +79,8 @@ class UsersController < ApplicationController
        if @user.update(@pars)
           flash[:success] = 'User was successfully updated.'
           format.html { redirect_to @user }
-          format.json { head :no_content }
+          #format.json { head :no_content }
+          format.json { render json: user_info_in_json }
         else
           flash[:error] = 'User was NOT successfully updated.'
           format.html { render action: 'edit' }
@@ -150,5 +140,21 @@ class UsersController < ApplicationController
     if name
       @pars[:department_id] = find_department_id(name) unless integer?(name)
     end
+  end
+
+  # Response in json format
+  def user_info_in_json
+    {
+      pk: @user.id,
+      locale: I18n.locale,
+      user_name: @user.name,
+      user_title: @user.title,
+      department: find_department_name(@user.department_id),
+      office_phone: @user.office_phone,
+      cell_phone: @user.cell_phone,
+      building: @user.building,
+      storey: @user.storey,
+      room: @user.room
+    }
   end
 end
