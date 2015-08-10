@@ -8,7 +8,7 @@ class AddressesController < ApplicationController
   #after_action :verify_policy_scoped, only: :index
 
   # Resolves the FK user_id before updating a record
-  before_action :change_user_name_to_user_id, only: :update
+  before_action :convert_user_name_to_user_id, only: :update
 
   def index
     keywords = params[:search]
@@ -89,9 +89,9 @@ class AddressesController < ApplicationController
         :application_form, :assigner, :recyclable)
     end
 
-   # FindChanges user.name to user.id (FK user_id) as  
-   def change_user_name_to_user_id
-     # Updates the FK user_id here, converting a user name to a user_id
+   # Changes a user.name to its user.id (FK user_id) as only the FK is going to be stored
+   # in the Address object (record). Here's the trick to save an id while showing its name
+   def convert_user_name_to_user_id
      @pars = address_params # access by reference
      if @pars.has_key?("user_id")
        name = @pars[:user_id]

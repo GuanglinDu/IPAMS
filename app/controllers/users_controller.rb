@@ -4,6 +4,8 @@ class UsersController < ApplicationController
   include DepartmentsHelper 
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  # Resolves the FK department_id before updating a record
+  before_action :convert_dept_name_to_dept_id, only: :update
 
   # GET /users
   # GET /users.json
@@ -83,16 +85,9 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      # Updates the FK department_id here as only department name is manipulated
-      pars = user_params
-      name = pars[:department_id]
-      if name
-        pars[:department_id] = find_department_id(name) unless integer?(name)
-      end
-
       # Prevents user NOBODY from being modified
       unless nobody? 
-       if @user.update(pars)
+       if @user.update(@pars)
           flash[:success] = 'User was successfully updated.'
           format.html { redirect_to @user }
           format.json { head :no_content }
@@ -145,4 +140,15 @@ class UsersController < ApplicationController
      dept ||= Department.find_by(dept_name: 'NONEXISTENT')
      dept.id
    end
+
+  # Maps the department name to its PK as is the FK of a user because the department name
+  # is displayed on the views. This applied to both the addresses view and the users view.
+  # The FK department_id is going to be saved instead of the department name in the User table.
+  def convert_dept_name_to_dept_id
+    @pars = user_params
+    name = @pars[:department_id]
+    if name
+      @pars[:department_id] = find_department_id(name) unless integer?(name)
+    end
+  end
 end
