@@ -8,6 +8,7 @@ class AddressesController < ApplicationController
   #after_action :verify_policy_scoped, only: :index
 
   # Resolves the FK user_id before updating a record
+  # Updates the FK user_id, converting a user name to a user_id
   before_action :change_user_name_to_user_id, only: :update
 
   def index
@@ -61,12 +62,12 @@ class AddressesController < ApplicationController
     authorize @address
 
     respond_to do |format|
-      # Updates the FK user_id, converting a user name to a user_id
       if @address.update(@pars)
         flash[:success] = "Address was successfully updated. #{@pars.inspect}"
         format.html { redirect_to addresses_path }
         #format.json { head :no_content }
         format.json { render json: { locale: I18n.locale, user_id: @user_id, recyclable: @address.recyclable }}
+        #format.json { render json: { locale: I18n.locale, user_id: @user_id }}
       else
         flash[:danger] = 'There was a problem updating the Address.'
         format.html { render action: 'edit' }

@@ -30,9 +30,14 @@ $(function() {
     }
   });
 
-  /**
-  * Handles the recyclable checkbox
-  */
+  // Calls the recyclable checkbox handler
+  handle_recycle();
+});
+
+/**
+ * Handles the recyclable checkbox
+ */
+var handle_recycle = function() {
   $("#recyclable a").each(function() {
     var text = $(this).text();
     var isRecyclable = text == "true" ? "1" : "0";
@@ -47,7 +52,7 @@ $(function() {
         url: url,
         type: "put",
         dataType: "json"
-      },    
+      }, 
       params: function(params) {
         var railsParams = {};
         railsParams[$(this).data("model")] = {};
@@ -58,10 +63,10 @@ $(function() {
         params.value = choice;
         railsParams[$(this).data("model")][params.name] = params.value;
         return railsParams;
-      },
+      }
     });
   });
-});
+};
 
 /**
  * Updates the row when an IP address user changes in the Addresses/VLAN (VLANs -> VLAN) views.
@@ -81,7 +86,7 @@ var addressUserChanged = function(dataURL, rowID) {
     success: function(response) {
       //console.log("--- addressUserChanged in applicaiton.js ---");
       //console.log(response);
-      // locale is already String typed
+      //locale is already String typed
       var url = "/" + response.locale + dataURL;
 
       // department pk, url, name

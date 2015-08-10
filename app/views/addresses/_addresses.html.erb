@@ -82,13 +82,11 @@
     <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="recyclable" data-url="<%= address_path(address) %>" data-title="Select options" data-type="checklist"><%= address.recyclable %></a>
   </td>
   <td><%= link_to 'Show', address, class: 'btn btn-primary btn-xs' %></td>
-  <td>
+  <td id="recycle">
     <% if policy(address).recycle? %>
-      <%#= link_to_if( address.recyclable == "false", "disrecyclable") do %>
-        <%= link_to histories_path(address_id: address.id), remote: true, method: :post, id: :btn_recycle, class: 'btn btn-success btn-xs' do %>
-          <i class="fa fa-recycle"></i> Recycle
-        <% end %>
-      <%# end %>
+      <%= button_to histories_path(address_id: address.id), remote: true, method: :post, id: :btn_recycle, class: 'btn btn-success btn-xs' do %>
+        <i class="fa fa-recycle"></i> Recycle
+      <% end %>
     <% end %> 
   </td>
 </tr>
