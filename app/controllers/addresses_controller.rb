@@ -8,7 +8,7 @@ class AddressesController < ApplicationController
   #after_action :verify_policy_scoped, only: :index
 
   # Resolves the FK user_id before updating a record
-  before_action :change_user_name_to_user_id, only: :update
+  before_action :convert_user_name_to_user_id, only: :update
 
   def index
     keywords = params[:search]
@@ -61,12 +61,12 @@ class AddressesController < ApplicationController
     authorize @address
 
     respond_to do |format|
-      # Updates the FK user_id, converting a user name to a user_id
       if @address.update(@pars)
         flash[:success] = "Address was successfully updated. #{@pars.inspect}"
         format.html { redirect_to addresses_path }
         #format.json { head :no_content }
-        format.json { render json: { locale: I18n.locale, user_id: @user_id } }
+        format.json { render json: { locale: I18n.locale, user_id: @user_id, recyclable: @address.recyclable }}
+        #format.json { render json: { locale: I18n.locale, user_id: @user_id }}
       else
         flash[:danger] = 'There was a problem updating the Address.'
         format.html { render action: 'edit' }
@@ -86,12 +86,12 @@ class AddressesController < ApplicationController
     # lan_id is FK.
     def address_params
       params[:address].permit(:vlan_id, :user_id, :room, :ip, :mac_address, :usage, :start_date, :end_date,
-        :application_form, :assigner)
+        :application_form, :assigner, :recyclable)
     end
 
-   # FindChanges user.name to user.id (FK user_id) as  
-   def change_user_name_to_user_id
-     # Updates the FK user_id here, converting a user name to a user_id
+   # Changes a user.name to its user.id (FK user_id) as only the FK is going to be stored
+   # in the Address object (record). Here's the trick to save an id while showing its name
+   def convert_user_name_to_user_id
      @pars = address_params # access by reference
      if @pars.has_key?("user_id")
        name = @pars[:user_id]

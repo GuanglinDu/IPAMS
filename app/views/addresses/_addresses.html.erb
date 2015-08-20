@@ -21,6 +21,7 @@
   <th>Start Date</th>
   <th>End Date</th>
   <th>Assigner</th>
+  <th>Recyclable</th>
   <th></th>
   <th></th>
   <th></th>
@@ -77,18 +78,16 @@
   <td id="assigner">
     <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="assigner" data-url="<%= address_path(address) %>" data-title="Assigner"><%= address.assigner %></a>
   </td>
-  <td><%= link_to 'Show', address, class: 'btn btn-primary btn-xs' %></td>
-  <td>
-    <%= link_to edit_address_path(address), class: 'btn btn-info btn-xs' do %>
-        <i class="glyphicon glyphicon-edit"></i> Edit
-    <% end %>
+  <td id="recyclable">
+    <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="recyclable" data-url="<%= address_path(address) %>" data-title="Select options" data-type="checklist"><%= address.recyclable %></a>
   </td>
-  <td>
-    <% if policy(address).destroy? %>
-      <%= link_to address, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
-        <i class="glyphicon glyphicon-remove"></i> Destroy
+  <td><%= link_to 'Show', address, class: 'btn btn-primary btn-xs' %></td>
+  <td id="recycle">
+    <% if policy(address).recycle? %>
+      <%= button_to histories_path(address_id: address.id), remote: true, method: :post, id: :btn_recycle, class: 'btn btn-success btn-xs' do %>
+        <i class="fa fa-recycle"></i> Recycle
       <% end %>
-    <% end %>
+    <% end %> 
   </td>
 </tr>
 <% end %>

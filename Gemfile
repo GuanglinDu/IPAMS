@@ -70,6 +70,8 @@ end
 # Bootstrap 3 support.
 # See http://www.gotealeaf.com/blog/integrating-rails-and-bootstrap-part-1/
 gem 'bootstrap-sass'
+# See http://fortawesome.github.io/Font-Awesome/get-started/
+gem 'font-awesome-sass'
 gem 'autoprefixer-rails', '~> 4.0.2.2'
 
 # In-place editing support
