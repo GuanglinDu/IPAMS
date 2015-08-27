@@ -42,11 +42,6 @@ class ApplicationPolicy
     system_user.admin?
   end
 
-  # Only admin can recycle
-  def recycle?
-    system_user.admin?
-  end
-
   def scope
     Pundit.policy_scope!(system_user, record.class)
   end

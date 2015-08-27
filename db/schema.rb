@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150630014113) do
+ActiveRecord::Schema.define(version: 20150730074746) do
 
   create_table "addresses", force: true do |t|
     t.string   "ip"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20150630014113) do
     t.datetime "updated_at"
     t.string   "mac_address"
     t.string   "assigner"
+    t.boolean  "recyclable",       default: true, null: false
   end
 
   add_index "addresses", ["user_id"], name: "index_addresses_on_user_id"
