@@ -30,19 +30,33 @@ $(function() {
     }
   });
 
+  // Initializes the recycle button
+  init_btn_recycle();
   // Calls the recyclable checkbox handler
   handle_recycle();
+  // Calls the recycle button handler
+  set_btn_recycle();
 });
 
-/**
- * Handles the recyclable checkbox
- */
+// Initializes the recycle button
+var init_btn_recycle = function(){
+  $("#main-table-body tr #recycle #btn_recycle").each(function(){
+    var rowID = $(this).closest("tr").attr("id");
+    var txtRecycle = $("#" + rowID + " #recyclable a").text();
+    if (txtRecycle == "false")
+      $(this).attr('disabled', true);
+    else
+      $(this).attr('disabled', false);
+  });
+};
+
+// Handles the recyclable checkbox
 var handle_recycle = function() {
   $("#recyclable a").each(function() {
     var text = $(this).text();
     var isRecyclable = text == "true" ? "1" : "0";
-    var addressId = $(this).attr("data-pk");
-    var url = "/addresses/" + addressId;
+    var addressID = $(this).attr("data-pk");
+    var url = "/addresses/" + addressID;
 
     $(this).editable({
       source: [{value: 1, text: 'true'}],
@@ -63,12 +77,27 @@ var handle_recycle = function() {
         params.value = choice;
         railsParams[$(this).data("model")][params.name] = params.value;
         return railsParams;
+      },
+      success: function(response) {
+        var rowID= $(this).closest("tr").attr("id");
+        $(this).trigger('setRecycle', [ rowID, response ]);
       }
     });
   });
 };
 
-/**
+// Handles the recycle button
+var set_btn_recycle = function() {
+  $("#main-table-body").on("setRecycle", "td", function(event, rowID, response) {
+    var btnRecycle = $("#" + rowID + " #recycle #btn_recycle");
+    if (response.recyclable == false)
+      btnRecycle.attr('disabled', true);
+    else
+      btnRecycle.attr('disabled', false);
+  });
+};
+
+ /**
  * Updates the row when an IP address user changes in the Addresses/VLAN (VLANs -> VLAN) views.
  *
  * @param {String} locale - locale, either "en" or "zh_CN"
@@ -84,12 +113,10 @@ var addressUserChanged = function(dataURL, rowID) {
     dataType: "json",
 
     success: function(response) {
-      //console.log("--- addressUserChanged in applicaiton.js ---");
-      //console.log(response);
       //locale is already String typed
       var url = "/" + response.locale + dataURL;
 
-      // department pk, url, name
+      // department pk, url, text
       var deptName = $("#" + rowID + " #department-name" + " a")
         .attr("data-pk", response.pk)
         .attr("data-url", url)
@@ -117,14 +144,14 @@ var addressUserChanged = function(dataURL, rowID) {
         .text(response.cell_phone);
       refreshInPlaceEditing(cellPhone, response.cell_phone, url);
 
-      // building pk, url, name
+      // building pk, url, text
       var buildingName = $("#" + rowID + " #building" + " a")
         .attr("data-pk", response.pk)
         .attr("data-url", url)
         .text(response.building);
       refreshInPlaceEditing(buildingName, response.building, url);
 
-      // storey pk, url, name
+      // storey pk, url, text
       var storeyNum = $("#" + rowID + " #storey" + " a")
         .attr("data-pk", response.pk)
         .attr("data-url", url)
@@ -165,7 +192,6 @@ var refreshInPlaceEditing = function(obj, elemText, url) {
       var railsParams = {};
       railsParams[obj.data("model")] = {};
       railsParams[obj.data("model")][params.name] = params.value;
-      //console.log("railsParams: ", railsParams);
       return railsParams;
     }
   });

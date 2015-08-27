@@ -84,7 +84,7 @@
   <td><%= link_to 'Show', address, class: 'btn btn-primary btn-xs' %></td>
   <td id="recycle">
     <% if policy(address).recycle? %>
-      <%= button_to histories_path(address_id: address.id), remote: true, method: :post, id: :btn_recycle, class: 'btn btn-success btn-xs' do %>
+      <%= button_to histories_path(address_id: address.id), remote: true, method: :post, id: :btn_recycle, class: 'btn btn-success btn-xs', data: { confirm: "Are you sure?" } do %>
         <i class="fa fa-recycle"></i> Recycle
       <% end %>
     <% end %> 
