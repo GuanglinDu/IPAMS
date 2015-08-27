@@ -43,7 +43,7 @@ var init_btn_recycle = function(){
   $("#main-table-body tr #recycle #btn_recycle").each(function(){
     var rowID = $(this).closest("tr").attr("id");
     var txtRecycle = $("#" + rowID + " #recyclable a").text();
-    if (txtRecycle == "false")
+    if (txtRecycle == "false" || txtRecycle == "f"  )
       $(this).attr('disabled', true);
     else
       $(this).attr('disabled', false);
