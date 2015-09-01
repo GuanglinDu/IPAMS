@@ -1,6 +1,4 @@
 class AddressesController < ApplicationController
-  include IPAMSConstants
-  include ApplicationHelper 
 
   before_action :set_address, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized
@@ -15,14 +13,15 @@ class AddressesController < ApplicationController
     keywords = keywords.strip if keywords
 
     # No keywords, no search
-    @addresses = nil
+    # Serves the fragment cache if it already exists
     if keywords && keywords != "" 
       #search = Sunspot.search(Address)
       search = Address.search do
-       fulltext keywords
-       # See http://www.whatibroke.com/?p=235
-       paginate :page => params[:page] || 1, :per_page => 30
+        fulltext keywords
+        # See http://www.whatibroke.com/?p=235
+        paginate :page => params[:page] || 1, :per_page => 30
       end 
+      
       # Type Sunspot::Search::PaginatedCollection < Array
       @addresses = search.results
     else

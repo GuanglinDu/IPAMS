@@ -1,5 +1,4 @@
 class VlansController < ApplicationController
-  include IPAMSConstants
 
   before_action :set_vlan, :only => [:show, :edit, :update, :destroy]
   #after_action :verify_authorized, except: :index

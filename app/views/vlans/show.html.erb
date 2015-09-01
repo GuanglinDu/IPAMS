@@ -1,4 +1,4 @@
-<!-- Show a VLAN info -->
+<%# Show a VLAN info %>
 <h3>VLAN Name: <b style="color:red"><%= @vlan.vlan_name %></b></h3>
 
 <table class="table table-striped table-condensed">
@@ -26,23 +26,22 @@
   </tbody>
 </table>
 
-<!-- Show the IP address list of this VLAN
-  Tale addresses PK...FK: vlan_id, user_id...department_id -->
+<%# Shows the IP address list of @vlan %>
 <div>
-  <!-- Header pagination -->
+  <%# Header pagination %>
   <%= page_entries_info @addresses %><br />
   <%= will_paginate @addresses, renderer: BootstrapPagination::Rails %>
 
   <% partial_name = "addresses/addresses" %>
   <% partial_name = "addresses/uneditable" unless policy(@addresses).edit? %>
-  <%= render partial: partial_name, object: @addresses %>
+  <%= render partial: partial_name, object: @addresses, locals: {caller_name: "vlan-" + @vlan.vlan_name} %>
 
-  <!-- Footer pagination -->
+  <%# Footer pagination %>
   <%= page_entries_info @addresses %><br />
   <%= will_paginate @addresses, renderer: BootstrapPagination::Rails %>
 </div>
 
-<!-- Reserved address list -->
+<%# Reserved address list %>
 <div>
    <%= render partial: "reserved_addresses/uneditable", object: @vlan %>
 </div>

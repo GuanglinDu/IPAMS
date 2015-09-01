@@ -51,6 +51,11 @@ class ApplicationPolicy
     Pundit.policy_scope!(system_user, record.class)
   end
 
+  # Returns the system user id
+  def system_user_id
+    @system_user.id
+  end
+
   class Scope
     attr_reader :system_user, :scope
 

@@ -1,9 +1,9 @@
-<!-- Search based on Sunspot: the pagination and search on the same row -->
+<%# Search based on Sunspot: the pagination and search on the same row %>
 <div class="row">
   <div class="col-xs-8">
     <h4>Listing Users</h4>
-    <!-- Header pagination -->
-    <!-- Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap -->
+    <%# Header pagination
+      Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
     <%= page_entries_info @users %><br />
     <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
   </div>
@@ -15,8 +15,11 @@
   </div>
 </div>
 
-<!-- User list -->
+<%# User list: The whole table caching with partial names to differ the editable from the uneditable %>
 <div class="row">
+<% partial_name = "editable" %>
+<% partial_name = "uneditable" unless policy(@users).edit? %>
+<% cache cache_key_for_users(partial_name, @users.offset) do %>
 <table class="table table-responsive table-condensed">
   <thead>
   <tr>
@@ -39,13 +42,12 @@
   </tr>
   </thead>
   <tbody id="main-table-body">
-    <% partial_name = "editable" %>
-    <% partial_name = "uneditable" unless policy(@users).edit? %>
     <%= render partial: partial_name, object: @users %>
   </tbody>
 </table>
+<% end %>
 </div>
 
-<!-- Footer pagination -->
+<%# Footer pagination %>
 <%= page_entries_info @users %><br />
 <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
