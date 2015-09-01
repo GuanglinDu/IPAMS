@@ -34,7 +34,6 @@ class ReservedAddressesController < ApplicationController
       if @reserved_address.save
         flash[:success] = 'Reserved address was successfully created.'
         format.html { redirect_to vlan_path(find_vlan(@reserved_address)), notice: 'Reserved address was successfully created.' }
-        #format.html { redirect_to @reserved_address, notice: 'Reserved address was successfully created.' }
         format.json { render action: 'show', status: :created, location: @reserved_address }
       else
         flash[:danger] = 'Reserved address was NOT created.'
@@ -49,7 +48,7 @@ class ReservedAddressesController < ApplicationController
   def update
     respond_to do |format|
       if @reserved_address.update(reserved_address_params)
-        format.html { redirect_to vlan_path(find_vlan(@reserved_address)), notice: 'Department was successfully updated.' }
+        format.html { redirect_to vlan_path(find_vlan(@reserved_address)), notice: 'Reserved address was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
