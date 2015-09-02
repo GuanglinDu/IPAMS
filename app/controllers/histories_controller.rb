@@ -5,34 +5,32 @@ class HistoriesController < ApplicationController
     @history = History.new
   end
   
+  def show
+    authorize @history
+    respond_to do |format|
+      format.html
+      format.json { render json: { locale: I18n.locale} }
+    end
+  end
+
   def create
-    #@history = History.new(history_params)
     @history = History.new
     set_history_values()
 
     respond_to do |format|
-      #if @history.save(history_params)
       if @history.save
         flash[:success] = "Address was successfully recycled."
-        #format.html { redirect_to histories_path }
-        format.html {}
-        #format.json { render json: { locale: I18n.locale, address_id: @user_id } }
+        format.html { head :no_content }
+        format.js
+        format.json { render json: { locale: I18n.locale} }
       else
         flash[:danger] = 'There was a problem recycling the Address.'
         format.html { head :no_content }
-        #format.json { render json: @history.errors, status: :unprocessable_entity }
       end
     end
   end
 
 private
-
-  def history_params
-    #params.require(:history).permit(
-     # :address_id, :mac_address, :usage, :user_name, :dept_name, :office_phone, :cell_phone, :building, 
-      #:room, :start_date, :end_date, :application_form) 
-    params[:history].permit(:address_id)
-  end
 
   # We need to have the address info to recycle it and create a historical record
   def retrieve_address
