@@ -7,11 +7,13 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    #@users = User.all # mem killer!
+    # @keywords also used in the fragment cache keys
     keywords = params[:search]
     keywords = keywords.strip if keywords
+    # Flag to indicate whether search is performed 
+    @searched = false
 
-    # No keywords, no search; paginate all, instead.
+    # No keywords, no search; paginate all, instead
     @users = nil
     if keywords && keywords != "" 
       #search = Sunspot.search(Address)
@@ -21,6 +23,7 @@ class UsersController < ApplicationController
         paginate :page => params[:page] || 1, :per_page => 30
       end 
       # Type Sunspot::Search::PaginatedCollection < Array
+      @searched = true
       @users = search.results
     else
       @users = User.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
