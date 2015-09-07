@@ -42,6 +42,9 @@ class AddressesController < ApplicationController
   # Locale used in hitories/create.js.erb to recycle the address
   def show
     authorize @address
+    @histories = History.where(address_id: @address.id).paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
+    authorize @histories
+
     respond_to do |format|
       format.html
       format.json { render json: {pk: @address.id, ip: @address.ip, locale: I18n.locale } }
