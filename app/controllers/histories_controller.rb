@@ -5,14 +5,6 @@ class HistoriesController < ApplicationController
     @history = History.new
   end
   
-  def show
-    authorize @history
-    respond_to do |format|
-      format.html
-      format.json { render json: { locale: I18n.locale} }
-    end
-  end
-
   def create
     @history = History.new
     set_history_values()

@@ -39,7 +39,7 @@ class ApplicationPolicy
 
   # Only admin can destroy
   def destroy?
-    system_user.admin?
+    system_user.root?
   end
 
   def scope
