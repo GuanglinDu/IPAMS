@@ -1,6 +1,9 @@
 # http://blog.carbonfive.com/2013/10/21/migrating-to-pundit-from-cancan/
 # http://through-voidness.blogspot.com/2013/10/advanced-rails-4-authorization-with.html
 class ApplicationController < ActionController::Base
+  include IPAMSConstants
+  include ApplicationHelper 
+
   include Pundit # authorization mechanism
   before_filter :set_cache_buster
 
