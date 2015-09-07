@@ -12,4 +12,9 @@ module UsersHelper
     max_updated_at = max.try(:utc).try(:to_s, :number)
     "users/#{caller_name}-#{offset}-#{max_updated_at}"
   end
+
+  # Expires the cache after every search
+  def expire_fragment_cache(key)
+    ActionController::Base.new.expire_fragment(key)
+  end
 end
