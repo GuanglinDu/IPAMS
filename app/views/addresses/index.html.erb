@@ -1,8 +1,9 @@
-<!-- Search based on Sunspot: the pagination and search on the same row -->
+<%# Search based on Sunspot: the pagination and search on the same row %>
 <div class="row">
   <div class="col-xs-8">
     <h4>Listing IP Addresses</h4>
-    <!-- Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap -->
+    <%# The header pagination %>
+    <%# Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
     <%= page_entries_info @addresses %><br />
     <%= will_paginate @addresses, renderer: BootstrapPagination::Rails %>
   </div>
@@ -14,11 +15,13 @@
   </div>
 </div>
 
-<!-- Address list row -->
+<%# Address list rows. The current SystemUser comes from ApplicationController.pundit_user. %>
 <div class="row">
   <% partial_name = "addresses" %>
   <% partial_name = "uneditable" unless policy(@addresses).edit? %>
-  <%= render partial: partial_name, object: @addresses %>
+  <%= render partial: partial_name, object: @addresses, locals: {caller_name: "all"} %>
+
+  <%# The footer pagination %>
   <%= page_entries_info @addresses %><br />
   <%= will_paginate @addresses, renderer: BootstrapPagination::Rails %>
 </div>

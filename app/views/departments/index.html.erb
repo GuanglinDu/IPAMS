@@ -1,8 +1,11 @@
 <h4>Listing Departments</h4>
-<!-- Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap -->
+<%# Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
 <%= page_entries_info @departments %><br />
 <%= will_paginate @departments, renderer: BootstrapPagination::Rails %>
 
+<% partial_name = "departments" %>
+<% partial_name = "uneditable" unless policy(@departments).edit? %>
+<% cache cache_key_for_departments(partial_name, @departments.offset) do %><%# table caching %>
 <table class="table table-striped table-condensed">
   <thead>
   <tr>
@@ -14,12 +17,12 @@
   </tr>
   </thead>
   <tbody id="main-table-body">
-    <% partial_name = "departments" %>
-    <% partial_name = "uneditable" unless policy(@departments).edit? %>
     <%= render partial: partial_name, object: @departments %>
   </tbody>
 </table>
 
 <%= link_to new_department_path, class: 'btn btn-success' do %>
   <i class="glyphicon glyphicon-plus"></i> New Department
+<% end %>
+
 <% end %>

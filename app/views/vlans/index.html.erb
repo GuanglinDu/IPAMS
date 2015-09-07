@@ -2,8 +2,12 @@
 <!-- Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap -->
 <%= page_entries_info @vlans %><br />
 <%= will_paginate @vlans, renderer: BootstrapPagination::Rails %>
+
 <div>
   <!-- VLAN list -->
+  <% partial_name = "vlan" %>
+  <% partial_name = "uneditable" unless policy(@vlans).edit? %>
+  <% cache cache_key_for_vlans(partial_name, @vlans.offset) do %><%# table caching %>
   <table class="table table-striped table-condensed">
     <thead>
     <tr>
@@ -23,11 +27,10 @@
     </thead>
     <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
     <tbody id="main-table-body">
-      <% partial_name = "vlan" %>
-      <% partial_name = "uneditable" unless policy(@vlans).edit? %>
       <%= render partial: partial_name, collection: @vlans %>
     </tbody>
   </table>
+  <% end %>
 
   <!-- Create a new VLAN -->
   <% if policy(:vlan).new? %>

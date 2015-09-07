@@ -3,15 +3,15 @@
 <head>
   <title>IPAMS</title>
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
-  <!-- if set true, it will conflict with the Bootstrap in-place editing
+  <%# if set true, it will conflict with the Bootstrap in-place editing
     See https://howilearnedrails.wordpress.com/2014/08/17/how-to-remove-turbolinks-from-rails-4/
-    See also https://github.com/klenis/bootstrap-x-editable-rails/issues/8 -->
+    See also https://github.com/klenis/bootstrap-x-editable-rails/issues/8 %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
   <%= csrf_meta_tags %>
 </head>
 
 <body>
-  <!-- Bootstrap navbar -->
+  <%# Bootstrap navbar %>
   <%= render 'shared/navigation' %>
 
   <div id="main-container" class="container">

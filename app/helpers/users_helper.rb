@@ -1,7 +1,20 @@
+require 'helper_utils'
+
 module UsersHelper
-  # Tables relationship: departments -> users -> addresses
-  def find_user(id)
-    @user = User.find(id)
-    find_department(@user.department_id)
+  include HelperUtils
+
+  # Creates a cache key for the User#index view with pagination.
+  # params:
+  # +caller_name+:: the name of the calling template or partial
+  # +offset+:: the offset of the pagination 
+  def cache_key_for_users(caller_name, offset)
+    max = max_department_user_address_updated_at
+    max_updated_at = max.try(:utc).try(:to_s, :number)
+    "users/#{caller_name}-#{offset}-#{max_updated_at}"
+  end
+
+  # Expires the cache after every search
+  def expire_fragment_cache(key)
+    ActionController::Base.new.expire_fragment(key)
   end
 end
