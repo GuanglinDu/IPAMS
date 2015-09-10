@@ -1,0 +1,35 @@
+namespace :update do
+  desc "Updates the mac-address in addresses table(IPAMS-specific)"
+  task macaddress: :environment do
+    addresses = Address.all
+    count = 0
+    addresses.each do |addr|
+      addr1 = addr.mac_address
+      if addr1 != nil 
+        if addr1.length == 14 && addr1.at(4) != "-" 
+          format_mac14(addr1)
+          count += 1
+        end
+        elsif addr1.length == 17
+          format_mac17(addr1)
+          count += 1
+        end
+      addr1.save
+     end
+
+    puts "*** The mac-address attribute of #{count} addresses has been formated."
+
+def format_mac14(addr1)
+  mac_new = addr1.at(0..3) + "-" +  addr1.at(5..8) + "-" + addr1.at(10..13) 
+  addr1 = mac_new
+  return addr1
+end
+
+def format_mac17(addr1)
+  mac_new = addr1.at(0..1) + addr1.at(3..4) + "-" +  addr1(6..7) + addr1(9..10) + "-" +  addr1(12..13) + addr1(15..16) 
+  addr1 = mac_new
+  return addr1
+end
+
+  end
+end

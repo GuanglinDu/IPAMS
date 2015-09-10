@@ -1,8 +1,8 @@
 class Address < ActiveRecord::Base
-  before_validation :upcase_mac
+  #before_validation :upcase_mac
 
   validates :ip, presence: true, uniqueness: true
-  validates :mac_address, uniqueness: true, allow_blank: true, length: { is: 14}, format: { with: /[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}/, message: "only allows XXXX-XXXX-XXXX"}
+  #validates :mac_address, uniqueness: true, allow_blank: true, length: { is: 14}, format: { with: /[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}/, message: "only allows XXXX-XXXX-XXXX"}
   
   protected
     def upcase_mac
