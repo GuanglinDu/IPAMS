@@ -1,6 +1,18 @@
+# See Intro to Rake by Shneems: https://www.youtube.com/watch?v=gR0YfJrg9pg
+# Dependency task :environment which is a Rails rake task loading models, etc.
+require 'active_support/core_ext'
+require 'csv'
+require_relative 'import_helper'
+require_relative 'file_helper'
+
+include ImportHelper
+
 namespace :update do
+  log_file = File.open(FileHelper::MAC_FORMAT_LOG, "w")
+
   desc "Updates the mac-address in addresses table(IPAMS-specific)"
   task macaddress: :environment do
+    file_path = FileHelper::LAN_IMPORT_SOURCE_FILE
 
     addresses = Address.all
     count_all = 0
@@ -43,18 +55,18 @@ namespace :update do
           count17 += 1
         else 
           count_else += 1
-          puts addr.ip + "'s MAC:  " +addr1+" is illegal!!!!!!!"
+          log_file.puts addr.ip + "'s MAC:  " +addr1+" is illegal!!!!!!!"
         end
       end
       addr.save
       puts addr.mac_address
    end
 
-   puts "*** The mac-address attribute of #{count_all} addresses need to be formated."
-   puts "*** The 12bit mac-address attribute of #{count12} addresses has been formated."
-   puts "*** The 14bit mac-address attribute of #{count14} addresses has been formated."
-   puts "*** The 17bit mac-address attribute of #{count17} addresses has been formated."
-   puts "*** The illegal mac-address attribute of #{count_else} addresses has not been formated."
+   log_file.puts "*** The mac-address attribute of #{count_all} addresses need to be formated."
+   log_file.puts "*** The 12bit mac-address attribute of #{count12} addresses has been formated."
+   log_file.puts "*** The 14bit mac-address attribute of #{count14} addresses has been formated."
+   log_file.puts "*** The 17bit mac-address attribute of #{count17} addresses has been formated."
+   log_file.puts "*** The illegal mac-address attribute of #{count_else} addresses has not been formated."
 
   end
 end
