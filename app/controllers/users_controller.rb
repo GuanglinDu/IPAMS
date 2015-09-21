@@ -1,7 +1,4 @@
 class UsersController < ApplicationController
-  include IPAMSConstants
-  include ApplicationHelper 
-  include DepartmentsHelper 
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   # Resolves the FK department_id before updating a record
@@ -10,11 +7,13 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    #@users = User.all # mem killer!
+    # @keywords also used in the fragment cache keys
     keywords = params[:search]
     keywords = keywords.strip if keywords
+    # Flag to indicate whether search is performed 
+    @searched = false
 
-    # No keywords, no search; paginate all, instead.
+    # No keywords, no search; paginate all, instead
     @users = nil
     if keywords && keywords != "" 
       #search = Sunspot.search(Address)
@@ -24,6 +23,7 @@ class UsersController < ApplicationController
         paginate :page => params[:page] || 1, :per_page => 30
       end 
       # Type Sunspot::Search::PaginatedCollection < Array
+      @searched = true
       @users = search.results
     else
       @users = User.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
@@ -59,11 +59,11 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        flash[:success] = 'User was successfully created.'
+        flash[:success] = "User #{@user.name} was successfully created."
         format.html { redirect_to @user }
         format.json { render action: 'show', status: :created, location: @user }
       else
-        flash[:error] = 'User was NOT successfully created.'
+        flash[:error] = "User was NOT successfully created."
         format.html { render action: 'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
       # Prevents user NOBODY from being modified
       unless nobody? 
        if @user.update(@pars)
-          flash[:success] = 'User was successfully updated.'
+          flash[:success] = "User #{@user.name} was successfully updated."
           format.html { redirect_to @user }
           #format.json { head :no_content }
           format.json { render json: user_info_in_json }

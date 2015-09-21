@@ -1,5 +1,8 @@
 <% addresses = uneditable %>
 <% count = addresses.offset %>
+
+<% caller_name = "#{caller_name}-uneditiable" %><%# To distinguish editable and uneditable views %>
+<% cache_unless @searched, cache_key_for_addresses(caller_name, count) do %><%# table caching %>
 <table class="table table-striped table-condensed">
 <thead>
 <tr>
@@ -26,7 +29,8 @@
 </thead>
 <tbody id="main-table-body">
 <% addresses.each do |address| %>
-<% find_user(address.user_id) %>
+<% find_user(address.user_id) %><%# @user in ApplicationHelper %>
+<% find_department(@user.department_id) %><%# @department in ApplicationHelper %>
 <tr>
   <td><%= count += 1 %></td>
   <td>
@@ -53,3 +57,4 @@
 <% end %>
 </tbody>
 </table>
+<% end %>

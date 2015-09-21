@@ -1,8 +1,6 @@
 class AddressesController < ApplicationController
-  include IPAMSConstants
-  include ApplicationHelper 
 
-  before_action :set_address, only: [:show, :edit, :update, :destroy]
+  before_action :set_address, only: [:show, :edit, :update, :destroy, :recycle]
   after_action :verify_authorized
   #after_action :verify_authorized, except: :index
   #after_action :verify_policy_scoped, only: :index
@@ -13,16 +11,20 @@ class AddressesController < ApplicationController
   def index
     keywords = params[:search]
     keywords = keywords.strip if keywords
+    # Flag to indicate whether search is performed 
+    @searched = false
 
     # No keywords, no search
-    @addresses = nil
+    # Serves the fragment cache if it already exists
     if keywords && keywords != "" 
       #search = Sunspot.search(Address)
       search = Address.search do
-       fulltext keywords
-       # See http://www.whatibroke.com/?p=235
-       paginate :page => params[:page] || 1, :per_page => 30
+        fulltext keywords
+        # See http://www.whatibroke.com/?p=235
+        paginate :page => params[:page] || 1, :per_page => 30
       end 
+      
+      @searched = true
       # Type Sunspot::Search::PaginatedCollection < Array
       @addresses = search.results
     else
@@ -39,11 +41,15 @@ class AddressesController < ApplicationController
     authorize @address
   end
 
+  # Locale used in hitories/create.js.erb to recycle the address
   def show
     authorize @address
+    @histories = History.where(address_id: @address.id).paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
+    authorize @histories
+
     respond_to do |format|
       format.html
-      format.json { render json: {pk: @address.id, ip: @address.ip} }
+      format.json { render json: {pk: @address.id, ip: @address.ip, locale: I18n.locale } }
     end
   end
 
@@ -55,8 +61,8 @@ class AddressesController < ApplicationController
     authorize @address
   end
   
-  # PATCH/PUT /addresss/1
-  # PATCH/PUT /addresss/1.json
+  # PATCH/PUT /addresses/1
+  # PATCH/PUT /addresses/1.json
   def update
     authorize @address
 
@@ -64,12 +70,28 @@ class AddressesController < ApplicationController
       if @address.update(@pars)
         flash[:success] = "Address was successfully updated. #{@pars.inspect}"
         format.html { redirect_to addresses_path }
-        #format.json { head :no_content }
         format.json { render json: { locale: I18n.locale, user_id: @user_id, recyclable: @address.recyclable }}
-        #format.json { render json: { locale: I18n.locale, user_id: @user_id }}
       else
-        flash[:danger] = 'There was a problem updating the Address.'
+        flash[:danger] = 'There was a problem updating the address.'
         format.html { render action: 'edit' }
+        format.json { render json: @address.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /addresses/1/recycle
+  # PUT /addresses/1/recycle.json
+  def recycle
+    authorize @address
+    set_recycled_address_values()
+
+    respond_to do |format|
+      if @address.save
+        flash[:success] = "Address was successfully recycled."
+        format.json { render json: { locale: I18n.locale, user_id: @user.id }}
+      else
+        flash[:danger] = 'There was a problem recycling the address.'
+        format.html { head :no_content }
         format.json { render json: @address.errors, status: :unprocessable_entity }
       end
     end
@@ -89,27 +111,42 @@ class AddressesController < ApplicationController
         :application_form, :assigner, :recyclable)
     end
 
-   # Changes a user.name to its user.id (FK user_id) as only the FK is going to be stored
-   # in the Address object (record). Here's the trick to save an id while showing its name
-   def convert_user_name_to_user_id
-     @pars = address_params # access by reference
-     if @pars.has_key?("user_id")
-       name = @pars[:user_id]
-       if name
-         @pars[:user_id] = find_user_id(name) unless integer?(name)
-       end
-     end
-   end
+    # Changes a user.name to its user.id (FK user_id) as only the FK is going to be stored
+    # in the Address object (record). Here's the trick to save an id while showing its name
+    def convert_user_name_to_user_id
+      @pars = address_params # access by reference
+      if @pars.has_key?("user_id")
+        name = @pars[:user_id]
+        if name
+          @pars[:user_id] = find_user_id(name) unless integer?(name)
+        end
+      end
+    end
 
-   # Resolves FK user_id before saving the modified @address
-   # If the user doesn't exist, create a new one belonging to the NONEXISTENT department
-   def find_user_id(name)
-     user = User.find_by(name: name)
-     unless user
-       u1 = Department.find_by(dept_name: 'NONEXISTENT').users.create(name: name)
-       user = u1 if u1.valid?
-       user ||= User.find_by(name: 'NOBODY')
-     end
-     @user_id = user.id # accessable in the class scope
-   end
+    # Resolves FK user_id before saving the modified @address
+    # If the user doesn't exist, create a new one belonging to the NONEXISTENT department
+    def find_user_id(name)
+      user = User.find_by(name: name)
+      unless user
+        u1 = Department.find_by(dept_name: 'NONEXISTENT').users.create(name: name)
+        user = u1 if u1.valid?
+        user ||= User.find_by(name: 'NOBODY')
+      end
+      @user_id = user.id # accessable in the class scope
+    end
+    
+    # Empties recycled address values 
+    def set_recycled_address_values
+      @user = User.find_by(name: 'NOBODY')
+      @department = Department.find(@user.department_id)
+
+      @address.user_id = @user.id
+      @address.mac_address = nil
+      @address.usage = nil
+      @address.start_date = nil
+      @address.end_date = nil
+      @address.application_form = nil
+      @address.assigner = nil
+      @address.recyclable = false
+    end   
 end

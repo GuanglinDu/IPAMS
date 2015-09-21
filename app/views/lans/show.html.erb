@@ -20,6 +20,10 @@
 
 <!-- Show the existing VLANs in a table. Note that partials shorten the code. -->
 <h3>Existing VLANs in the <%= @lan.lan_name %></h3>
+
+<% partial_name = "vlans/vlan" %>
+<% partial_name = "vlans/uneditable" unless policy(@lan).edit? %>
+<% cache cache_key_for_lans("lans/" + partial_name, @vlans.offset) do %><%# table caching %>
 <table class="table table-condensed">
   <thead>
   <tr>
@@ -45,17 +49,18 @@
   <!-- The following either will do. --> 
   <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
   <tbody id="main-table-body">
-    <% partial_name = "vlans/vlan" %>
-    <% partial_name = "vlans/uneditable" unless policy(@lan).edit? %>
     <%= render partial: partial_name, collection: @vlans %>
   </tbody>
 </table>
+<% end %>
 
 <div>
   <%= link_to lans_path, class: 'btn btn-success' do %>
     <i class="glyphicon glyphicon-arrow-left"></i> Back to LANs
   <% end %>
+  <% if policy(@lan).edit? %>
   | <%= link_to edit_lan_path(@lan), class: 'btn btn-success' do %>
       <i class="glyphicon glyphicon-edit"></i> Edit LAN
     <% end %>
+  <% end %>
 </div>

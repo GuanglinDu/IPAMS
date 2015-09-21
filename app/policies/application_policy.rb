@@ -22,7 +22,7 @@ class ApplicationPolicy
 
   # Only an expert or an administrator can create/update/edit 
   def create?
-    system_user.expert? or system_user.admin?
+    system_user.expert? or system_user.admin? or system_user.root?
   end
 
   def new?
@@ -30,7 +30,7 @@ class ApplicationPolicy
   end
 
   def update?
-    system_user.operator? or system_user.expert? or system_user.admin?
+    system_user.operator? or system_user.expert? or system_user.admin? or system_user.root?
   end
 
   def edit?
@@ -39,16 +39,16 @@ class ApplicationPolicy
 
   # Only admin can destroy
   def destroy?
-    system_user.admin?
-  end
-
-  # Only admin can recycle
-  def recycle?
-    system_user.admin?
+    system_user.root?
   end
 
   def scope
     Pundit.policy_scope!(system_user, record.class)
+  end
+
+  # Returns the system user id
+  def system_user_id
+    @system_user.id
   end
 
   class Scope

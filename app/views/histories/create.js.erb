@@ -1,0 +1,62 @@
+var ip = "<%= @address.ip %>";
+var addressID = "<%= @address.id %>";
+var rowID = $("tr:contains(" + ip + ")").attr("id");
+var url = "/addresses/" + addressID;
+$.ajax({
+  url: url,
+  type: "GET",
+  dataType: "json",
+  
+  success: function(response){
+    empty_address_values(rowID, addressID, response);
+  }
+});
+
+
+var empty_address_values = function(rowID, addressID, response1){
+  var url = "/" + response1.locale + "/addresses/" + addressID + "/recycle";
+  $.ajax({
+    url: url,
+    type: "put",
+    dataType: "json",
+    
+    success: function(response){
+      var addr_url = "/" + response.locale + "/addresses/" + addressID;
+      var user_url = "/users/" + response.user_id;
+
+      // macaddress text
+      var macAddress = $("#" + rowID + " #mac-address" + " a").text("");
+      refreshInPlaceEditing(macAddress, "", addr_url);
+
+      // usage text
+      var usage = $("#" + rowID + " #usage" + " a").text("");
+      refreshInPlaceEditing(usage, "", addr_url);
+
+      // username text
+      var userName = $("#" + rowID + " #user-name" + " a").text("NOBODY");
+      refreshInPlaceEditing(userName, "NOBODY", addr_url);
+
+      // startdate text
+      var startDate = $("#" + rowID + " #start-date" + " a").text("");
+      refreshInPlaceEditing(startDate, "", addr_url);
+
+      // enddate text
+      var endDate = $("#" + rowID + " #end-date" + " a").text("");
+      refreshInPlaceEditing(endDate, "", addr_url);
+
+      // assigner text
+      var assigner = $("#" + rowID + " #assigner" + " a").text("");
+      refreshInPlaceEditing(assigner, "", addr_url);
+
+      // recyclable text
+      var recyclable = $("#" + rowID + " #recyclable" + " a").text("false");
+      refreshInPlaceEditing(recyclable, "", addr_url);
+
+      // update user related field values
+      addressUserChanged(user_url, rowID);
+
+      // recycle button
+      var btn_recycle = $("#" + rowID + " #recycle #btn_recycle").attr("disabled", true);
+    }
+  });
+};

@@ -9,8 +9,8 @@ class Address < ActiveRecord::Base
       self.mac_address = self.mac_address.upcase
     end
 
-  belongs_to :vlan
-  belongs_to :user
+  belongs_to :vlan, touch: true
+  belongs_to :user, touch: true
   has_many :histories, dependent: :destroy
 
   # Searches with Sunspot

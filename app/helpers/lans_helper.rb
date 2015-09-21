@@ -12,4 +12,13 @@ module LansHelper
     end
     name
   end
+
+  # Creates a cache key for the Lan#index view with pagination.
+  # params:
+  # +caller_name+:: the name of the calling template or partial
+  # +offset+:: the offset of the pagination 
+  def cache_key_for_lans(caller_name, offset)
+    max_updated_at = Lan.maximum(:updated_at).try(:utc).try(:to_s, :number)
+    "lans/#{caller_name}-#{offset}-#{max_updated_at}"
+  end
 end
