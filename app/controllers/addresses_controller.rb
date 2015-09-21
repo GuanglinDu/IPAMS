@@ -72,7 +72,7 @@ class AddressesController < ApplicationController
         format.html { redirect_to addresses_path }
         format.json { render json: { locale: I18n.locale, user_id: @user_id, recyclable: @address.recyclable }}
       else
-        flash[:danger] = 'There was a problem updating the address.'
+        flash[:danger] = "There was a problem updating the address."
         format.html { render action: 'edit' }
         format.json { render json: @address.errors, status: :unprocessable_entity }
       end
@@ -90,7 +90,7 @@ class AddressesController < ApplicationController
         flash[:success] = "Address was successfully recycled."
         format.json { render json: { locale: I18n.locale, user_id: @user.id }}
       else
-        flash[:danger] = 'There was a problem recycling the address.'
+        flash[:danger] = "There was a problem recycling the address."
         format.html { head :no_content }
         format.json { render json: @address.errors, status: :unprocessable_entity }
       end

@@ -27,28 +27,28 @@
   </tr>
   </thead>
   <tbody id="main-table-body">
- <% if @histories != nil %>
-  <% @histories.each do |history| %>
-  <% count += 1 %>
-  <tr>
-    <td><%= count %></td>
-    <td><%= @address.ip %></td>
-    <td><%= history.mac_address %></td>
-    <td><%= history.usage %></td>
-    <td><%= history.user_name %></td>
-    <td><%= history.dept_name %></td>
-    <td><%= history.office_phone %></td>
-    <td><%= history.cell_phone %></td>
-    <td><%= history.building %></td>
-    <td><%= history.room %></td>
-    <td><%= history.start_date%></td>
-    <td><%= history.end_date%></td>
-    <td><%= history.created_at.localtime%></td>
-  </tr>
+  <% if @histories != nil %>
+    <% @histories.each do |history| %>
+    <% count += 1 %>
+    <tr>
+      <td><%= count %></td>
+      <td><%= @address.ip %></td>
+      <td><%= history.mac_address %></td>
+      <td><%= history.usage %></td>
+      <td><%= history.user_name %></td>
+      <td><%= history.dept_name %></td>
+      <td><%= history.office_phone %></td>
+      <td><%= history.cell_phone %></td>
+      <td><%= history.building %></td>
+      <td><%= history.room %></td>
+      <td><%= history.start_date %></td>
+      <td><%= history.end_date %></td>
+      <td><%= history.created_at.localtime %></td>
+    </tr>
   <% end %>
-<% else %>
-  <tr><td colspan="12">No history record!</td></tr>
-<% end %> 
+  <% else %>
+    <tr><td colspan="12">No history record!</td></tr>
+  <% end %> 
   </tbody>
   </table>
 
@@ -59,8 +59,8 @@
 <div>
   <%= link_to welcome_path, class: 'btn btn-success' do %>
     <i class="glyphicon glyphicon-home"></i> Home
-   <% end %>
-   | <%= link_to addresses_path, class: 'btn btn-success' do %>
-       <i class="glyphicon glyphicon-arrow-right"></i> Go to Addresses
-     <% end %>
+  <% end %>
+  | <%= link_to addresses_path, class: 'btn btn-success' do %>
+    <i class="glyphicon glyphicon-arrow-right"></i> Go to Addresses
+  <% end %>
 </div>
