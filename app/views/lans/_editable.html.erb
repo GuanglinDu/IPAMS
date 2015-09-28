@@ -1,5 +1,7 @@
 <tr>
   <% lan = editable %>
+
+  <% cache lan do %><%# partial row caching %>
   <td><%= lan.lan_number %></td>
   <td>
     <a href="#" data-xeditable="true" data-pk="<%= lan.id %>" data-model="lan" data-name="lan_name" data-url="<%= lan_path(lan) %>" data-title="LAN Name"><%= lan.lan_name %></a>
@@ -7,6 +9,8 @@
   <td>
     <a href="#" data-xeditable="true" data-pk="<%= lan.id %>" data-model="lan" data-name="lan_description" data-url="<%= lan_path(lan) %>" data-title="LAN Description"><%= lan.lan_description %></a>
   </td>
+  <% end %>
+
   <td>
     <% if policy(lan).show? %>
       <%= link_to 'Show', lan, class: 'btn btn-primary btn-xs' %>

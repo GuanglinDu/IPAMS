@@ -11,8 +11,8 @@ require_relative 'populate_table'
 include PopulateTable
 
 # Stops rake db:seed in the production environment
-if (ENV["RAILS_ENV"] == "production")
-  puts "Running rake db:seed in the production environment is forbidden!"
+if (ENV["RAILS_ENV"] == "production" || ENV["RAILS_ENV"] == "test")
+  puts "Running rake db:seed in the production or test environment is forbidden!"
 else
   run
 end

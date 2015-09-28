@@ -37,7 +37,7 @@ class ApplicationPolicy
     update?
   end
 
-  # Only admin can destroy
+  # Only the role root can destroy
   def destroy?
     system_user.root?
   end

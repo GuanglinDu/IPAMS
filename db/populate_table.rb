@@ -10,7 +10,7 @@ module PopulateTable
     lan2 = Lan.create!(:lan_number => 2, :lan_name => "Datacenter LAN",
       :lan_description => %{The new LAN with 1-C LAN each inside the DC building.})
 
-    # Test data for table valns
+    # Test data for table vlans
     vlan11_of_lan1 = Vlan.create!(lan_id: lan1.id, vlan_number: 11, vlan_name: "VLAN_11", subnet_mask: "255.255.255.0",
       gateway: "192.168.0.254", static_ip_start: "192.168.0.0", static_ip_end: "192.168.0.255", 
       vlan_description: "Storey 1 of the Main Building")

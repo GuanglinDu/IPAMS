@@ -89,6 +89,7 @@ gem 'bootstrap_form'
 # http://rubyinrails.com/2014/05/integrate-awesome_print-with-rails-console/
 group :development do
   gem 'awesome_print'
+  gem 'faker' # fake data
 end
 
 # Debugs with byebug

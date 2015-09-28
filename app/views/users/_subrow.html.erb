@@ -1,10 +1,12 @@
-<!-- Rows containing the user's IP addressesi
+<%# Rows containing the user's IP addressesi
   Twitter Bootstrap display rest of a table rows using collapse.js
   http://stackoverflow.com/questions/22688021/twitter-bootstrap-display-rest-of-a-table-rows-using-collapse-js
-  http://www.bootply.com/122871 -->
+  http://www.bootply.com/122871
+%>
 <% addr = subrow %>
 <% str = user.id.to_s %>
 
+<%# cache([user, addr]) do %><%# partial row caching %>
 <tr class="collapse <%= str %>">
   <td colspan="3"></td>
   <td><%= addr.ip %></td>
@@ -22,3 +24,4 @@
   </td>
   <td colspan="7"></td>
 </tr>
+<%# end %>
