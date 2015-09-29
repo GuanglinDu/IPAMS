@@ -41,11 +41,12 @@
 </tr>
 </thead>
 
-<%# To let a partial to access the controller's instance variables is usually discouraged.
+<% if false %>
+  To let a partial to access the controller's instance variables is usually discouraged.
   See http://stackoverflow.com/questions/2503838/rails-should-partials-be-aware-of-instance-variables/26651056#26651056
   But to make this partial DRY, helper methods are called and instance variables are used. Or
   the table header has to be duplicated in the calling templates (vlans/show & addresses/index).
-%>
+<% end %>
 <tbody id="main-table-body">
 <% addresses.each do |address| %>
 <%# cache cache_key_for_address(address), skip_digest: true do %><%# row caching %>
