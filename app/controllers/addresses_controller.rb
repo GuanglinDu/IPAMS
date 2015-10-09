@@ -1,6 +1,6 @@
 class AddressesController < ApplicationController
 
-  before_action :set_address, only: [:show, :edit, :update, :destroy, :recycle]
+ before_action :set_address, only: [:show, :edit, :update, :destroy, :recycle]
   after_action :verify_authorized
   #after_action :verify_authorized, except: :index
   #after_action :verify_policy_scoped, only: :index

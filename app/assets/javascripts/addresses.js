@@ -118,75 +118,14 @@ var addressUserChanged = function(dataURL, rowID) {
       var addressID = $("#" + rowID + " #start-date" + " a").attr("data-pk");
       var addrURL = "/" + response.locale + "/addresses/" + addressID;
       var time = getDateTime();
+      //var utcTime = now.toUTCString();
 
-      // department pk, url, text
-      var deptName = $("#" + rowID + " #department-name" + " a")
-        .attr("data-pk", response.pk)
-        .attr("data-url", url)
-        .text(response.department);
-      //refreshInPlaceEditing(deptName, response.department, url);
-      //refreshInPlaceEditing11(deptName, response.department);
-      refreshInPlaceEditing(deptName, response.department, "");
-      
-      // user title pk, url, text
-      var userTitle = $("#" + rowID + " #user-title" + " a")
-        .attr("data-pk", response.pk)
-        .attr("data-url", url)
-        .text(response.user_title);
-      //refreshInPlaceEditing(userTitle, response.user_title, url);
-      //refreshInPlaceEditing11(userTitle, response.user_title);
-      refreshInPlaceEditing(userTitle, response.user_title, "");
+      updateUserInfo(rowID, response, url);
 
-      // office phone pk, url, text
-      var officePhone = $("#" + rowID + " #office-phone" + " a")
-        .attr("data-pk", response.pk)
-        .attr("data-url", url)
-        .text(response.office_phone);
-      //refreshInPlaceEditing(officePhone, response.office_phone, url);
-      //refreshInPlaceEditing11(officePhone, response.office_phone);
-      refreshInPlaceEditing(officePhone, response.office_phone, "");
-
-      // cell phone pk, url, text
-      var cellPhone = $("#" + rowID + " #cell-phone" + " a")
-        .attr("data-pk", response.pk)
-        .attr("data-url", url)
-        .text(response.cell_phone);
-      //refreshInPlaceEditing(cellPhone, response.cell_phone, url);
-      //refreshInPlaceEditing11(cellPhone, response.cell_phone);
-      refreshInPlaceEditing(cellPhone, response.cell_phone, "");
-
-      // building pk, url, text
-      var buildingName = $("#" + rowID + " #building" + " a")
-        .attr("data-pk", response.pk)
-        .attr("data-url", url)
-        .text(response.building);
-      //refreshInPlaceEditing(buildingName, response.building, url);
-      //refreshInPlaceEditing11(buildingName, response.building);
-      refreshInPlaceEditing(buildingName, response.building, "");
-
-      // storey pk, url, text
-      var storeyNum = $("#" + rowID + " #storey" + " a")
-        .attr("data-pk", response.pk)
-        .attr("data-url", url)
-        .text(response.storey);
-      //refreshInPlaceEditing(storeyNum, response.storey, url);
-      //refreshInPlaceEditing11(storeyNum, response.storey);
-      refreshInPlaceEditing(storeyNum, response.storey, "");
-
-      // room pk, url, text
-      var roomNum = $("#" + rowID + " #room" + " a")
-        .attr("data-pk", response.pk)
-        .attr("data-url", url)
-        .text(response.room);
-      //refreshInPlaceEditing(roomNum, response.room, url);
-      //refreshInPlaceEditing11(roomNum, response.room);
-      refreshInPlaceEditing(roomNum, response.room, "");
-
-      // starttime text
-      //if (response.name != "NOBODY") {
+      if (response.user_name != "NOBODY") {
         var startDate= $("#" + rowID + " #start-date" + " a").text(time);
         refreshInPlaceEditing(startDate, time, addrURL);
-      //}
+      }
     }
   });
 };
@@ -204,7 +143,7 @@ var refreshInPlaceEditing = function(obj, elemText, url) {
   obj.editable("destroy");
 
   // Then, refreshes the in-place editing once more
-  if ( url == "" ){
+  if ( url === "" ){
     obj.editable({
       params: function(params) {
         var railsParams = {};
@@ -231,45 +170,82 @@ var refreshInPlaceEditing = function(obj, elemText, url) {
   }
 };
 
-var refreshInPlaceEditing11 = function(obj, elemText) {
-  // Removes the old editability first
-  // See https://github.com/vitalets/x-editable/issues/61
-  obj.editable("destroy");
+var updateUserInfo = function (rowID, response, url) {
+  // department pk, url, text
+  var deptName = $("#" + rowID + " #department-name" + " a")
+    .attr("data-pk", response.pk)
+    .attr("data-url", url)
+    .text(response.department);
+  refreshInPlaceEditing(deptName, response.department, "");
+  
+  // user title pk, url, text
+  var userTitle = $("#" + rowID + " #user-title" + " a")
+    .attr("data-pk", response.pk)
+    .attr("data-url", url)
+    .text(response.user_title);
+  refreshInPlaceEditing(userTitle, response.user_title, "");
 
-  // Then, refreshes the in-place editing once more
-  obj.editable({
-    params: function(params) {
-      var railsParams = {};
-      railsParams[obj.data("model")] = {};
-      railsParams[obj.data("model")][params.name] = params.value;
-      return railsParams;
-    }
-  });
+  // office phone pk, url, text
+  var officePhone = $("#" + rowID + " #office-phone" + " a")
+    .attr("data-pk", response.pk)
+    .attr("data-url", url)
+    .text(response.office_phone);
+  refreshInPlaceEditing(officePhone, response.office_phone, "");
+
+  // cell phone pk, url, text
+  var cellPhone = $("#" + rowID + " #cell-phone" + " a")
+    .attr("data-pk", response.pk)
+    .attr("data-url", url)
+    .text(response.cell_phone);
+  refreshInPlaceEditing(cellPhone, response.cell_phone, "");
+
+  // building pk, url, text
+  var buildingName = $("#" + rowID + " #building" + " a")
+    .attr("data-pk", response.pk)
+    .attr("data-url", url)
+    .text(response.building);
+  refreshInPlaceEditing(buildingName, response.building, "");
+
+  // storey pk, url, text
+  var storeyNum = $("#" + rowID + " #storey" + " a")
+    .attr("data-pk", response.pk)
+    .attr("data-url", url)
+    .text(response.storey);
+  refreshInPlaceEditing(storeyNum, response.storey, "");
+
+  // room pk, url, text
+  var roomNum = $("#" + rowID + " #room" + " a")
+    .attr("data-pk", response.pk)
+    .attr("data-url", url)
+    .text(response.room);
+  refreshInPlaceEditing(roomNum, response.room, "");
+  return deptName, userTitle, officePhone, cellPhone, buildingName, storeyNum, roomNum; 
 };
 
+// gets the current time 
 function getDateTime() {
-    var now = new Date(); 
-    var year = now.getFullYear();
-    var month = now.getMonth()+1; 
-    var day = now.getDate();
-    var hour = now.getHours();
-    var minute = now.getMinutes();
-    var second = now.getSeconds(); 
-    if(month.toString().length == 1) {
-      var month = '0' + month;
-    }
-    if(day.toString().length == 1) {
-      var day = '0' + day;
-    }   
-    if(hour.toString().length == 1) {
-      var hour = '0' + hour;
-    }
-    if(minute.toString().length == 1) {
-      var minute = '0' + minute;
-    }
-    if(second.toString().length == 1) {
-      var second = '0' + second;
-    }   
-    var dateTime = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;   
-    return dateTime;
+  var now = new Date(); 
+  var year = now.getFullYear();
+  var month = now.getMonth()+1; 
+  var day = now.getDate();
+  var hour = now.getHours();
+  var minute = now.getMinutes();
+  var second = now.getSeconds(); 
+  if(month.toString().length == 1) {
+    var month = '0' + month;
+  }
+  if(day.toString().length == 1) {
+    var day = '0' + day;
+  }   
+  if(hour.toString().length == 1) {
+    var hour = '0' + hour;
+  }
+  if(minute.toString().length == 1) {
+    var minute = '0' + minute;
+  }
+  if(second.toString().length == 1) {
+    var second = '0' + second;
+  }   
+  var dateTime = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;   
+  return dateTime;
 }
