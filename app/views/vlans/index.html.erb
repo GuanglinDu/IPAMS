@@ -7,7 +7,7 @@
   <%# VLAN list %>
   <% partial_name = "vlan" %>
   <% partial_name = "uneditable" unless policy(@vlans).edit? %>
-  <%# cache cache_key_for_vlans(partial_name, @vlans.offset) do %><%# table caching %>
+  <%# cache cache_key_for_vlans(partial_name, @vlans.offset) do %><%# table caching with pagination %>
   <table class="table table-striped table-condensed">
     <thead>
     <tr>
@@ -27,7 +27,7 @@
     </thead>
     <%# render partial: "vlans/vlan", collection: @lan.vlans %>
     <tbody id="main-table-body">
-      <%= render partial: partial_name, collection: @vlans %>
+      <%= render partial: partial_name, collection: @vlans, locals: {count: @vlans.offset} %>
     </tbody>
   </table>
   <%# end %>

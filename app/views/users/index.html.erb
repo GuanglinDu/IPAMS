@@ -2,8 +2,7 @@
 <div class="row">
   <div class="col-xs-8">
     <h4>Listing Users</h4>
-    <%# Header pagination
-      Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
+    <%# Header pagination. See https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
     <%= page_entries_info @users %><br />
     <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
   </div>
@@ -20,6 +19,7 @@
 <% partial_name = "editable" %>
 <% partial_name = "uneditable" unless policy(@users).edit? %>
 
+<%# The whole table caching is disabled as the authorization will be cached along. %>
 <%# cache_unless @searched, cache_key_for_users(partial_name, @users.offset) do %>
 <table class="table table-responsive table-condensed">
   <thead>
@@ -46,12 +46,8 @@
     <%= render partial: partial_name, object: @users %>
   </tbody>
 </table>
-<%# end %>
 </div>
 
 <%# Footer pagination %>
 <%= page_entries_info @users %><br />
 <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
-<script src="myClick.js"></script> 
-<!-- <script src="../../assets/javascripts/folding.js"></script> -->
-<!-- <script src="../../assets/javascripts/folding.js"></script> -->

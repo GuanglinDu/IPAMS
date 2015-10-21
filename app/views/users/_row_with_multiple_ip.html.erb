@@ -9,7 +9,7 @@
 <% find_department(user.department_id) %>
 
 <tr>
-  <%# cache([user, @department]) do %><%# partial row caching %>
+  <%# cache([user, @department]) do %><%# partial row caching disables as it's inefficiency. %>
   <td><%= count %></td>
   <td>
     <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="name" data-url="<%= user_path(user) %>" data-title="User Name"><%= user.name %></a>
@@ -46,7 +46,7 @@
   </td>
   <%# end %><%# partial row caching %>
 
-  <%# Authorization should not be cached!!! %>
+  <%# Authorization should NOT be cached!!! %>
   <% if policy(user).destroy? %>
     <td>
       <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>

@@ -8,7 +8,7 @@ module DepartmentsHelper
     "departments/#{caller_name}-#{offset}-#{max_updated_at}"
   end
 
-  # Creates a cache key for a single department.
+  # Creates a cache key for a single department (record).
   # params:
   # +caller_name+:: the name of the calling template or partial
   # +department+:: the Department object 

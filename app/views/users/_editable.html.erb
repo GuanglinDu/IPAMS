@@ -8,7 +8,7 @@
   <% if user.name == "NOBODY" %>
     <%= render partial: "nobody", object: user, locals: { count: count } %>
   <% else %>
-    <%# addresses_helper: helpers for controllers and views %>
+    <%# addresses_helper: helper methods accessible by controllers and views %>
     <% addresses = find_addresses_of_user(user) %>
 
     <% if addresses.count >= 2 %>
@@ -22,4 +22,4 @@
           locals: { count: count, addresses: addresses, editable: true } %>
     <% end %>
   <% end %>
-<% end %>
+<% end %><%# iteration end %>

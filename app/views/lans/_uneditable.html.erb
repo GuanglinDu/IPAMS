@@ -1,6 +1,6 @@
 <tr>
   <% lan = uneditable %>
-  <% cache lan do %><%# partial row caching %>
+  <% cache cache_key_for_lan("uneditable", lan), skip_digest: true do %><%# partial row caching %>
     <td><%= lan.lan_number %></td>
     <td><%= lan.lan_name %></td>
     <td><%= lan.lan_description %></td>

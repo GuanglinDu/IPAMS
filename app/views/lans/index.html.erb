@@ -6,7 +6,7 @@
 <% partial_name = "editable" %>
 <% partial_name = "uneditable" unless policy(@lans).edit? %>
 
-<%# cache cache_key_for_lans(partial_name, @lans.offset) do %><%# table caching %>
+<%# cache cache_key_for_lans(partial_name, @lans.offset) do %><%# table caching with pagination %>
 <table class="table table-striped">
   <thead>
   <tr>

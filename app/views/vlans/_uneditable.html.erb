@@ -1,8 +1,8 @@
 <tr>
   <% vlan = uneditable %>
 
-  <% cache(vlan) do %><%# partial row caching %>
-    <td><%= uneditable_counter + 1 %></td>
+  <% cache cache_key_for_vlan("uneditable", vlan), skip_digest: true do %><%# partial row caching %>
+    <td><%= uneditable_counter + count + 1 %></td>
     <td><%= find_lan_name(vlan.lan_id) %></td>
     <td><%= vlan.vlan_number %></td>
     <td><%= vlan.vlan_name %></td>

@@ -20,7 +20,7 @@ namespace :init do
     puts "*** Table vlans initialized: #{vlans.count} VLANs."
   end
   
-  # Initializes a specified VLAN. Usage: rake vlan_selected[VLAN_name]
+  # Initializes a specified VLAN. Usage: rake init:vlan_selected[VLAN_name] (e.g., init:vlan_selected[vlan_1])
   # See https://stackoverflow.com/questions/1357639/rails-rake-how-to-pass-in-arguments-to-a-task-with-environment
   # Notes:
   #  You may omit the #with_defaults call, obviously.
@@ -29,8 +29,8 @@ namespace :init do
   #  args is an instance of Rake::TaskArguments.
   #  t is an instance of Rake::Task.
   desc "Initializes a specified VLAN"
-  task :vlan_selected, [:vlanname] => :environment do |t, args|
-    puts "*** selected VLAN to be initialized: #{args.vlanname}"    
+  task :vlan_selected, [:vlan_name] => :environment do |t, args|
+    puts "*** selected VLAN to be initialized: #{args.vlan_name}"    
     
     vlan = Vlan.find_by(vlan_name: args.vlanname)
     if vlan
