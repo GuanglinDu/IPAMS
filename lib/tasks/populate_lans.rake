@@ -41,8 +41,13 @@ namespace :db do
     1.upto(count1) do |i| 
       num1 = max_lan_number + i
       s1 = num1.to_s
-      Lan.create!(:lan_number => s1, :lan_name => "LAN " + s1, :lan_description => "This is LAN " + s1)
+      Lan.create(
+        :lan_number => num1,
+        :lan_name => "LAN " + s1,
+        :lan_description => "This is LAN " + s1
+      )
     end
+
     puts "--- #{count1} more LANs added"
   end
   

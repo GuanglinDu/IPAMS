@@ -10,6 +10,7 @@
 <table class="table table-striped">
   <thead>
   <tr>
+    <th>No.</th>
     <th>LAN Number</th>
     <th>LAN Name</th>
     <th>LAN Description</th>
@@ -19,7 +20,7 @@
   </tr>
   </thead>
   <tbody id="main-table-body">
-    <%= render partial: partial_name, collection: @lans %>
+    <%= render partial: partial_name, collection: @lans, locals: {count: @lans.offset} %>
   </tbody>
 </table>
 <%# end %>
