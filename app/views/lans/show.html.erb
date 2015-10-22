@@ -14,7 +14,7 @@
 </tbody>
 </table>
 
-<%# Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
+<%# Header pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
 <%= page_entries_info @vlans %><br />
 <%= will_paginate @vlans, renderer: BootstrapPagination::Rails %>
 
@@ -55,6 +55,9 @@
   </tbody>
 </table>
 <% end %>
+<%# Footer pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
+<%= page_entries_info @vlans %><br />
+<%= will_paginate @vlans, renderer: BootstrapPagination::Rails %>
 
 <div>
   <%= link_to lans_path, class: 'btn btn-success' do %>
