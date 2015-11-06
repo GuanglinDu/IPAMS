@@ -12,7 +12,7 @@ class AddressesController < ApplicationController
     keywords = params[:search]
     keywords = keywords.strip if keywords
     # Flag to indicate whether search is performed 
-    @searched = false
+    #@searched = false
 
     # No keywords, no search
     # Serves the fragment cache if it already exists
@@ -24,7 +24,7 @@ class AddressesController < ApplicationController
         paginate :page => params[:page] || 1, :per_page => 30
       end 
       
-      @searched = true
+      #@searched = true
       # Type Sunspot::Search::PaginatedCollection < Array
       @addresses = search.results
     else

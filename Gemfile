@@ -122,6 +122,7 @@ gem 'thin'
 gem 'will_paginate-bootstrap'
 
 # Full-text search support with Sunspot
+# https://github.com/sunspot/sunspot
 # See https://github.com/outoftime/sunspot/wiki
 gem 'sunspot_rails'
 # optional pre-packaged Solr distribution for use in development
