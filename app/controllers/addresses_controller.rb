@@ -49,7 +49,7 @@ class AddressesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: {pk: @address.id, ip: @address.ip, locale: I18n.locale } }
+      format.json { render json: { pk: @address.id, ip: @address.ip, locale: I18n.locale } }
     end
   end
 
@@ -107,7 +107,9 @@ class AddressesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     # lan_id is FK.
     def address_params
-      params[:address].permit(:vlan_id, :user_id, :room, :ip, :mac_address, :usage, :start_date, :end_date,
+      #params[:address].permit(:vlan_id, :user_id, :room, :ip, :mac_address, :usage, :start_date, :end_date,
+        #:application_form, :assigner, :recyclable)
+      params[:address].permit(:vlan_id, :user_id, :ip, :mac_address, :usage, :start_date, :end_date,
         :application_form, :assigner, :recyclable)
     end
 

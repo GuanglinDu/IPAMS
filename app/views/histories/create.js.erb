@@ -21,36 +21,43 @@ var empty_address_values = function(rowID, addressID, response1){
     dataType: "json",
     
     success: function(response){
-      var addr_url = "/" + response.locale + "/addresses/" + addressID;
+      //var addr_url = "/" + response.locale + "/addresses/" + addressID;
       var user_url = "/users/" + response.user_id;
 
       // macaddress text
       var macAddress = $("#" + rowID + " #mac-address" + " a").text("");
-      refreshInPlaceEditing(macAddress, "", addr_url);
+      //refreshInPlaceEditing(macAddress, "", addr_url);
+      refreshInPlaceEditing(macAddress, "");
 
       // usage text
       var usage = $("#" + rowID + " #usage" + " a").text("");
-      refreshInPlaceEditing(usage, "", addr_url);
+      //refreshInPlaceEditing(usage, "", addr_url);
+      refreshInPlaceEditing(usage, "");
 
       // username text
       var userName = $("#" + rowID + " #user-name" + " a").text("NOBODY");
-      refreshInPlaceEditing(userName, "NOBODY", addr_url);
+      //refreshInPlaceEditing(userName, "NOBODY", addr_url);
+      refreshInPlaceEditing(userName, "NOBODY");
 
       // startdate text
       var startDate = $("#" + rowID + " #start-date" + " a").text("");
-      refreshInPlaceEditing(startDate, "", addr_url);
+      //refreshInPlaceEditing(startDate, "", addr_url);
+      refreshInPlaceEditing(startDate, "");
 
       // enddate text
       var endDate = $("#" + rowID + " #end-date" + " a").text("");
-      refreshInPlaceEditing(endDate, "", addr_url);
+      //refreshInPlaceEditing(endDate, "", addr_url);
+      refreshInPlaceEditing(endDate, "");
 
       // assigner text
       var assigner = $("#" + rowID + " #assigner" + " a").text("");
-      refreshInPlaceEditing(assigner, "", addr_url);
+      //refreshInPlaceEditing(assigner, "", addr_url);
+      refreshInPlaceEditing(assigner, "");
 
       // recyclable text
       var recyclable = $("#" + rowID + " #recyclable" + " a").text("false");
-      refreshInPlaceEditing(recyclable, "", addr_url);
+      //refreshInPlaceEditing(recyclable, "", addr_url);
+      refreshInPlaceEditing(recyclable, "");
 
       // update user related field values
       addressUserChanged(user_url, rowID);

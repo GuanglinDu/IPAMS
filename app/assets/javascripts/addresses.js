@@ -27,6 +27,9 @@ $(function() {
     if (cellNames[cellName] === "users") {
       var dataURL = "/users/" + response.user_id;
       addressUserChanged(dataURL, rowID);
+      if (response.user_id != 7) {
+        updateStartTime(response, rowID); 
+      }
     }
   });
 
@@ -115,17 +118,7 @@ var addressUserChanged = function(dataURL, rowID) {
     success: function(response) {
       //locale is already String typed
       var url = "/" + response.locale + dataURL;
-      var addressID = $("#" + rowID + " #start-date" + " a").attr("data-pk");
-      var addrURL = "/" + response.locale + "/addresses/" + addressID;
-      var time = getDateTime();
-      //var utcTime = now.toUTCString();
-
       updateUserInfo(rowID, response, url);
-
-      if (response.user_name != "NOBODY") {
-        var startDate= $("#" + rowID + " #start-date" + " a").text(time);
-        refreshInPlaceEditing(startDate, time, addrURL);
-      }
     }
   });
 };
@@ -137,37 +130,27 @@ var addressUserChanged = function(dataURL, rowID) {
  * @param {String} elemText - the text of the element to be freshed 
  * @param {url} url - the text of the element to be freshed 
  */
-var refreshInPlaceEditing = function(obj, elemText, url) {
+//var refreshInPlaceEditing = function(obj, elemText, url) {
+var refreshInPlaceEditing = function(obj, elemText) {
   // Removes the old editability first
   // See https://github.com/vitalets/x-editable/issues/61
   obj.editable("destroy");
 
   // Then, refreshes the in-place editing once more
-  if ( url === "" ){
-    obj.editable({
-      params: function(params) {
-        var railsParams = {};
-        railsParams[obj.data("model")] = {};
-        railsParams[obj.data("model")][params.name] = params.value;
-        return railsParams;
-      }
-    });
-  } else {
-    obj.editable({
-      ajaxOptions: {
-        url: url,
-        type: "PUT",
-        dataType: "json"
-      },
-      value: elemText,
-      params: function(params) {
-        var railsParams = {};
-        railsParams[obj.data("model")] = {};
-        railsParams[obj.data("model")][params.name] = params.value;
-        return railsParams;
-      }
-    });
-  }
+  obj.editable({
+    //ajaxOptions: {
+      //url: url,
+      //type: "PUT",
+      //dataType: "json"
+    //},
+    value: elemText,
+    params: function(params) {
+      var railsParams = {};
+      railsParams[obj.data("model")] = {};
+      railsParams[obj.data("model")][params.name] = params.value;
+      return railsParams;
+    }
+  });
 };
 
 var updateUserInfo = function (rowID, response, url) {
@@ -176,49 +159,56 @@ var updateUserInfo = function (rowID, response, url) {
     .attr("data-pk", response.pk)
     .attr("data-url", url)
     .text(response.department);
-  refreshInPlaceEditing(deptName, response.department, "");
+  //refreshInPlaceEditing(deptName, response.department, url);
+  refreshInPlaceEditing(deptName, response.department);
   
   // user title pk, url, text
   var userTitle = $("#" + rowID + " #user-title" + " a")
     .attr("data-pk", response.pk)
     .attr("data-url", url)
     .text(response.user_title);
-  refreshInPlaceEditing(userTitle, response.user_title, "");
+  //refreshInPlaceEditing(userTitle, response.user_title, url);
+  refreshInPlaceEditing(userTitle, response.user_title);
 
   // office phone pk, url, text
   var officePhone = $("#" + rowID + " #office-phone" + " a")
     .attr("data-pk", response.pk)
     .attr("data-url", url)
     .text(response.office_phone);
-  refreshInPlaceEditing(officePhone, response.office_phone, "");
+  //refreshInPlaceEditing(officePhone, response.office_phone, url);
+  refreshInPlaceEditing(officePhone, response.office_phone);
 
   // cell phone pk, url, text
   var cellPhone = $("#" + rowID + " #cell-phone" + " a")
     .attr("data-pk", response.pk)
     .attr("data-url", url)
     .text(response.cell_phone);
-  refreshInPlaceEditing(cellPhone, response.cell_phone, "");
+  //refreshInPlaceEditing(cellPhone, response.cell_phone, url);
+  refreshInPlaceEditing(cellPhone, response.cell_phone);
 
   // building pk, url, text
   var buildingName = $("#" + rowID + " #building" + " a")
     .attr("data-pk", response.pk)
     .attr("data-url", url)
     .text(response.building);
-  refreshInPlaceEditing(buildingName, response.building, "");
+  //refreshInPlaceEditing(buildingName, response.building, url);
+  refreshInPlaceEditing(buildingName, response.building);
 
   // storey pk, url, text
   var storeyNum = $("#" + rowID + " #storey" + " a")
     .attr("data-pk", response.pk)
     .attr("data-url", url)
     .text(response.storey);
-  refreshInPlaceEditing(storeyNum, response.storey, "");
+  //refreshInPlaceEditing(storeyNum, response.storey, url);
+  refreshInPlaceEditing(storeyNum, response.storey);
 
   // room pk, url, text
   var roomNum = $("#" + rowID + " #room" + " a")
     .attr("data-pk", response.pk)
     .attr("data-url", url)
     .text(response.room);
-  refreshInPlaceEditing(roomNum, response.room, "");
+  //refreshInPlaceEditing(roomNum, response.room, url);
+  refreshInPlaceEditing(roomNum, response.room);
   return deptName, userTitle, officePhone, cellPhone, buildingName, storeyNum, roomNum; 
 };
 
@@ -248,4 +238,44 @@ function getDateTime() {
   }   
   var dateTime = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;   
   return dateTime;
+}
+
+// adds the starttime time
+var updateStartTime = function(response, rowID){
+  var addressID = $("#" + rowID + " #start-date" + " a").attr("data-pk");
+  //var addrURL = "/addresses/" + addressID;
+  var addrURL = "/" + response.locale + "/addresses/" + addressID;
+  var time = getDateTime();
+
+  //$("#" + rowID + " #start-date" + " a").each(function(){
+  //$("#" + rowID + " #start-date" + " a").function(){
+  //$.ajax({
+    //url: addrURL,
+    //type: "PUT",
+    //dataType: "json",
+
+    //success: function(response) {
+      //locale is already String typed
+      //var startDate= $("#" + rowID + " #start-date" + " a").text(time);
+      //refreshInPlaceEditing(startDate, time);
+    //}
+  //});
+
+  var startDate= $("#" + rowID + " #start-date" + " a").text(time);
+  startDate.editable({
+    ajaxOptions: {
+      url: addrURL,
+      type: "PUT",
+      dataType: "json"
+    },
+    value: time,
+    params: function(params) {
+      var railsParams = {};
+      railsParams[obj.data("model")] = {};
+      railsParams[obj.data("model")][params.name] = params.value;
+      return railsParams;
+    }
+  });
+
+  //};
 }
