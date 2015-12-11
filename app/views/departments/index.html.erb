@@ -1,11 +1,12 @@
 <h4>Listing Departments</h4>
-<%# Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
+<%# Header Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
 <%= page_entries_info @departments %><br />
 <%= will_paginate @departments, renderer: BootstrapPagination::Rails %>
 
 <% partial_name = "departments" %>
 <% partial_name = "uneditable" unless policy(@departments).edit? %>
-<% cache cache_key_for_departments(partial_name, @departments.offset) do %><%# table caching %>
+<%# The whole table caching is disabled as the inappropriate authorization will be cached. %>
+<%# cache cache_key_for_departments(partial_name, @departments.offset) do %>
 <table class="table table-striped table-condensed">
   <thead>
   <tr>
@@ -17,12 +18,16 @@
   </tr>
   </thead>
   <tbody id="main-table-body">
-    <%= render partial: partial_name, object: @departments %>
+    <%= render partial: partial_name, object: @departments, locals: {offset: @departments.offset} %>
   </tbody>
 </table>
 
-<%= link_to new_department_path, class: 'btn btn-success' do %>
-  <i class="glyphicon glyphicon-plus"></i> New Department
-<% end %>
+<%# Footer Pagination %>
+<%= page_entries_info @departments %><br />
+<%= will_paginate @departments, renderer: BootstrapPagination::Rails %>
 
+<% if policy(@departments).create? %>
+  <%= link_to new_department_path, class: 'btn btn-success' do %>
+    <i class="glyphicon glyphicon-plus"></i> New Department
+  <% end %>
 <% end %>

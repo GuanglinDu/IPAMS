@@ -1,26 +1,38 @@
-<% counter = 1 %>
+<% counter = offset + 1 %>
 <% departments.each do |department| %>
   <tr>
-    <td><%= counter %></td>
-    <td>
-      <a href="#" data-xeditable="true" data-pk="<%= department.id %>" data-model="department" data-name="dept_name" data-url="<%= department_path(department) %>" data-title="Dept Name"><%= department.dept_name %></a>
-    </td>
-    <td>
-      <a href="#" data-xeditable="true" data-pk="<%= department.id %>" data-model="department" data-name="location" data-url="<%= department_path(department) %>" data-title="Location"><%= department.location %></a>
-    </td>
-    <td></td>
-    <td></td>
-    <td><%= link_to 'Show', department, class: 'btn btn-primary btn-xs' %></td>
-    <td>
-      <%= link_to edit_department_path(department), class: 'btn btn-info btn-xs' do %>
-        <i class="glyphicon glyphicon-edit"></i> Edit
-      <% end %>
-    </td>
-    <td>
-      <%= link_to department, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
-        <i class="glyphicon glyphicon-remove"></i> Destroy
-      <% end %>
-    </td>
+    <% cache cache_key_for_department("editable", department) do %><%# partial row caching start %>
+      <td><%= counter %></td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= department.id %>" data-model="department" data-name="dept_name" data-url="<%= department_path(department) %>" data-title="Dept Name"><%= department.dept_name %></a>
+      </td>
+      <td>
+        <a href="#" data-xeditable="true" data-pk="<%= department.id %>" data-model="department" data-name="location" data-url="<%= department_path(department) %>" data-title="Location"><%= department.location %></a>
+      </td>
+      <td></td>
+      <td></td>
+    <% end %><%# partial row caching end %>
+
+    <%# Authorization should not be cached %>
+    <% if policy(department).show? %>
+      <td><%= link_to 'Show', department, class: 'btn btn-primary btn-xs' %></td>
+    <% end %>
+
+    <% if policy(department).edit? %>
+      <td>
+        <%= link_to edit_department_path(department), class: 'btn btn-info btn-xs' do %>
+          <i class="glyphicon glyphicon-edit"></i> Edit
+        <% end %>
+      </td>
+    <% end %>
+
+    <% if policy(department).destroy? %>
+      <td>
+        <%= link_to department, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
+          <i class="glyphicon glyphicon-remove"></i> Destroy
+        <% end %>
+      </td>
+    <% end %>
   </tr>
   <% counter += 1 %>
-<% end %>
+<% end %><%# Container departments iteration end %>

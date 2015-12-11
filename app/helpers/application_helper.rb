@@ -37,13 +37,6 @@ module ApplicationHelper
     dt_addr = dt_user if dt_user > dt_addr
   end
 
-  # Creates a cache key for an address on the paginated page (The row caching).
-  def cache_key_for_address(address)
-    updated_at = address.updated_at.try(:utc).try(:to_s, :number)
-    #updated_at = max_user_address_updated_at(address).try(:utc).try(:to_s, :number)
-    "addresses/#{address.id}-#{updated_at}"
-  end
-
   # Creates a cache key for the addresses on the paginated page of partial
   # addresses/_addresses.html.erb (The table caching). This partial is shared
   # by both vlans/show.html.erb and addresses/index.html.erb.
@@ -51,7 +44,6 @@ module ApplicationHelper
   # has no such a method, and only an ActiveRecord_Relation has.
   #max_updated_at = addresses.maximum(:updated_at).try(:utc).try(:to_s, :number) 
   # Uses method maximum to the model, instead.
-
   # http://stackoverflow.com/questions/21767949/rails-caching-a-paginated-collection
   # Caching pagination collections is tricky. The usual trick of
   # using the collection count and max updated_at does mostly not apply!

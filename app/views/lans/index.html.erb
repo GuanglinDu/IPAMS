@@ -1,14 +1,16 @@
 <h3>Listing LANs</h3>
-<%# Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
+<%# Header pagination. See https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
 <%= page_entries_info @lans %><br />
 <%= will_paginate @lans, renderer: BootstrapPagination::Rails %>
 
 <% partial_name = "editable" %>
 <% partial_name = "uneditable" unless policy(@lans).edit? %>
-<% cache cache_key_for_lans(partial_name, @lans.offset) do %><%# table caching %>
+
+<%# cache cache_key_for_lans(partial_name, @lans.offset) do %><%# table caching with pagination %>
 <table class="table table-striped">
   <thead>
   <tr>
+    <th>No.</th>
     <th>LAN Number</th>
     <th>LAN Name</th>
     <th>LAN Description</th>
@@ -18,10 +20,14 @@
   </tr>
   </thead>
   <tbody id="main-table-body">
-    <%= render partial: partial_name, collection: @lans %>
+    <%= render partial: partial_name, collection: @lans, locals: {count: @lans.offset} %>
   </tbody>
 </table>
-<% end %>
+<%# end %>
+
+<%# Footer pagination %>
+<%= page_entries_info @lans %><br />
+<%= will_paginate @lans, renderer: BootstrapPagination::Rails %>
 
 <div>
   <%= link_to welcome_path, class: 'btn btn-success' do %>

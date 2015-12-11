@@ -15,4 +15,6 @@ module FileHelper
   DEPARTMENT_IMPORT_SOURCE_FILE = "#{ROOT_PATH}/tmp/department_import_template.csv" 
 
   IP_IMPORT_SOURCE_FILE = "#{ROOT_PATH}/tmp/ip_address_import_template.csv" 
+
+  MAC_FORMAT_LOG = "#{ROOT_PATH}/tmp/MAC_FORMAT_LOG.txt"
 end

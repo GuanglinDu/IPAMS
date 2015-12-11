@@ -21,4 +21,13 @@ module LansHelper
     max_updated_at = Lan.maximum(:updated_at).try(:utc).try(:to_s, :number)
     "lans/#{caller_name}-#{offset}-#{max_updated_at}"
   end
+
+  # Creates a cache key for a single LAN.
+  # params:
+  # +caller_name+:: the name of the calling template or partial
+  # +lan+:: the LAN object, a record 
+  def cache_key_for_lan(caller_name, lan)
+    updated_at = lan.updated_at.try(:utc).try(:to_s, :number)
+    "lans/#{caller_name}-#{lan.id}-#{updated_at}"
+  end
 end

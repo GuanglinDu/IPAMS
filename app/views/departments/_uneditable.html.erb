@@ -1,12 +1,14 @@
 <% departments = uneditable %>
-<% counter = 1 %>
+<% counter = offset + 1 %>
 <% departments.each do |department| %>
-  <tr>
-    <td><%= counter %></td>
-    <td><%= department.dept_name %></td>
-    <td><%= department.location %></td>
-    <td></td>
-    <td></td>
-  </tr>
+  <% cache cache_key_for_department("uneditable", department) do %><%# partial row caching %>
+    <tr>
+      <td><%= counter %></td>
+      <td><%= department.dept_name %></td>
+      <td><%= department.location %></td>
+      <td></td>
+      <td></td>
+    </tr>
   <% counter += 1 %>
+  <% end %><%# partial row caching end %>
 <% end %>

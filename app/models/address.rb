@@ -1,6 +1,8 @@
 class Address < ActiveRecord::Base
+  #before_validation :upcase_mac
+
   validates :ip, presence: true, uniqueness: true
-  validates :mac_address, uniqueness: true, allow_blank: true
+  #validates :mac_address, uniqueness: true, allow_blank: true, length: { is: 14}, format: { with: /[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}/, message: "only allows XXXX-XXXX-XXXX"}
 
   belongs_to :vlan, touch: true
   belongs_to :user, touch: true
@@ -17,4 +19,10 @@ class Address < ActiveRecord::Base
     time :start_date
     time :end_date
   end
+
+  protected
+
+    def upcase_mac
+      self.mac_address = self.mac_address.upcase
+    end
 end

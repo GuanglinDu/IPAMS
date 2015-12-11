@@ -14,11 +14,11 @@
 </tbody>
 </table>
 
-<!-- Pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap -->
+<%# Header pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
 <%= page_entries_info @vlans %><br />
 <%= will_paginate @vlans, renderer: BootstrapPagination::Rails %>
 
-<!-- Show the existing VLANs in a table. Note that partials shorten the code. -->
+<%# Show the existing VLANs in a table. Note that partials shorten the code. %>
 <h3>Existing VLANs in the <%= @lan.lan_name %></h3>
 
 <% partial_name = "vlans/vlan" %>
@@ -41,18 +41,23 @@
     <th></th>
   </tr>
   </thead>
-  <!--
+
+  <% if false %>
     As the render method iterates over the @lan.vlans collection,
     it assigns each vlan to a local variable named the same as the partial,
     in this case vlan, which is then available in the partial for us to show.
-  -->
-  <!-- The following either will do. --> 
-  <!-- render partial: "vlans/vlan", collection: @lan.vlans -->
+    The following either will do: 
+    render partial: "vlans/vlan", collection: @lan.vlans
+  <% end %>
   <tbody id="main-table-body">
-    <%= render partial: partial_name, collection: @vlans %>
+    <% count = 0 %>
+    <%= render partial: partial_name, collection: @vlans, locals: {count: @vlans.offset} %>
   </tbody>
 </table>
 <% end %>
+<%# Footer pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
+<%= page_entries_info @vlans %><br />
+<%= will_paginate @vlans, renderer: BootstrapPagination::Rails %>
 
 <div>
   <%= link_to lans_path, class: 'btn btn-success' do %>

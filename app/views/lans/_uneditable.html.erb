@@ -1,8 +1,12 @@
 <tr>
   <% lan = uneditable %>
-  <td><%= lan.lan_number %></td>
-  <td><%= lan.lan_name %></td>
-  <td><%= lan.lan_description %></td>
+  <% cache cache_key_for_lan("uneditable", lan), skip_digest: true do %><%# partial row caching %>
+    <td><%= count + uneditable_counter + 1 %></td>
+    <td><%= lan.lan_number %></td>
+    <td><%= lan.lan_name %></td>
+    <td><%= lan.lan_description %></td>
+  <% end %>
+
   <td>
     <% if policy(lan).show? %>
       <%= link_to 'Show', lan, class: 'btn btn-primary btn-xs' %>

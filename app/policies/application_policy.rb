@@ -22,7 +22,7 @@ class ApplicationPolicy
 
   # Only an expert or an administrator can create/update/edit 
   def create?
-    system_user.expert? or system_user.admin?
+    system_user.expert? or system_user.admin? or system_user.root?
   end
 
   def new?
@@ -30,16 +30,16 @@ class ApplicationPolicy
   end
 
   def update?
-    system_user.operator? or system_user.expert? or system_user.admin?
+    system_user.operator? or system_user.expert? or system_user.admin? or system_user.root?
   end
 
   def edit?
     update?
   end
 
-  # Only admin can destroy
+  # Only the role root can destroy
   def destroy?
-    system_user.admin?
+    system_user.root?
   end
 
   def scope

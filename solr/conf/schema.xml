@@ -107,13 +107,12 @@
     <fieldType class="solr.TextField" name="text_pre" positionIncrementGap="100">
       <analyzer type="index">
         <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-        <!-- tokenizer class="solr.StandardTokenizerFactory"/ -->
-        <!-- filter class="solr.StandardFilterFactory"/ -->
         <filter class="solr.LowerCaseFilterFactory"/>
+        <!-- filter class="solr.StandardFilterFactory"/ -->
         <!-- Prefix matching. Attention: maxGramSize must be appropriate, or the full text matching might be not found. -->
-        <filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="15" side="front"/>
+        <!--filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="15" side="front"/ -->
         <!-- Arbitrary substring matching -->
-        <!-- filter class="solr.NGramFilterFactory" minGramSize="1" maxGramSize="15" side="front"/ -->
+        <filter class="solr.NGramFilterFactory" minGramSize="1" maxGramSize="15" side="front" />
       </analyzer>
       <analyzer type="query">
         <!-- tokenizer class="solr.StandardTokenizerFactory"/ -->
@@ -283,7 +282,7 @@
 
   <!-- Field to use to determine and enforce document uniqueness.
       Unless this field is marked with required="false", it will be a required field
-   -->
+  -->
   <uniqueKey>id</uniqueKey>
   <!-- field for the QueryParser to use when an explicit fieldname is absent -->
   <defaultSearchField>text</defaultSearchField>

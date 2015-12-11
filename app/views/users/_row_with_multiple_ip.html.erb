@@ -6,8 +6,10 @@
   http://stackoverflow.com/questions/22242422/how-to-add-plus-minus-symbol-to-a-bootstrap-accordion
  -->
 <% user = row_with_multiple_ip %>
+<% find_department(user.department_id) %>
 
 <tr>
+  <%# cache([user, @department]) do %><%# partial row caching disables as it's inefficiency. %>
   <td><%= count %></td>
   <td>
     <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="name" data-url="<%= user_path(user) %>" data-title="User Name"><%= user.name %></a>
@@ -37,12 +39,14 @@
     <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="room" data-url="<%= user_path(user) %>" data-title="Room"><%= user.room %></a>
   </td>
   <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="department_id" data-url="<%= user_path(user) %>" data-title="Department"><%= find_department_name(user.department_id) %></a>
+    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="department_id" data-url="<%= user_path(user) %>" data-title="Department"><%= @department.dept_name %></a>
   </td>
-
   <td>
    <%= link_to 'Show', user, class: 'btn btn-primary btn-xs' %>
   </td>
+  <%# end %><%# partial row caching %>
+
+  <%# Authorization should NOT be cached!!! %>
   <% if policy(user).destroy? %>
     <td>
       <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>

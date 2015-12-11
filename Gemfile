@@ -89,6 +89,7 @@ gem 'bootstrap_form'
 # http://rubyinrails.com/2014/05/integrate-awesome_print-with-rails-console/
 group :development do
   gem 'awesome_print'
+  gem 'faker' # fake data
 end
 
 # Debugs with byebug
@@ -121,6 +122,7 @@ gem 'thin'
 gem 'will_paginate-bootstrap'
 
 # Full-text search support with Sunspot
+# https://github.com/sunspot/sunspot
 # See https://github.com/outoftime/sunspot/wiki
 gem 'sunspot_rails'
 # optional pre-packaged Solr distribution for use in development
