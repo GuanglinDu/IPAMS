@@ -13,40 +13,12 @@
  Record index: @addresses.total_entries, @addresses.offset %>
 <% if @results %>
 <table class="table table-striped table-condensed">
-  <thead>
-  <tr>
-    <th>No.</th>
-    <th>IP Address</th>
-    <th>MAC Address</th>
-    <th>Usage</th>
-    <th>User Name</th>
-    <th>Dept Name</th>
-    <th>Assigner</th>
-  </tr>
-  </thead>
   <tbody>
   <% count = @results.offset + 1 %>
-  <% @results.each do |addr_obj| %>
-    <% address = addr_obj.clone %><!-- To be nullified to free mem -->
-    <% find_user(address.user_id) %>
+  <% @results.each do |r| %>
     <tr>
       <td><%= count %></td>
-      <td><%= address.ip %></td>
-      <td>
-        <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="mac_address" data-url="<%= address_path(address) %>" data-title="MAC Address"><%= address.mac_address %></a>
-      </td>
-      <td>
-        <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="usage" data-url="<%= address_path(address) %>" data-title="Usage"><%= address.usage %></a>
-      </td>
-      <td>
-        <a href="#" data-xeditable="true" data-pk="<%= address.user_id %>" data-model="address" data-name="user_id" data-url="<%= address_path(address) %>" data-title="User Name"><%= @user.name %></a>
-      </td>
-      <td>
-        <a href="#" data-xeditable="true" data-pk="<%= @user.id %>" data-model="user" data-name="department_id" data-url="<%= user_path(@user) %>" data-title="Dept Name"><%= @department.dept_name %></a>
-      </td>
-      <td>
-        <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="assigner" data-url="<%= address_path(address) %>" data-title="Assigner"><%= address.assigner %></a>
-      </td>
+      <td><%= @model_name %></td>
     </tr>
     <% count += 1 %>
   <% end %>

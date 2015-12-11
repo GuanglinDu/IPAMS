@@ -6,24 +6,17 @@ class UsersController < ApplicationController
 
   # GET /users
   # GET /users.json
+  # No keywords, no search; paginate all, instead
   def index
-    # @keywords also used in the fragment cache keys
-    keywords = params[:search]
-    keywords = keywords.strip if keywords
-    # Flag to indicate whether search is performed 
-    @searched = false
-
-    # No keywords, no search; paginate all, instead
     @users = nil
-    if keywords && keywords != "" 
+    if params[:search].present?
       #search = Sunspot.search(Address)
       search = User.search do
-        fulltext keywords
+        fulltext params[:search]
         # See http://www.whatibroke.com/?p=235
         paginate :page => params[:page] || 1, :per_page => 30
       end 
       # Type Sunspot::Search::PaginatedCollection < Array
-      @searched = true
       @users = search.results
     else
       @users = User.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
