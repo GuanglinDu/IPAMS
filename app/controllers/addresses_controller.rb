@@ -8,23 +8,16 @@ class AddressesController < ApplicationController
   # Resolves the FK user_id before updating a record
   before_action :convert_user_name_to_user_id, only: :update
 
+  # No keywords, no search. Goes to the paginated views, instead.
   def index
-    keywords = params[:search]
-    keywords = keywords.strip if keywords
-    # Flag to indicate whether search is performed 
-    #@searched = false
-
-    # No keywords, no search
-    # Serves the fragment cache if it already exists
-    if keywords && keywords != "" 
-      #search = Sunspot.search(Address)
+    @addresses = nil
+    if params[:search].present?
       search = Address.search do
-        fulltext keywords
+        fulltext params[:search]
         # See http://www.whatibroke.com/?p=235
         paginate :page => params[:page] || 1, :per_page => 30
       end 
       
-      #@searched = true
       # Type Sunspot::Search::PaginatedCollection < Array
       @addresses = search.results
     else
