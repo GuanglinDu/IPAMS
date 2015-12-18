@@ -1,5 +1,10 @@
 <div class="row">
-  <div class="col-xs-12">
+  <%# The header pagination: see https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
+  <div class="col-xs-8">
+    <%= page_entries_info @results %><br />
+    <%= will_paginate @results, renderer: BootstrapPagination::Rails %>
+  </div>
+  <div class="col-xs-4">
     <%= form_tag search_index_path, :method => :get do %>
       <%= text_field_tag :search, params[:search] %>
       <%= submit_tag "Search", :name => nil %>
@@ -15,7 +20,8 @@
 <table class="table table-striped table-condensed">
   <tbody>
   <% count = @results.offset + 1 %>
-  <% @results.each do |r| %>
+  <% @results.each do |re| %>
+    <% who_am_i(re) %>
     <tr>
       <td><%= count %></td>
       <td><%= @model_name %></td>
@@ -27,4 +33,10 @@
 <% else %>
   <h4>Oooooops, nothing found!</h4>
 <% end %>
+</div>
+
+<%# The footer pagination %>
+<div class="col-xs-8">
+  <%= page_entries_info @results %><br />
+  <%= will_paginate @results, renderer: BootstrapPagination::Rails %>
 </div>
