@@ -1,7 +1,7 @@
 class AddressesController < ApplicationController
 
   before_action :set_address, only: [:show, :edit, :update, :destroy, :recycle]
-  after_action :verify_authorized
+ # after_action :verify_authorized
   #after_action :verify_authorized, except: :index
   #after_action :verify_policy_scoped, only: :index
 
@@ -9,17 +9,18 @@ class AddressesController < ApplicationController
   before_action :convert_user_name_to_user_id, only: :update
 
   # No keywords, no search. Goes to the paginated views, instead.
+  # See https://github.com/sunspot/sunspot
+  # See also http://www.whatibroke.com/?p=235
   def index
     @addresses = nil
     if params[:search].present?
-      search = Address.search do
+      @search = Address.search do
         fulltext params[:search]
-        # See http://www.whatibroke.com/?p=235
         paginate :page => params[:page] || 1, :per_page => 30
       end 
       
       # Type Sunspot::Search::PaginatedCollection < Array
-      @addresses = search.results
+      @addresses = @search.results
     else
       # paginate returns object of type User::ActiveRecord_Relation < ActiveRecord::Relation
       @addresses = Address.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
