@@ -130,19 +130,18 @@ var addressUserChanged = function(dataURL, rowID) {
  * @param {String} elemText - the text of the element to be freshed 
  * @param {url} url - the text of the element to be freshed 
  */
-//var refreshInPlaceEditing = function(obj, elemText, url) {
-var refreshInPlaceEditing = function(obj, elemText) {
+var refreshInPlaceEditing = function(obj, elemText, url) {
   // Removes the old editability first
   // See https://github.com/vitalets/x-editable/issues/61
   obj.editable("destroy");
 
   // Then, refreshes the in-place editing once more
   obj.editable({
-    //ajaxOptions: {
-      //url: url,
-      //type: "PUT",
-      //dataType: "json"
-    //},
+    ajaxOptions: {
+      url: url,
+      type: "PUT",
+      dataType: "json"
+    },
     value: elemText,
     params: function(params) {
       var railsParams = {};
@@ -159,56 +158,49 @@ var updateUserInfo = function (rowID, response, url) {
     .attr("data-pk", response.pk)
     .attr("data-url", url)
     .text(response.department);
-  //refreshInPlaceEditing(deptName, response.department, url);
-  refreshInPlaceEditing(deptName, response.department);
+  refreshInPlaceEditing(deptName, response.department, url);
   
   // user title pk, url, text
   var userTitle = $("#" + rowID + " #user-title" + " a")
     .attr("data-pk", response.pk)
     .attr("data-url", url)
     .text(response.user_title);
-  //refreshInPlaceEditing(userTitle, response.user_title, url);
-  refreshInPlaceEditing(userTitle, response.user_title);
+  refreshInPlaceEditing(userTitle, response.user_title, url);
 
   // office phone pk, url, text
   var officePhone = $("#" + rowID + " #office-phone" + " a")
     .attr("data-pk", response.pk)
     .attr("data-url", url)
     .text(response.office_phone);
-  //refreshInPlaceEditing(officePhone, response.office_phone, url);
-  refreshInPlaceEditing(officePhone, response.office_phone);
+  refreshInPlaceEditing(officePhone, response.office_phone, url);
 
   // cell phone pk, url, text
   var cellPhone = $("#" + rowID + " #cell-phone" + " a")
     .attr("data-pk", response.pk)
     .attr("data-url", url)
     .text(response.cell_phone);
-  //refreshInPlaceEditing(cellPhone, response.cell_phone, url);
-  refreshInPlaceEditing(cellPhone, response.cell_phone);
+  refreshInPlaceEditing(cellPhone, response.cell_phone, url);
 
   // building pk, url, text
   var buildingName = $("#" + rowID + " #building" + " a")
     .attr("data-pk", response.pk)
     .attr("data-url", url)
     .text(response.building);
-  //refreshInPlaceEditing(buildingName, response.building, url);
-  refreshInPlaceEditing(buildingName, response.building);
+  refreshInPlaceEditing(buildingName, response.building, url);
 
   // storey pk, url, text
   var storeyNum = $("#" + rowID + " #storey" + " a")
     .attr("data-pk", response.pk)
     .attr("data-url", url)
     .text(response.storey);
-  //refreshInPlaceEditing(storeyNum, response.storey, url);
-  refreshInPlaceEditing(storeyNum, response.storey);
+  refreshInPlaceEditing(storeyNum, response.storey, url);
 
   // room pk, url, text
   var roomNum = $("#" + rowID + " #room" + " a")
     .attr("data-pk", response.pk)
     .attr("data-url", url)
     .text(response.room);
-  //refreshInPlaceEditing(roomNum, response.room, url);
-  refreshInPlaceEditing(roomNum, response.room);
+  refreshInPlaceEditing(roomNum, response.room, url);
   return deptName, userTitle, officePhone, cellPhone, buildingName, storeyNum, roomNum; 
 };
 
@@ -276,6 +268,5 @@ var updateStartTime = function(response, rowID){
       return railsParams;
     }
   });
-
   //};
 }
