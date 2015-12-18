@@ -46,8 +46,8 @@
 <% end %>
 <tbody id="main-table-body">
 <% addresses.each do |address| %>
-<% find_user(address.user_id) %>
-<% find_department(@user.department_id) %>
+<% find_user(address.user_id) %><%# @user in ApplicationHelper %>
+<% find_department(@user.department_id) %><%# @department in ApplicationHelper %>
 <% count += 1 %>
 
 <tr id="row-<%= count %>">
@@ -67,7 +67,6 @@
   <td id="user-name">
     <a href="#" data-xeditable="true" data-pk="<%= address.id %>" data-model="address" data-name="user_id" data-url="<%= address_path(address) %>" data-title="User Name"><%= @user.name %></a>
   </td>
-
   <%# cache cache_key_for_user(address, @user) do %><%# Disabled due to its extreme inefficiency! %>
   <td id="department-name">
     <a href="#" data-xeditable="true" data-pk="<%= @user.id %>" data-model="user" data-name="department_id" data-url="<%= user_path(@user) %>" data-title="Dept Name"><%= @department.dept_name %></a>
@@ -110,7 +109,6 @@
   <% if policy(address).show? %>
     <td><%= link_to 'Show', address, class: 'btn btn-primary btn-xs' %></td>
   <% end %>
-  </td>
   <td id="recycle">
     <% if policy(address).recycle? %>
       <%= button_to histories_path(address_id: address.id), remote: true, method: :post, id: :btn_recycle, class: 'btn btn-success btn-xs', data: { confirm: "Are you sure?" } do %>
@@ -122,3 +120,4 @@
 <% end %>
 </tbody>
 </table>
+<%# end %>

@@ -1,7 +1,7 @@
 class AddressesController < ApplicationController
 
   before_action :set_address, only: [:show, :edit, :update, :destroy, :recycle]
-  after_action :verify_authorized
+  #after_action :verify_authorized
   #after_action :verify_authorized, except: :index
   #after_action :verify_policy_scoped, only: :index
 
@@ -9,17 +9,18 @@ class AddressesController < ApplicationController
   before_action :convert_user_name_to_user_id, only: :update
 
   # No keywords, no search. Goes to the paginated views, instead.
+  # See https://github.com/sunspot/sunspot
+  # See also http://www.whatibroke.com/?p=235
   def index
     @addresses = nil
     if params[:search].present?
-      search = Address.search do
+      @search = Address.search do
         fulltext params[:search]
-        # See http://www.whatibroke.com/?p=235
         paginate :page => params[:page] || 1, :per_page => 30
       end 
       
       # Type Sunspot::Search::PaginatedCollection < Array
-      @addresses = search.results
+      @addresses = @search.results
     else
       # paginate returns object of type User::ActiveRecord_Relation < ActiveRecord::Relation
       @addresses = Address.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
@@ -42,7 +43,7 @@ class AddressesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: {pk: @address.id, ip: @address.ip, locale: I18n.locale } }
+      format.json { render json: { pk: @address.id, ip: @address.ip, locale: I18n.locale } }
     end
   end
 
@@ -65,7 +66,7 @@ class AddressesController < ApplicationController
         format.html { redirect_to addresses_path }
         format.json { render json: { locale: I18n.locale, user_id: @user_id, recyclable: @address.recyclable }}
       else
-        flash[:danger] = 'There was a problem updating the address.'
+        flash[:danger] = "There was a problem updating the address."
         format.html { render action: 'edit' }
         format.json { render json: @address.errors, status: :unprocessable_entity }
       end
@@ -83,7 +84,7 @@ class AddressesController < ApplicationController
         flash[:success] = "Address was successfully recycled."
         format.json { render json: { locale: I18n.locale, user_id: @user.id }}
       else
-        flash[:danger] = 'There was a problem recycling the address.'
+        flash[:danger] = "There was a problem recycling the address."
         format.html { head :no_content }
         format.json { render json: @address.errors, status: :unprocessable_entity }
       end
@@ -100,7 +101,9 @@ class AddressesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     # lan_id is FK.
     def address_params
-      params[:address].permit(:vlan_id, :user_id, :room, :ip, :mac_address, :usage, :start_date, :end_date,
+      #params[:address].permit(:vlan_id, :user_id, :room, :ip, :mac_address, :usage, :start_date, :end_date,
+        #:application_form, :assigner, :recyclable)
+      params[:address].permit(:vlan_id, :user_id, :ip, :mac_address, :usage, :start_date, :end_date,
         :application_form, :assigner, :recyclable)
     end
 

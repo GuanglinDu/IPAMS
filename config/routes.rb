@@ -13,10 +13,6 @@ Ipams::Application.routes.draw do
       collection { post :import }
     end
 
-    #resources :addresses do
-      #put 'recycle', on: :member
-    #end
-   
     resources :addresses do
       member { put :recycle }
     end

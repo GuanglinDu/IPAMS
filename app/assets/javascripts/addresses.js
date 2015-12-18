@@ -27,6 +27,9 @@ $(function() {
     if (cellNames[cellName] === "users") {
       var dataURL = "/users/" + response.user_id;
       addressUserChanged(dataURL, rowID);
+      if (response.user_id != 7) {
+        updateStartTime(response, rowID); 
+      }
     }
   });
 
@@ -43,7 +46,7 @@ var init_btn_recycle = function(){
   $("#main-table-body tr #recycle #btn_recycle").each(function(){
     var rowID = $(this).closest("tr").attr("id");
     var txtRecycle = $("#" + rowID + " #recyclable a").text();
-    if (txtRecycle == "false" || txtRecycle == "f"  )
+    if (txtRecycle == "false" || txtRecycle == "f")
       $(this).attr('disabled', true);
     else
       $(this).attr('disabled', false);
@@ -115,55 +118,7 @@ var addressUserChanged = function(dataURL, rowID) {
     success: function(response) {
       //locale is already String typed
       var url = "/" + response.locale + dataURL;
-
-      // department pk, url, text
-      var deptName = $("#" + rowID + " #department-name" + " a")
-        .attr("data-pk", response.pk)
-        .attr("data-url", url)
-        .text(response.department);
-      refreshInPlaceEditing(deptName, response.department, url);
-      
-      // user title pk, url, text
-      var userTitle = $("#" + rowID + " #user-title" + " a")
-        .attr("data-pk", response.pk)
-        .attr("data-url", url)
-        .text(response.user_title);
-      refreshInPlaceEditing(userTitle, response.user_title, url);
-
-      // office phone pk, url, text
-      var officePhone = $("#" + rowID + " #office-phone" + " a")
-        .attr("data-pk", response.pk)
-        .attr("data-url", url)
-        .text(response.office_phone);
-      refreshInPlaceEditing(officePhone, response.office_phone, url);
-
-      // cell phone pk, url, text
-      var cellPhone = $("#" + rowID + " #cell-phone" + " a")
-        .attr("data-pk", response.pk)
-        .attr("data-url", url)
-        .text(response.cell_phone);
-      refreshInPlaceEditing(cellPhone, response.cell_phone, url);
-
-      // building pk, url, text
-      var buildingName = $("#" + rowID + " #building" + " a")
-        .attr("data-pk", response.pk)
-        .attr("data-url", url)
-        .text(response.building);
-      refreshInPlaceEditing(buildingName, response.building, url);
-
-      // storey pk, url, text
-      var storeyNum = $("#" + rowID + " #storey" + " a")
-        .attr("data-pk", response.pk)
-        .attr("data-url", url)
-        .text(response.storey);
-      refreshInPlaceEditing(storeyNum, response.storey, url);
-
-      // room pk, url, text
-      var roomNum = $("#" + rowID + " #room" + " a")
-        .attr("data-pk", response.pk)
-        .attr("data-url", url)
-        .text(response.room);
-      refreshInPlaceEditing(roomNum, response.room, url);
+      updateUserInfo(rowID, response, url);
     }
   });
 };
@@ -196,3 +151,122 @@ var refreshInPlaceEditing = function(obj, elemText, url) {
     }
   });
 };
+
+var updateUserInfo = function (rowID, response, url) {
+  // department pk, url, text
+  var deptName = $("#" + rowID + " #department-name" + " a")
+    .attr("data-pk", response.pk)
+    .attr("data-url", url)
+    .text(response.department);
+  refreshInPlaceEditing(deptName, response.department, url);
+  
+  // user title pk, url, text
+  var userTitle = $("#" + rowID + " #user-title" + " a")
+    .attr("data-pk", response.pk)
+    .attr("data-url", url)
+    .text(response.user_title);
+  refreshInPlaceEditing(userTitle, response.user_title, url);
+
+  // office phone pk, url, text
+  var officePhone = $("#" + rowID + " #office-phone" + " a")
+    .attr("data-pk", response.pk)
+    .attr("data-url", url)
+    .text(response.office_phone);
+  refreshInPlaceEditing(officePhone, response.office_phone, url);
+
+  // cell phone pk, url, text
+  var cellPhone = $("#" + rowID + " #cell-phone" + " a")
+    .attr("data-pk", response.pk)
+    .attr("data-url", url)
+    .text(response.cell_phone);
+  refreshInPlaceEditing(cellPhone, response.cell_phone, url);
+
+  // building pk, url, text
+  var buildingName = $("#" + rowID + " #building" + " a")
+    .attr("data-pk", response.pk)
+    .attr("data-url", url)
+    .text(response.building);
+  refreshInPlaceEditing(buildingName, response.building, url);
+
+  // storey pk, url, text
+  var storeyNum = $("#" + rowID + " #storey" + " a")
+    .attr("data-pk", response.pk)
+    .attr("data-url", url)
+    .text(response.storey);
+  refreshInPlaceEditing(storeyNum, response.storey, url);
+
+  // room pk, url, text
+  var roomNum = $("#" + rowID + " #room" + " a")
+    .attr("data-pk", response.pk)
+    .attr("data-url", url)
+    .text(response.room);
+  refreshInPlaceEditing(roomNum, response.room, url);
+  return deptName, userTitle, officePhone, cellPhone, buildingName, storeyNum, roomNum; 
+};
+
+// gets the current time 
+function getDateTime() {
+  var now = new Date(); 
+  var year = now.getFullYear();
+  var month = now.getMonth()+1; 
+  var day = now.getDate();
+  var hour = now.getHours();
+  var minute = now.getMinutes();
+  var second = now.getSeconds(); 
+  if(month.toString().length == 1) {
+    var month = '0' + month;
+  }
+  if(day.toString().length == 1) {
+    var day = '0' + day;
+  }   
+  if(hour.toString().length == 1) {
+    var hour = '0' + hour;
+  }
+  if(minute.toString().length == 1) {
+    var minute = '0' + minute;
+  }
+  if(second.toString().length == 1) {
+    var second = '0' + second;
+  }   
+  var dateTime = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;   
+  return dateTime;
+}
+
+// adds the starttime time
+var updateStartTime = function(response, rowID){
+  var addressID = $("#" + rowID + " #start-date" + " a").attr("data-pk");
+  //var addrURL = "/addresses/" + addressID;
+  var addrURL = "/" + response.locale + "/addresses/" + addressID;
+  var time = getDateTime();
+
+  //$("#" + rowID + " #start-date" + " a").each(function(){
+  //$("#" + rowID + " #start-date" + " a").function(){
+  //$.ajax({
+    //url: addrURL,
+    //type: "PUT",
+    //dataType: "json",
+
+    //success: function(response) {
+      //locale is already String typed
+      //var startDate= $("#" + rowID + " #start-date" + " a").text(time);
+      //refreshInPlaceEditing(startDate, time);
+    //}
+  //});
+
+  var startDate= $("#" + rowID + " #start-date" + " a").text(time);
+  startDate.editable({
+    ajaxOptions: {
+      url: addrURL,
+      type: "PUT",
+      dataType: "json"
+    },
+    value: time,
+    params: function(params) {
+      var railsParams = {};
+      railsParams[obj.data("model")] = {};
+      railsParams[obj.data("model")][params.name] = params.value;
+      return railsParams;
+    }
+  });
+  //};
+}
