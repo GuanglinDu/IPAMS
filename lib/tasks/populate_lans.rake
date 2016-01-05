@@ -5,7 +5,8 @@ namespace :db do
     if (ENV["RAILS_ENV"] == "development")
       append_records_to_lans
     else
-      puts "Task populate_lans can ONLY be invoked in the development environment."
+      puts "Task populate_lans can ONLY be invoked" \
+           " in the development environment."
       puts "The current environment is #{ENV["RAILS_ENV"]}!"
     end
   end
@@ -21,7 +22,8 @@ namespace :db do
         puts "ERROR: LAN #{args.lan_name} not found!"
       end
     else
-      puts "Task populate_lan can ONLY be invoked in the development environment."
+      puts "Task populate_lan can ONLY be invoked" \
+           " in the development environment."
       puts "The current environment is #{ENV["RAILS_ENV"]}!"
     end
   end
@@ -31,7 +33,7 @@ namespace :db do
     puts "--- Populating table lans ..."
     # Determines the existing maximum lan_number
     lans = Lan.all
-    max_lan_number = 0 # initial value
+    max_lan_number = 0
     lans.each do |lan|
       max_lan_number = [max_lan_number, lan.lan_number].max
     end    
@@ -56,7 +58,7 @@ namespace :db do
     puts "--- Populating vlans to LAN #{lan.lan_name} ..."
     # Determines the existing maximum vlan_number
     vlans = Vlan.all
-    max_vlan_number = 0 # initial value
+    max_vlan_number = 0
     vlans.each do |vlan|
       max_vlan_number = [max_vlan_number, vlan.vlan_number].max
     end    
@@ -84,7 +86,8 @@ namespace :db do
         :static_ip_end => ip_end,
         :subnet_mask => "255.255.255.0",
         :gateway => gateway,
-        :vlan_description => "Automatically created VLAN " + s1)
+        :vlan_description => "Automatically created VLAN " + s1
+      )
     end
 
     puts "--- #{count1} more VLANs added to LAN #{lan.lan_name}."

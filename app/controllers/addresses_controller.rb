@@ -1,5 +1,4 @@
 class AddressesController < ApplicationController
-
   before_action :set_address, only: [:show, :edit, :update, :destroy, :recycle]
   #after_action :verify_authorized
   #after_action :verify_authorized, except: :index
@@ -12,13 +11,11 @@ class AddressesController < ApplicationController
   # See https://github.com/sunspot/sunspot
   # See also http://www.whatibroke.com/?p=235
   def index
-    @addresses = nil
     if params[:search].present?
       @search = Address.search do
         fulltext params[:search]
         paginate :page => params[:page] || 1, :per_page => 30
       end 
-      
       # Type Sunspot::Search::PaginatedCollection < Array
       @addresses = @search.results
     else
@@ -93,56 +90,65 @@ class AddressesController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_address
-      @address = Address.find(params[:id])
+  # Use callbacks to share common setup or constraints between actions.
+  def set_address
+    @address = Address.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  # lan_id is FK.
+  def address_params
+    #params[:address].permit(:vlan_id, :user_id, :room, :ip, :mac_address, :usage, :start_date, :end_date,
+      #:application_form, :assigner, :recyclable)
+    params[:address].permit(
+      :vlan_id,
+      :user_id,
+      :ip,
+      :mac_address,
+      :usage,
+      :start_date,
+      :end_date,
+      :application_form,
+      :assigner, :recyclable
+    )
+  end
+
+  # Changes a user.name to its user.id (FK user_id) as only the FK is going to be stored
+  # in the Address object (record). Here's the trick to save an id while showing its name
+  def convert_user_name_to_user_id
+    @pars = address_params # access by reference
+    if @pars.has_key?("user_id")
+      name = @pars[:user_id]
+      if name
+        @pars[:user_id] = find_user_id(name) unless integer?(name)
+      end
     end
+  end
+
+  # Resolves FK user_id before saving the modified @address
+  # If the user doesn't exist, create a new one belonging to the NONEXISTENT department
+  def find_user_id(name)
+    user = User.find_by(name: name)
+    unless user
+      u1 = Department.find_by(dept_name: 'NONEXISTENT').users.create(name: name)
+      user = u1 if u1.valid?
+      user ||= User.find_by(name: 'NOBODY')
+    end
+    @user_id = user.id
+  end
   
-    # Never trust parameters from the scary internet, only allow the white list through.
-    # lan_id is FK.
-    def address_params
-      #params[:address].permit(:vlan_id, :user_id, :room, :ip, :mac_address, :usage, :start_date, :end_date,
-        #:application_form, :assigner, :recyclable)
-      params[:address].permit(:vlan_id, :user_id, :ip, :mac_address, :usage, :start_date, :end_date,
-        :application_form, :assigner, :recyclable)
-    end
+  # def nullify_
+  def set_recycled_address_values
+    @user = User.find_by(name: 'NOBODY')
+    @department = Department.find(@user.department_id)
 
-    # Changes a user.name to its user.id (FK user_id) as only the FK is going to be stored
-    # in the Address object (record). Here's the trick to save an id while showing its name
-    def convert_user_name_to_user_id
-      @pars = address_params # access by reference
-      if @pars.has_key?("user_id")
-        name = @pars[:user_id]
-        if name
-          @pars[:user_id] = find_user_id(name) unless integer?(name)
-        end
-      end
-    end
-
-    # Resolves FK user_id before saving the modified @address
-    # If the user doesn't exist, create a new one belonging to the NONEXISTENT department
-    def find_user_id(name)
-      user = User.find_by(name: name)
-      unless user
-        u1 = Department.find_by(dept_name: 'NONEXISTENT').users.create(name: name)
-        user = u1 if u1.valid?
-        user ||= User.find_by(name: 'NOBODY')
-      end
-      @user_id = user.id # accessable in the class scope
-    end
-    
-    # Empties recycled address values 
-    def set_recycled_address_values
-      @user = User.find_by(name: 'NOBODY')
-      @department = Department.find(@user.department_id)
-
-      @address.user_id = @user.id
-      @address.mac_address = nil
-      @address.usage = nil
-      @address.start_date = nil
-      @address.end_date = nil
-      @address.application_form = nil
-      @address.assigner = nil
-      @address.recyclable = false
-    end   
+    @address.user_id = @user.id
+    @address.mac_address = nil
+    @address.usage = nil
+    @address.start_date = nil
+    @address.end_date = nil
+    @address.application_form = nil
+    @address.assigner = nil
+    @address.recyclable = false
+  end   
 end
