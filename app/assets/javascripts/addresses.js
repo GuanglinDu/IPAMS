@@ -108,15 +108,13 @@ var set_btn_recycle = function() {
  * @param {String} rowID - the id attribute  of the row in editing as is <tr id="row-20">
  */
 var addressUserChanged = function(dataURL, rowID) {
-  // Retrieves the changed user's info. 
+  // Retrieves the updated user's info.
   // See users_controller#show for the response object
   $.ajax({
     url: dataURL,
     type: "GET",
     dataType: "json",
-
     success: function(response) {
-      //locale is already String typed
       var url = "/" + response.locale + dataURL;
       updateUserInfo(rowID, response, url);
     }
@@ -204,7 +202,7 @@ var updateUserInfo = function (rowID, response, url) {
   return deptName, userTitle, officePhone, cellPhone, buildingName, storeyNum, roomNum; 
 };
 
-// gets the current time 
+// Gets the current time 
 function getDateTime() {
   var now = new Date(); 
   var year = now.getFullYear();
@@ -232,7 +230,7 @@ function getDateTime() {
   return dateTime;
 }
 
-// adds the starttime time
+// Adds the starttime
 var updateStartTime = function(response, rowID){
   var addressID = $("#" + rowID + " #start-date" + " a").attr("data-pk");
   //var addrURL = "/addresses/" + addressID;
@@ -268,5 +266,4 @@ var updateStartTime = function(response, rowID){
       return railsParams;
     }
   });
-  //};
 }
