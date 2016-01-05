@@ -1,0 +1,54 @@
+<%# Search based on Sunspot: the pagination and search on the same row %>
+<div class="row">
+  <div class="col-xs-8">
+    <h4>Listing Users</h4>
+    <%# Header pagination. See https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
+    <%= page_entries_info @users %><br />
+    <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+  </div>
+  <div class="col-xs-4">
+    <%= form_tag users_path, :method => :get do %>
+      <%= text_field_tag :search, params[:search] %>
+      <%= submit_tag "Search", :name => nil %><br />
+      (Name, Title, Phone, Email, Building, Storey, Room)
+    <% end %>
+  </div>
+</div>
+
+<%# User list: The whole table caching with partial names to differ the editable from the uneditable %>
+<div class="row">
+<% partial_name = "editable" %>
+<% partial_name = "uneditable" unless policy(@users).edit? %>
+
+<%# The whole table caching is disabled as the authorization will be cached along. %>
+<%# cache_unless @searched, cache_key_for_users(partial_name, @users.offset) do %>
+<table class="table table-responsive table-condensed">
+  <thead>
+  <tr>
+    <th>NO.</th>
+    <th>Name</th>
+    <th>Title</th>
+    <th>IP Address</th>
+    <th>MAC Address</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Assigner</th>
+    <th>Office phone</th>
+    <th>Cell phone</th>
+    <th>Email</th>
+    <th>Building</th>
+    <th>Storey</th>
+    <th>Room</th>
+    <th>Department</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody id="main-table-body">
+    <%= render partial: partial_name, object: @users %>
+  </tbody>
+</table>
+</div>
+
+<%# Footer pagination %>
+<%= page_entries_info @users %><br />
+<%= will_paginate @users, renderer: BootstrapPagination::Rails %>
