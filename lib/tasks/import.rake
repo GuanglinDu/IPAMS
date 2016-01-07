@@ -178,7 +178,8 @@ namespace :import do
 
       unless ip1
         note = "ERROR: IP address NOT found!"
-        display_n_log "#{ip1.ip}: #{note}", log_file
+        display_n_log "#{iph["ip"]}: #{note}", log_file
+
         next
       else # updates
         # Let's resolve FK vlan_id with the IP address

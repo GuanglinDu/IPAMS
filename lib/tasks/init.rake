@@ -32,7 +32,7 @@ namespace :init do
   task :vlan_selected, [:vlan_name] => :environment do |t, args|
     puts "*** selected VLAN to be initialized: #{args.vlan_name}"    
     
-    vlan = Vlan.find_by(vlan_name: args.vlanname)
+    vlan = Vlan.find_by(vlan_name: args.vlan_name)
     if vlan
       init_a_single_vlan(vlan)
     else
