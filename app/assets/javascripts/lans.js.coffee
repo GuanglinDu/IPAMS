@@ -17,8 +17,8 @@ $ ->
         return railsParams
 
       # See addresses_controller#show
-      # Triggers row update in application.js
+      # Triggers the row update in application.js
       success: (response) ->
         cellName = $(@).closest("td").attr("id"); # e.g., <td id="user-name">
         rowID = $(@).closest("tr").attr("id"); # e.g., <tr id="row-114">
-        $(@).trigger('onAfterUpdate', [ rowID, cellName, response ])
+        $(@).trigger('onAfterUpdate', [rowID, cellName, response])
