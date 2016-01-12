@@ -81,7 +81,7 @@ class AddressesController < ApplicationController
         flash[:danger] = "There was a problem updating the address."
         format.html { render action: 'edit' }
         format.json {
-          render json: { @address.errors, status: :unprocessable_entity }
+          render json: @address.errors, status: :unprocessable_entity
         }
       end
     end

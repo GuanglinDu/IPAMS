@@ -19,7 +19,7 @@ class Vlan < ActiveRecord::Base
             :subnet_mask,
             :vlan_description,
             presence: true
-  # Valid VLAN number is only between 1..4096 (an Range object)
+  # Valid VLAN number is only between 1..4096 (a Range object)
   validates :vlan_number,
             inclusion: {in: 1..4096}
   validates :gateway,
