@@ -96,7 +96,7 @@ class AddressesController < ApplicationController
     respond_to do |format|
       if @address.save
         flash[:success] = "Address was successfully recycled."
-        format.json { render json: { locale: I18n.locale, user_id: @user.id }}
+        format.json { render json: { locale: I18n.locale, user_id: @user.id } }
       else
         flash[:danger] = "There was a problem recycling the address."
         format.html { head :no_content }
@@ -109,7 +109,7 @@ class AddressesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  # Use callbacks to share common setup or constraints between actions
   def set_address
     @address = Address.find(params[:id])
   end
@@ -133,9 +133,9 @@ class AddressesController < ApplicationController
 
   # Changes a user.name to its user.id (FK user_id) as only the FK is going to
   # be stored in the Address object (record). Here's the trick to save an id
-  # while showing its name
+  # while showing its name.
   def convert_user_name_to_user_id
-    @pars = address_params # access by reference
+    @pars = address_params
     if @pars.has_key?("user_id")
       name = @pars[:user_id]
       if name
@@ -144,9 +144,8 @@ class AddressesController < ApplicationController
     end
   end
 
-  # Resolves FK user_id before saving the modified @address
-  # If the user doesn't exist, create a new one belonging to the 
-  # NONEXISTENT department
+  # Resolves FK user_id before saving the modified @address. If the user
+  # doesn't exist, create a new one belonging to the NONEXISTENT department.
   def find_user_id(name)
     user = User.find_by(name: name)
     unless user

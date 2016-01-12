@@ -16,7 +16,8 @@
  * @param {Event} event - passed event object fired from <td><a></a></td>
  * @param {String} rowID - id attribute  of the row in editing as is <tr id="row-20">
  * @param {String} cellName - id attribute of a cell as is <td id="user-name"> 
- * @param {Object} response - response object passed from the success callback of X-Editable, see lans.js.coffee
+ * @param {Object} response - response object passed from the success callback
+ * of X-Editable, see lans.js.coffee
  */
 $(function() {
   $("#main-table-body").on("onAfterUpdate", "td a", function(event, rowID, cellName, response) {
@@ -101,15 +102,16 @@ var set_btn_recycle = function() {
 };
 
  /**
- * Updates the row when an IP address user changes in the Addresses/VLAN (VLANs -> VLAN) views.
+ * Updates the row after an IP address user changes in the Addresses/VLAN
+ * (VLANs -> VLAN) views by retrieving the updated user's info first.
+ * See users_controller#show for the response object.
  *
  * @param {String} locale - locale, either "en" or "zh_CN"
  * @param {String} dataURL - URL for ajax call
- * @param {String} rowID - the id attribute  of the row in editing as is <tr id="row-20">
+ * @param {String} rowID - the id attribute  of the row in editing
+ *                         as is <tr id="row-20">
  */
 var addressUserChanged = function(dataURL, rowID) {
-  // Retrieves the updated user's info.
-  // See users_controller#show for the response object
   $.ajax({
     url: dataURL,
     type: "GET",
@@ -122,7 +124,8 @@ var addressUserChanged = function(dataURL, rowID) {
 };
 
 /**
- * Refreshes the in-place editing of a DOM node changed by other JS other than X-editable.
+ * Refreshes the in-place editing of a DOM node changed by other JS
+ * other than X-editable.
  *
  * @param {jQuery} obj - a jQuery object 
  * @param {String} elemText - the text of the element to be freshed 
