@@ -74,17 +74,18 @@ var handle_recycle = function() {
       params: function(params) {
         var railsParams = {};
         railsParams[$(this).data("model")] = {};
-        var choice = true;
-        if (params.value != 1){
-          choice = false;
-        } 
+        //var choice = true;
+        //if (params.value != 1){
+          //choice = false;
+        //}
+        var choice = (params.value != 1) ? false : true;
         params.value = choice;
         railsParams[$(this).data("model")][params.name] = params.value;
         return railsParams;
       },
       success: function(response) {
         var rowID= $(this).closest("tr").attr("id");
-        $(this).trigger('setRecycle', [ rowID, response ]);
+        $(this).trigger('setRecycle', [rowID, response]);
       }
     });
   });
@@ -202,33 +203,27 @@ var updateUserInfo = function (rowID, response, url) {
     .attr("data-url", url)
     .text(response.room);
   refreshInPlaceEditing(roomNum, response.room, url);
-  return deptName, userTitle, officePhone, cellPhone, buildingName, storeyNum, roomNum; 
 };
 
 // Gets the current time 
 function getDateTime() {
   var now = new Date(); 
   var year = now.getFullYear();
-  var month = now.getMonth()+1; 
+  var month = now.getMonth() + 1; 
   var day = now.getDate();
   var hour = now.getHours();
   var minute = now.getMinutes();
   var second = now.getSeconds(); 
-  if(month.toString().length == 1) {
-    var month = '0' + month;
-  }
-  if(day.toString().length == 1) {
-    var day = '0' + day;
-  }   
-  if(hour.toString().length == 1) {
-    var hour = '0' + hour;
-  }
-  if(minute.toString().length == 1) {
-    var minute = '0' + minute;
-  }
-  if(second.toString().length == 1) {
-    var second = '0' + second;
-  }   
+  if(month.toString().length == 1) 
+    month = '0' + month;
+  if(day.toString().length == 1) 
+    day = '0' + day;
+  if(hour.toString().length == 1) 
+    hour = '0' + hour;
+  if(minute.toString().length == 1) 
+    minute = '0' + minute;
+  if(second.toString().length == 1) 
+    second = '0' + second;
   var dateTime = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;   
   return dateTime;
 }
@@ -236,37 +231,14 @@ function getDateTime() {
 // Adds the starttime
 var updateStartTime = function(response, rowID){
   var addressID = $("#" + rowID + " #start-date" + " a").attr("data-pk");
-  //var addrURL = "/addresses/" + addressID;
   var addrURL = "/" + response.locale + "/addresses/" + addressID;
   var time = getDateTime();
 
-  //$("#" + rowID + " #start-date" + " a").each(function(){
-  //$("#" + rowID + " #start-date" + " a").function(){
-  //$.ajax({
-    //url: addrURL,
-    //type: "PUT",
-    //dataType: "json",
-
-    //success: function(response) {
-      //locale is already String typed
-      //var startDate= $("#" + rowID + " #start-date" + " a").text(time);
-      //refreshInPlaceEditing(startDate, time);
-    //}
-  //});
-
-  var startDate= $("#" + rowID + " #start-date" + " a").text(time);
-  startDate.editable({
-    ajaxOptions: {
-      url: addrURL,
-      type: "PUT",
-      dataType: "json"
-    },
-    value: time,
-    params: function(params) {
-      var railsParams = {};
-      railsParams[obj.data("model")] = {};
-      railsParams[obj.data("model")][params.name] = params.value;
-      return railsParams;
-    }
+  $.ajax({
+    url: addrURL,
+    type: "PUT",
+    data: { address: { start_date: time } },
+    dataType: "json",
   });
+  $("#" + rowID + " #start-date" + " a").text(time);
 }

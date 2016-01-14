@@ -59,9 +59,8 @@
       <% cache([address, @user, @department], skip_digest: true) do %>
       <td id="no"><%= count %></td>
       <td id="ip-address">
-        <% clr = "green" %>
-        <% clr = "red" if @user.name == "NOBODY" %>
-    <font color="<%= clr %>"><%= address.ip %></font>
+        <% clr = @user.name == "NOBODY" ? "red" : "green" %>
+        <font color="<%= clr %>"><%= address.ip %></font>
       </td>
       <td id="mac-address">
         <a href="#"
