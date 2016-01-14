@@ -225,7 +225,7 @@
       </td>
       <% end %><%# partial row caching %>
 
-     <%# Authorization should NOT be cached!!! %>
+      <%# Authorization should NOT be cached!!! %>
       <% if policy(address).show? %>
         <td><%= link_to 'Show', address, class: 'btn btn-primary btn-xs' %></td>
       <% end %>

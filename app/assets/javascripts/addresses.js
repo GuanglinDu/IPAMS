@@ -237,7 +237,7 @@ var updateStartTime = function(response, rowID){
   $.ajax({
     url: addrURL,
     type: "PUT",
-    data: { address: { start_date: time } },
+    data: {address: {start_date: time}},
     dataType: "json",
   });
   $("#" + rowID + " #start-date" + " a").text(time);

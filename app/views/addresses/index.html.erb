@@ -2,8 +2,11 @@
 <div class="row">
   <div class="col-xs-8">
     <h4>Listing IP Addresses</h4>
-    <%# The header pagination %>
-    <%# See https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
+
+    <% if false %>
+      The header pagination:
+      https://github.com/bootstrap-ruby/will_paginate-bootstrap
+    <% end %>
     <%= page_entries_info @addresses %><br />
     <%= will_paginate @addresses, renderer: BootstrapPagination::Rails %>
   </div>
@@ -16,16 +19,17 @@
   </div>
 </div>
 
-<%# Address list rows. The current SystemUser comes from
+<% if false %>
+  Address list rows. The current SystemUser comes from
   ApplicationController.pundit_user.
-%>
+<% end %>
 <div class="row">
   <% partial_name = "addresses" %>
   <% partial_name = "uneditable" unless policy(@addresses).edit? %>
   <%= render partial: partial_name,
              object: @addresses,
              locals: {caller_name: "all"}
-   %>
+  %>
 
   <%# The footer pagination %>
   <%= page_entries_info @addresses %><br />
