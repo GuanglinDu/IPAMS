@@ -202,35 +202,14 @@ var updateUserInfo = function (rowID, response, url) {
 
 // Gets the current date and time 
 function getDateTime() {
-  var now = new Date(); 
-  var year = now.getFullYear();
-  var month = now.getMonth() + 1; 
-  var day = now.getDate();
-  var hour = now.getHours();
-  var minute = now.getMinutes();
-  var second = now.getSeconds(); 
-
-  if(month.toString().length == 1)
-    month = '0' + month;
-  
-  if(day.toString().length == 1)
-    day = '0' + day;
-     
-  if(hour.toString().length == 1)
-    hour = '0' + hour;
-  
-  if(minute.toString().length == 1)
-    minute = '0' + minute;
-  
-  if(second.toString().length == 1)
-    second = '0' + second;
-
-  var dateTime = year + '-'
-                 + month + '-'
-                 + day + ' '
-                 + hour + ':'
-                 + minute + ':'
-                 + second;
+  var d = new Date(); 
+  var dateTime = 
+    d.getFullYear() + "-"
+    + ("0"+(d.getMonth()+1)).slice(-2) + "-"
+    + ("0" + d.getDate()).slice(-2) + " "
+    + ("0" + d.getHours()).slice(-2) + ":"
+    + ("0" + d.getMinutes()).slice(-2) + ":"
+    + ("0" + d.getSeconds()).slice(-2);
   return dateTime;
 }
 
@@ -248,4 +227,4 @@ var updateStartDate = function(response, rowID){
   });
 
   $("#" + rowID + " #start-date" + " a").text(time);
-}
+};
