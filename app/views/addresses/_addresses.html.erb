@@ -59,9 +59,8 @@
       <% cache([address, @user, @department], skip_digest: true) do %>
       <td id="no"><%= count %></td>
       <td id="ip-address">
-        <% clr = "green" %>
-        <% clr = "red" if @user.name == "NOBODY" %>
-    <font color="<%= clr %>"><%= address.ip %></font>
+        <% clr = @user.name == "NOBODY" ? "red" : "green" %>
+        <font color="<%= clr %>"><%= address.ip %></font>
       </td>
       <td id="mac-address">
         <a href="#"
@@ -226,7 +225,7 @@
       </td>
       <% end %><%# partial row caching %>
 
-     <%# Authorization should NOT be cached!!! %>
+      <%# Authorization should NOT be cached!!! %>
       <% if policy(address).show? %>
         <td><%= link_to 'Show', address, class: 'btn btn-primary btn-xs' %></td>
       <% end %>
