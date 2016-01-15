@@ -1,9 +1,9 @@
 /**
- * Updates a row after the user of an IP address changes. It's delegated to
- * element tbody with id main-table-body, triggered by in-place editing of an
- * IP address' user name in <td><a></a></td> of the VLAN/Addresses views.
+ * Row update event handler delegated to element tbody with id main-table-body, triggered
+ * by in-place editing of a single IP address user in the VLAN/Addresses views.
  * See in-place editing in lans.js.coffee. 
  *
+ * Event delegation is employed to handle events triggered by elements <td><a></a></td>.
  * In case of arrays, add event listeners this way:
  * $(function() {
  *   $("tbody").each(function(index) {
@@ -14,22 +14,23 @@
  * });
  *
  * @param {Event} event - passed event object fired from <td><a></a></td>
- * @param {String} rowID - id of the row in editing as is <tr id="row-20">
+ * @param {String} rowID - id attribute  of the row in editing as is <tr id="row-20">
  * @param {String} cellName - id attribute of a cell as is <td id="user-name"> 
  * @param {Object} response - response object passed from the success callback
  * of X-Editable, see lans.js.coffee
  */
 $(function() {
-  $("#main-table-body").on("onAfterUpdate", "td a",
-      function(event, rowID, cellName, response) {
-    // The table cell names, i.e., the td element ids
-    // cell-name -> URI pattern. Must use quotes when using hyphen
-    var cellNames = { "user-name": "users" };
+  $("#main-table-body").on("onAfterUpdate", "td a", function(event, rowID, cellName, response) {
+    // The table cell names, i.e., the td element ids, we take interest
+    // cell-name -> URI pattern 
+    var cellNames = { "user-name": "users" }; // must use quotes when using hyphen
     // undefined/null/false = false
     if (cellNames[cellName] === "users") {
       var dataURL = "/users/" + response.user_id;
       addressUserChanged(dataURL, rowID);
-      updateStartDate(response, rowID); 
+      if (response.user_id != 7) {
+        updateStartTime(response, rowID); 
+      }
     }
   });
 
@@ -70,7 +71,11 @@ var toggle_recyclable_checkbox = function() {
       params: function(params) {
         var railsParams = {};
         railsParams[$(this).data("model")] = {};
-        var choice = params.value != 1 ? false : true;
+        //var choice = true;
+        //if (params.value != 1){
+          //choice = false;
+        //}
+        var choice = (params.value != 1) ? false : true;
         params.value = choice;
         railsParams[$(this).data("model")][params.name] = params.value;
         return railsParams;
@@ -197,7 +202,7 @@ var updateUserInfo = function (rowID, response, url) {
   refreshInPlaceEditing(roomNum, response.room, url);
 };
 
-// Gets the current date and time 
+// Gets the current time 
 function getDateTime() {
   var d = new Date(); 
   var dateTime = 
@@ -218,10 +223,9 @@ var updateStartDate = function(response, rowID) {
 
   $.ajax({
     url: addrURL,
+    type: "PUT",
     data: {address: {start_date: time}},
-    type: "PATCH",
     dataType: "json",
   });
-
   $("#" + rowID + " #start-date" + " a").text(time);
 };

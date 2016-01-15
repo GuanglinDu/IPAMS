@@ -53,7 +53,6 @@
   <% addresses.each do |address| %>
     <% find_user(address.user_id) %>
     <% find_department(@user.department_id) %>
-    <% status = is_recyclable?(address) %>
     <% count += 1 %>
 
     <tr id="row-<%= count %>">
@@ -212,7 +211,6 @@
         </a>
       </td>
 
-      <% val = status ? 1 : 0 %>
       <td id="recyclable">
         <a href="#"
             data-xeditable="true"
@@ -222,7 +220,7 @@
             data-url="<%= address_path(address) %>"
             data-title="Select options"
             data-type="checklist"
-            data-value="<%= val %>">
+            data-value="<%= address.recyclable ? 1 :0 %>">
           <%= address.recyclable %>
         </a>
       </td>
@@ -236,7 +234,7 @@
         <% if policy(address).recycle? %>
           <%= button_to histories_path(address_id: address.id),
               remote: true,
-              disabled: !status,
+              disabled: !address.recyclable,
               method: :post,
               id: :btn_recycle,
               class: 'btn btn-success btn-xs',
