@@ -2,11 +2,11 @@ var ip = "<%= @address.ip %>";
 var addressID = "<%= @address.id %>";
 var rowID = $("tr:contains(" + ip + ")").attr("id");
 var url = "/addresses/" + addressID;
+
 $.ajax({
   url: url,
   type: "GET",
   dataType: "json",
-  
   success: function(response){
     empty_address_values(rowID, addressID, response);
   }
