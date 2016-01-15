@@ -1,34 +1,47 @@
-<!-- This is a partial to create a new VLAN -->
+<%# This is a partial to create a new VLAN %>
 <h3>Create a New VLAN in the designated LAN.</h3>
 
 <%= form_for(@vlan) do |f| %>
   <% if @vlan.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@vlan.errors.count, "error") %> prohibited this vlan from being saved:</h2>
-
+      <h2>
+        <%= pluralize(@vlan.errors.count, "error") %>
+          prohibited this vlan from being saved:
+      </h2>
       <ul>
-      <% @vlan.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% @vlan.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
-  <% end %>
+  <% end %><%# if block %>
 
-  <!-- Select the LAN in which to create the new VLAN -->
-  <%= f.label :"Create in LAN:" %><%= f.collection_select(:lan_id, Lan.all, :id, :lan_name, prompt: true) %><br />
-  <%= f.label :"VLAN Number:" %><%= f.text_field :vlan_number %><br />
-  <%= f.label :"VLAN Name:" %><%= f.text_field :vlan_name %><br />
-  <%= f.label :"Static IP Start:" %><%= f.text_field :static_ip_start %><br />
-  <%= f.label :"Static IP End:" %><%= f.text_field :static_ip_end %><br />
-  <%= f.label :"Mask:" %><%= f.text_field :subnet_mask %><br />
-  <%= f.label :"Gateway:" %><%= f.text_field :gateway %><br />
-  <%= f.label :"Description:" %><%= f.text_area :vlan_description, rows: 6 %><br />  
+  <%# Select the LAN in which to create the new VLAN %>
+  <%= f.label :"Create in LAN:" %>
+    <%= f.collection_select(:lan_id, Lan.all, :id, :lan_name, prompt: true) %>
+    <br />
+  <%= f.label :"VLAN Number:" %><%= f.text_field :vlan_number %>
+    <br />
+  <%= f.label :"VLAN Name:" %><%= f.text_field :vlan_name %>
+    <br />
+  <%= f.label :"Static IP Start:" %><%= f.text_field :static_ip_start %>
+    <br />
+  <%= f.label :"Static IP End:" %><%= f.text_field :static_ip_end %>
+    <br />
+  <%= f.label :"Mask:" %><%= f.text_field :subnet_mask %>
+    <br />
+  <%= f.label :"Gateway:" %><%= f.text_field :gateway %>
+    <br />
+  <%= f.label :"Description:" %><%= f.text_area :vlan_description, rows: 6 %>
+    <br />
+
   <p>
-    <!--
-      Pass lan_id value in params when clicking the submit button using name & value options.
-      See http://stackoverflow.com/questions/17916316/is-there-a-way-to-pass-params-when-clicking-submit-button-in-simple-form-view-in
-    -->
-    <!-- %= f.label :"Click to create:" >< f.button :submit, name: "lan_id", value: @lan.id % -->
+    <% if false %>
+      Pass lan_id value in params when clicking the submit button using name &
+      value options. See http://goo.gl/MYvJaC. 
+        f.label :"Click to create:"
+          f.button :submit, name: "lan_id", value: @lan.id %
+    <% end %>
     <%= f.label :"Click to create:" %><%= f.button :submit %>
   </p>
 <% end %>
