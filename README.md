@@ -35,6 +35,7 @@ Importing Existing Data (Administrators only)
 
 History
 ------
+<ol>20160114: Most of the essential features implemented. Many minor features are under development.</ol>
 <ol>20150522: Implement prefix-matching search in Addresses views & Users view. No cross-table search support at present.</ol>
 <ol>20150520: Implement most of the basic features.</ol>
 <ol>20150116: Implement authorization with Pundit and IP address editing in Vlans & Addresses views.</ol>

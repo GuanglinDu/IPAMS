@@ -34,28 +34,25 @@ $(function() {
     }
   });
 
-  // Initializes the recycle button
-  init_btn_recycle();
-  // Calls the recyclable checkbox handler
-  handle_recycle();
+  //init_btn_recycle();
+  toggle_recyclable_checkbox();
   // Calls the recycle button handler
   set_btn_recycle();
 });
 
 // Initializes the recycle button
-var init_btn_recycle = function(){
-  $("#main-table-body tr #recycle #btn_recycle").each(function(){
+var init_btn_recycle = function() {
+  $("#main-table-body tr #recycle #btn_recycle").each(function() {
     var rowID = $(this).closest("tr").attr("id");
     var txtRecycle = $("#" + rowID + " #recyclable a").text();
     if (txtRecycle == "false" || txtRecycle == "f")
-      $(this).attr('disabled', true);
+      $(this).prop('disabled', true);
     else
-      $(this).attr('disabled', false);
+      $(this).prop('disabled', false);
   });
 };
 
-// Handles the recyclable checkbox
-var handle_recycle = function() {
+var toggle_recyclable_checkbox = function() {
   $("#recyclable a").each(function() {
     var text = $(this).text();
     var isRecyclable = text == "true" ? "1" : "0";
@@ -96,9 +93,9 @@ var set_btn_recycle = function() {
   $("#main-table-body").on("setRecycle", "td", function(event, rowID, response) {
     var btnRecycle = $("#" + rowID + " #recycle #btn_recycle");
     if (response.recyclable == false)
-      btnRecycle.attr('disabled', true);
+      btnRecycle.prop('disabled', true);
     else
-      btnRecycle.attr('disabled', false);
+      btnRecycle.prop('disabled', false);
   });
 };
 
@@ -218,8 +215,8 @@ function getDateTime() {
   return dateTime;
 }
 
-// Adds the starttime
-var updateStartTime = function(response, rowID){
+// Adds the start date
+var updateStartDate = function(response, rowID) {
   var addressID = $("#" + rowID + " #start-date" + " a").attr("data-pk");
   var addrURL = "/" + response.locale + "/addresses/" + addressID;
   var time = getDateTime();
