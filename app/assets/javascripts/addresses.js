@@ -28,9 +28,7 @@ $(function() {
     if (cellNames[cellName] === "users") {
       var dataURL = "/users/" + response.user_id;
       addressUserChanged(dataURL, rowID);
-      if (response.user_id != 7) {
-        updateStartTime(response, rowID); 
-      }
+      updateStartDate(response, rowID); 
     }
   });
 
@@ -71,10 +69,6 @@ var toggle_recyclable_checkbox = function() {
       params: function(params) {
         var railsParams = {};
         railsParams[$(this).data("model")] = {};
-        //var choice = true;
-        //if (params.value != 1){
-          //choice = false;
-        //}
         var choice = (params.value != 1) ? false : true;
         params.value = choice;
         railsParams[$(this).data("model")][params.name] = params.value;
