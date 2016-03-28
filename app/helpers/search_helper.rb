@@ -1,5 +1,4 @@
 module SearchHelper
-  
   # Determines the model object 
   def who_am_i(model)
     @model_name = "unkown"
