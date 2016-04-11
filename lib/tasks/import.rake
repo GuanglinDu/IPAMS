@@ -16,12 +16,13 @@ namespace :import do
   desc "imports LANs from a CVS file (IPAMS-specific)"
   task lans: :environment do
     file_path = FileHelper::LAN_IMPORT_SOURCE_FILE
-    CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
+    # CSV::Row is part Array & part Hash
+    CSV.foreach(file_path, headers: true) do |raw_row|
       h1 = ImportHelper::strip_whitespace(raw_row) # temporary hash
 
       note = "OK" # importing result
       # Determines whether the Lan exists. If yes, updates it;
-      # Note: Using h1[:lan_name] leads to failing finding the lan_name from Hash h1!!!
+      # Note: Using h1[:lan_name] leads to failing finding lan_name from Hash h1
       if Lan.exists? lan_name: h1["lan_name"]
         note = "OK. Updated!"
         l1 = Lan.find_by lan_name: h1["lan_name"]

@@ -7,7 +7,6 @@ class LansController < ApplicationController
   # GET /lans
   # GET /lans.json
   def index
-    #@lans = Lan.order(:lan_number)
     @lans = Lan.paginate(page: params[:page],
       per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE).order(:lan_number)
     authorize @lans

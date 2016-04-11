@@ -1,7 +1,7 @@
 class Vlan < ActiveRecord::Base
   require 'csv'
 
-  # 1st line of the importing CSV file is the headers (attributes/fields)
+  # The first line of the importing CSV file is the headers
   # Note: lan_name will be used to retrieve FK lan_id
   HEADERS = [
     "lan_name", "vlan_number", "vlan_name","static_ip_start",
@@ -14,32 +14,25 @@ class Vlan < ActiveRecord::Base
   has_many :reserved_addresses, dependent: :destroy
   has_many :users, through: :addresses
 
-  validates :vlan_number,
-            :vlan_name,
-            :subnet_mask,
-            :vlan_description,
+  validates :vlan_number, :vlan_name, :subnet_mask, :vlan_description,
             presence: true
-  # Valid VLAN number is only between 1..4096 (an Range object)
-  validates :vlan_number,
-            inclusion: {in: 1..4096}
-  validates :gateway,
-            :static_ip_start,
-            :static_ip_end,
-            presence: true, 
-            uniqueness: true
+  # Valid VLAN number is only between 1..4096 (Range)
+  validates :vlan_number, inclusion: {in: 1..4096}
+  validates :gateway, :static_ip_start, :static_ip_end,
+            presence: true, uniqueness: true
 
+  # TODO: refactor the following to put them in a helper
   # See http://richonrails.com/articles/importing-csv-files
   # Import a csv file into table vlans
   # Check to see if the VLAN already exists in the database. if it does,
   # it will then attempt to update the existing VLAN. If not, 
   # it will attempt to create a new VLAN.
   # The VLANs importing CSV template with 1st row as the headers:
-  # lan_name   vlan_number vlan_name static_ip_start static_ip_end  subnet_mask   gateway	 vlan_description
-  # Legacy LAN 23	   VLAN_23   192.168.23.0    192.168.23.255 255.255.255.0 192.168.23.254 Main Building
-  # Creates a class method as does Vlan.import
+  # lan_name vlan_number vlan_name static_ip_start static_ip_end subnet_mask
+  #   gateway vlan_description
   def self.import(file = nil)
-    # A Hash object to contain the returning messages (one message for each row)
-    # The values are Array objects to contain the importing results for each row
+    # A Hash containthe returning messages (one message for each row)
+    # The values are Arrays containing the importing results for each row
     msg = { success: [], info: [] }    
 
     # If file is nil or blank (nil != blank)
@@ -59,8 +52,9 @@ class Vlan < ActiveRecord::Base
     # ??File submitted through html file doesn't exist!
     # http://guides.rubyonrails.org/form_helpers.html#uploading-files
     # 5.1 What Gets Uploaded
-    # The object in the params hash is an instance of a subclass of IO. Depending on the size
-    # of the uploaded file it may in fact be a StringIO or an instance of File backed by a temporary file.
+    # The object in the params hash is an instance of a subclass of IO.
+    # Depending on the size of the uploaded file it may in fact be a StringIO
+    # or an instance of File backed by a temporary file.
     if file.instance_of?(StringIO)
       msg[:success] << true 
       msg[:info] << "File is an instance of StringIO!" 
@@ -145,21 +139,4 @@ class Vlan < ActiveRecord::Base
 
     return lan_id
   end
-  
-  # Deprecated on Dec. 19, 2014 as it's clumsy. Use rails validation instead.
-  # Determine if a VLAN already exists.
-  def self.vlan_exists(vhash_to_import = {})
-    exist = false
-    vlans = Vlan.all # Array
-    vlans = vlans.to_a.map(&:serializable_hash) # to Hash
-    vlans.each do |vlan|
-      if vlan == vhash_to_import
-        exist = true
-        break
-      end 
-    end
-
-    return exist  
-  end
 end
-
