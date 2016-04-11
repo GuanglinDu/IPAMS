@@ -28,34 +28,29 @@ $(function() {
     if (cellNames[cellName] === "users") {
       var dataURL = "/users/" + response.user_id;
       addressUserChanged(dataURL, rowID);
-      if (response.user_id != 7) {
-        updateStartTime(response, rowID); 
-      }
+      updateStartDate(response, rowID); 
     }
   });
 
-  // Initializes the recycle button
-  init_btn_recycle();
-  // Calls the recyclable checkbox handler
-  handle_recycle();
+  //init_btn_recycle();
+  toggle_recyclable_checkbox();
   // Calls the recycle button handler
   set_btn_recycle();
 });
 
 // Initializes the recycle button
-var init_btn_recycle = function(){
-  $("#main-table-body tr #recycle #btn_recycle").each(function(){
+var init_btn_recycle = function() {
+  $("#main-table-body tr #recycle #btn_recycle").each(function() {
     var rowID = $(this).closest("tr").attr("id");
     var txtRecycle = $("#" + rowID + " #recyclable a").text();
     if (txtRecycle == "false" || txtRecycle == "f")
-      $(this).attr('disabled', true);
+      $(this).prop('disabled', true);
     else
-      $(this).attr('disabled', false);
+      $(this).prop('disabled', false);
   });
 };
 
-// Handles the recyclable checkbox
-var handle_recycle = function() {
+var toggle_recyclable_checkbox = function() {
   $("#recyclable a").each(function() {
     var text = $(this).text();
     var isRecyclable = text == "true" ? "1" : "0";
@@ -74,17 +69,14 @@ var handle_recycle = function() {
       params: function(params) {
         var railsParams = {};
         railsParams[$(this).data("model")] = {};
-        var choice = true;
-        if (params.value != 1){
-          choice = false;
-        } 
+        var choice = (params.value != 1) ? false : true;
         params.value = choice;
         railsParams[$(this).data("model")][params.name] = params.value;
         return railsParams;
       },
       success: function(response) {
         var rowID= $(this).closest("tr").attr("id");
-        $(this).trigger('setRecycle', [ rowID, response ]);
+        $(this).trigger('setRecycle', [rowID, response]);
       }
     });
   });
@@ -95,9 +87,9 @@ var set_btn_recycle = function() {
   $("#main-table-body").on("setRecycle", "td", function(event, rowID, response) {
     var btnRecycle = $("#" + rowID + " #recycle #btn_recycle");
     if (response.recyclable == false)
-      btnRecycle.attr('disabled', true);
+      btnRecycle.prop('disabled', true);
     else
-      btnRecycle.attr('disabled', false);
+      btnRecycle.prop('disabled', false);
   });
 };
 
@@ -202,71 +194,32 @@ var updateUserInfo = function (rowID, response, url) {
     .attr("data-url", url)
     .text(response.room);
   refreshInPlaceEditing(roomNum, response.room, url);
-  return deptName, userTitle, officePhone, cellPhone, buildingName, storeyNum, roomNum; 
 };
 
 // Gets the current time 
 function getDateTime() {
-  var now = new Date(); 
-  var year = now.getFullYear();
-  var month = now.getMonth()+1; 
-  var day = now.getDate();
-  var hour = now.getHours();
-  var minute = now.getMinutes();
-  var second = now.getSeconds(); 
-  if(month.toString().length == 1) {
-    var month = '0' + month;
-  }
-  if(day.toString().length == 1) {
-    var day = '0' + day;
-  }   
-  if(hour.toString().length == 1) {
-    var hour = '0' + hour;
-  }
-  if(minute.toString().length == 1) {
-    var minute = '0' + minute;
-  }
-  if(second.toString().length == 1) {
-    var second = '0' + second;
-  }   
-  var dateTime = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;   
+  var d = new Date(); 
+  var dateTime = 
+    d.getFullYear() + "-"
+    + ("0"+(d.getMonth()+1)).slice(-2) + "-"
+    + ("0" + d.getDate()).slice(-2) + " "
+    + ("0" + d.getHours()).slice(-2) + ":"
+    + ("0" + d.getMinutes()).slice(-2) + ":"
+    + ("0" + d.getSeconds()).slice(-2);
   return dateTime;
 }
 
-// Adds the starttime
-var updateStartTime = function(response, rowID){
+// Adds the start date
+var updateStartDate = function(response, rowID) {
   var addressID = $("#" + rowID + " #start-date" + " a").attr("data-pk");
-  //var addrURL = "/addresses/" + addressID;
   var addrURL = "/" + response.locale + "/addresses/" + addressID;
   var time = getDateTime();
 
-  //$("#" + rowID + " #start-date" + " a").each(function(){
-  //$("#" + rowID + " #start-date" + " a").function(){
-  //$.ajax({
-    //url: addrURL,
-    //type: "PUT",
-    //dataType: "json",
-
-    //success: function(response) {
-      //locale is already String typed
-      //var startDate= $("#" + rowID + " #start-date" + " a").text(time);
-      //refreshInPlaceEditing(startDate, time);
-    //}
-  //});
-
-  var startDate= $("#" + rowID + " #start-date" + " a").text(time);
-  startDate.editable({
-    ajaxOptions: {
-      url: addrURL,
-      type: "PUT",
-      dataType: "json"
-    },
-    value: time,
-    params: function(params) {
-      var railsParams = {};
-      railsParams[obj.data("model")] = {};
-      railsParams[obj.data("model")][params.name] = params.value;
-      return railsParams;
-    }
+  $.ajax({
+    url: addrURL,
+    type: "PUT",
+    data: {address: {start_date: time}},
+    dataType: "json",
   });
-}
+  $("#" + rowID + " #start-date" + " a").text(time);
+};
