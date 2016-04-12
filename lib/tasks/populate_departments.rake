@@ -5,8 +5,7 @@ namespace :db do
     if (ENV["RAILS_ENV"] == "development")
       append_records_to_departments
     else
-      puts "Task populate_departments ONLY runs in the devel environment."
-      puts "The current environment is #{ENV["RAILS_ENV"]}!"
+      hint "bundle exec rake db:populate_departments RAILS_ENV=development"
     end
   end
 
@@ -21,8 +20,8 @@ namespace :db do
         puts "ERROR: Department  #{args.department_name} not found!"
       end
     else
-      puts "Task populate_department ONLY runs in the devel environment."
-      puts "The current environment is #{ENV["RAILS_ENV"]}!"
+      hint "bundle exec rake db:populate_department['DEPARTMENT_NAME']" \
+           " RAILS_ENV=development"
     end
   end
 
@@ -65,5 +64,11 @@ namespace :db do
 
     puts "--- ~#{count1} more users appended to department " \
       "#{department.dept_name}."
+  end
+
+  def hint(usage)
+    puts "Task populate_department ONLY runs in the devel environment.\n" \
+         "The current environment is #{ENV["RAILS_ENV"]}!\n" \
+         "Usage:\n\t#{usage}"
   end
 end

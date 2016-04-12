@@ -84,13 +84,14 @@ class LansController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_lan
-      @lan = Lan.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_lan
+    @lan = Lan.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def lan_params
-      params.require(:lan).permit(:lan_number, :lan_name, :lan_description)
-    end
+  # Never trust parameters from the scary internet,
+  # only allow the white list through.
+  def lan_params
+    params.require(:lan).permit(:lan_number, :lan_name, :lan_description)
+  end
 end

@@ -13,7 +13,8 @@ include PopulateTable
 
 # Stops rake db:seed in the production environment
 if (ENV["RAILS_ENV"] == "production" || ENV["RAILS_ENV"] == "test")
-  puts "Running rake db:seed in the production/test environment is forbidden!"
+  puts "Running rake db:seed in the production/test environment is forbidden!" \
+    "Usage:\n\tbundle exec rake db:seed RAILS_ENV=development"
 else
   run
 end
