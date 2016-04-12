@@ -1,20 +1,19 @@
 module FileHelper
-  #ROOT_PATH = "../.."
-  ROOT_PATH = "#{Rails.root}"
+  # Rails.root is not accessible in the tests
+  TMP_PATH = File.expand_path("../../../tmp", __FILE__)
 
-  #IMPORT_LOG = ROOT_PATH.join('tmp/IMPORT_LOG.txt')
-
-  IMPORT_LOG = "#{ROOT_PATH}/tmp/IMPORT_LOG.txt"
+  IMPORT_LOG = "#{TMP_PATH}/IMPORT_LOG.txt"
  
-  IMPORT_DIFF = "#{ROOT_PATH}/tmp/IMPORT_DIFF.html" 
+  IMPORT_DIFF = "#{TMP_PATH}/IMPORT_DIFF.html" 
 
-  LAN_IMPORT_SOURCE_FILE = "#{ROOT_PATH}/tmp/lan_import_template.csv" 
+  LAN_IMPORT_SOURCE_FILE = "#{TMP_PATH}/lan_import_template.csv" 
 
-  VLAN_IMPORT_SOURCE_FILE = "#{ROOT_PATH}/tmp/vlan_import_template.csv" 
+  VLAN_IMPORT_SOURCE_FILE = "#{TMP_PATH}/vlan_import_template.csv" 
 
-  DEPARTMENT_IMPORT_SOURCE_FILE = "#{ROOT_PATH}/tmp/department_import_template.csv" 
+  DEPARTMENT_IMPORT_SOURCE_FILE = 
+    "#{TMP_PATH}/department_import_template.csv" 
 
-  IP_IMPORT_SOURCE_FILE = "#{ROOT_PATH}/tmp/ip_address_import_template.csv" 
+  IP_IMPORT_SOURCE_FILE = "#{TMP_PATH}/ip_address_import_template.csv" 
 
-  MAC_FORMAT_LOG = "#{ROOT_PATH}/tmp/MAC_FORMAT_LOG.txt"
+  MAC_FORMAT_LOG = "#{TMP_PATH}/MAC_FORMAT_LOG.txt"
 end
