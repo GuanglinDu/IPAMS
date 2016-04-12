@@ -3,15 +3,15 @@ module PopulateTable
   VLAN_COUNT = 255 # 0~255 
 
   def run
-    #Address.delete_all
-    #Vlan.delete_all
-    #Lan.delete_all
-    #User.delete_all
-    #Department.delete_all
+    Address.delete_all
+    Vlan.delete_all
+    Lan.delete_all
+    User.delete_all
+    Department.delete_all
 
     create_system_uers
-    #create_lans LAN_COUNT
-    #create_vlans 1, VLAN_COUNT
+    create_lans LAN_COUNT
+    create_vlans 1, VLAN_COUNT
   end
 
   def create_system_uers
