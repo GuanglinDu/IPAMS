@@ -131,3 +131,5 @@ gem 'progress_bar'
 
 # Enables https
 gem 'rack-ssl', '~> 1.4.1'
+gem 'axlsx', '~> 2.0'
+gem "axlsx_rails"
