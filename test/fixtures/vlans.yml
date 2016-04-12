@@ -1,9 +1,3 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# Label references for associations (belongs_to, has_one, has_many)
-# Specifying foreign keys in fixtures can be very fragile, not to mention difficult to read.
-# Since Active Record can figure out the ID of any fixture from its label, you can specify FK's by label instead of ID.
-
 one:
   vlan_number: 1
   vlan_name: my_vlan_1
@@ -43,4 +37,3 @@ four:
   static_ip_start: 10.0.3.0
   static_ip_end: 10.0.3.255
   lan: two
-
