@@ -1,6 +1,24 @@
 class HistoriesController < ApplicationController
   before_action :retrieve_address, only: :create
 
+  def index
+    if params[:search].present?
+      @search = History.search do
+        fulltext params[:search]
+        paginate page: params[:page] || 1, per_page: 30
+      end 
+      # Type Sunspot::Search::PaginatedCollection < Array
+      @histories = @search.results
+    else
+      # paginate returns object of 
+      # type User::ActiveRecord_Relation < ActiveRecord::Relation
+      @histories = History.paginate(
+        page: params[:page],
+        per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
+      )
+    end
+  end
+
   def new
     @history = History.new
   end
