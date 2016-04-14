@@ -19,6 +19,13 @@ How-tos
 * start the server locally: rails server
 * Browse it locally: http://localhost:3000
 
+Populate the development db
+------
+* bundle exec rake db:seed
+This populates table lans, vlans and system_users. It also creates a root user/password tom.cat@example.com/password, and the admin user jerry.mouse@example.com/password.
+* bundle exec rake -T
+To show the IPAMS-specific tasks to populate tables such as addresses, departments. Table users is populated by populating a specific department.
+
 Importing Existing Data (Administrators only)
 ------
 * Importing templates reside public/downloads. The data should be exported in UTF-8 encoded CSV files with the same file base name as the templates and copied to fold tmp.

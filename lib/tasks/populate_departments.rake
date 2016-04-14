@@ -5,8 +5,7 @@ namespace :db do
     if (ENV["RAILS_ENV"] == "development")
       append_records_to_departments
     else
-      puts "Task populate_departments can ONLY be invoked in the development environment."
-      puts "The current environment is #{ENV["RAILS_ENV"]}!"
+      hint "bundle exec rake db:populate_departments RAILS_ENV=development"
     end
   end
 
@@ -21,8 +20,8 @@ namespace :db do
         puts "ERROR: Department  #{args.department_name} not found!"
       end
     else
-      puts "Task populate_department can ONLY be invoked in the development environment."
-      puts "The current environment is #{ENV["RAILS_ENV"]}!"
+      hint "bundle exec rake db:populate_department['DEPARTMENT_NAME']" \
+           " RAILS_ENV=development"
     end
   end
 
@@ -30,22 +29,14 @@ namespace :db do
   # https://github.com/stympy/faker
   def append_records_to_departments 
     puts "--- Populating table departments ..."
-
     # Appends in a iteration
     count1 = 360
     1.upto(count1) do |i|
       name =  Faker::Commerce.department
       dept = Department.find_by(dept_name: name)
-      Department.create!(dept_name: name, location: Faker::Address.street_address) unless dept
+      Department.create!(dept_name: name,
+        location: Faker::Address.street_address) unless dept
     end
-
-    # Fills in the location only
-    #depts = Department.all
-    #depts.each do |dt|
-    #  dt.location = Faker::Address.street_address unless dt.location
-    #  dt.save
-    #end
-
     puts "--- ~#{count1} more departments added"
   end
   
@@ -71,6 +62,13 @@ namespace :db do
       end
     end
 
-    puts "--- ~#{count1} more users appended to department #{department.dept_name}."
+    puts "--- ~#{count1} more users appended to department " \
+      "#{department.dept_name}."
+  end
+
+  def hint(usage)
+    puts "Task populate_department ONLY runs in the devel environment.\n" \
+         "The current environment is #{ENV["RAILS_ENV"]}!\n" \
+         "Usage:\n\t#{usage}"
   end
 end
