@@ -13,7 +13,7 @@ namespace :import do
   log_file = File.open(FileHelper::IMPORT_LOG, "w")
   diff_file = File.open(FileHelper::IMPORT_DIFF, "w")
 
-  desc "imports LANs from a CVS file (IPAMS-specific)"
+  desc "Imports LANs from a CVS file (IPAMS-specific)"
   task lans: :environment do
     file_path = FileHelper::LAN_IMPORT_SOURCE_FILE
     # CSV::Row is part Array & part Hash
@@ -46,18 +46,20 @@ namespace :import do
 
   # Imports VLAN info
   # A VLAN has 1 FK lan_id to resolve
-  desc "imports VLANs from a CVS file (IPAMS-specific)"
+  desc "Imports VLANs from a CVS file (IPAMS-specific)"
   task vlans: :environment do
     #require 'csv' 
     # Opens the FileHelper::IMPORT_LOG.txt file
     #log_file = File.open(FileHelper::IMPORT_LOG, "w")
     #file_path = "#{Rails.root}/tmp/vlan_importing_template.csv" 
     file_path = FileHelper::VLAN_IMPORT_SOURCE_FILE
-    CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
+    # CSV::Row is part Array & part Hash
+    CSV.foreach(file_path, headers: true) do |raw_row|
       vh1 = ImportHelper::strip_whitespace(raw_row)
       puts vh1
 
-      # Resolves lan_id by replacing the lan_name key-value pair with lan_id pair
+      # Resolves lan_id by replacing the lan_name key-value pair
+      # with lan_id pair
       ln = vh1["lan_name"]
       ln = vh1[:lan_name] unless ln
       ln = ln.strip if ln
@@ -73,7 +75,8 @@ namespace :import do
 
       note = "OK" # importing result
       # Determines whether the Vlan exists. If yes, updates it;
-      # Note: Using vh1[:vlan_name] leads to failing finding the lan_name from Hash h1!!!
+      # Note: Using vh1[:vlan_name] leads to failing finding the lan_name
+      # from Hash h1!!!
       if Vlan.exists?(vlan_name: vh1["vlan_name"])
         note = "OK. Updated!"
         vl1 = Vlan.find_by(vlan_name: vh1["vlan_name"])
@@ -95,19 +98,21 @@ namespace :import do
     puts "*** VLANs imported!"
   end
 
-  desc "imports Departments from a CVS file (IPAMS-specific)"
+  desc "Imports Departments from a CVS file (IPAMS-specific)"
   task departments: :environment do
     #require 'csv'
     # Opens the FileHelper::IMPORT_LOG.txt file
     #log_file = File.open(FileHelper::IMPORT_LOG, "w")
     #file_path = "#{Rails.root}/tmp/departments_importing_template.csv" 
     file_path = FileHelper::DEPARTMENT_IMPORT_SOURCE_FILE
-    CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
+    # CSV::Row is part Array & part Hash
+    CSV.foreach(file_path, headers: true) do |raw_row|
       h1 = ImportHelper::strip_whitespace(raw_row) # temporary hash
 
       note = "OK" # importing result
       # Determines whether the Department exists. If yes, updates it;
-      # Note: Using h1[:dept_name] leads to failing finding the dept_name from Hash h1!!!
+      # Note: Using h1[:dept_name] leads to failing finding the dept_name
+      # from Hash h1!!!
       if Department.exists? dept_name: h1["dept_name"]
         note = "OK. Updated!"
         d1 = Department.find_by dept_name: h1["dept_name"]
@@ -131,18 +136,13 @@ namespace :import do
 
   # Imports IPs with VLAN info
   # An IP has 2 FKs vlan_id & user_id to resolve
-  desc "imports IPs from a CVS file (IPAMS-specific)"
+  desc "Imports IPs from a CVS file (IPAMS-specific)"
   task ips: :environment do
-    #require 'csv'
-    # Opens the FileHelper::IMPORT_LOG.txt file
-    #log_file = File.open(FileHelper::IMPORT_LOG, "w")
-    #diff_file = File.open(FileHelper::IMPORT_DIFF, "w")
-    #file_path = "#{Rails.root}/tmp/ip_address_importing_template.csv" 
     file_path = FileHelper::IP_IMPORT_SOURCE_FILE
-
     ImportHelper::create_html_header(diff_file)
  
-    CSV.foreach(file_path, headers: true) do |raw_row| # CSV::Row is part Array & part Hash
+    # CSV::Row is part Array & part Hash
+    CSV.foreach(file_path, headers: true) do |raw_row|
       iph = ImportHelper::strip_whitespace(raw_row) # temporary IP hash
 
       # Resolves talbe users' FK department_id
@@ -173,7 +173,7 @@ namespace :import do
       note = "??? Ooops, nothing done!" # importing result
       # IP addresses need updating only. Do not create new IP addresses.
       # Determines whether the IP address exists. If yes, updates it;
-      # Note: Using iph[:ip] leads to failing finding the lan_name from Hash h1!!!
+      # Note: Using iph[:ip] leads to failing finding the lan_name from h1!
       ip1 = Address.find_by(ip: iph["ip"])
       #puts iph.to_s
 
@@ -191,20 +191,23 @@ namespace :import do
         # Resolves user name from User.find_by(id: ip1.user_id)
         user2 = User.find_by(id: ip1.user_id)
         # Only imports nonexistent, flaged as yes or new records
-        if user2.name == 'NOBODY' || update?(iph["update"]) || new_record?(ip1, iph) 
+        if user2.name == 'NOBODY' || update?(iph["update"]) ||
+           new_record?(ip1, iph) 
           update_address(ip1, ip_hash)
           note = "Imported/Updated successfully!"
         else # Outputs duplicate records
           old_attr = ImportHelper::address_to_a(ip1, user2.name)
           new_attr = ImportHelper::address_hash_to_a(iph, user1.name)
 
-          note = "The existing is identical with the one to be imported. Ignored!"
+          note = "The existing is identical with the one to be imported." \
+                 " Ignored!"
           if old_attr != new_attr
             log_file.puts "--- Warnning: duplicate records:"
             diff_file.puts "<br />*** Existing ***<br />"
             diff_file.puts ImportHelper::address_to_s(ip1, user2.name)
             new_attr = ImportHelper::address_hash_to_a(iph, user1.name)         
-            ImportHelper::output_comparision_result(old_attr, new_attr, diff_file)
+            ImportHelper::output_comparision_result(old_attr,
+                                                    new_attr, diff_file)
             note = "Conflict with the existing, not imported, diff output!"
           end
         end
@@ -252,12 +255,14 @@ namespace :import do
       return r
     end
 
-    # Determines whether the record to be imported is new according to the datetime
-    # ip, the existing Address record; iph, the Hash to be imported as a new Address record
+    # Determines whether the record to be imported is new according to the
+    # datetime.
+    # ip, the existing Address record
+    # iph, the Hash to be imported as a new Address record
     def new_record?(ip, iph)
       r = nil
       # Creates a TimeWithZone instance from the String object
-      new_start_date = Time.zone.parse(iph["start_date"]) if iph["start_date"] 
+      new_start_date = Time.zone.parse(iph["start_date"]) if iph["start_date"]
       if ip.start_date && new_start_date  
         r = new_start_date > ip.start_date
       # The existing record has no start_date
