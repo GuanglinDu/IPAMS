@@ -1,7 +1,7 @@
 require 'csv'
 
 namespace :export do
-  desc "exports IPs to a CSV file"
+  desc "Exports all IPs to an Excel file grouped in VLANs"
   task ips: :environment do
     vlans = Vlan.all
 
