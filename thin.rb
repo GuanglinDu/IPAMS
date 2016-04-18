@@ -34,8 +34,8 @@ path = "./"
 address = "0.0.0.0"
 port = "3000"
 
-#environment = "development"
-environment = "production"
+environment = "development"
+#environment = "production"
 
 # SSL key & cert files
 key_file = "./server.key"
@@ -49,7 +49,7 @@ pid = "./tmp/thin.pid"
 # The backticks execute the command and return the output as a string.
 def running?
   str = `ps aux|grep thin`
-  str.index "thin server" 
+  str =~ /thin\s+server/i # Regexp
 end
 
 case ARGV.first
