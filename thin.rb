@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
+# A quick and dirty thin init script
+# Based on https://gist.github.com/flores/839739
+# Run thin.rb to see its usage.
 
-# Param list
+# The argument list:
 #address: 0.0.0.0
 #port: 3000
 #ssl: true
@@ -24,9 +27,6 @@
 #chdir: ./ 
 #tag: IPAMS thin service 
 
-# A quick and dirty thin init script
-# Based on https://gist.github.com/flores/839739
-
 # Which dir to run from
 path = "./"
 
@@ -34,14 +34,11 @@ path = "./"
 address = "0.0.0.0"
 port = "3000"
 
-environment = "development"
-#environment = "production"
-
-# SSL key & cert files
+# The SSL key & cert files
 key_file = "./server.key"
 cert_file = "./server.crt"
 
-# let's keep it trackable
+# Let's keep it trackable
 log = "./log/thin.log"
 pid = "./tmp/thin.pid"
 
@@ -52,62 +49,74 @@ def running?
   str =~ /thin\s+server/i # Regexp
 end
 
+def get_rails_env
+  env = ENV["RAILS_ENV"]
+  if env =~ /development|test|production/
+    puts "Your RAILS_ENV was found: #{env}."
+  else
+    env = "development"
+    puts "Your RAILS_ENV was NOT found. Hence, it defaults to #{env}."
+  end
+
+  return env
+end
+
+def start_thin(env, pid, addr, port, kfile, cfile, log)
+  puts "Starting thin in SSL mode..."
+  system("thin start --environment #{env} -P #{pid}" \
+         " --address #{addr} --port #{port}" \
+         " --ssl --ssl-key-file #{kfile} --ssl-cert-file #{cfile}" \
+         " -l #{log} -d")
+  puts "Awesome, thin was started. Enjoy using it..."
+end
+
+def stop_thin(pid)
+  system("thin stop -P #{pid}")
+  #`rm -f #{pid}`
+  puts "Bye, thin was stopped."
+end
+
+def help
+  puts "Usage: #{__FILE__} status|start|stop|restart" \
+    "\nNote: This script starts thin in the SSL mode. Both the SSL key and" \
+    " certificate files have to be ready under the project root folder." \
+    " RAILS_ENV must be one of development, test, and production." \
+    " Otherwise, it defaults to development."
+end
+
+# The main part
+# RAILS_ENV has to be determined first.
+environment = get_rails_env
+
 case ARGV.first
 when 'status'
-  if File.exist?(log)
-    pid = `pidof thin`.chomp # Note the backticks
-    #log_pid = `cat #{log}`.chomp
-
-    #puts "--- pid ---"
-    #puts "pid = #{pid}\n"
-    #puts "\n--- log_pid ---"
-    #puts "log_pid = #{log_pid}\n"
-    #puts "--- log_pid ---\n"
-    #puts "#{pid.to_i}, #{log_pid.to_i}"
-
-    if running?
-      puts "Hi, thin is running joyfully ..."
-    elsif(pid =~ /\d+/)
-      puts "Running, but the process does not match the PID in #{pid}!" \
-           "\nKeep it as is."
-    else
-      puts "Not running, removing the stale PID ..."
-      `rm -f #{pid}`
-    end
+  if running?
+    puts "Hi, thin is running joyfully..."
   else
-    puts "Not running. Sad! :)"
+    puts "Oops, thin is Not running at all. Sad! :)"
   end
 when 'start'
   if running?
     puts "Oops, thin was already started."
   else
-    system("thin start --environment #{environment} -P #{pid}" \
-      " --address #{address} --port #{port}" \
-      " --ssl --ssl-key-file #{key_file} --ssl-cert-file #{cert_file}" \
-      " -l #{log} -d")
-    puts "Awesome, thin was started. Enjoy using it ..."
+    start_thin environment, pid, address, port, key_file, cert_file, log
   end
 when 'stop'
   if running?
-    system("thin stop -P #{pid}")
-    puts "Bye, thin was stopped."
+    stop_thin pid
   else
-    puts "It seems thin is not running."
+    puts "It seems thin is not running. No further action."
   end
 when 'restart'
   if running?
-    system("thin stop -P #{pid}")
-    puts "Waiting a couple of seconds to let everything die ..."
+    stop_thin pid
+    puts "Waiting a couple of seconds to let everybody bid farewell..."
     sleep 5
   else
     puts "Oops, thin was not started yet & is going to be started."
   end
 
-  system("thin start --environment #{environment} -P #{pid}" \
-    " --address #{address} --port #{port}" \
-    " --ssl --ssl-key-file #{key_file} --ssl-cert-file #{cert_file}" \
-    " -l #{log} -d")
-  puts "Great, thin was started/restarted successfully."
+  start_thin environment, pid, address, port, key_file, cert_file, log
 else
-  puts "Usage: #{__FILE__} status|start|stop|restart"
+  help
 end
