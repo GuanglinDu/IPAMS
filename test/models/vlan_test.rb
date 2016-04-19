@@ -28,11 +28,15 @@ class VlanTest < ActiveSupport::TestCase
     assert @vlan.valid?, "Should be valid"
   end
 
-  test "vlan number must be present (non-blank) and between 1..4096" do
+  test "vlan number must be present (non-blank) and between 1..4094" do
     # A blank number is invalid
     @vlan.vlan_number = nil
     assert_not @vlan.valid?, "Blank vlan_number should be invalid"
-    # Any number outside of Range 1..4096 is invalid
+    @vlan.vlan_number = "" 
+    assert_not @vlan.valid?, "Blank vlan_number should be invalid"
+    # Any number outside of Range 1..4094 is invalid
+    @vlan.vlan_number = "  " 
+    assert_not @vlan.valid?, "Blank vlan_number should be invalid"
     @vlan.vlan_number = -1
     assert_not @vlan.valid?, "Negative vlan_number should be invalid"
     @vlan.vlan_number = 0
@@ -40,25 +44,28 @@ class VlanTest < ActiveSupport::TestCase
     @vlan.vlan_number = 4097
     assert_not @vlan.valid?,
                "Any number outside 1..4096 should be an invalid vlan_number"
-    # vlan_nubmer between 1 and 4096 should be valid
+    # vlan_nubmer between 1 and 4094 should be valid
     @vlan.vlan_number = 88
     assert @vlan.valid?,
-           "Any number within 1..4096 should be an valid vlan_number"
+           "Any number within 1..4094 should be an valid vlan_number"
   end
 
   test "VLAN FK lan_id must be resolved before being saved" do
-    assert_not_nil @vlan.lan_id, "The FK of VLAN fixture two should be found"
+    assert_not_nil @vlan.lan_id, "The FK lan_id should be resolved"
   end
 
   # Non-blank netmask test (not unique)
-  test "Subnet mask should be non-blank" do
+  test "subnet mask should be non-blank" do
     @vlan.subnet_mask = nil
-    assert @vlan.invalid?, "Blank subnet mask should be invalid"
+    assert @vlan.invalid?, "A blank subnet mask should be invalid"
+    @vlan.subnet_mask = "" 
+    assert @vlan.invalid?, "A blank subnet mask should be invalid"
+    @vlan.subnet_mask = "  "
+    assert @vlan.invalid?, "A blank subnet mask should be invalid"
   end
 
   # Non-blank & unique gateway test
-  test "Gateway should be unique and non-blank" do
-    # Forces it to be blank (nil)    
+  test "gateway should be unique and non-blank" do
     @vlan.gateway = nil
     assert @vlan.invalid?, "VLAN with a blank gateway should be invalid"
     # Forces it to be the gateway of fixture one    

@@ -95,6 +95,13 @@ group :development do
   gem 'faker'
 end
 
+# Makes tests more friendly
+group :test do
+  gem 'minitest-reporters', '1.0.5'
+  gem 'mini_backtrace', '0.1.3'
+  gem 'guard-minitest', '2.3.1'
+end
+
 # Debugs with byebug
 # http://guides.rubyonrails.org/debugging_rails_applications.html
 #gem 'byebug'
