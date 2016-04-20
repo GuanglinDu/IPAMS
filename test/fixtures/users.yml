@@ -1,21 +1,21 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 one:
-  name: MyString
-  office_phone: 1
-  cell_phone: 1
-  email: MyString
-  building: MyString
+  name: Tom Cat 
+  office_phone: 1000
+  cell_phone: 13912345678
+  email: tom.cat@example.com
+  building: The Main Building
   storey: 1
-  room: 1
-  department_id: 
+  room: 101
+  department: one 
 
 two:
-  name: MyString
-  office_phone: 1
-  cell_phone: 1
-  email: MyString
-  building: MyString
-  storey: 1
-  room: 1
-  department_id: 
+  name: Jerry Mouse
+  office_phone: 2000
+  cell_phone: 13912345679
+  email: jerry.mouse@example.com
+  building: The White Building
+  storey: 2
+  room: 202
+  department: two

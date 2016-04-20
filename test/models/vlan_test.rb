@@ -3,6 +3,14 @@ require 'test_helper'
 class VlanTest < ActiveSupport::TestCase
   setup do
     @vlan = vlans(:one)
+    @test_vlan = Vlan.new vlan_number: 200,
+                          vlan_name: "some_name",
+                          vlan_description: "A VLAN for test",
+                          gateway: "10.0.200.254",
+                          subnet_mask: "255.255.225.0",
+                          static_ip_start: "10.0.200.0",
+                          static_ip_end: "10.0.200.255",
+                          lan_id: lans(:one).id
   end
 
   test "vlan with default empty attributes is invalid" do
@@ -24,72 +32,31 @@ class VlanTest < ActiveSupport::TestCase
            "There're should be errors since static_ip_end is blank"
   end
 
-  test "vlan is valid" do
+  test "vlans are valid" do
     assert @vlan.valid?, "Should be valid"
+    assert @test_vlan.valid?, "Should be valid"
   end
 
-  test "vlan number must be present (non-blank) and between 1..4094" do
-    # A blank number is invalid
-    @vlan.vlan_number = nil
-    assert_not @vlan.valid?, "Blank vlan_number should be invalid"
-    @vlan.vlan_number = "" 
-    assert_not @vlan.valid?, "Blank vlan_number should be invalid"
-    # Any number outside of Range 1..4094 is invalid
-    @vlan.vlan_number = "  " 
-    assert_not @vlan.valid?, "Blank vlan_number should be invalid"
-    @vlan.vlan_number = -1
-    assert_not @vlan.valid?, "Negative vlan_number should be invalid"
-    @vlan.vlan_number = 0
-    assert_not @vlan.valid?, "0 should be an invalid vlan_number"
-    @vlan.vlan_number = 4097
-    assert_not @vlan.valid?,
-               "Any number outside 1..4096 should be an invalid vlan_number"
-    # vlan_nubmer between 1 and 4094 should be valid
-    @vlan.vlan_number = 88
-    assert @vlan.valid?,
-           "Any number within 1..4094 should be an valid vlan_number"
+  test "vlan number must be between 1 and 4094" do
+    @test_vlan.vlan_number = -1
+    assert_not @test_vlan.valid?, "Negative vlan_number should be invalid"
+    @test_vlan.vlan_number = 4095
+    assert_not @test_vlan.valid?,
+               "Any number outside of 1..4094 should be invalid"
   end
 
-  test "VLAN FK lan_id must be resolved before being saved" do
-    assert_not_nil @vlan.lan_id, "The FK lan_id should be resolved"
+  test "gateway should be unique" do
+    @test_vlan.gateway = @vlan.gateway
+    assert @test_vlan.invalid?, "A VLAN's gateway should be unique"
   end
 
-  # Non-blank netmask test (not unique)
-  test "subnet mask should be non-blank" do
-    @vlan.subnet_mask = nil
-    assert @vlan.invalid?, "A blank subnet mask should be invalid"
-    @vlan.subnet_mask = "" 
-    assert @vlan.invalid?, "A blank subnet mask should be invalid"
-    @vlan.subnet_mask = "  "
-    assert @vlan.invalid?, "A blank subnet mask should be invalid"
+  test "starting ip address should be unique" do
+    @test_vlan.static_ip_start = vlans(:two).static_ip_start
+    assert @test_vlan.invalid?, "VLAN's starting ip address should be unique"
   end
 
-  # Non-blank & unique gateway test
-  test "gateway should be unique and non-blank" do
-    @vlan.gateway = nil
-    assert @vlan.invalid?, "VLAN with a blank gateway should be invalid"
-    # Forces it to be the gateway of fixture one    
-    @vlan.gateway = vlans(:one).gateway
-    assert @vlan.invalid?, "VLAN gateway should be unique"
-  end
-
-  # Non-blank & unique static_ip_start test
-  test "static_ip_start should be unique and non-blank" do
-    # Forces it to be blank (nil)    
-    @vlan.static_ip_start = nil
-    assert @vlan.invalid?, "VLAN with a blank static_ip_start should be invalid"
-    # Uniqueness test against fixture two
-    @vlan.static_ip_start = vlans(:two).static_ip_start
-    assert @vlan.invalid?, "VLAN static_ip_start should be unique"
-  end
-
-  # Non-blank & unique static_ip_end tests
-  test "static_ip_end should be unique and non-blank" do
-    # Forces it to be blank (nil)    
-    @vlan.static_ip_end = nil
-    assert @vlan.invalid?, "VLAN with a blank static_ip_end should be invalid"
-    # Uniqueness test against fixture two
-    @vlan.static_ip_end = vlans(:two).static_ip_end
-    assert @vlan.invalid?, "VLAN static_ip_end should be unique"
+  test "end ip address should be unique" do
+    @test_vlan.static_ip_end = vlans(:two).static_ip_end
+    assert @test_vlan.invalid?, "A VLAN's end ip address should be unique"
   end
 end

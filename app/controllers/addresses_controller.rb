@@ -48,7 +48,7 @@ class AddressesController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        render json: { pk: @address.id, ip: @address.ip, locale: I18n.locale }
+        render json: {pk: @address.id, ip: @address.ip, locale: I18n.locale}
       }
     end
   end
@@ -96,10 +96,10 @@ class AddressesController < ApplicationController
     respond_to do |format|
       if @address.save
         flash[:success] = "Address was successfully recycled."
-        format.json { render json: { locale: I18n.locale, user_id: @user.id } }
+        format.json {render json: { locale: I18n.locale, user_id: @user.id }}
       else
         flash[:danger] = "There was a problem recycling the address."
-        format.html { head :no_content }
+        format.html {head :no_content}
         format.json {
           render json: @address.errors, status: :unprocessable_entity
         }
