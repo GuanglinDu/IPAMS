@@ -26,7 +26,7 @@ class LansControllerTest < ActionController::TestCase
   end
 
   test "should create lan" do
-    assert_difference('Lan.count', 1,
+    assert_difference("Lan.count", 1,
                       "A new Lan should be added to the test db") do
       post :create, lan: {
         lan_description: 'Created by lans_controller_test.rb',

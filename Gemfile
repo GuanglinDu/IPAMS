@@ -1,6 +1,6 @@
-#source 'https://rubygems.org'
+source 'https://rubygems.org'
 # If https above cannot work, try this
-source 'http://rubygems.org'
+#source 'http://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
@@ -30,23 +30,6 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
-end
-
-# Use ActiveModel has_secure_password
-# Install gems from github source
-# https://github.com/bundler/bundler/issues/2410
-#gem 'bcrypt-ruby', '~> 3.1.2', :github => 'rking/bcrypt-ruby'
-#gem 'bcrypt-ruby', '~> 3.1.6', :github => 'codahale/bcrypt-ruby'
-# Cannot fetch from rubygems.org, use github instead(git clone git://...)
-#gem 'bcrypt', '~> 3.1.9', :github => 'codahale/bcrypt-ruby'
-# This enable git clone https://...
-#gem 'bcrypt', '~> 3.1.9'
-#gem 'bcrypt', :git => 'https://github.com/codahale/bcrypt-ruby.git'
-#gem 'bcrypt-ruby', '~> 3.1.2'
-
 # Use unicorn as the app server
 # gem 'unicorn'
 
@@ -64,13 +47,10 @@ end
 # if you are using RBENV
 #gem 'capistrano-rbenv', "~> 2.0", require: false 
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
-
 # Bootstrap 3 support.
-# See http://www.gotealeaf.com/blog/integrating-rails-and-bootstrap-part-1/
+# http://www.gotealeaf.com/blog/integrating-rails-and-bootstrap-part-1/
 gem 'bootstrap-sass'
-# See http://fortawesome.github.io/Font-Awesome/get-started/
+# http://fortawesome.github.io/Font-Awesome/get-started/
 gem 'font-awesome-sass'
 gem 'autoprefixer-rails', '~> 4.0.2.2'
 
@@ -84,23 +64,6 @@ gem 'bootstrap-x-editable-rails'
 # replacement.
 # See https://github.com/bootstrap-ruby/rails-bootstrap-forms
 gem 'bootstrap_form'
- 
-# Pretty print your Ruby objects with style --
-# in full color and with proper indentation
-# http://github.com/michaeldv/awesome_print
-# http://rubyinrails.com/2014/05/integrate-awesome_print-with-rails-console/
-# https://github.com/stympy/faker
-group :development do
-  gem 'awesome_print'
-  gem 'faker'
-end
-
-# Makes tests more friendly
-group :test do
-  gem 'minitest-reporters', '1.0.5'
-  gem 'mini_backtrace', '0.1.3'
-  gem 'guard-minitest', '2.3.1'
-end
 
 # Debugs with byebug
 # http://guides.rubyonrails.org/debugging_rails_applications.html
@@ -136,11 +99,35 @@ gem 'will_paginate-bootstrap'
 # https://github.com/sunspot/sunspot
 # See https://github.com/outoftime/sunspot/wiki
 gem 'sunspot_rails'
-# optional pre-packaged Solr distribution for use in development
+# Optional pre-packaged Solr distribution for use in development
 gem 'sunspot_solr'
 gem 'progress_bar'
 
 # Enables https
 gem 'rack-ssl', '~> 1.4.1'
+
+# Exports to MS Excel files
 gem 'axlsx', '~> 2.0'
 gem "axlsx_rails"
+
+# Use debugger
+# gem 'debugger', group: [:development, :test]
+ 
+# http://github.com/michaeldv/awesome_print
+# https://github.com/stympy/faker
+group :development do
+  gem 'awesome_print'
+  gem 'faker'
+end
+
+# Makes testing more friendly
+group :test do
+  gem 'minitest-reporters', '1.0.5'
+  gem 'mini_backtrace', '0.1.3'
+  gem 'guard-minitest', '2.3.1'
+end
+
+# bundle exec rake doc:rails generates the API under doc/api.
+group :doc do
+  gem 'sdoc', require: false
+end

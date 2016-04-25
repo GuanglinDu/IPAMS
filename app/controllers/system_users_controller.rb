@@ -30,12 +30,19 @@ class SystemUsersController < ApplicationController
   def update
     respond_to do |format|
       if @system_user.update(system_user_params)
-        flash[:success] = "System user #{@system_user.email} was successfully updated."
-        format.html { redirect_to system_user_url, notice: "System user #{@system_user.email} was successfully updated." }
+        flash[:success] = "System user #{@system_user.email} was" \
+                          " successfully updated."
+        format.html {
+          redirect_to system_user_url,
+                      notice: "System user #{@system_user.email}" \
+                              " was successfully updated."
+        }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @system_user.errors, status: :unprocessable_entity }
+        format.json {
+          render json: @system_user.errors, status: :unprocessable_entity
+        }
       end
     end
   end
@@ -51,13 +58,15 @@ class SystemUsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_system_user
-      @system_user = SystemUser.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def system_user_params
-      params.require(:system_user).permit(:email)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_system_user
+    @system_user = SystemUser.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet,
+  # only allow the white list through.
+  def system_user_params
+    params.require(:system_user).permit(:email)
+  end
 end
