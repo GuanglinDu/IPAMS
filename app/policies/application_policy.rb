@@ -1,28 +1,28 @@
 # http://blog.carbonfive.com/2013/10/21/migrating-to-pundit-from-cancan/
-# Note: A User is an IP address user while a sys_user is a SystemUser
+# Note: A User is an IP address user, different from an admin
 class ApplicationPolicy
-  # SystemUser performing the action &
+  # Admin performing the action &
   # the model instance upon which action is performed
-  attr_reader :system_user, :record
+  attr_reader :admin, :record
 
-  def initialize(system_user, record)
-    @system_user = system_user
+  def initialize(admin, record)
+    @admin = admin
     @record = record
   end
 
   # Role nobody can do nothing
   def index?
-    not system_user.nobody?
+    not admin.nobody?
   end
 
   def show?
     #scope.where(:id => record.id).exists?
-    not system_user.nobody?
+    not admin.nobody?
   end
 
   # Only an expert or an administrator can create/update/edit 
   def create?
-    system_user.expert? or system_user.admin? or system_user.root?
+    admin.expert? or admin.admin? or admin.root?
   end
 
   def new?
@@ -30,7 +30,7 @@ class ApplicationPolicy
   end
 
   def update?
-    system_user.operator? or system_user.expert? or system_user.admin? or system_user.root?
+    admin.operator? or admin.expert? or admin.admin? or admin.root?
   end
 
   def edit?
@@ -39,23 +39,23 @@ class ApplicationPolicy
 
   # Only the role root can destroy
   def destroy?
-    system_user.root?
+    admin.root?
   end
 
   def scope
-    Pundit.policy_scope!(system_user, record.class)
+    Pundit.policy_scope!(admin, record.class)
   end
 
   # Returns the system user id
-  def system_user_id
-    @system_user.id
+  def admin_id
+    @admin.id
   end
 
   class Scope
-    attr_reader :system_user, :scope
+    attr_reader :admin, :scope
 
-    def initialize(system_user, scope)
-      @system_user = system_user
+    def initialize(admin, scope)
+      @admin = admin
       @scope = scope
     end
 

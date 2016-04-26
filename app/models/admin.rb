@@ -2,7 +2,7 @@
 # https://github.com/RailsApps/rails-devise-roles/
 # https://github.com/RailsApps/rails-devise-pundit
 # http://goo.gl/Ex30Is 
-class SystemUser < ActiveRecord::Base
+class Admin < ActiveRecord::Base
   # Must be >= Rails 4.1
   enum role: [:nobody, :guest, :operator, :expert, :admin, :root]
 

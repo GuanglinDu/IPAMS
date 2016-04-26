@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   #skip_before_filter :verify_signed_out_user, only: :destroy
   before_filter :configure_permitted_parameters, if: :devise_controller?
   # Selects locale according to user's selection & authenticates users
-  before_action :set_i18n_locale_from_params, :authenticate_system_user!
+  before_action :set_i18n_locale_from_params, :authenticate_admin!
 
   # Notice: Global authorizing causes unauthorization problem in Devise!
   # Globally rescue Authorization Errors in controller.
@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
   # Customizes method pundit_user other than current_user:
   # https://github.com/elabs/pundit
   def pundit_user
-    SystemUser.find_by(email: current_system_user.email)
+    Admin.find_by(email: current_admin.email)
   end
 
   # https://goo.gl/9LvWoF

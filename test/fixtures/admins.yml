@@ -3,9 +3,9 @@
 tom:
   email: tom.cat@example.com
   role: 5 
-  encrypted_password: <%= Devise.bcrypt(SystemUser, 'password') %>
+  encrypted_password: <%= Devise.bcrypt(Admin, 'password') %>
 
 jerry:
   email: jerry.mouse@example.com
   role: 4
-  encrypted_password: <%= Devise.bcrypt(SystemUser, 'password') %>
+  encrypted_password: <%= Devise.bcrypt(Admin, 'password') %>

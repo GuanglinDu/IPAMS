@@ -6,7 +6,7 @@ Ipams::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # i18n: :locale
   scope '(:locale)' do
-    devise_for :system_users
+    devise_for :admins
     root 'welcome#index', as: 'welcome'
     resources :lans, :reserved_addresses, :departments, :users, :histories
     resources :vlans do
