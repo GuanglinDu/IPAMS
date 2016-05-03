@@ -1,11 +1,29 @@
-# Read about fixtures at
-# http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 tom:
   email: tom.cat@example.com
-  role: 5 
+  role: 5 # root 
   encrypted_password: <%= Devise.bcrypt(Admin, 'password') %>
 
 jerry:
   email: jerry.mouse@example.com
-  role: 4
+  role: 4 # admin
+  encrypted_password: <%= Devise.bcrypt(Admin, 'password') %>
+
+mary:
+  email: mary@example.com
+  role: 3 # expert
+  encrypted_password: <%= Devise.bcrypt(Admin, 'password') %>
+
+barack:
+  email: barack@example.com
+  role: 2 # operator
+  encrypted_password: <%= Devise.bcrypt(Admin, 'password') %>
+
+michelle:
+  email: michelle@example.com
+  role: 1 # guest
+  encrypted_password: <%= Devise.bcrypt(Admin, 'password') %>
+
+hillary:
+  email: hillary@example.com
+  role: 0 # nobody
   encrypted_password: <%= Devise.bcrypt(Admin, 'password') %>

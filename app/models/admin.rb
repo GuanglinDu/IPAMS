@@ -8,7 +8,7 @@ class Admin < ActiveRecord::Base
 
   after_initialize :set_default_role, :if => :new_record?
 
-  # Includes default devise modules. Others available are:
+  # Includes default devise modules. Others available are
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :registerable,

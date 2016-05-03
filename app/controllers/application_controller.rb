@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   # TODO: Filter chain halted as :verify_signed_out_user
   #skip_before_filter :verify_signed_out_user, only: :destroy
   before_filter :configure_permitted_parameters, if: :devise_controller?
-  # Selects locale according to user's selection & authenticates users
+  # Selects the locale & authenticates the user
   before_action :set_i18n_locale_from_params, :authenticate_admin!
 
   # Notice: Global authorizing causes unauthorization problem in Devise!
@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options
-    { locale: I18n.locale }
+    {locale: I18n.locale}
   end
 
   # Customizes method pundit_user other than current_user:
@@ -64,11 +64,6 @@ class ApplicationController < ActionController::Base
   def pundit_user
     Admin.find_by(email: current_admin.email)
   end
-
-  # https://goo.gl/9LvWoF
-  #def after_sign_in_path_for(resource)
-    # return the path based on resource
-  #end
 
   private
 

@@ -17,15 +17,18 @@ Ipams::Application.routes.draw do
       member { put :recycle }
     end
 
+    resources :admins, only: [:index, :show, :edit, :destroy]
+
+    get "welcome/index"
+    get "help/index"
+    get "search/index"
+
     get "import/index"
     get "import/import"
     post "import/import"
     get "export/index"
     get "export/export"
     post "export/export"
-    get "welcome/index"
-    get "help/index"
-    get "search/index"
 
     # Template downloads
     #get "import/vlan_import_template"

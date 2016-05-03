@@ -1,14 +1,37 @@
 require 'test_helper'
 
+# 1. Tests the controller with Pundit enables: http://goo.gl/qsRIVo
+# 2. Signs in a user with Devise: http://goo.gl/djlwAJ 
 class AdminsControllerTest < ActionController::TestCase
-  setup do
-    @tom = admins(:tom)
-  end
+  include Devise::TestHelpers
 
-  test "should get index" do
+  test "root should get index" do
+    sign_in @tom # from Devise
     get :index
     assert_response :success
     assert_not_nil assigns(:admins)
+  end
+
+  test "non-root should not get index" do
+    sign_in @jerry # ditto
+    get :index
+    assert_response :redirect # 302
+
+    sign_in @mary
+    get :index
+    assert_response :redirect # 302
+
+    sign_in @barack
+    get :index
+    assert_response :redirect # 302
+
+    sign_in @michelle
+    get :index
+    assert_response :redirect # 302
+
+    sign_in @hillary
+    get :index
+    assert_response :redirect # 302
   end
 
   test "should get new" do
@@ -18,7 +41,9 @@ class AdminsControllerTest < ActionController::TestCase
 
   test "should create admin" do
     assert_difference('Admin.count') do
-      post :create, admin: {name: @tom.name, passowrd: @tom.passowrd}
+      post :create, admin: {email: "new_user_name@exmaple.com",
+                            passowrd: "passowrd",
+                            passowrd_confirmation: "passowrd"}
     end
     assert_redirected_to admin_path(assigns(:admin))
   end

@@ -62,7 +62,9 @@ class LansController < ApplicationController
     respond_to do |format|
       if @lan.update(lan_params)
         flash[:success] = 'Lan was successfully updated.'
-        format.html { redirect_to @lan, notice: 'Lan was successfully updated.' }
+        format.html {
+          redirect_to @lan, notice: 'Lan was successfully updated.'
+        }
         format.json { head :no_content }
       else
         flash[:danger] = 'There was a problem updating the Lan.'

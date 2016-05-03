@@ -17,4 +17,14 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  # All kinds of admins
+  def setup
+    @tom = admins(:tom)           # root
+    @jerry = admins(:jerry)       # admin
+    @mary = admins(:mary)         # expert
+    @barack = admins(:barack)     # operator
+    @michelle = admins(:michelle) # guest
+    @hillary = admins(:hillary)   # nobody 
+  end
 end

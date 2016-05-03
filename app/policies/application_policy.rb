@@ -1,8 +1,8 @@
 # http://blog.carbonfive.com/2013/10/21/migrating-to-pundit-from-cancan/
-# Note: A User is an IP address user, different from an admin
+# Note: A User is an IP address user.
 class ApplicationPolicy
-  # Admin performing the action &
-  # the model instance upon which action is performed
+  # admin performing the action & the model instance
+  # upon which action is performed
   attr_reader :admin, :record
 
   def initialize(admin, record)
@@ -20,7 +20,7 @@ class ApplicationPolicy
     not admin.nobody?
   end
 
-  # Only an expert or an administrator can create/update/edit 
+  # Only an expert or an admin can create/update/edit 
   def create?
     admin.expert? or admin.admin? or admin.root?
   end
@@ -46,7 +46,7 @@ class ApplicationPolicy
     Pundit.policy_scope!(admin, record.class)
   end
 
-  # Returns the system user id
+  # Returns the admin id
   def admin_id
     @admin.id
   end

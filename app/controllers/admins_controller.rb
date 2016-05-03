@@ -1,10 +1,11 @@
-class SystemUsersController < ApplicationController
+class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
 
   # GET /admins
   # GET /admins.json
   def index
     @admins = Admin.order(:email)
+    authorize @admins
   end
 
   # GET /admins/1
