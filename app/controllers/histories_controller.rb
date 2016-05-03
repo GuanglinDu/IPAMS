@@ -17,6 +17,8 @@ class HistoriesController < ApplicationController
         per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
       )
     end
+
+    authorize @histories
   end
 
   def new
@@ -38,6 +40,23 @@ class HistoriesController < ApplicationController
         format.html { head :no_content }
       end
     end
+  end
+
+  # Never trust parameters from the scary internet,
+  # only allow the white list through.
+  def history_params
+    params[:history].permit(
+      :vlan_id,
+      :user_id,
+      :rec_ip,
+      :mac_address,
+      :usage,
+      :start_date,
+      :end_date,
+      :application_form,
+      :assigner,
+      :recyclable
+    )
   end
 
 private
@@ -64,5 +83,6 @@ private
     @history.start_date = @address.start_date
     @history.end_date = @address.end_date
     @history.application_form = @address.application_form
+    @history.rec_ip = @address.ip
   end
 end
