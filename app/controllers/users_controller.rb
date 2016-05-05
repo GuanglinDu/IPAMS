@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   # Resolves the FK department_id before updating a record
   before_action :convert_dept_name_to_dept_id, only: :update
@@ -7,22 +6,25 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   # No keywords, no search; paginate all, instead
+  # See http://www.whatibroke.com/?p=235
   def index
     @users = nil
     if params[:search].present?
       #search = Sunspot.search(Address)
       search = User.search do
         fulltext params[:search]
-        # See http://www.whatibroke.com/?p=235
-        paginate :page => params[:page] || 1, :per_page => 30
+        paginate page: params[:page] || 1, per_page: 30
       end 
       # Type Sunspot::Search::PaginatedCollection < Array
       @users = search.results
     else
-      @users = User.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
+      @users = User.paginate(
+        page: params[:page],
+        per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
+      )
     end
 
-    authorize @users
+    authorize @users 
   end
 
   # GET /users/1
@@ -77,7 +79,9 @@ class UsersController < ApplicationController
         else
           flash[:error] = 'User was NOT successfully updated.'
           format.html { render action: 'edit' }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
+          format.json {
+            render json: @user.errors, status: :unprocessable_entity
+          }
         end
       else
         flash[:alert] = 'User NOBODY CANNOT be updated.'
@@ -105,10 +109,19 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Never trust parameters from the scary internet,
+    # only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :title,
-        :office_phone, :cell_phone, :email, :building, :storey, :room, :department_id)
+      params.require(:user).permit(
+        :name, :title,
+        :office_phone,
+        :cell_phone,
+        :email,
+        :building,
+        :storey,
+        :room,
+        :department_id
+      )
     end
 
     # Protect user NOBODY from being updated
@@ -124,9 +137,11 @@ class UsersController < ApplicationController
      dept.id
    end
 
-  # Maps the department name to its PK as is the FK of a user because the department name
-  # is displayed on the views. This applied to both the addresses view and the users view.
-  # The FK department_id is going to be saved instead of the department name in the User table.
+  # Maps the department name to its PK as is the FK of a user 
+  # because the department name is displayed on the views.
+  # This applied to both the addresses view and the users view.
+  # The FK department_id is going to be saved instead of the department name
+  # in the User table.
   def convert_dept_name_to_dept_id
     @pars = user_params
     name = @pars[:department_id]

@@ -27,7 +27,8 @@ namespace :export do
                       "Room"]
     nobody = User.find_by(name: 'NOBODY')
     addresses = Address.where(
-      ['vlan_id = ? AND user_id <> ?',vlan_id, nobody.id])
+      ['vlan_id = ? AND user_id <> ?',vlan_id, nobody.id]
+    )
 
     file_path = "#{Rails.root}/tmp/#{vlan_name}.csv" 
     CSV.open(file_path, 'w', headers: column_headers) do |writer|
