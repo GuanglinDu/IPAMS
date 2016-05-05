@@ -1,7 +1,7 @@
 require 'csv'
 
 namespace :export do
-  desc "exports IPs to a CSV file"
+  desc "Exports all IPs to an Excel file grouped in VLANs"
   task ips: :environment do
     vlans = Vlan.all
 
@@ -60,8 +60,7 @@ namespace :export do
   def write2sheet(vlan_id, sheet) 
     nobody = User.find_by(name: 'NOBODY')
     addresses = Address.where(
-      ['vlan_id = ? AND user_id <> ?',vlan_id, nobody.id]
-    )
+      ['vlan_id = ? AND user_id <> ?',vlan_id, nobody.id])
     
     user_ip_count = how_many_ips_user_has(addresses)
 

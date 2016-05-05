@@ -1,13 +1,13 @@
 Ipams::Application.routes.draw do
-  # The priority is based upon order of creation: first created -> highest priority.
+  # The priority is based upon order of creation:
+  # first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # i18n
+  # i18n: :locale
   scope '(:locale)' do
-    devise_for :system_users
+    devise_for :admins
     root 'welcome#index', as: 'welcome'
-    #resources :lans, :addresses, :reserved_addresses, :departments, :users, :histories
     resources :lans, :reserved_addresses, :departments, :users, :histories
     resources :vlans do
       collection { post :import }
@@ -17,19 +17,22 @@ Ipams::Application.routes.draw do
       member { put :recycle }
     end
 
+    resources :admins, only: [:index, :show, :edit, :destroy]
+
+    get "welcome/index"
+    get "help/index"
+    get "search/index"
+
     get "import/index"
     get "import/import"
     post "import/import"
     get "export/index"
     get "export/export"
     post "export/export"
-    get "welcome/index"
-    get "help/index"
-    get "search/index"
 
     # Template downloads
-    get "import/vlan_importing_template"
-    get "import/ip_address_importing_template"
+    #get "import/vlan_import_template"
+    #get "import/ip_address_import_template"
   end
 
   # Example of regular route:

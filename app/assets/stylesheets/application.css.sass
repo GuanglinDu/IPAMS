@@ -1,12 +1,14 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
+ * This is a manifest file that'll be compiled into application.css,
+ * which will include all the files listed below.
  *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets,
+ * vendor/assets/stylesheets, or vendor/assets/stylesheets of plugins, if any,
+ * can be referenced here using a relative path.
  *
- * You're free to add application-wide styles to this file and they'll appear at the top of the
- * compiled file, but it's generally better to create a new file per style scope.
+ * You're free to add application-wide styles to this file and they'll appear
+ * at the top of the compiled file, but it's generally better to create a new
+ * file per style scope.
  *
  *= require_self
  *= require bootstrap3-editable/bootstrap-editable
@@ -18,11 +20,18 @@
 @import "font-awesome-sprockets"
 @import "font-awesome"
 
-#notice
-  color: #000 !important
-  border: 2px solid red
-  padding: 1em
-  margin-bottom: 2em
-  background-color: #f0f0f0
-  font: bold smaller sans-serif
+/* A mixin & a class selector to beautify the debug info. */
 
+$gray-medium-light: #eaeaea
+
+@mixin box_sizing 
+  -moz-box-sizing:    border-box
+  -webkit-box-sizing: border-box
+  box-sizing:         border-box
+
+.debug_dump
+  clear: both
+  float: left
+  width: 100%
+  margin-top: 45px
+  @include box_sizing

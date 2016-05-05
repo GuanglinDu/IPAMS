@@ -1,4 +1,4 @@
-<!-- A user with 1 or 0 IP address -->
+<%# A user with 1 or 0 IP address %>
 <% user = row_with_one_ip %>
 <% find_department(user.department_id) %>
 
@@ -6,10 +6,22 @@
   <%# cache([user, addresses, @department]) do %><%# partial row caching %>
   <td><%= count %></td>
   <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="name" data-url="<%= user_path(user) %>" data-title="User Name"><%= user.name %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user" data-name="name"
+                data-url="<%= user_path(user) %>"
+                data-title="User Name">
+       <%= user.name %>
+    </a>
   </td>
   <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="title" data-url="<%= user_path(user) %>" data-title="Title"><%= user.title %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user" data-name="title"
+                data-url="<%= user_path(user) %>"
+                data-title="Title">
+       <%= user.title %>
+     </a>
   </td>
 
   <% if addresses.count == 0 %>
@@ -18,40 +30,117 @@
     <% addresses.each do |addr| %>
       <td><%= addr.ip %></td>
       <td>
-        <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="mac_address" data-url="<%= address_path(addr) %>" data-title="MAC Address"><%= addr.mac_address %></a>
+        <a href="#" data-xeditable="<%= editable %>"
+                    data-pk="<%= addr.id %>"
+                    data-model="address"
+                    data-name="mac_address"
+                    data-url="<%= address_path(addr) %>"
+                    data-title="MAC Address">
+           <%= addr.mac_address %>
+        </a>
       </td>
       <td>
-        <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="start_date" data-url="<%= address_path(addr) %>" data-title="Start Date"><%= addr.start_date %></a>
+        <a href="#" data-xeditable="<%= editable %>"
+                    data-pk="<%= addr.id %>"
+                    data-model="address"
+                    data-name="start_date"
+                    data-url="<%= address_path(addr) %>"
+                    data-title="Start Date">
+          <%= addr.start_date %>
+        </a>
       </td>
       <td>
-        <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="end_date" data-url="<%= address_path(addr) %>" data-title="End Date"><%= addr.end_date %></a>
+        <a href="#" data-xeditable="<%= editable %>"
+                    data-pk="<%= addr.id %>"
+                    data-model="address"
+                    data-name="end_date"
+                    data-url="<%= address_path(addr) %>"
+                    data-title="End Date">
+          <%= addr.end_date %>
+        </a>
       </td>
       <td>
-        <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="assigner" data-url="<%= address_path(addr) %>" data-title="Assigner"><%= addr.assigner %><br /></a>
+        <a href="#" data-xeditable="<%= editable %>"
+                    data-pk="<%= addr.id %>"
+                    data-model="address"
+                    data-name="assigner"
+                    data-url="<%= address_path(addr) %>"
+                    data-title="Assigner">
+          <%= addr.assigner %>
+        </a>
       </td>
     <% end %>
   <% end %>
 
   <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="office_phone" data-url="<%= user_path(user) %>" data-title="Office Phone"><%= user.office_phone %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user"
+                data-name="office_phone"
+                data-url="<%= user_path(user) %>"
+                data-title="Office Phone">
+      <%= user.office_phone %>
+    </a>
   </td>
   <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="cell_phone" data-url="<%= user_path(user) %>" data-title="Mobile"><%= user.cell_phone %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user"
+                data-name="cell_phone"
+                data-url="<%= user_path(user) %>"
+                data-title="Mobile">
+      <%= user.cell_phone %>
+    </a>
   </td>
   <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="email" data-url="<%= user_path(user) %>" data-title="Email"><%= user.email %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user"
+                data-name="email"
+                data-url="<%= user_path(user) %>"
+                data-title="Email">
+      <%= user.email %>
+    </a>
   </td>
   <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="building" data-url="<%= user_path(user) %>" data-title="Building"><%= user.building %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user"
+                data-name="building"
+                data-url="<%= user_path(user) %>"
+                data-title="Building">
+      <%= user.building %>
+    </a>
   </td>
   <td>
-      <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="storey" data-url="<%= user_path(user) %>" data-title="Mobile"><%= user.storey %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user"
+                data-name="storey"
+                data-url="<%= user_path(user) %>"
+                data-title="Mobile">
+      <%= user.storey %>
+    </a>
   </td>
   <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="room" data-url="<%= user_path(user) %>" data-title="Room"><%= user.room %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user"
+                data-name="room"
+                data-url="<%= user_path(user) %>"
+                data-title="Room">
+      <%= user.room %>
+    </a>
   </td>
   <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="department_id" data-url="<%= user_path(user) %>" data-title="Department"><%= @department.dept_name %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user"
+                data-name="department_id"
+                data-url="<%= user_path(user) %>"
+                data-title="Department">
+      <%= @department.dept_name %>
+    </a>
   </td>
   <td>
    <%= link_to 'Show', user, class: 'btn btn-primary btn-xs' %>
@@ -60,7 +149,9 @@
 
   <% if policy(user).destroy? %>
     <td>
-      <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
+      <%= link_to user, method: :delete,
+                  data: {confirm: 'Are you sure?'},
+                  class: 'btn btn-danger btn-xs' do %>
         <i class="glyphicon glyphicon-remove"></i> Destroy
       <% end %>
     </td>

@@ -1,5 +1,6 @@
 # All models are accessible to both helpers & views
-# How to doc Ruby code: http://stackoverflow.com/questions/1681467/how-to-document-ruby-code
+# How to doc Ruby code:
+# http://stackoverflow.com/questions/1681467/how-to-document-ruby-code
 module VlansHelper
   # Creates a cache key for the vlans/index view with pagination
   # params:

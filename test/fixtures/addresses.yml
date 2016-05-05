@@ -1,19 +1,19 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 one:
-  ip: MyString
-  usage: MyText
+  ip: 10.0.0.1 
+  usage: Office PC
   start_date: 2014-11-05 17:10:24
   end_date: 2014-11-05 17:10:24
-  application_form: MyText
-  vlan_id: 
-  user_id: 
+  application_form: none
+  vlan: one 
+  user: one 
 
 two:
-  ip: MyString
-  usage: MyText
+  ip: 10.0.0.2
+  usage: Office laptop
   start_date: 2014-11-05 17:10:24
   end_date: 2014-11-05 17:10:24
-  application_form: MyText
-  vlan_id: 
-  user_id: 
+  application_form: none
+  vlan: one 
+  user: two
