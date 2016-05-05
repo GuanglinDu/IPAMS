@@ -1,6 +1,6 @@
-source 'https://rubygems.org'
+#source 'https://rubygems.org'
 # If https above cannot work, try this
-#source 'http://rubygems.org'
+source 'http://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
