@@ -15,6 +15,7 @@ class Address < ActiveRecord::Base
   #          }
 
   #before_validation :upcase_mac
+  #after_validation :upcase_mac
 
   searchable do
     text :usage, as: :usage_textp

@@ -2,7 +2,8 @@
 namespace :db do
   desc "Appends ~300 records to table lans(IPAMS-specific)"
   task :populate_lans => :environment do
-    if (ENV["RAILS_ENV"] == "development")
+    #if (ENV["RAILS_ENV"] == "development")
+    if (Rails.env.development?)
       append_records_to_lans
     else
       puts "Task populate_lans can ONLY be invoked" \
@@ -14,7 +15,8 @@ namespace :db do
   # Usage rake db:populate_lan["my_lan_name"]
   desc "Appends ~200 VLANs to the specified LAN(IPAMS-specific)"
   task :populate_lan, [:lan_name] => :environment do |t, args|
-    if (ENV["RAILS_ENV"] == "development")
+    #if (ENV["RAILS_ENV"] == "development")
+    if (Rails.env.development?)
       lan = Lan.find_by(lan_name: args.lan_name)
       if lan
         append_records_to_lan(lan)

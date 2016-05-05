@@ -1,5 +1,5 @@
 # Headless (no model) policies
-class WelcomePolicy < Struct.new(:system_user, :welcome)
+class WelcomePolicy < Struct.new(:admin, :welcome)
   # Any SystemUser can access the welcome page
   def index?
     true
@@ -7,6 +7,6 @@ class WelcomePolicy < Struct.new(:system_user, :welcome)
 
   # Shows the tip that nobody must ask for authorization
   def tip?
-    system_user.nobody?
+    admin.nobody?
   end
 end

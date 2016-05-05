@@ -1,0 +1,3 @@
+lan_name,vlan_number,vlan_name,static_ip_start,static_ip_end,subnet_mask,gateway,vlan_description
+Datacenter LAN,200,Jave SE,10.0.10.0,10.0.10.255,255.255.255.0,10.0.10.254,A cup of Java
+Legacy LAN ,201,Jave SE2,10.0.11.0,10.0.10.255,255.255.255.0,10.0.11.254,A cup of Java2
