@@ -17,7 +17,7 @@ Ipams::Application.routes.draw do
       member { put :recycle }
     end
 
-    resources :admins, only: [:index, :show, :edit, :destroy]
+    resources :admins, only: [:index, :show, :edit, :update, :destroy]
 
     get "welcome/index"
     get "help/index"

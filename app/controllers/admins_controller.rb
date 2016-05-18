@@ -36,7 +36,7 @@ class AdminsController < ApplicationController
           redirect_to admin_url,
                       notice: "Admin #{@admin.email} was successfully updated."
         }
-        format.json { head :no_content }
+        format.json { render json: {role: admin_params[:role]} }
       else
         format.html { render action: 'edit' }
         format.json {
@@ -66,6 +66,6 @@ class AdminsController < ApplicationController
   # Never trust parameters from the scary internet,
   # only allow the white list through.
   def admin_params
-    params.require(:admin).permit(:email)
+    params.require(:admin).permit(:email, :role)
   end
 end
