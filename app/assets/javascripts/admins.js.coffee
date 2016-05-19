@@ -14,12 +14,13 @@ $ ->
     obj.text(role)
     obj.data("value", role)
     refreshInPlaceEditing2(obj, role, obj.data("url")) 
-  
+
+# Supports a dropdown, different from function refreshInPlaceEditing.
 refreshInPlaceEditing2 = (obj, elemText, url) ->
   obj.editable
     type: 'select'
     value: obj.text().trim()
-    # TODO: should be extracted from the db
+    # TODO: should be extracted from the db or model
     source: [{vlaue: 0, text: 'nobody'},
              {vlaue: 1, text: 'guest'},
              {vlaue: 2, text: 'operator'},

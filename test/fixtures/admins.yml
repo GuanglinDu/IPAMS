@@ -27,3 +27,8 @@ hillary:
   email: hillary@example.com
   role: 0 # nobody
   encrypted_password: <%= Devise.bcrypt(Admin, 'password') %>
+
+to_delete:
+  email: to_delete@example.com
+  role: 1 # guest
+  encrypted_password: <%= Devise.bcrypt(Admin, 'password') %>

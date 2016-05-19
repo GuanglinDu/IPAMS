@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
-  before_action :set_admin, only: [:show, :edit, :update, :destroy]
+  before_action :set_admin, only: [:update, :destroy]
 
   # GET /admins
   # GET /admins.json
@@ -8,37 +8,21 @@ class AdminsController < ApplicationController
     authorize @admins
   end
 
-  # GET /admins/1
-  # GET /admins/1.json
-  def show
-  end
-
-  # GET /admins/new
-  def new
-  end
-
-  # GET /admins/1/edit
-  def edit
-  end
-
-  # POST /admins
-  # POST /admins.json
-  def create
-  end
-
   # PATCH/PUT /admins/1
   # PATCH/PUT /admins/1.json
   def update
+    authorize @admin
+
     respond_to do |format|
       if @admin.update(admin_params)
         flash[:success] = "Admin #{@admin.email} was successfully updated."
         format.html {
-          redirect_to admin_url,
+          redirect_to admins_url,
                       notice: "Admin #{@admin.email} was successfully updated."
         }
         format.json { render json: {role: admin_params[:role]} }
       else
-        format.html { render action: 'edit' }
+        format.html { render action: 'index' }
         format.json {
           render json: @admin.errors, status: :unprocessable_entity
         }
@@ -49,6 +33,8 @@ class AdminsController < ApplicationController
   # DELETE /admins/1
   # DELETE /admins/1.json
   def destroy
+    authorize @admin
+
     @admin.destroy
     respond_to do |format|
       format.html { redirect_to admins_url }

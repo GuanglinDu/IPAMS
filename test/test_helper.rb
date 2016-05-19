@@ -20,11 +20,12 @@ class ActiveSupport::TestCase
 
   # All kinds of admins
   def setup
-    @tom = admins(:tom)           # root
-    @jerry = admins(:jerry)       # admin
-    @mary = admins(:mary)         # expert
-    @barack = admins(:barack)     # operator
-    @michelle = admins(:michelle) # guest
-    @hillary = admins(:hillary)   # nobody 
+    @tom = admins(:tom)             # root
+    @jerry = admins(:jerry)         # admin
+    @mary = admins(:mary)           # expert
+    @barack = admins(:barack)       # operator
+    @michelle = admins(:michelle)   # guest
+    @hillary = admins(:hillary)     # nobody 
+    @to_delete = admins(:to_delete) # to be deleted in the test 
   end
 end

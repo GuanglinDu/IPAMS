@@ -199,7 +199,6 @@ var updateUserInfo = function(rowID, response, url) {
   refreshInPlaceEditing(roomNum, response.room, url);
 };
 
-// Gets the current time 
 function getDateTime() {
   var d = new Date(); 
   var dateTime = 
@@ -212,7 +211,6 @@ function getDateTime() {
   return dateTime;
 }
 
-// Adds the start date
 var updateStartDate = function(response, rowID) {
   var addressID = $("#" + rowID + " #start-date" + " a").attr("data-pk");
   var addrURL = "/" + response.locale + "/addresses/" + addressID;
