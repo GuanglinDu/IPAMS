@@ -21,10 +21,8 @@ class AddressesController < ApplicationController
     else
       # paginate returns object of 
       # type User::ActiveRecord_Relation < ActiveRecord::Relation
-      @addresses = Address.paginate(
-        page: params[:page],
-        per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
-      )
+      @addresses = Address.paginate(page: params[:page],
+        per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     end
 
     authorize @addresses
@@ -39,6 +37,7 @@ class AddressesController < ApplicationController
   # Locale used in hitories/create.js.erb to recycle the address
   def show
     authorize @address
+
     @histories = History.where(
       address_id: @address.id).paginate(page: params[:page],
       per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
@@ -47,9 +46,9 @@ class AddressesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json {
-        render json: {pk: @address.id, ip: @address.ip, locale: I18n.locale}
-      }
+      format.json { render json: {pk: @address.id,
+                                  ip: @address.ip,
+                                  locale: I18n.locale} }
     end
   end
 
@@ -57,6 +56,7 @@ class AddressesController < ApplicationController
     authorize @address
   end
 
+  # An IP address can only be destroyed but should be recycled, instead.
   def destroy
     authorize @address
   end
@@ -70,19 +70,14 @@ class AddressesController < ApplicationController
       if @address.update(@pars)
         flash[:success] = "Address was successfully updated. #{@pars.inspect}"
         format.html { redirect_to addresses_path }
-        format.json {
-          render json: {
-            locale: I18n.locale,
-            user_id: @user_id,
-            recyclable: @address.recyclable
-          }
-        }
+        format.json { render json: {locale: I18n.locale,
+                                    user_id: @user_id,
+                                    recyclable: @address.recyclable} }
       else
         flash[:danger] = "There was a problem updating the address."
         format.html { render action: 'edit' }
-        format.json {
-          render json: @address.errors, status: :unprocessable_entity
-        }
+        format.json { render json: @address.errors,
+                             status: :unprocessable_entity }
       end
     end
   end
@@ -96,13 +91,12 @@ class AddressesController < ApplicationController
     respond_to do |format|
       if @address.save
         flash[:success] = "Address was successfully recycled."
-        format.json {render json: { locale: I18n.locale, user_id: @user.id }}
+        format.json { render json: {locale: I18n.locale, user_id: @user.id} }
       else
         flash[:danger] = "There was a problem recycling the address."
         format.html {head :no_content}
-        format.json {
-          render json: @address.errors, status: :unprocessable_entity
-        }
+        format.json { render json: @address.errors,
+                             status: :unprocessable_entity }
       end
     end
   end
@@ -117,18 +111,16 @@ class AddressesController < ApplicationController
   # Never trust parameters from the scary internet,
   # only allow the white list through.
   def address_params
-    params[:address].permit(
-      :vlan_id,
-      :user_id,
-      :ip,
-      :mac_address,
-      :usage,
-      :start_date,
-      :end_date,
-      :application_form,
-      :assigner,
-      :recyclable
-    )
+    params[:address].permit(:vlan_id,
+                            :user_id,
+                            :ip,
+                            :mac_address,
+                            :usage,
+                            :start_date,
+                            :end_date,
+                            :application_form,
+                            :assigner,
+                            :recyclable)
   end
 
   # Changes a user.name to its user.id (FK user_id) as only the FK is going to
@@ -159,7 +151,6 @@ class AddressesController < ApplicationController
   def set_recycled_address_values
     @user = User.find_by(name: 'NOBODY')
     @department = Department.find(@user.department_id)
-
     @address.user_id = @user.id
     @address.mac_address = nil
     @address.usage = nil

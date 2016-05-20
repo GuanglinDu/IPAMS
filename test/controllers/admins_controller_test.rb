@@ -1,9 +1,16 @@
 require 'test_helper'
 
-# 1. Tests the controller with Pundit enabled: http://goo.gl/qsRIVo
-# 2. Signs in a user with Devise: http://goo.gl/djlwAJ 
 class AdminsControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  # All kinds of admins
+  def setup
+    @tom = admins(:tom)             # root
+    @jerry = admins(:jerry)         # admin
+    @mary = admins(:mary)           # expert
+    @barack = admins(:barack)       # operator
+    @michelle = admins(:michelle)   # guest
+    @hillary = admins(:hillary)     # nobody 
+    @to_delete = admins(:to_delete) # to be deleted in the test 
+  end
 
   test "root should get index" do
     sign_in @tom # from Devise, root
