@@ -5,10 +5,8 @@ require 'test_helper'
 class VlansControllerTest < ActionController::TestCase
   setup do
     @vlan = vlans(:one)
-    @tom = admins(:tom) # root
-    sign_in @tom
-    #@jerry = admins(:jerry) # admin
-    #sign_in @jerry
+    sign_in admins(:tom) # root
+    #sign_in admins(:jerry) # admin
   end
 
   test "should get index" do

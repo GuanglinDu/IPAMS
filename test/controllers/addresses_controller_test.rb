@@ -3,10 +3,8 @@ require 'test_helper'
 class AddressesControllerTest < ActionController::TestCase
   setup do
     @address = addresses(:one)
-    @tom = admins(:tom) # root
-    sign_in @tom
-    #@jerry = admins(:jerry) # admin
-    #sign_in @jerry
+    sign_in admins(:tom) # root
+    #sign_in admins(:jerry) # admin
   end
 
   test "should get index" do
@@ -42,7 +40,7 @@ class AddressesControllerTest < ActionController::TestCase
   end
 
   test "should recycle address" do
-    patch :recycle, id: @address
+    put :recycle, id: @address
     assert_response :success
     assert_equal "Address was successfully recycled.", flash[:success] 
   end

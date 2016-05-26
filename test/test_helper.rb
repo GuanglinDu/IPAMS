@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require "minitest/reporters"
+
 Minitest::Reporters.use!
 
 # NOTE (Extremely Important!!!):
@@ -11,11 +12,6 @@ Minitest::Reporters.use!
 # See http://goo.gl/QhoR1J
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
-
-  # 1. Tests the controller with Pundit enabled: http://goo.gl/qsRIVo
-  # 2. Signs in a user with Devise: http://goo.gl/djlwAJ
-  include Devise::TestHelpers
-  # sign_in @tom # Signs the users in in the tests 
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical
   # order.
@@ -26,4 +22,37 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  private
+
+  # Returns true inside an integration test.
+  def integration_test?
+    defined? post_via_redirect
+  end
+
+  def sign_in_admin(admin)
+    post_via_redirect new_admin_session_path,
+         admin: {email: admin.email, password: admin.password}
+    # The following format is OK, too.
+         #"admin[email]" => tom.email,
+         #"admin[password]" =>tom.password
+  end
+end
+
+# Tests the controller with Pundit enabled: http://goo.gl/qsRIVo
+
+
+# 1. Signs in a user with Devise: http://goo.gl/djlwAJ
+#    See also https://github.com/plataformatec/devise
+# 2. See http://goo.gl/hFRmE0
+# Devise::TestHelpers provides a facility to test controllers in isolation
+# when using ActionController::TestCase allowing you to quickly sign_in or
+# sign_out a user. Do not use Devise::TestHelpers in integration tests.
+# 3. See also https://goo.gl/exk9Xe
+# 4. The following are not available yet in the final release as of May 2016.
+# NameError: uninitialized constant Devise::Test?
+# include Devise::Test::ControllerHelpers
+# include Devise::Test::IntegrationHelpers
+class ActionController::TestCase
+  include Devise::TestHelpers
+  #sign_in @tom # Signs the users in in the tests 
 end

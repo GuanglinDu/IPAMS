@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="navbar-header col-xs-9">
-        <%= link_to "Home", welcome_path, class: 'navbar-brand' %>
+        <%= link_to "Home", root_path, class: 'navbar-brand' %>
         <%= link_to "LANs", lans_path, class: 'navbar-brand' %>
         <%= link_to "VLANs", vlans_path, class: 'navbar-brand' %>
         <%= link_to "Addresses", addresses_path, class: 'navbar-brand' %>
@@ -12,8 +12,8 @@
         <%= link_to "History", users_path, class: 'navbar-brand' %>
         <%= link_to "Import", import_index_path, class: 'navbar-brand' %>
         <%= link_to "Export", export_index_path, class: 'navbar-brand' %>
-        <%= link_to "Search", search_index_path, class: 'navbar-brand' %>
-        <%# = link_to "Help", help_index_path, class: 'navbar-brand' %>
+        <%= link_to "Search", search_path, class: 'navbar-brand' %>
+        <%# = link_to "Help", help_path, class: 'navbar-brand' %>
       </div>
       <%# Admin sign in/out links: https://goo.gl/HP3tRq %>
       <div class="col-xs-3">

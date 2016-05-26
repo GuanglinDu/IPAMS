@@ -17,6 +17,8 @@ class AdminsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:admins)
+    assert_select 'h1', "Listing admins"
+    assert_select 'tr td a', minimum: 2
   end
 
   test "non-root should not get index" do

@@ -16,16 +16,13 @@ class AdminsController < ApplicationController
     respond_to do |format|
       if @admin.update(admin_params)
         flash[:success] = "Admin #{@admin.email} was successfully updated."
-        format.html {
-          redirect_to admins_url,
-                      notice: "Admin #{@admin.email} was successfully updated."
-        }
+        format.html { redirect_to admins_url,
+          notice: "Admin #{@admin.email} was successfully updated." }
         format.json { render json: {role: admin_params[:role]} }
       else
         format.html { render action: 'index' }
-        format.json {
-          render json: @admin.errors, status: :unprocessable_entity
-        }
+        format.json { render json: @admin.errors,
+                             status: :unprocessable_entity }
       end
     end
   end

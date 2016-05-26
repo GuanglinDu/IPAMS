@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
     {locale: I18n.locale}
   end
 
-  # Customizes method pundit_user other than current_user:
+  # Customizes method pundit_user other than current_user (or current_admin):
   # https://github.com/elabs/pundit
   def pundit_user
     Admin.find_by(email: current_admin.email)

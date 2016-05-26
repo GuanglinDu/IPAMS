@@ -6,6 +6,7 @@ class AddressesController < ApplicationController
 
   # Resolves the FK user_id before updating a record
   before_action :convert_user_name_to_user_id, only: :update
+  before_action :set_recycled_address_values, only: :recycle
 
   # No keywords, no search. Goes to the paginated views, instead.
   # See https://github.com/sunspot/sunspot
@@ -86,15 +87,16 @@ class AddressesController < ApplicationController
   # PUT /addresses/1/recycle.json
   def recycle
     authorize @address
-    set_recycled_address_values()
 
     respond_to do |format|
       if @address.save
         flash[:success] = "Address was successfully recycled."
-        format.json { render json: {locale: I18n.locale, user_id: @user.id} }
+        format.html { head :no_content }
+        format.json { render json: {locale: I18n.locale,
+                                    user_id: @user.id} }
       else
         flash[:danger] = "There was a problem recycling the address."
-        format.html {head :no_content}
+        format.html { head :no_content }
         format.json { render json: @address.errors,
                              status: :unprocessable_entity }
       end
