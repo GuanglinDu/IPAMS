@@ -106,6 +106,7 @@ group :test do
   gem 'minitest-reporters', '1.0.5'
   gem 'mini_backtrace', '0.1.3'
   gem 'guard-minitest', '2.3.1'
+  gem 'capybara'
 end
 
 # bundle exec rake doc:rails generates the API under doc/api.
