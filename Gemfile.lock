@@ -68,6 +68,7 @@ GEM
     coffee-script-source (1.9.0)
     columnize (0.9.0)
     daemons (1.1.9)
+    database_cleaner (1.5.3)
     debugger-linecache (1.2.0)
     devise (3.4.1)
       bcrypt (~> 3.0)
@@ -76,9 +77,15 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    diff-lcs (1.2.5)
     erubis (2.7.0)
     eventmachine (1.0.5)
     execjs (2.2.2)
+    factory_girl (4.7.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.7.0)
+      factory_girl (~> 4.7.0)
+      railties (>= 3.0.0)
     faker (1.5.0)
       i18n (~> 0.5)
     ffi (1.9.10)
@@ -175,6 +182,23 @@ GEM
       railties (>= 3.2, < 4.2)
     rsolr (1.0.12)
       builder (>= 2.1.2)
+    rspec-core (3.4.4)
+      rspec-support (~> 3.4.0)
+    rspec-expectations (3.4.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-mocks (3.4.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-rails (3.4.2)
+      actionpack (>= 3.0, < 4.3)
+      activesupport (>= 3.0, < 4.3)
+      railties (>= 3.0, < 4.3)
+      rspec-core (~> 3.4.0)
+      rspec-expectations (~> 3.4.0)
+      rspec-mocks (~> 3.4.0)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
     ruby-progressbar (1.7.5)
     rubyzip (1.0.0)
     sass (3.2.19)
@@ -242,7 +266,9 @@ DEPENDENCIES
   byebug
   capybara
   coffee-rails (~> 4.0.0)
+  database_cleaner
   devise
+  factory_girl_rails
   faker
   font-awesome-sass
   guard-minitest (= 2.3.1)
@@ -254,6 +280,7 @@ DEPENDENCIES
   pundit
   rack-ssl (~> 1.4.1)
   rails (= 4.1.8)
+  rspec-rails (~> 3.4)
   sass-rails (~> 4.0.0)
   sdoc
   sqlite3

@@ -106,7 +106,14 @@ group :test do
   gem 'minitest-reporters', '1.0.5'
   gem 'mini_backtrace', '0.1.3'
   gem 'guard-minitest', '2.3.1'
+  gem 'database_cleaner'
   gem 'capybara'
+end
+
+# https://github.com/rspec/rspec-rails
+group :development, :test do
+  gem 'factory_girl_rails'
+  gem 'rspec-rails', '~> 3.4'
 end
 
 # bundle exec rake doc:rails generates the API under doc/api.
