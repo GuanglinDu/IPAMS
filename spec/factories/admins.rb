@@ -4,8 +4,7 @@ require 'faker'
 # See also http://goo.gl/F1MKTg
 FactoryGirl.define do
   factory :admin do
-    # {} is essential
-    # See http://goo.gl/CDO3qP
+    # {} is crucial. See http://goo.gl/CDO3qP
     email { Faker::Internet.email }
     password "password"
 

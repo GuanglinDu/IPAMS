@@ -57,6 +57,6 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
   
   # Capybara also comes with a built in DSL for creating descriptive
-  # acceptance tests
+  # acceptance tests.
   config.include Capybara::DSL
 end

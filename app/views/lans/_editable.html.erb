@@ -1,14 +1,28 @@
 <tr>
   <% lan = editable %>
 
-  <% cache cache_key_for_lan("editable", lan), skip_digest: true do %><%# partial row caching %>
+  <%# partial row caching %>
+  <% cache cache_key_for_lan("editable", lan), skip_digest: true do %>
     <td><%= count + editable_counter + 1 %></td>
     <td><%= lan.lan_number %></td>
     <td>
-      <a href="#" data-xeditable="true" data-pk="<%= lan.id %>" data-model="lan" data-name="lan_name" data-url="<%= lan_path(lan) %>" data-title="LAN Name"><%= lan.lan_name %></a>
+      <a href="#" data-xeditable="true"
+                  data-pk="<%= lan.id %>"
+                  data-model="lan" data-name="lan_name"
+                  data-url="<%= lan_path(lan) %>"
+                  data-title="LAN Name">
+        <%= lan.lan_name %>
+      </a>
     </td>
     <td>
-      <a href="#" data-xeditable="true" data-pk="<%= lan.id %>" data-model="lan" data-name="lan_description" data-url="<%= lan_path(lan) %>" data-title="LAN Description"><%= lan.lan_description %></a>
+      <a href="#" data-xeditable="true"
+                  data-pk="<%= lan.id %>"
+                  data-model="lan"
+                  data-name="lan_description"
+                  data-url="<%= lan_path(lan) %>"
+                  data-title="LAN Description">
+        <%= lan.lan_description %>
+      </a>
     </td>
   <% end %>
 
@@ -24,7 +38,8 @@
   </td>
   <td>
     <% if policy(lan).destroy? %>
-      <%= link_to lan, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
+      <%= link_to lan, method: :delete, data: { confirm: 'Are you sure?' },
+                       class: 'btn btn-danger btn-xs' do %>
         <i class="glyphicon glyphicon-remove"></i> Destroy
       <% end %>
     <% end %>
