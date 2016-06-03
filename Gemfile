@@ -93,6 +93,13 @@ gem 'rack-ssl', '~> 1.4.1'
 gem 'axlsx', '~> 2.0'
 gem "axlsx_rails"
 
+# https://github.com/rspec/rspec-rails
+# https://github.com/thoughtbot/factory_girl_rails
+group :development, :test do
+  gem 'rspec-rails', '~> 3.4'
+  gem 'factory_girl_rails'
+end
+
 # https://github.com/michaeldv/awesome_print
 # https://github.com/stympy/faker
 group :development do
@@ -106,6 +113,8 @@ group :test do
   gem 'minitest-reporters', '1.0.5'
   gem 'mini_backtrace', '0.1.3'
   gem 'guard-minitest', '2.3.1'
+  gem 'database_cleaner'
+  gem 'capybara'
 end
 
 # bundle exec rake doc:rails generates the API under doc/api.

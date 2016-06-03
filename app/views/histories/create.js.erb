@@ -55,7 +55,8 @@ var empty_address_values = function(rowID, addressID, response1){
       addressUserChanged(user_url, rowID);
 
       // recycle button
-      var btn_recycle = $("#" + rowID + " #recycle #btn_recycle").attr("disabled", true);
+      var btn_recycle = $("#" + rowID + " #recycle #btn_recycle")
+                          .attr("disabled", true);
     }
   });
 };

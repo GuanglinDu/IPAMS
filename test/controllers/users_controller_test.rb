@@ -3,6 +3,8 @@ require 'test_helper'
 class UsersControllerTest < ActionController::TestCase
   setup do
     @user = users(:one)
+    sign_in admins(:tom) # root
+    #sign_in admins(:jerry) # admin
   end
 
   test "should get index" do
@@ -14,13 +16,20 @@ class UsersControllerTest < ActionController::TestCase
   test "should get new" do
     get :new
     assert_response :success
+    assert_not_nil assigns(:user)
   end
 
   test "should create user" do
-    assert_difference('User.count') do
-      post :create, user: { building: @user.building, cell_phone: @user.cell_phone, department_id: @user.department_id, email: @user.email, name: @user.name, office_phone: @user.office_phone, room: @user.room, storey: @user.storey }
+    assert_difference('User.count', 1) do
+      post :create, user: {department_id: @user.department_id,
+                           name: "Never.Used",
+                           email: "never.used@example.com",
+                           building: "The Unkonw",
+                           storey: 10,
+                           room: 1010,
+                           cell_phone: 13912345678,
+                           office_phone: 3456}
     end
-
     assert_redirected_to user_path(assigns(:user))
   end
 
@@ -35,7 +44,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should update user" do
-    patch :update, id: @user, user: { building: @user.building, cell_phone: @user.cell_phone, department_id: @user.department_id, email: @user.email, name: @user.name, office_phone: @user.office_phone, room: @user.room, storey: @user.storey }
+    patch :update, id: @user, user: {office_phone: 99887766}
     assert_redirected_to user_path(assigns(:user))
   end
 
@@ -43,7 +52,6 @@ class UsersControllerTest < ActionController::TestCase
     assert_difference('User.count', -1) do
       delete :destroy, id: @user
     end
-
     assert_redirected_to users_path
   end
 end

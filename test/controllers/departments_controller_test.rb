@@ -3,6 +3,8 @@ require 'test_helper'
 class DepartmentsControllerTest < ActionController::TestCase
   setup do
     @department = departments(:one)
+    sign_in admins(:tom) # root
+    #sign_in admins(:jerry) # admin
   end
 
   test "should get index" do
@@ -17,10 +19,10 @@ class DepartmentsControllerTest < ActionController::TestCase
   end
 
   test "should create department" do
-    assert_difference('Department.count') do
-      post :create, department: { dept_name: @department.dept_name, location: @department.location }
+    assert_difference('Department.count', 1) do
+      post :create, department: {dept_name: "Never used department",
+                                 location: "I do not know"}
     end
-
     assert_redirected_to department_path(assigns(:department))
   end
 
@@ -35,7 +37,8 @@ class DepartmentsControllerTest < ActionController::TestCase
   end
 
   test "should update department" do
-    patch :update, id: @department, department: { dept_name: @department.dept_name, location: @department.location }
+    patch :update, id: @department, department: {
+      dept_name: @department.dept_name << "Added more"}
     assert_redirected_to department_path(assigns(:department))
   end
 
@@ -43,7 +46,6 @@ class DepartmentsControllerTest < ActionController::TestCase
     assert_difference('Department.count', -1) do
       delete :destroy, id: @department
     end
-
     assert_redirected_to departments_path
   end
 end

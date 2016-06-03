@@ -9,13 +9,11 @@ $ ->
       ajaxOptions:
         type: "PUT"
         dataType: "json"
-
       params: (params) ->
         railsParams = {}
         railsParams[$(@).data("model")] = {}
         railsParams[$(@).data("model")][params.name] = params.value
         return railsParams
-
       # See addresses_controller#show
       # Triggers the row update in addresses.js
       success: (response) ->

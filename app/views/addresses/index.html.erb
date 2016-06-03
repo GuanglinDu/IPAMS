@@ -28,8 +28,7 @@
   <% partial_name = "uneditable" unless policy(@addresses).edit? %>
   <%= render partial: partial_name,
              object: @addresses,
-             locals: {caller_name: "all"}
-  %>
+             locals: {caller_name: "all"} %>
 
   <%# The footer pagination %>
   <%= page_entries_info @addresses %><br />

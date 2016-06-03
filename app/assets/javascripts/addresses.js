@@ -1,9 +1,10 @@
 /**
- * Row update event handler delegated to element tbody with id main-table-body, triggered
- * by in-place editing of a single IP address user in the VLAN/Addresses views.
- * See in-place editing in lans.js.coffee. 
+ * Row update event handler delegated to element tbody with id main-table-body,
+ * triggered by in-place editing of a single IP address user in the
+ * VLAN/Addresses views. See in-place editing in lans.js.coffee. 
  *
- * Event delegation is employed to handle events triggered by elements <td><a></a></td>.
+ * Event delegation is employed to handle events triggered by elements
+ * <td><a></a></td>.
  * In case of arrays, add event listeners this way:
  * $(function() {
  *   $("tbody").each(function(index) {
@@ -12,18 +13,19 @@
  *     });
  *   });
  * });
- *
- * @param {Event} event - passed event object fired from <td><a></a></td>
- * @param {String} rowID - id attribute  of the row in editing as is <tr id="row-20">
+ * @param {Event} event - event object fired from <td><a></a></td>
+ * @param {String} rowID - id attribute  of the row in editing as is
+ *                         <tr id="row-20">
  * @param {String} cellName - id attribute of a cell as is <td id="user-name"> 
  * @param {Object} response - response object passed from the success callback
- * of X-Editable, see lans.js.coffee
+ *                            of X-Editable, see lans.js.coffee
  */
 $(function() {
-  $("#main-table-body").on("onAfterUpdate", "td a", function(event, rowID, cellName, response) {
-    // The table cell names, i.e., the td element ids, we take interest
+  $("#main-table-body").on("onAfterUpdate", "td a",
+                           function(event, rowID, cellName, response) {
+    // The table cell names, i.e., the td element ids, we take interest in
     // cell-name -> URI pattern 
-    var cellNames = { "user-name": "users" }; // must use quotes when using hyphen
+    var cellNames = { "user-name": "users" }; // use quotes in case of hyphens
     // undefined/null/false = false
     if (cellNames[cellName] === "users") {
       var dataURL = "/users/" + response.user_id;
@@ -84,7 +86,8 @@ var toggle_recyclable_checkbox = function() {
 
 // Handles the recycle button
 var set_btn_recycle = function() {
-  $("#main-table-body").on("setRecycle", "td", function(event, rowID, response) {
+  $("#main-table-body").on("setRecycle", "td",
+                           function(event, rowID, response) {
     var btnRecycle = $("#" + rowID + " #recycle #btn_recycle");
     if (response.recyclable == false)
       btnRecycle.prop('disabled', true);
@@ -145,7 +148,7 @@ var refreshInPlaceEditing = function(obj, elemText, url) {
   });
 };
 
-var updateUserInfo = function (rowID, response, url) {
+var updateUserInfo = function(rowID, response, url) {
   // department pk, url, text
   var deptName = $("#" + rowID + " #department-name" + " a")
     .attr("data-pk", response.pk)
@@ -196,7 +199,6 @@ var updateUserInfo = function (rowID, response, url) {
   refreshInPlaceEditing(roomNum, response.room, url);
 };
 
-// Gets the current time 
 function getDateTime() {
   var d = new Date(); 
   var dateTime = 
@@ -209,7 +211,6 @@ function getDateTime() {
   return dateTime;
 }
 
-// Adds the start date
 var updateStartDate = function(response, rowID) {
   var addressID = $("#" + rowID + " #start-date" + " a").attr("data-pk");
   var addrURL = "/" + response.locale + "/addresses/" + addressID;

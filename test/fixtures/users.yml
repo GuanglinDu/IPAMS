@@ -1,5 +1,15 @@
 # Read about fixtures at
 # http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+nobody: # the special user
+  name: NOBODY 
+  office_phone: 2500
+  cell_phone: 1391234500
+  email: nobody@example.com
+  building: Nobody Building
+  storey: 1
+  room: 105
+  department: nonexistent 
+
 one:
   name: Tom Cat 
   office_phone: 1000

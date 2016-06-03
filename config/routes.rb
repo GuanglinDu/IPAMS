@@ -7,7 +7,8 @@ Ipams::Application.routes.draw do
   # i18n: :locale
   scope '(:locale)' do
     devise_for :admins
-    root 'welcome#index', as: 'welcome'
+
+    root 'welcome#index'
     resources :lans, :reserved_addresses, :departments, :users, :histories
     resources :vlans do
       collection { post :import }
@@ -17,11 +18,11 @@ Ipams::Application.routes.draw do
       member { put :recycle }
     end
 
-    resources :admins, only: [:index, :show, :edit, :destroy]
+    resources :admins, only: [:index, :show, :edit, :update, :destroy]
 
-    get "welcome/index"
-    get "help/index"
-    get "search/index"
+    get 'welcome' => "welcome#index"
+    get 'help' => "help#index"
+    get 'search' => "search#index"
 
     get "import/index"
     get "import/import"
