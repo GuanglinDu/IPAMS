@@ -6,9 +6,11 @@ class SearchController < ApplicationController
   # Note: Each model must inclue a searchable block, or a NilClass error will ocurr.
   def index
     if params[:search].present? 
-      @search = Sunspot.search(Address, User, Department) do 
-        fulltext params[:search]
-        paginate page: params[:page] || 1, per_page: 50
+      #@search = Sunspot.search(Address, User, Department) do 
+        #fulltext params[:search]
+      @search = Sunspot.search(Address, User, Department) do |query| 
+        query.keywords @search
+        query.paginate page: params[:page] || 1, per_page: 50
       end 
     else
       @search = Sunspot.search(Address, User, Department) do |query| 

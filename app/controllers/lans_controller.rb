@@ -7,7 +7,6 @@ class LansController < ApplicationController
   # GET /lans
   # GET /lans.json
   def index
-    #@lans = Lan.order(:lan_number)
     @lans = Lan.paginate(page: params[:page],
       per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE).order(:lan_number)
     authorize @lans
@@ -42,12 +41,14 @@ class LansController < ApplicationController
 
     respond_to do |format|
       if @lan.save
-        flash[:success] = 'Lan was successfully created.'
-        format.html { redirect_to @lan, notice: 'LAN was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @lan }
+        flash[:success] = "Lan was successfully created."
+        format.html {
+          redirect_to @lan, notice: "LAN was successfully created."
+        }
+        format.json { render action: "show", status: :created, location: @lan }
       else
-        flash[:danger] = 'There was a problem creating the LAN.'
-        format.html { render action: 'new' }
+        flash[:danger] = "There was a problem creating the LAN."
+        format.html { render action: "new" }
         format.json { render json: @lan.errors, status: :unprocessable_entity }
       end
     end
@@ -61,7 +62,9 @@ class LansController < ApplicationController
     respond_to do |format|
       if @lan.update(lan_params)
         flash[:success] = 'Lan was successfully updated.'
-        format.html { redirect_to @lan, notice: 'Lan was successfully updated.' }
+        format.html {
+          redirect_to @lan, notice: 'Lan was successfully updated.'
+        }
         format.json { head :no_content }
       else
         flash[:danger] = 'There was a problem updating the Lan.'
@@ -85,13 +88,14 @@ class LansController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_lan
-      @lan = Lan.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_lan
+    @lan = Lan.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def lan_params
-      params.require(:lan).permit(:lan_number, :lan_name, :lan_description)
-    end
+  # Never trust parameters from the scary internet,
+  # only allow the white list through.
+  def lan_params
+    params.require(:lan).permit(:lan_number, :lan_name, :lan_description)
+  end
 end

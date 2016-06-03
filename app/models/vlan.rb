@@ -1,23 +1,11 @@
 class Vlan < ActiveRecord::Base
-  require 'csv'
-
-  # 1st line of the importing CSV file is the headers (attributes/fields)
-  # Note: lan_name will be used to retrieve FK lan_id
-  HEADERS = [
-    "lan_name", "vlan_number", "vlan_name","static_ip_start",
-    "static_ip_end", "subnet_mask", "gateway", "vlan_description"
-  ]
-
   belongs_to :lan
 
   has_many :addresses, dependent: :destroy
   has_many :reserved_addresses, dependent: :destroy
   has_many :users, through: :addresses
 
-  validates :vlan_number,
-            :vlan_name,
-            :subnet_mask,
-            :vlan_description,
+  validates :vlan_number, :vlan_name, :subnet_mask, :vlan_description,
             presence: true
   # Valid VLAN number is only between 1..4096 (a Range object)
   validates :vlan_number,
@@ -162,4 +150,3 @@ class Vlan < ActiveRecord::Base
     return exist  
   end
 end
-

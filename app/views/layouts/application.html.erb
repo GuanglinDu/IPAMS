@@ -2,10 +2,13 @@
 <html>
 <head>
   <title>IPAMS</title>
-  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
-  <%# if set true, it will conflict with the Bootstrap in-place editing
-    See https://howilearnedrails.wordpress.com/2014/08/17/how-to-remove-turbolinks-from-rails-4/
-    See also https://github.com/klenis/bootstrap-x-editable-rails/issues/8 %>
+  <%= stylesheet_link_tag "application", media: "all",
+                          "data-turbolinks-track" => true %>
+  <% if false %>
+    if set true, it will conflict with the Bootstrap in-place editing.
+    See https://github.com/klenis/bootstrap-x-editable-rails/issues/8
+    See also https://goo.gl/mX7IRV
+  <% end %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
   <%= csrf_meta_tags %>
 </head>
@@ -18,14 +21,15 @@
     <div class="row">
       <div class="col-xs-12">
         <% flash.each do |name, msg| -%>
-          <%= content_tag :div, msg, class: "alert alert-dismissible alert-#{name}" %>
+          <%= content_tag :div, msg,
+                          class: "alert alert-dismissible alert-#{name}" %>
         <% end -%>
-        <p class="notice"><%= notice %></p>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12">
         <%= yield %>
+        <%= debug(params) if Rails.env.development? %>
       </div>
     </div>
   </div>
