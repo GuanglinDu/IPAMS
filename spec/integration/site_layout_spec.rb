@@ -7,24 +7,40 @@ feature "The site layout", :devise do
     sign_in @admin.email, @admin.password
     expect(page).to have_content("IPAMS Home Page")
     expect(page).to have_content("Sign out")
-    
-    click_link "LANs"
+   
+    #lan1 = FactoryGirl.create :lan
+    #lan2 = FactoryGirl.create :lan
+    FactoryGirl.create :lan_with_vlans
+    FactoryGirl.create :lan_with_vlans
+    click_link "LANs" # two LANs with 5 VLANs each
     expect(page).to have_content("Listing LANs")
-    #expect(page).to have_content("Displaying Lan")
-    #expect(page).to have_selector("a", first: "btn btn-primary btn-xs")
-    #find(".btn .btn-primary .btn-xs", text: "Show", match: :first).click
-    find("#main-table-body").click
-    #find_link("Show", match: :first).click
-    #click_link("Show", match: :first)
-    #expect(page).to have_content("The Current LAN")
+    expect(page).to have_content("Displaying all 2 Lan")
+    #find_link("Show", match: :first).click # OK
+    click_link("Show", match: :first)
+    expect(page).to have_content("The Current LAN")
+    expect(page).to have_content("Displaying all 5 Vlan")
 
     click_link "VLANs"
     expect(page).to have_content("Listing VLANs")
-    click_link "Addresses"
-    expect(page).to have_content("Listing IP Addresses")
+    expect(page).to have_content("Displaying all 10 Vlan")
+
+    FactoryGirl.create :department_with_users
+    FactoryGirl.create :department_with_users
     click_link "Departments"
     expect(page).to have_content("Listing Departments")
+    expect(page).to have_content("Displaying all 2 Department")
+
     click_link "Users"
     expect(page).to have_content("Listing Users")
+    expect(page).to have_content("Displaying all 6 User")
+
+    vlan1 = Vlan.first
+    user1 = User.first
+    # 1 + 10 = 11 IP addresses
+    addr1 = FactoryGirl.create :address, vlan: vlan1, user: user1
+    addr10 = FactoryGirl.create_list :address, 10, vlan: vlan1, user: user1
+    click_link "Addresses"
+    expect(page).to have_content("Listing IP Addresses")
+    expect(page).to have_content("Displaying all 11 Address")
   end
 end
