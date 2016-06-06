@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-xs-8">
     <h4>Listing Users</h4>
-    <%# Header pagination. See https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
+    <%# Pagination: https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
     <%= page_entries_info @users %><br />
     <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
   </div>
@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<%# User list: The whole table caching with partial names to differ the editable from the uneditable %>
+<%# The whole table caching with partial names(editable/uneditable) %>
 <div class="row">
 <% partial_name = "editable" %>
 <% partial_name = "uneditable" unless policy(@users).edit? %>
