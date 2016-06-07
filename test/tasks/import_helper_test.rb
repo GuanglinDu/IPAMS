@@ -29,12 +29,9 @@ class TestImportHelper < ActiveSupport::TestCase
     #assert_output(
   end
 
-  #test "should be true" do
-    #assert true
-  #end
-
   def test_strip_whitespace
-    raw_row = {one: " 100", two: "hello  ", three: "  world  ", four: nil, five: "     "}
+    raw_row = {one: " 100", two: "hello  ", three: "  world  ", four: nil,
+               five: "     "}
     raw_row[:six] = 123
     row = strip_whitespace(raw_row)
     assert_equal("100", row[:one], "Should be equal")    
@@ -51,9 +48,9 @@ class TestImportHelper < ActiveSupport::TestCase
 
   private
 
-    # Makes sure diff file 
-    # IMPORT_DIFF = "#{Rails.root}/tmp/IMPORT_DIFF.html" 
-    def create_diff_file
-      diff_file = File.open(IMPORT_DIFF, "w")
-    end 
+  # Makes sure the diff file exists
+  # IMPORT_DIFF = "#{Rails.root}/tmp/IMPORT_DIFF.html" 
+  def create_diff_file
+    diff_file = File.open(IMPORT_DIFF, "w")
+  end 
 end

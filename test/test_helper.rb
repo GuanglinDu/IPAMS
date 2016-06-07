@@ -1,5 +1,4 @@
-#ENV["RAILS_ENV"] ||= "test"
-ENV["RAILS_ENV"] = "test"
+ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require "minitest/reporters"
@@ -35,6 +34,16 @@ class ActiveSupport::TestCase
     # The following format is OK, too.
          #"admin[email]" => tom.email,
          #"admin[password]" =>tom.password
+  end
+
+  # Used by the policy tests
+  def setup
+    @tom      = admins(:tom)      # root
+    @jerry    = admins(:jerry)    # vip
+    @mary     = admins(:mary)     # expert
+    @barack   = admins(:barack)   # operator
+    @michelle = admins(:michelle) # guest
+    @hillary  = admins(:hillary)  # nobody
   end
 end
 

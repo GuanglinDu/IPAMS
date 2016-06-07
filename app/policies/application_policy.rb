@@ -22,7 +22,7 @@ class ApplicationPolicy
 
   # Only an expert or an admin can create/update/edit 
   def create?
-    admin.expert? or admin.admin? or admin.root?
+    admin.expert? or admin.vip? or admin.root?
   end
 
   def new?
@@ -30,7 +30,7 @@ class ApplicationPolicy
   end
 
   def update?
-    admin.operator? or admin.expert? or admin.admin? or admin.root?
+    admin.operator? or admin.expert? or admin.vip? or admin.root?
   end
 
   def edit?

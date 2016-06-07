@@ -19,6 +19,12 @@ How-tos
 * start the server locally: rails server
 * Browse it locally: http://localhost:3000
 
+Tests Based On MiniTest & Rspec
+------
+* Run the unit and functional tests: bundle exec rake test (MiniTest based)
+* Run all the tests under dir test/: bundle exec rake test:all
+* Run the integration tests based on Rspec: bundle exec rspec (Based on Rspect, Capybara and FactoryGirl)
+
 Testing Tips when sunspot and devise are integrated
 ------
 * Configure the rake task with the test environment: rake sunspot:solr:run RAILS_ENV=test (See [sunspot_rails gem - “ Errno:: ECONNREFUSED (Connection refused - connect (2)) ”](http://stackoverflow.com/questions/7687343/sunspot-rails-gem-errno-econnrefused-connection-refused-connect-2) )

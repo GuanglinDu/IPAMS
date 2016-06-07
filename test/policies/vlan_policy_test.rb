@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class VlanPolicyTest < ActiveSupport::TestCase
-  def test_create
+  def test_index
     vlans = Vlan.all
     assert VlanPolicy.new(@tom, vlans).index?
     assert VlanPolicy.new(@jerry, vlans).index?
