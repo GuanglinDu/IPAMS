@@ -16,6 +16,7 @@ feature 'Signing in', :devise do
     #expect(page).to have_content I18n.t('devise.failure.not_found_in_database'),
     #                             authentication_keys: 'email'
     expect(page).to have_content('Sign in')
+    expect(page).to have_content('Sign up')
   end
 
   # Scenario: Admin can sign in with valid credentials
@@ -38,6 +39,7 @@ feature 'Signing in', :devise do
     #expect(page).to have_content I18n.t('devise.failure.not_found_in_database'),
     #                             authentication_keys: 'email'
     expect(page).to have_content('Sign in')
+    expect(page).to have_content('Sign up')
   end
 
   # Scenario: Admin cannot sign in with wrong password

@@ -18,5 +18,15 @@ FactoryGirl.define do
     #  ip_prefix "192.168.0."
     #  @prefix = ip_prefix
     #end
+ 
+    factory :address_with_histories do
+      transient do
+        history_count 2
+      end
+      
+      after(:create) do |address, evaluator|
+        create_list(:history, evaluator.history_count, address: address)
+      end
+    end
   end
 end

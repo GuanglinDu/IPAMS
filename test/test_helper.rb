@@ -29,7 +29,7 @@ class ActiveSupport::TestCase
   end
 
   def sign_in_admin(admin)
-    post_via_redirect new_admin_session_path,
+    post_via_redirect admin_session_path,
          admin: {email: admin.email, password: admin.password}
     # The following format is OK, too.
          #"admin[email]" => tom.email,
