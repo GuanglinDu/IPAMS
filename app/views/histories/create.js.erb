@@ -7,19 +7,19 @@ $.ajax({
   url: url,
   type: "GET",
   dataType: "json",
-  success: function(response){
+  success: function(response) {
     empty_address_values(rowID, addressID, response);
   }
 });
 
-var empty_address_values = function(rowID, addressID, response1){
+var empty_address_values = function(rowID, addressID, response1) {
   var url = "/" + response1.locale + "/addresses/" + addressID + "/recycle";
   $.ajax({
     url: url,
     type: "put",
     dataType: "json",
     
-    success: function(response){
+    success: function(response) {
       var addr_url = "/" + response.locale + "/addresses/" + addressID;
       var user_url = "/users/" + response.user_id;
 

@@ -42,5 +42,17 @@ feature "The site layout", :devise do
     click_link "Addresses"
     expect(page).to have_content("Listing IP Addresses")
     expect(page).to have_content("Displaying all 11 Address")
+
+    # Shows a single IP address
+    find_link("Show", match: :first).click
+    expect(page).to have_content("Show the history of this IP address")
+
+    # Goes back to the addresses view
+    click_link "Addresses"
+
+    # Recycles an IP address
+    #find_button("Recycle", match: :first).click
+    # Goes to the Histories view to check
+    #click_link "Histories"
   end
 end
