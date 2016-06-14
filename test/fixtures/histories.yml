@@ -1,15 +1,13 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  usage: MyText
+  usage: PC
   start_date: 2014-11-05 17:12:53
   end_date: 2014-11-05 17:12:53
-  application_form: MyString
-  address_id: 
+  application_form: null 
+  address: one 
 
 two:
-  usage: MyText
+  usage: Laptop
   start_date: 2014-11-05 17:12:53
   end_date: 2014-11-05 17:12:53
-  application_form: MyString
-  address_id: 
+  application_form: null
+  address: two 

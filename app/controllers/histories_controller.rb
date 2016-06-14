@@ -59,7 +59,7 @@ class HistoriesController < ApplicationController
     #)
   #end
 
-private
+  private
 
   # We need to have the address info to recycle it and create a historical record
   def retrieve_address
@@ -83,6 +83,6 @@ private
     @history.start_date = @address.start_date
     @history.end_date = @address.end_date
     @history.application_form = @address.application_form
-    @history.rec_ip = @address.ip
+    #@history.rec_ip = @address.ip
   end
 end

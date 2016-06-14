@@ -47,9 +47,15 @@ feature "The site layout", :devise do
     find_link("Show", match: :first).click
     expect(page).to have_content("Show the history of this IP address")
 
-    # Goes back to the addresses view
-    click_link "Addresses"
+    # Tests the Histories view
+    FactoryGirl.create :address_with_histories, vlan: vlan1, user: user1
+    click_link "Histories"
+    expect(page).to have_content("Show the history of all IP addresses")
+    expect(page).to have_content("Displaying all 2 History")
+    expect(page).to have_content("PC-office", minimum: 2)
 
+    # Goes back to the addresses view
+    #click_link "Addresses"
     # Recycles an IP address
     #find_button("Recycle", match: :first).click
     # Goes to the Histories view to check

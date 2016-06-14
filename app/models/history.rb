@@ -9,6 +9,7 @@ class History < ActiveRecord::Base
     #text :assigner, as: :assigner_textp
     time :start_date
     time :end_date
-    join(:ip, :target => Address, :type => :text, :join => { :from => :id, :to => :address_id })
+    join(:ip, target: Address, type: :text,
+         join: {from: :id, to: :address_id})
   end
 end

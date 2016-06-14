@@ -12,8 +12,8 @@ FactoryGirl.define do
       role :root
     end
 
-    trait :admin do
-      role :amin
+    trait :vip do
+      role :vip
     end
 
     trait :expert do

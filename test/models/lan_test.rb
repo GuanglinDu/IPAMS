@@ -25,15 +25,15 @@ class LanTest < ActiveSupport::TestCase
     assert_equal 0, @lan.errors[:lan_description].count
   end
 
-  test "lan name must be 5 char long at least" do
+  test "lan name must be 5 chars long at least" do
     @lan.lan_name = "bla"
-    assert @lan.invalid?, "Description should be longer than 5 characters"
+    assert @lan.invalid?, "Description should be no less than 5 chars"
     # Note: Hardcoded expected error message
     assert_equal ["is too short (minimum is 5 characters)"],
                  @lan.errors[:lan_name]
   end
 
-  test "description must be 5 char long at least" do
+  test "description must be 5 chars long at least" do
     @lan.lan_description = "bla"
     assert @lan.invalid?, "Should be invalid"
     assert_equal ["is too short (minimum is 5 characters)"],
