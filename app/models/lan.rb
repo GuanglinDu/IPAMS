@@ -6,7 +6,8 @@ class Lan < ActiveRecord::Base
   validates :lan_number, :lan_name, uniqueness: true
 
   searchable do
-    string :lan_name
+    text :lan_name, as: :lan_name_textp
+    text :lan_description, as: :lan_description_textp
     integer :lan_number
   end
 end

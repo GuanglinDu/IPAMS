@@ -13,7 +13,8 @@
 
     <% if addresses.count >= 2 %>
       <%= render partial: "row_with_multiple_ip", object: user,
-        locals: { count: count, user_ip_count: addresses.count, editable: false } %>
+                 locals: {count: count, user_ip_count: addresses.count,
+                          editable: false} %>
       <% addresses.each do |addr| %>
         <%= render partial: "subrow", object: addr, locals: { user: user, editable: false } %>
       <% end %>

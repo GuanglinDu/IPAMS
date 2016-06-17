@@ -1,55 +1,47 @@
 <div class="row">
-<%# Search based on Sunspot: the pagination and search on the same row %>
-<div class="row">
+  <%# https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
   <div class="col-xs-8">
-    <%= form_tag search_index_path, :method => :get do %>
-      <%= text_field_tag :search, @search %>
-      <%= submit_tag "Search", :name => nil %><br />
-      (IP, MAC, Usage, Date, Assigner)
+    <% if @results %>
+      <%= page_entries_info @results %><br />
+      <%= will_paginate @results, renderer: BootstrapPagination::Rails %>
     <% end %>
   </div>
-</div>
-  <%# see https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
-  <div class="col-xs-8">
-    <%= page_entries_info @results %><br />
-    <%= will_paginate @results, renderer: BootstrapPagination::Rails %>
-  </div>
   <div class="col-xs-4">
-    <%= form_tag search_index_path, :method => :get do %>
+    <%= form_tag search_path, :method => :get do %>
       <%= text_field_tag :search, params[:search] %>
-      <%= submit_tag "Search", :name => nil %>
+      <%= submit_tag "Global Search", :name => nil %><br />
     <% end %>
   </div>
 </div>
 
-<div class="row">
 <% if false %>
   http://goo.gl/gfN306
   See also https://hackhands.com/pagination-rails-will_paginate-gem/
   Record index: @addresses.total_entries, @addresses.offset
 <% end %>
-
-<% if @results %>
-<table class="table table-striped table-condensed">
-  <tbody>
-  <% count = @results.offset + 1 %>
-  <% @results.each do |re| %>
-    <% who_am_i(re) %>
-    <tr>
-      <td><%= count %></td>
-      <td><%= @model_name %></td>
-    </tr>
-    <% count += 1 %>
+<div class="row">
+  <% if @results %>
+    <% sort_results(@results) %>
+    <% @sorted.each do |key, value| %>
+      <% count = value.length %>
+      <% if count > 0 %>
+        Found <%= count %> related records in
+          <%= custom_pluralize(key.to_s, 2) %> on page
+          <%= @results.current_page%><br />
+        <%= render partial: key.to_s, object: value %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <h4>Oooooops, nothing to search!</h4>
   <% end %>
-  </tbody>
-</table>
-<% else %>
-  <h4>Oooooops, nothing found!</h4>
-<% end %>
 </div>
 
 <%# The footer pagination %>
-<div class="col-xs-8">
-  <%= page_entries_info @results %><br />
-  <%= will_paginate @results, renderer: BootstrapPagination::Rails %>
+<div class="row">
+  <div class="col-xs-12">
+    <% if @results %>
+      <%= page_entries_info @results %><br />
+      <%= will_paginate @results, renderer: BootstrapPagination::Rails %>
+    <% end %>
+  </div>
 </div>

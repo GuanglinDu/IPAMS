@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'rails_helper'
 
-feature "The site layout", :devise do
+feature "The whole website", :devise do
   scenario "A root browses" do
     @admin = FactoryGirl.create :admin, :root
     sign_in @admin.email, @admin.password
@@ -53,6 +53,15 @@ feature "The site layout", :devise do
     expect(page).to have_content("Show the history of all IP addresses")
     expect(page).to have_content("Displaying all 2 History")
     expect(page).to have_content("PC-office", minimum: 2)
+
+    # Searches for something on the Search view
+    click_link "Search"
+    expect(page).to have_content("Oooooops, nothing to search!")
+    # FIXME: Unable to autoload constant PaginatedCollectionPolicy
+    #fill_in 'search', with: 'lan'
+    #click_button 'Global Search'
+    #expect(page).to have_content("Test-LAN")
+    #expect(page).to have_content("VLAN-1")
 
     # Goes back to the addresses view
     #click_link "Addresses"

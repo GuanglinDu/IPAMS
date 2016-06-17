@@ -13,12 +13,12 @@ class AddressesController < ApplicationController
   # See also http://www.whatibroke.com/?p=235
   def index
     if params[:search].present?
-      @search = Address.search do
+      search = Address.search do
         fulltext params[:search]
         paginate page: params[:page] || 1, per_page: 30
       end 
       # Type Sunspot::Search::PaginatedCollection < Array
-      @addresses = @search.results
+      @addresses = search.results
     else
       # paginate returns object of 
       # type User::ActiveRecord_Relation < ActiveRecord::Relation

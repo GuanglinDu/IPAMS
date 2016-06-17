@@ -11,4 +11,10 @@ class Vlan < ActiveRecord::Base
   validates :vlan_number, inclusion: {in: 1..4094}
   validates :gateway, :static_ip_start, :static_ip_end,
             presence: true, uniqueness: true
+
+  searchable do
+    text :vlan_name, as: :vlan_name_textp 
+    text :vlan_description, as: :vlan_description_textp
+    integer :vlan_number
+  end
 end

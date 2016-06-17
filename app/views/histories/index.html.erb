@@ -10,7 +10,7 @@
   <div class="col-xs-8">
     <%= form_tag histories_path, :method => :get do %>
       <%= text_field_tag :search, params[:search] %>
-      <%= submit_tag "Search", :name => nil %><br />
+      <%= submit_tag "Local Search", :name => nil %><br />
       (IP, MAC, Usage, Date, Assigner)
     <% end %>
   </div>

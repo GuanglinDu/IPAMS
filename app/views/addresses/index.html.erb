@@ -2,18 +2,14 @@
 <div class="row">
   <div class="col-xs-8">
     <h4>Listing IP Addresses</h4>
-
-    <% if false %>
-      The header pagination:
-      https://github.com/bootstrap-ruby/will_paginate-bootstrap
-    <% end %>
+    <%# https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
     <%= page_entries_info @addresses %><br />
     <%= will_paginate @addresses, renderer: BootstrapPagination::Rails %>
   </div>
   <div class="col-xs-4">
     <%= form_tag addresses_path, :method => :get do %>
       <%= text_field_tag :search, params[:search] %>
-      <%= submit_tag "Search", :name => nil %><br />
+      <%= submit_tag "Local Search", :name => nil %><br />
       (IP, MAC, Usage, Date, Assigner)
     <% end %>
   </div>

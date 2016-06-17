@@ -1,20 +1,31 @@
 module SearchHelper
-  
-  # Determines the model object 
-  def who_am_i(model)
-    @model_name = "unkown"
-    if model.is_a?(Lan)
-      @model_name = "Lan"
-    elsif model.is_a?(Vlan)
-      @model_name = "Vlan"
-    elsif model.is_a?(Address)
-      @model_name = "Address"
-    elsif model.is_a?(User)
-      @model_name = "User"
-    elsif model.is_a?(Department)
-      @model_name = "Department"
-    elsif model.is_a?(History)
-      @model_name = "History"
+  # Sorts the search results according to their models, respectively
+  def sort_results(results)
+    @sorted = {lan: [], vlan: [], address: [], user: [], department: [],
+               history: []}
+    results.each do |result|
+      if result.is_a?(Lan)
+        @sorted[:lan] << result
+      elsif result.is_a?(Vlan)
+        @sorted[:vlan] << result
+      elsif result.is_a?(Address)
+        @sorted[:address] << result
+      elsif result.is_a?(User)
+        @sorted[:user] << result
+      elsif result.is_a?(Department)
+        @sorted[:department] << result
+      elsif result.is_a?(History)
+        @sorted[:history] << result
+      end
     end
+  end
+
+  def custom_pluralize(name, count)
+    if name == "lan" or name == "vlan"
+      str = name.upcase
+    else
+      str = name.capitalize
+    end
+    str.pluralize(count)
   end
 end
