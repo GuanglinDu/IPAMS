@@ -8,5 +8,13 @@
   </tr>
   </thead>
   <tbody id="main-table-body">
+    <% department.each do |v| %>
+      <tr>
+        <td><%= v.dept_name %></td>
+        <td><%= v.location %></td>
+        <td></td>
+        <td></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>

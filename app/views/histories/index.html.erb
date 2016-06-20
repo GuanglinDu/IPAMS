@@ -1,13 +1,11 @@
-<% count = @histories.offset %>
-<h3>Show the history of all IP addresses</h3>
-<div>
-  <%= page_entries_info @histories %><br />
-  <%= will_paginate @histories, renderer: BootstrapPagination::Rails %>
-</div>
-
 <%# Search based on Sunspot: the pagination and search on the same row %>
 <div class="row">
   <div class="col-xs-8">
+    <h4>Show the history of all IP addresses</h4>
+    <%= page_entries_info @histories %><br />
+    <%= will_paginate @histories, renderer: BootstrapPagination::Rails %>
+  </div>
+  <div class="col-xs-4">
     <%= form_tag histories_path, :method => :get do %>
       <%= text_field_tag :search, params[:search] %>
       <%= submit_tag "Local Search", :name => nil %><br />
@@ -15,7 +13,9 @@
     <% end %>
   </div>
 </div>
-<div>
+
+<% count = @histories.offset %>
+<div class="row">
   <table class="table table-striped table-condensed">
   <thead>
   <tr>

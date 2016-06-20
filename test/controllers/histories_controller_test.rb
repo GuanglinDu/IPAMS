@@ -11,7 +11,7 @@ class HistoriesControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:histories)
-    assert_select 'h3', "Show the history of all IP addresses"
+    assert_select 'h4', "Show the history of all IP addresses"
     assert_select 'tr th', "MAC Address"
   end
 

@@ -16,12 +16,12 @@
                  locals: {count: count, user_ip_count: addresses.count,
                           editable: false} %>
       <% addresses.each do |addr| %>
-        <%= render partial: "subrow", object: addr, locals: { user: user, editable: false } %>
+        <%= render partial: "subrow", object: addr,
+                   locals: { user: user, editable: false } %>
       <% end %>
     <% else %>
         <%= render partial: "row_with_one_ip", object: user,
           locals: { count: count, addresses: addresses, editable: false } %>
     <% end %>
-
   <% end %>
 <% end %>

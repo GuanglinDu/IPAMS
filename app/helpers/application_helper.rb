@@ -44,7 +44,7 @@ module ApplicationHelper
   # has no such a method, and only an ActiveRecord_Relation has.
   #max_updated_at = addresses.maximum(:updated_at).try(:utc).try(:to_s, :number) 
   # Uses method maximum to the model, instead.
-  # http://stackoverflow.com/questions/21767949/rails-caching-a-paginated-collection
+  # http://goo.gl/CRtFN1
   # Caching pagination collections is tricky. The usual trick of
   # using the collection count and max updated_at does mostly not apply!
   def cache_key_for_addresses(caller_name, offset)
