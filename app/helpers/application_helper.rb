@@ -6,11 +6,11 @@ module ApplicationHelper
 
   # Tables relationship: departments -> users -> addresses
   def find_user(id)
-    @user = User.find(id)
+    User.find(id)
   end
 
   def find_address(id)
-    @address = Address.find(id)
+    Address.find(id)
   end
 
   def find_addresses_of_user(user)
@@ -22,12 +22,14 @@ module ApplicationHelper
   end
 
   def find_department(id)
-    @department = Department.find(id)
+    Department.find(id)
   end
 
   # Determines the latest updated_at value from an address record and its parent
-  # record user collectively as the addresses#index view is mainly composed of these 2 tables.  
-  # The user's parent record department is excluded as only the department name is used. 
+  # record user collectively as the addresses#index view is mainly composed of
+  # these 2 tables.  
+  # The user's parent record department is excluded as only the department name
+  # is used. 
   def max_user_address_updated_at(address)
     # The latest address record updated_at value. dt = datetime.
     dt_addr = address.updated_at
@@ -59,7 +61,8 @@ module ApplicationHelper
     "address-#{address.id}-user-#{user.id}-#{updated_at}"
   end
 
+  # http://goo.gl/DXOjbB
   def integer?(str)
-    /\A[+-]?d+\z/ === str
+    /\A[+-]?\d+\z/ === str
   end
 end

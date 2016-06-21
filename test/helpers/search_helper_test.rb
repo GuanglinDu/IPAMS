@@ -11,14 +11,14 @@ class SearchHelperTest < ActionView::TestCase
       histories(:one)
     ]
 
-    sort_results results
-    assert_equal 6, @sorted.length 
-    assert_equal 1, @sorted[:lan].length 
-    assert_equal 1, @sorted[:vlan].length 
-    assert_equal 1, @sorted[:address].length 
-    assert_equal 1, @sorted[:user].length 
-    assert_equal 1, @sorted[:department].length 
-    assert_equal 1, @sorted[:history].length 
+    sorted = sort_results results
+    assert_equal 6, sorted.length 
+    assert_equal 1, sorted[:lan].length 
+    assert_equal 1, sorted[:vlan].length 
+    assert_equal 1, sorted[:address].length 
+    assert_equal 1, sorted[:user].length 
+    assert_equal 1, sorted[:department].length 
+    assert_equal 1, sorted[:history].length 
   end
 
   def test_custom_pluralize

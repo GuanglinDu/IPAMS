@@ -1,6 +1,6 @@
 <%# A user with 1 or 0 IP address %>
 <% user = row_with_one_ip %>
-<% find_department(user.department_id) %>
+<% department = find_department(user.department_id) %>
 
 <tr>
   <%# cache([user, addresses, @department]) do %><%# partial row caching %>
@@ -139,7 +139,7 @@
                 data-name="department_id"
                 data-url="<%= user_path(user) %>"
                 data-title="Department">
-      <%= @department.dept_name %>
+      <%= department.dept_name %>
     </a>
   </td>
   <td>

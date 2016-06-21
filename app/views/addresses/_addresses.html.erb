@@ -7,17 +7,15 @@
 
   Fragment-caches the whole table. To make the cache key unique, it is based on
   the calling template, the pagination offset (addresses.offset) and the max
-   updated_at attribute. See the implementation of the cache keys.
-<% end %>
+  updated_at attribute. See the implementation of the cache keys.
 
-<% count = addresses.offset %>
-
-<% if false %>
   The whole table caching is disabled as the authorization will be cached,
   too, which is not appropriate.
   TO BE DELETED:
   cache_unless @searched, cache_key_for_addresses(caller_name, count) do
 <% end %>
+
+<% count = addresses.offset %>
 <table class="table table-striped table-condensed">
 <thead>
   <tr>
@@ -51,15 +49,15 @@
 <% end %>
 <tbody id="main-table-body">
   <% addresses.each do |address| %>
-    <% find_user(address.user_id) %>
-    <% find_department(@user.department_id) %>
+    <% user = find_user(address.user_id) %>
+    <% department = find_department(user.department_id) %>
     <% count += 1 %>
 
     <tr id="row-<%= count %>">
-      <% cache([address, @user, @department], skip_digest: true) do %>
+      <% cache([address, user, department], skip_digest: true) do %>
       <td id="no"><%= count %></td>
       <td id="ip-address">
-        <% clr = @user.name == "NOBODY" ? "red" : "green" %>
+        <% clr = user.name == "NOBODY" ? "red" : "green" %>
         <font color="<%= clr %>"><%= address.ip %></font>
       </td>
       <td id="mac-address">
@@ -92,87 +90,87 @@
             data-name="user_id"
             data-url="<%= address_path(address) %>"
             data-title="User Name">
-          <%= @user.name %>
+          <%= user.name %>
         </a>
       </td>
 
       <%# Disabled due to its extreme inefficiency! %>
-      <%# cache cache_key_for_user(address, @user) do %>
+      <%# cache cache_key_for_user(address, user) do %>
       <td id="department-name">
         <a href="#"
             data-xeditable="true"
-            data-pk="<%= @user.id %>"
+            data-pk="<%= user.id %>"
             data-model="user"
             data-name="department_id"
-            data-url="<%= user_path(@user) %>"
+            data-url="<%= user_path(user) %>"
             data-title="Dept Name">
-          <%= @department.dept_name %>
+          <%= department.dept_name %>
         </a>
       </td>
       <td id="user-title">
         <a href="#"
             data-xeditable="true"
-            data-pk="<%= @user.id %>"
+            data-pk="<%= user.id %>"
             data-model="user"
             data-name="title"
-            data-url="<%= user_path(@user) %>"
+            data-url="<%= user_path(user) %>"
             data-title="Title">
-          <%= @user.title %>
+          <%= user.title %>
         </a>
       </td>
       <td id="office-phone">
         <a href="#"
             data-xeditable="true"
-            data-pk="<%= @user.id %>"
+            data-pk="<%= user.id %>"
             data-model="user"
             data-name="office_phone"
-            data-url="<%= user_path(@user) %>"
+            data-url="<%= user_path(user) %>"
             data-title="Office Phone">
-          <%= @user.office_phone %>
+          <%= user.office_phone %>
         </a>
       </td>
       <td id="cell-phone">
         <a href="#"
             data-xeditable="true"
-            data-pk="<%= @user.id %>"
+            data-pk="<%= user.id %>"
             data-model="user"
             data-name="cell_phone"
-            data-url="<%= user_path(@user) %>"
+            data-url="<%= user_path(user) %>"
             data-title="Cell Phone">
-          <%= @user.cell_phone %>
+          <%= user.cell_phone %>
         </a>
       </td>
       <td id="building">
         <a href="#"
             data-xeditable="true"
-            data-pk="<%= @user.id %>"
+            data-pk="<%= user.id %>"
             data-model="user"
             data-name="building"
-            data-url="<%= user_path(@user) %>"
+            data-url="<%= user_path(user) %>"
             data-title="Building">
-          <%= @user.building %>
+          <%= user.building %>
         </a>
       </td>
       <td id="storey">
         <a href="#"
             data-xeditable="true"
-            data-pk="<%= @user.id %>"
+            data-pk="<%= user.id %>"
             data-model="user"
             data-name="storey"
-            data-url="<%= user_path(@user) %>"
+            data-url="<%= user_path(user) %>"
             data-title="Storey">
-          <%= @user.storey %>
+          <%= user.storey %>
         </a>
       </td>
       <td id="room">
         <a href="#"
             data-xeditable="true"
-            data-pk="<%= @user.id %>"
+            data-pk="<%= user.id %>"
             data-model="user"
             data-name="room"
-            data-url="<%= user_path(@user) %>"
+            data-url="<%= user_path(user) %>"
             data-title="Room Number">
-          <%= @user.room %>
+          <%= user.room %>
         </a>
       </td>
       <%# end %><%# Caching is abandoned due to its extreme inefficiency! %>

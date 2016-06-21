@@ -21,8 +21,8 @@
 <% end %>
 <div class="row">
   <% if @results %>
-    <% sort_results(@results) %>
-    <% @sorted.each do |key, value| %>
+    <% sorted = sort_results(@results) %>
+    <% sorted.each do |key, value| %>
       <% count = value.length %>
       <% if count > 0 %>
         Found <%= count %> related records in

@@ -1,23 +1,25 @@
 module SearchHelper
   # Sorts the search results according to their models, respectively
   def sort_results(results)
-    @sorted = {lan: [], vlan: [], address: [], user: [], department: [],
-               history: []}
+    sorted = {lan: [], vlan: [], address: [], user: [], department: [],
+              history: []}
     results.each do |result|
       if result.is_a?(Lan)
-        @sorted[:lan] << result
+        sorted[:lan] << result
       elsif result.is_a?(Vlan)
-        @sorted[:vlan] << result
+        sorted[:vlan] << result
       elsif result.is_a?(Address)
-        @sorted[:address] << result
+        sorted[:address] << result
       elsif result.is_a?(User)
-        @sorted[:user] << result
+        sorted[:user] << result
       elsif result.is_a?(Department)
-        @sorted[:department] << result
+        sorted[:department] << result
       elsif result.is_a?(History)
-        @sorted[:history] << result
+        sorted[:history] << result
       end
     end
+
+    sorted
   end
 
   def custom_pluralize(name, count)

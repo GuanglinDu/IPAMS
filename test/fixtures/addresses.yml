@@ -10,7 +10,7 @@ one:
   application_form: none
 
 two:
-  vlan: one 
+  vlan: one
   user: two
   ip: 10.0.0.2
   usage: Office laptop

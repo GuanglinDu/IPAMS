@@ -1,8 +1,10 @@
-<%# Rows containing the user's IP addressesi
+<% if false %>
+  Rows containing the user's IP addresses
   Twitter Bootstrap display rest of a table rows using collapse.js
-  http://stackoverflow.com/questions/22688021/twitter-bootstrap-display-rest-of-a-table-rows-using-collapse-js
+  http://goo.gl/PaQ2QY
   http://www.bootply.com/122871
-%>
+<% end %>
+
 <% addr = subrow %>
 <% str = user.id.to_s %>
 
@@ -11,16 +13,44 @@
   <td colspan="3"></td>
   <td><%= addr.ip %></td>
   <td >
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="mac_address" data-url="<%= address_path(addr) %>" data-title="MAC Address"><%= addr.mac_address %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= addr.id %>"
+                data-model="address"
+                data-name="mac_address"
+                data-url="<%= address_path(addr) %>"
+                data-title="MAC Address">
+      <%= addr.mac_address %>
+    </a>
   </td>
   <td >
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="start_date" data-url="<%= address_path(addr) %>" data-title="Start Date"><%= addr.start_date %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= addr.id %>"
+                data-model="address"
+                data-name="start_date"
+                data-url="<%= address_path(addr) %>"
+                data-title="Start Date">
+      <%= addr.start_date %>
+    </a>
   </td>
   <td >
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="end_date" data-url="<%= address_path(addr) %>" data-title="End Date"><%= addr.end_date %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= addr.id %>"
+                data-model="address"
+                data-name="end_date"
+                data-url="<%= address_path(addr) %>"
+                data-title="End Date">
+      <%= addr.end_date %>
+    </a>
   </td>
   <td >
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= addr.id %>" data-model="address" data-name="assigner" data-url="<%= address_path(addr) %>" data-title="Assigner"><%= addr.assigner %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= addr.id %>"
+                data-model="address"
+                data-name="assigner"
+                data-url="<%= address_path(addr) %>"
+                data-title="Assigner">
+      <%= addr.assigner %>
+    </a>
   </td>
   <td colspan="7"></td>
 </tr>

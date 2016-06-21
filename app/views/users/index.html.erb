@@ -20,7 +20,8 @@
 <% partial_name = "editable" %>
 <% partial_name = "uneditable" unless policy(@users).edit? %>
 
-<%# The whole table caching is disabled as the authorization will be cached along. %>
+<%# The whole table caching is disabled as the authorization will be
+    cached along. %>
 <%# cache_unless @searched, cache_key_for_users(partial_name, @users.offset) do %>
 <table class="table table-responsive table-condensed">
   <thead>
