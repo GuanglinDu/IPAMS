@@ -19,24 +19,25 @@
 </thead>
 <tbody id="main-table-body">
 <% address.each do |addr| %>
-<% find_user(addr.user_id) %><%# @user in ApplicationHelper %>
-<% find_department(@user.department_id) %><%# @department in ApplicationHelper %>
+<% user = find_user(addr.user_id) %><%# @user in ApplicationHelper %>
+<%# @department in ApplicationHelper %>
+<% department = find_department(user.department_id) %>
 <tr>
   <td>
     <% clr = "green" %>
-    <% clr = "red" if @user.name == "NOBODY" %>
+    <% clr = "red" if user.name == "NOBODY" %>
     <font color="<%= clr %>"><%= addr.ip %></font>
   </td>
   <td><%= addr.mac_address %></td>
   <td><%= addr.usage %></td>
-  <td><%= @user.name %></td>
-  <td><%= @department.dept_name %></td>
-  <td><%= @user.title %></td>
-  <td><%= @user.office_phone %></td>
-  <td><%= @user.cell_phone %></td>
-  <td><%= @user.building %></td>
-  <td><%= @user.storey %></td>
-  <td><%= @user.room %></td>
+  <td><%= user.name %></td>
+  <td><%= department.dept_name %></td>
+  <td><%= user.title %></td>
+  <td><%= user.office_phone %></td>
+  <td><%= user.cell_phone %></td>
+  <td><%= user.building %></td>
+  <td><%= user.storey %></td>
+  <td><%= user.room %></td>
   <td><%= addr.start_date%></td>
   <td><%= addr.end_date%></td>
   <td><%= addr.assigner%></td>
