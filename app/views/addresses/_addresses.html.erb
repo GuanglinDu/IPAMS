@@ -61,35 +61,32 @@
         <font color="<%= clr %>"><%= address.ip %></font>
       </td>
       <td id="mac-address">
-        <a href="#"
-            data-xeditable="true"
-            data-pk="<%= address.id %>"
-            data-model="address"
-            data-name="mac_address"
-            data-url="<%= address_path(address) %>"
-            data-title="MAC Address">
+        <a href="#" data-xeditable="true"
+                    data-pk="<%= address.id %>"
+                    data-model="address"
+                    data-name="mac_address"
+                    data-url="<%= address_path(address) %>"
+                    data-title="MAC Address">
           <%= address.mac_address %>
         </a>
       </td>
       <td id="usage">
-        <a href="#"
-            data-xeditable="true"
-            data-pk="<%= address.id %>"
-            data-model="address"
-            data-name="usage"
-            data-url="<%= address_path(address) %>"
-            data-title="Usage">
+        <a href="#" data-xeditable="true"
+                    data-pk="<%= address.id %>"
+                    data-model="address"
+                    data-name="usage"
+                    data-url="<%= address_path(address) %>"
+                    data-title="Usage">
           <%= address.usage %>
         </a>
       </td>
       <td id="user-name">
-        <a href="#"
-            data-xeditable="true"
-            data-pk="<%= address.id %>"
-            data-model="address"
-            data-name="user_id"
-            data-url="<%= address_path(address) %>"
-            data-title="User Name">
+        <a href="#" data-xeditable="true"
+                    data-pk="<%= address.id %>"
+                    data-model="address"
+                    data-name="user_id"
+                    data-url="<%= address_path(address) %>"
+                    data-title="User Name">
           <%= user.name %>
         </a>
       </td>
@@ -97,128 +94,117 @@
       <%# Disabled due to its extreme inefficiency! %>
       <%# cache cache_key_for_user(address, user) do %>
       <td id="department-name">
-        <a href="#"
-            data-xeditable="true"
-            data-pk="<%= user.id %>"
-            data-model="user"
-            data-name="department_id"
-            data-url="<%= user_path(user) %>"
-            data-title="Dept Name">
+        <a href="#" data-xeditable="true"
+                    data-pk="<%= user.id %>"
+                    data-model="user"
+                    data-name="department_id"
+                    data-url="<%= user_path(user) %>"
+                    data-title="Dept Name">
           <%= department.dept_name %>
         </a>
       </td>
       <td id="user-title">
-        <a href="#"
-            data-xeditable="true"
-            data-pk="<%= user.id %>"
-            data-model="user"
-            data-name="title"
-            data-url="<%= user_path(user) %>"
-            data-title="Title">
+        <a href="#" data-xeditable="true"
+                    data-pk="<%= user.id %>"
+                    data-model="user"
+                    data-name="title"
+                    data-url="<%= user_path(user) %>"
+                    data-title="Title">
           <%= user.title %>
         </a>
       </td>
       <td id="office-phone">
-        <a href="#"
-            data-xeditable="true"
-            data-pk="<%= user.id %>"
-            data-model="user"
-            data-name="office_phone"
-            data-url="<%= user_path(user) %>"
-            data-title="Office Phone">
+        <a href="#" data-xeditable="true"
+                    data-pk="<%= user.id %>"
+                    data-model="user"
+                    data-name="office_phone"
+                    data-url="<%= user_path(user) %>"
+                    data-title="Office Phone">
           <%= user.office_phone %>
         </a>
       </td>
       <td id="cell-phone">
-        <a href="#"
-            data-xeditable="true"
-            data-pk="<%= user.id %>"
-            data-model="user"
-            data-name="cell_phone"
-            data-url="<%= user_path(user) %>"
-            data-title="Cell Phone">
+        <a href="#" data-xeditable="true"
+                    data-pk="<%= user.id %>"
+                    data-model="user"
+                    data-name="cell_phone"
+                    data-url="<%= user_path(user) %>"
+                    data-title="Cell Phone">
           <%= user.cell_phone %>
         </a>
       </td>
       <td id="building">
-        <a href="#"
-            data-xeditable="true"
-            data-pk="<%= user.id %>"
-            data-model="user"
-            data-name="building"
-            data-url="<%= user_path(user) %>"
-            data-title="Building">
+        <a href="#" data-xeditable="true"
+                    data-pk="<%= user.id %>"
+                    data-model="user"
+                    data-name="building"
+                    data-url="<%= user_path(user) %>"
+                    data-title="Building">
           <%= user.building %>
         </a>
       </td>
       <td id="storey">
-        <a href="#"
-            data-xeditable="true"
-            data-pk="<%= user.id %>"
-            data-model="user"
-            data-name="storey"
-            data-url="<%= user_path(user) %>"
-            data-title="Storey">
+        <a href="#" data-xeditable="true"
+                    data-pk="<%= user.id %>"
+                    data-model="user"
+                    data-name="storey"
+                    data-url="<%= user_path(user) %>"
+                    data-title="Storey">
           <%= user.storey %>
         </a>
       </td>
       <td id="room">
-        <a href="#"
-            data-xeditable="true"
-            data-pk="<%= user.id %>"
-            data-model="user"
-            data-name="room"
-            data-url="<%= user_path(user) %>"
-            data-title="Room Number">
+        <a href="#" data-xeditable="true"
+                    data-pk="<%= user.id %>"
+                    data-model="user"
+                    data-name="room"
+                    data-url="<%= user_path(user) %>"
+                    data-title="Room Number">
           <%= user.room %>
         </a>
       </td>
       <%# end %><%# Caching is abandoned due to its extreme inefficiency! %>
 
       <td id="start-date">
-        <a href="#"
-            data-xeditable="true"
-            data-pk="<%= address.id %>"
-            data-model="address"
-            data-name="start_date"
-            data-url="<%= address_path(address) %>"
-            data-title="Start Date">
+        <a href="#" data-xeditable="true"
+                    data-pk="<%= address.id %>"
+                    data-model="address"
+                    data-name="start_date"
+                    data-url="<%= address_path(address) %>"
+                    data-title="Start Date">
           <%= address.start_date %>
         </a>
       </td>
       <td id="end-date">
-        <a href="#"
-            data-xeditable="true"
-            data-pk="<%= address.id %>"
-            data-model="address"
-            data-name="end_date"
-            data-url="<%= address_path(address) %>"
-            data-title="End Date">
+        <a href="#" data-xeditable="true"
+                    data-pk="<%= address.id %>"
+                    data-model="address"
+                    data-name="end_date"
+                    data-url="<%= address_path(address) %>"
+                    data-title="End Date">
           <%= address.end_date %>
         </a>
       </td>
       <td id="assigner">
-        <a href="#"
-            data-xeditable="true"
-            data-pk="<%= address.id %>"
-            data-model="address"
-            data-name="assigner"
-            data-url="<%= address_path(address) %>"
-            data-title="Assigner">
+        <a href="#" data-xeditable="true"
+                    data-pk="<%= address.id %>"
+                    data-model="address"
+                    data-name="assigner"
+                    data-url="<%= address_path(address) %>"
+                    data-title="Assigner">
           <%= address.assigner %>
         </a>
       </td>
 
       <td id="recyclable">
-        <a href="#"
-            data-xeditable="true"
-            data-pk="<%= address.id %>"
-            data-model="address"
-            data-name="recyclable"
-            data-url="<%= address_path(address) %>"
-            data-title="Select options"
-            data-type="checklist"
-            data-value="<%= address.recyclable ? 1 :0 %>">
+        <a href="#" data-xeditable="true"
+                    data-pk="<%= address.id %>"
+                    data-model="address"
+                    data-name="recyclable"
+                    data-url="<%= address_path(address) %>"
+                    data-title="Select options"
+                    data-type="checklist"
+                    data-value="<%= address.recyclable ? 1 :0 %>">
           <%= address.recyclable %>
         </a>
       </td>
