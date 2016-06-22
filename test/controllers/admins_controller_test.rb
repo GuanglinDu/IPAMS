@@ -52,6 +52,15 @@ class AdminsControllerTest < ActionController::TestCase
     assert_redirected_to admins_path
   end
 
+  test "should update name" do
+    sign_in @tom # Only a root can update an admin's name
+
+    patch :update,
+          id: @hillary,
+          admin: {name: "Hillary Clinton"}
+    assert_redirected_to admins_path
+  end
+
   test "should destroy admin" do
     sign_in @tom # Only a root can delete an admin
 

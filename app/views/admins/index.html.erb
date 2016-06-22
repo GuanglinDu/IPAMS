@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>No.</th>
+      <th>Name</th>
       <th>Email Address</th>
       <th>Role</th>
       <th>Sign-in Count</th>
@@ -21,15 +22,24 @@
     <% @admins.each_with_index do |admin, index| %>
       <tr>
         <td><%= index + 1 %></td>
+        <td id="amdin-name">
+          <a href="#" data-xeditable="true"
+                      data-pk="<%= admin.id %>"
+                      data-model="admin"
+                      data-name="name"
+                      data-url="<%= admin_path(admin.id) %>"
+                      data-title="Admin Name">
+            <%= admin.name %>
+          </a>
+        </td>
         <td><%= admin.email %></td>
         <td id="admin-role">
-          <a href="#"
-              data-value="<%= admin.role %>"
-              data-pk="<%= admin.id %>"
-              data-model="admin"
-              data-name="role"
-              data-url="<%= admin_path(admin) %>"
-              data-title="Select Role">
+          <a href="#" data-value="<%= admin.role %>"
+                      data-pk="<%= admin.id %>"
+                      data-model="admin"
+                      data-name="role"
+                      data-url="<%= admin_path(admin) %>"
+                      data-title="Select Role">
             <%= admin.role %>
           </a>
         </td>
