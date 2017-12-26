@@ -1,8 +1,11 @@
 <% addresses = uneditable %>
 <% count = addresses.offset %>
 
-<% caller_name = "#{caller_name}-uneditiable" %><%# To distinguish editable and uneditable views %>
-<% cache_unless @searched, cache_key_for_addresses(caller_name, count) do %><%# the whole table caching %>
+<%# To distinguish editable and uneditable views %>
+<% caller_name = "#{caller_name}-uneditiable" %>
+<%# the whole table caching %>
+<%# cache_unless @searched, cache_key_for_addresses(caller_name, count) do %>
+<% cache cache_key_for_addresses(caller_name, count) do %>
 <table class="table table-striped table-condensed">
 <thead>
 <tr>
@@ -29,25 +32,26 @@
 </thead>
 <tbody id="main-table-body">
 <% addresses.each do |address| %>
-<% find_user(address.user_id) %><%# @user in ApplicationHelper %>
-<% find_department(@user.department_id) %><%# @department in ApplicationHelper %>
+<% user = find_user(address.user_id) %><%# user in ApplicationHelper %>
+<%# department in ApplicationHelper %>
+<% department = find_department(user.department_id) %>
 <tr>
   <td><%= count += 1 %></td>
   <td>
     <% clr = "green" %>
-    <% clr = "red" if @user.name == "NOBODY" %>
+    <% clr = "red" if user.name == "NOBODY" %>
     <font color="<%= clr %>"><%= address.ip %></font>
   </td>
   <td><%= address.mac_address %></td>
   <td><%= address.usage %></td>
-  <td><%= @user.name %></td>
-  <td><%= @department.dept_name %></td>
-  <td><%= @user.title %></td>
-  <td><%= @user.office_phone %></td>
-  <td><%= @user.cell_phone %></td>
-  <td><%= @user.building %></td>
-  <td><%= @user.storey %></td>
-  <td><%= @user.room %></td>
+  <td><%= user.name %></td>
+  <td><%= department.dept_name %></td>
+  <td><%= user.title %></td>
+  <td><%= user.office_phone %></td>
+  <td><%= user.cell_phone %></td>
+  <td><%= user.building %></td>
+  <td><%= user.storey %></td>
+  <td><%= user.room %></td>
   <td><%= address.start_date%></td>
   <td><%= address.end_date%></td>
   <td><%= address.assigner%></td>

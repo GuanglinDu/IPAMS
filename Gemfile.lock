@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     actionmailer (4.1.8)
       actionpack (= 4.1.8)
@@ -27,6 +27,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    addressable (2.4.0)
     ansi (1.5.0)
     arel (5.0.1.20140414130214)
     autoprefixer-rails (4.0.2.2)
@@ -50,6 +51,13 @@ GEM
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
       slop (~> 3.6)
+    capybara (2.7.1)
+      addressable
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
     coderay (1.1.1)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -60,6 +68,7 @@ GEM
     coffee-script-source (1.9.0)
     columnize (0.9.0)
     daemons (1.1.9)
+    database_cleaner (1.5.3)
     debugger-linecache (1.2.0)
     devise (3.4.1)
       bcrypt (~> 3.0)
@@ -68,9 +77,15 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    diff-lcs (1.2.5)
     erubis (2.7.0)
     eventmachine (1.0.5)
     execjs (2.2.2)
+    factory_girl (4.7.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.7.0)
+      factory_girl (~> 4.7.0)
+      railties (>= 3.0.0)
     faker (1.5.0)
       i18n (~> 0.5)
     ffi (1.9.10)
@@ -167,6 +182,23 @@ GEM
       railties (>= 3.2, < 4.2)
     rsolr (1.0.12)
       builder (>= 2.1.2)
+    rspec-core (3.4.4)
+      rspec-support (~> 3.4.0)
+    rspec-expectations (3.4.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-mocks (3.4.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-rails (3.4.2)
+      actionpack (>= 3.0, < 4.3)
+      activesupport (>= 3.0, < 4.3)
+      railties (>= 3.0, < 4.3)
+      rspec-core (~> 3.4.0)
+      rspec-expectations (~> 3.4.0)
+      rspec-mocks (~> 3.4.0)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
     ruby-progressbar (1.7.5)
     rubyzip (1.0.0)
     sass (3.2.19)
@@ -217,6 +249,8 @@ GEM
     will_paginate (3.0.7)
     will_paginate-bootstrap (1.0.1)
       will_paginate (>= 3.0.3)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -230,8 +264,11 @@ DEPENDENCIES
   bootstrap-x-editable-rails
   bootstrap_form
   byebug
+  capybara
   coffee-rails (~> 4.0.0)
+  database_cleaner
   devise
+  factory_girl_rails
   faker
   font-awesome-sass
   guard-minitest (= 2.3.1)
@@ -243,6 +280,7 @@ DEPENDENCIES
   pundit
   rack-ssl (~> 1.4.1)
   rails (= 4.1.8)
+  rspec-rails (~> 3.4)
   sass-rails (~> 4.0.0)
   sdoc
   sqlite3
@@ -252,6 +290,3 @@ DEPENDENCIES
   turbolinks
   uglifier (>= 1.3.0)
   will_paginate-bootstrap
-
-BUNDLED WITH
-   1.11.2

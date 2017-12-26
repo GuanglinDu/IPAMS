@@ -1,6 +1,26 @@
 class HistoriesController < ApplicationController
   before_action :retrieve_address, only: :create
 
+  def index
+    if params[:search].present?
+      @search = History.search do
+        fulltext params[:search]
+        paginate page: params[:page] || 1, per_page: 30
+      end 
+      # Type Sunspot::Search::PaginatedCollection < Array
+      @histories = @search.results
+    else
+      # paginate returns object of 
+      # type User::ActiveRecord_Relation < ActiveRecord::Relation
+      @histories = History.paginate(
+        page: params[:page],
+        per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
+      )
+    end
+
+    authorize @histories
+  end
+
   def new
     @history = History.new
   end
@@ -22,7 +42,24 @@ class HistoriesController < ApplicationController
     end
   end
 
-private
+  # Never trust parameters from the scary internet,
+  # only allow the white list through.
+  #def history_params
+    #params[:history].permit(
+      #:vlan_id,
+      #:rec_ip,
+      #:user_name,
+      #:mac_address,
+      #:usage,
+      #:start_date,
+      #:end_date,
+      #:application_form,
+      #:assigner,
+      #:recyclable
+    #)
+  #end
+
+  private
 
   # We need to have the address info to recycle it and create a historical record
   def retrieve_address
@@ -46,5 +83,6 @@ private
     @history.start_date = @address.start_date
     @history.end_date = @address.end_date
     @history.application_form = @address.application_form
+    #@history.rec_ip = @address.ip
   end
 end

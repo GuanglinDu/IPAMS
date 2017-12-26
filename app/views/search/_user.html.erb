@@ -1,0 +1,30 @@
+<table class="table table-responsive table-condensed">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Title</th>
+    <th>Office phone</th>
+    <th>Cell phone</th>
+    <th>Email</th>
+    <th>Building</th>
+    <th>Storey</th>
+    <th>Room</th>
+    <th>Department</th>
+    <th></th>
+  </tr>
+</thead>
+<tbody id="main-table-body">
+  <% user.each do |v| %>
+    <tr>
+      <td><%= v.name %></td>
+      <td><%= v.title %></td>
+      <td><%= v.office_phone %></td>
+      <td><%= v.cell_phone %></td>
+      <td><%= v.email %></td>
+      <td><%= v.building %></td>
+      <td><%= v.storey %></td>
+      <td><%= v.room %></td>
+      <td><%= find_department_name v.department_id %></td>
+    </tr>
+  <% end %>
+</table>

@@ -1,3 +1,7 @@
+nonexistent: # the special department
+  dept_name: NONEXISTENT 
+  location: Nowhere
+
 one:
   dept_name: Computer Application 
   location: The Main building

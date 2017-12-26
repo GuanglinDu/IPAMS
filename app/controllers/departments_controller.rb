@@ -6,8 +6,8 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
-    #@departments = Department.all # mem killer
-    @departments = Department.paginate(page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
+    @departments = Department.paginate(page: params[:page],
+      per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     authorize @departments
   end
 
@@ -38,11 +38,13 @@ class DepartmentsController < ApplicationController
       if @department.save
         flash[:success] = 'Department was successfully created.'
         format.html { redirect_to @department }
-        format.json { render action: 'show', status: :created, location: @department }
+        format.json { render action: 'show', status: :created,
+                             location: @department }
       else
         flash[:error] = 'There was a problem creating the Department.'
         format.html { render action: 'new' }
-        format.json { render json: @department.errors, status: :unprocessable_entity }
+        format.json { render json: @department.errors,
+                             status: :unprocessable_entity }
       end
     end
   end
@@ -61,7 +63,8 @@ class DepartmentsController < ApplicationController
         else
           flash[:error] = 'There was a problem updating the Department.'
           format.html { render action: 'edit' }
-          format.json { render json: @department.errors, status: :unprocessable_entity }
+          format.json { render json: @department.errors,
+                               status: :unprocessable_entity }
         end
       else
         flash[:alert] = 'NONEXISTENT department CANNOT be updated.'
@@ -78,26 +81,29 @@ class DepartmentsController < ApplicationController
 
     @department.destroy unless nonexistent_dept?
     respond_to do |format|
-      flash[:alert] = 'NONEXISTENT department CANNOT be destroyed.' if nonexistent_dept?
+      if nonexistent_dept?
+        flash[:alert] = 'NONEXISTENT department CANNOT be destroyed.'
+      end
       format.html { redirect_to departments_url }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_department
-      @department = Department.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def department_params
-      params.require(:department).permit(:dept_name, :location)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_department
+    @department = Department.find(params[:id])
+  end
 
-    # Protect the NONEXISTENT department from being updated
-    def nonexistent_dept?
-      @department.dept_name == "NONEXISTENT"
-    end
+  # Never trust parameters from the scary internet,
+  # only allow the white list through.
+  def department_params
+    params.require(:department).permit(:dept_name, :location)
+  end
+
+  # Protects the NONEXISTENT department from being updated
+  def nonexistent_dept?
+    @department.dept_name == "NONEXISTENT"
+  end
 end
-
