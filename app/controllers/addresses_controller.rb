@@ -141,7 +141,7 @@ class AddressesController < ApplicationController
   # Resolves FK user_id before saving the modified @address. If the user
   # doesn't exist, create a new one belonging to the NONEXISTENT department.
   def find_user_id(name)
-    user = User.find_by(name: name)
+    user = User.find_by(name: name.strip) # Removes whitespaces
     unless user
       u1 = Department.find_by(dept_name: 'NONEXISTENT').users.create(name: name)
       user = u1 if u1.valid?
