@@ -6,7 +6,7 @@ A Ruby on Rails (RoR) based IP Address Management System.
 Status
 ------
 * Feature-riched and ready for use now with fine-tunning features on the way;
-* Branch develop is always the most rececent commit;
+* Branch develop is always the latest commit;
 * ERD (Entity Relationship Diagram) is under folder architecture & drawn with Dia;
 * Supports only IPv4 at present.
  
@@ -18,6 +18,20 @@ How-tos
 * rake init:vlans (rake init:VLAN-NAME to initialize a specific VLAN)
 * start the server locally: rails server
 * Browse it locally: http://localhost:3000
+
+Tests Based On MiniTest & Rspec
+------
+* Run the unit and functional tests: bundle exec rake test (MiniTest based)
+* Run all the tests under dir test/: bundle exec rake test:all
+* Run the integration tests based on Rspec: bundle exec rspec (Based on Rspect, Capybara and FactoryGirl)
+
+Testing Tips when sunspot and devise are integrated
+------
+* Configure the rake task with the test environment: rake sunspot:solr:run RAILS_ENV=test (See [sunspot_rails gem - “ Errno:: ECONNREFUSED (Connection refused - connect (2)) ”](http://stackoverflow.com/questions/7687343/sunspot-rails-gem-errno-econnrefused-connection-refused-connect-2) )
+* The above sunspot test instance can run along with the development instance.
+* To sign in a user with devise by the following 2 lines (See : [Making functional tests in Rails with Devise](http://stackoverflow.com/questions/3187287/making-functional-tests-in-rails-with-devise) )
+   include Devise::TestHelpers
+   sign_in username
 
 Populate the development db
 ------

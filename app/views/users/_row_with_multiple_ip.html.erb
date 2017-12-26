@@ -1,45 +1,115 @@
-<!-- 
+<% if false %> 
 1. Twitter Bootstrap display rest of a table rows using collapse.js
-  http://stackoverflow.com/questions/22688021/twitter-bootstrap-display-rest-of-a-table-rows-using-collapse-js
-  http://www.bootply.com/122871
+   http://goo.gl/HQ5LDx
+   http://www.bootply.com/122871
 2. How to add plus minus symbol to a bootstrap accordion
-  http://stackoverflow.com/questions/22242422/how-to-add-plus-minus-symbol-to-a-bootstrap-accordion
- -->
+   http://goo.gl/KE1kHE
+<% end %>
+
 <% user = row_with_multiple_ip %>
-<% find_department(user.department_id) %>
+<% department = find_department(user.department_id) %>
 
 <tr>
-  <%# cache([user, @department]) do %><%# partial row caching disables as it's inefficiency. %>
+  <%# partial row caching disables as it's inefficiency. %>
+  <%# cache([user, @department]) do %>
   <td><%= count %></td>
   <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="name" data-url="<%= user_path(user) %>" data-title="User Name"><%= user.name %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user"
+                data-name="name"
+                data-url="<%= user_path(user) %>"
+                data-title="User Name">
+      <%= user.name %>
+    </a>
   </td>
   <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="title" data-url="<%= user_path(user) %>" data-title="Title"><%= user.title %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user"
+                data-name="title"
+                data-url="<%= user_path(user) %>"
+                data-title="Title">
+      <%= user.title %>
+    </a>
   </td>
-  <td colspan="5" data-toggle="collapse" data-target=".<%= user.id.to_s %>" class="text-info">
-    <button type="button" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-plus">&nbsp;<%= user_ip_count %>&nbsp;IP Addresses</i></button>
-  </td>
-  <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="office_phone" data-url="<%= user_path(user) %>" data-title="Office Phone"><%= user.office_phone %></a>
-  </td>
-  <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="cell_phone" data-url="<%= user_path(user) %>" data-title="Mobile"><%= user.cell_phone %></a>
-  </td>
-  <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="email" data-url="<%= user_path(user) %>" data-title="Email"><%= user.email %></a>
-  </td>
-  <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="building" data-url="<%= user_path(user) %>" data-title="Building"><%= user.building %></a>
-  </td>
-  <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="storey" data-url="<%= user_path(user) %>" data-title="Mobile"><%= user.storey %></a>
+  <td colspan="5" data-toggle="collapse"
+                  data-target=".<%= user.id.to_s %>" class="text-info">
+    <button type="button" class="btn btn-info btn-xs">
+      <i class="glyphicon glyphicon-plus">&nbsp;
+        <%= user_ip_count %>&nbsp;IP Addresses
+      </i>
+    </button>
   </td>
   <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="room" data-url="<%= user_path(user) %>" data-title="Room"><%= user.room %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user"
+                data-name="office_phone"
+                data-url="<%= user_path(user) %>"
+                data-title="Office Phone">
+      <%= user.office_phone %>
+    </a>
   </td>
   <td>
-    <a href="#" data-xeditable="<%= editable %>" data-pk="<%= user.id %>" data-model="user" data-name="department_id" data-url="<%= user_path(user) %>" data-title="Department"><%= @department.dept_name %></a>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user"
+                data-name="cell_phone"
+                data-url="<%= user_path(user) %>"
+                data-title="Mobile">
+      <%= user.cell_phone %>
+    </a>
+  </td>
+  <td>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user"
+                data-name="email"
+                data-url="<%= user_path(user) %>"
+                data-title="Email">
+      <%= user.email %>
+    </a>
+  </td>
+  <td>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user"
+                data-name="building"
+                data-url="<%= user_path(user) %>"
+                data-title="Building">
+      <%= user.building %>
+    </a>
+  </td>
+  <td>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user"
+                data-name="storey"
+                data-url="<%= user_path(user) %>"
+                data-title="Mobile">
+      <%= user.storey %>
+    </a>
+  </td>
+  <td>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user"
+                data-name="room"
+                data-url="<%= user_path(user) %>"
+                data-title="Room">
+      <%= user.room %>
+    </a>
+  </td>
+  <td>
+    <a href="#" data-xeditable="<%= editable %>"
+                data-pk="<%= user.id %>"
+                data-model="user"
+                data-name="department_id"
+                data-url="<%= user_path(user) %>"
+                data-title="Department">
+      <%= department.dept_name %>
+    </a>
   </td>
   <td>
    <%= link_to 'Show', user, class: 'btn btn-primary btn-xs' %>
@@ -49,7 +119,8 @@
   <%# Authorization should NOT be cached!!! %>
   <% if policy(user).destroy? %>
     <td>
-      <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
+      <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' },
+                        class: 'btn btn-danger btn-xs' do %>
         <i class="glyphicon glyphicon-remove"></i> Destroy
       <% end %>
     </td>

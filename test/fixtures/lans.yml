@@ -9,3 +9,8 @@ two:
   lan_number: 2
   lan_name: Main Building
   lan_description: Barak Obama Network
+
+three:
+  lan_number: 3
+  lan_name: LAN-3
+  lan_description: LAN to be deleted

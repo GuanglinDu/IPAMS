@@ -4,7 +4,7 @@
 # http://goo.gl/Ex30Is 
 class Admin < ActiveRecord::Base
   # Must be >= Rails 4.1
-  enum role: [:nobody, :guest, :operator, :expert, :admin, :root]
+  enum role: [:nobody, :guest, :operator, :expert, :vip, :root]
 
   after_initialize :set_default_role, :if => :new_record?
 

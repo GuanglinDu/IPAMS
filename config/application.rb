@@ -1,5 +1,4 @@
 require File.expand_path('../boot', __FILE__)
-
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
@@ -23,7 +22,9 @@ module Ipams
     # config.i18n.load_path +=
     # Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-    # Seems useless
+    
+    # The new line added for autoload of lib. Seems useless
+    # See https://goo.gl/XFpBwR
     #config.autoload_paths += %W(#{config.root}/lib)
 
     # Disable https in development
