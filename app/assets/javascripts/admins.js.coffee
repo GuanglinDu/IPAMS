@@ -25,7 +25,7 @@ refreshInPlaceEditing2 = (obj, elemText, url) ->
              {vlaue: 1, text: 'guest'},
              {vlaue: 2, text: 'operator'},
              {vlaue: 3, text: 'expert'},
-             {vlaue: 4, text: 'admin'},
+             {vlaue: 4, text: 'vip'},
              {vlaue: 5, text: 'root'}]
     ajaxOptions:
       url: url
