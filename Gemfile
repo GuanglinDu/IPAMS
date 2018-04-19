@@ -21,7 +21,7 @@ gem 'sunspot_rails',              '2.2.0'
 gem 'sunspot_solr',               '2.2.0'
 gem 'progress_bar',               '1.0.3'
 gem 'rack-ssl',                   '1.4.1'
-gem 'axlsx',                      '2.0.1'
+gem 'axlsx',                      '3.0.0.pre'
 gem 'axlsx_rails',                '0.4.0'
 
 group :development, :test do
