@@ -1,8 +1,5 @@
 class AddressesController < ApplicationController
   before_action :set_address, only: [:show, :edit, :update, :destroy, :recycle]
-  #after_action :verify_authorized
-  #after_action :verify_authorized, except: :index
-  #after_action :verify_policy_scoped, only: :index
 
   # Resolves the FK user_id before updating a record
   before_action :convert_user_name_to_user_id, only: :update

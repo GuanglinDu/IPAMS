@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   # Resolves the FK department_id before updating a record
   before_action :convert_dept_name_to_dept_id, only: :update
@@ -94,6 +93,8 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     authorize @user
+
+    # Recycle the associated IP addresses before deleting the user.
 
     @user.destroy unless nobody?
     respond_to do |format|
