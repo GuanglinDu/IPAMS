@@ -95,10 +95,19 @@ class UsersController < ApplicationController
     authorize @user
 
     # Recycle the associated IP addresses before deleting the user.
+    count = @user.addresses.count 
+    if  count > 0
+      info = "User #{@user.name} has #{count} address(es) assigned." \
+             " Recycle first!"
+    else
+      @user.destroy unless nobody?
+      info1 = "User NOBODY CANNOT be destroyed."
+      info2 = "User #{@user.name} destroyed."
+      nobody? ? info=info1 : info=info2
+    end
 
-    @user.destroy unless nobody?
     respond_to do |format|
-      flash[:alert] = 'User NOBODY CANNOT be destroyed.' if nobody?
+      flash[:alert] = info
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
