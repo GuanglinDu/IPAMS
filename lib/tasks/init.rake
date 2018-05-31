@@ -35,7 +35,20 @@ namespace :init do
     if vlan
       init_a_single_vlan vlan
     else
-      puts "ERROR: #{args.vlanname} not found!"
+      puts "ERROR: #{args.vlan_name} not found!"
+    end
+    puts "--- Done! ---"
+  end
+
+  desc "Restore an ip address"
+  task :restore, [:vlan_name, :addr] => :environment do |t, args|
+    puts "*** Selected VLAN to insert the ip address into: #{args.vlan_name}"    
+    vlan = Vlan.find_by vlan_name: args.vlan_name
+    if vlan
+      user1 = find_user_nobody
+      vlan.addresses.create user_id: user1.id, ip: args.addr
+    else
+      puts "ERROR: #{args.vlan_name} not found!"
     end
     puts "--- Done! ---"
   end
