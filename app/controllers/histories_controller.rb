@@ -61,7 +61,7 @@ class HistoriesController < ApplicationController
 
   private
 
-  # We need to have the address info to recycle it and create a historical record
+  # Use the address info to recycle it and create a historical record
   def retrieve_address
     address_id = params[:address_id] 
     @address = Address.find(address_id)

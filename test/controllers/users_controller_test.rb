@@ -48,9 +48,18 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to user_path(assigns(:user))
   end
 
+  # User one has an IP address assigned. Hence, it cannot be deleted before the
+  # association is removed.
+  test "should not destroy user" do
+    assert_difference('User.count', 0) do
+      delete :destroy, id: @user
+    end
+    assert_redirected_to users_path
+  end
+
   test "should destroy user" do
     assert_difference('User.count', -1) do
-      delete :destroy, id: @user
+      delete :destroy, id: users(:user_without_ip)
     end
     assert_redirected_to users_path
   end

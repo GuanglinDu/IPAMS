@@ -1,6 +1,4 @@
-# Read about fixtures at
-# http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-nobody: # the special user
+nobody:
   name: NOBODY 
   office_phone: 2500
   cell_phone: 1391234500
@@ -28,4 +26,14 @@ two:
   building: The White Building
   storey: 2
   room: 202
+  department: two
+
+user_without_ip:
+  name: Jane White
+  office_phone: 2001
+  cell_phone: 13912345670
+  email: janewhite@example.com
+  building: The Jane Building
+  storey: 2
+  room: 203
   department: two
