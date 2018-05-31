@@ -32,6 +32,8 @@ Testing Tips when sunspot and devise are integrated
 * To sign in a user with devise by the following 2 lines (See : [Making functional tests in Rails with Devise](http://stackoverflow.com/questions/3187287/making-functional-tests-in-rails-with-devise) )
    include Devise::TestHelpers
    sign_in username
+* Before running the test, please start Sunspot for the test environment:
+bundle exec rake sunspot:solr:start RAILS_ENV=test
 
 Populate the development db
 ------
