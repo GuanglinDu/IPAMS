@@ -73,7 +73,6 @@ ActiveRecord::Schema.define(version: 20180531014708) do
     t.integer  "cell_phone",       limit: 8
     t.string   "building"
     t.integer  "room"
-    t.string   "rec_ip"
   end
 
   add_index "histories", ["address_id"], name: "index_histories_on_address_id"
