@@ -1,5 +1,4 @@
 class SearchController < ApplicationController
-
   # https://github.com/sunspot/sunspot
   # https://github.com/outoftime/sunspot/wiki/Working-with-search
   # http://goo.gl/85PYFF

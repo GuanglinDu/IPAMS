@@ -10,8 +10,7 @@ class UsersController < ApplicationController
     if params[:search].present?
       search = User.search do
         fulltext params[:search]
-        # See http://www.whatibroke.com/?p=235
-        paginate :page => params[:page] || 1, :per_page => 30
+        paginate page: params[:page] || 1, per_page: 30
       end 
       # Type Sunspot::Search::PaginatedCollection < Array
       @users = search.results
@@ -20,7 +19,7 @@ class UsersController < ApplicationController
                              per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     end
 
-    authorize @users
+    authorize @users 
   end
 
   # GET /users/1

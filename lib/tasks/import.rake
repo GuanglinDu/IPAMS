@@ -246,11 +246,13 @@ namespace :import do
 
     # Attention: In Ruby, nil is false, while 0 is true (Non-nil is true).
     def update?(str)
-      r = nil
+      #r = nil
+      r = false
       if str && str.instance_of?(String)
         str.strip!
         str.downcase!
-        r = 1 if str == 'y' || str == 'yes'
+        #r = 1 if str == 'y' || str == 'yes'
+        r = true if str == 'y' || str == 'yes'
       end
       return r
     end
