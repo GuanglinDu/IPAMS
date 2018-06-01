@@ -4,7 +4,7 @@ require 'test_helper'
 # at http://guides.rubyonrails.org/testing.html
 class LansControllerTest < ActionController::TestCase
   setup do
-    sign_in admins(:tom) # root
+    sign_in admins(:tom)   # root
     #sign_in admins(:jerry) # admin
   end
 
@@ -29,9 +29,11 @@ class LansControllerTest < ActionController::TestCase
   test "should create lan" do
     assert_difference("Lan.count", 1,
                       "A new Lan should be added to the test db") do
-      post :create, lan: {lan_number: Lan.count + 1,
+      post :create, lan: {
+        lan_number: Lan.count + 1,
         lan_name: "Unamed LAN",
-        lan_description: "Created by lans_controller_test.rb"}
+        lan_description: "Created by lans_controller_test.rb"
+      }
     end
     assert_redirected_to lan_path(assigns(:lan))
   end

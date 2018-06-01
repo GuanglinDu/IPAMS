@@ -49,7 +49,6 @@ end
 
 # Tests the controller with Pundit enabled: http://goo.gl/qsRIVo
 
-
 # 1. Signs in a user with Devise: http://goo.gl/djlwAJ
 #    See also https://github.com/plataformatec/devise
 # 2. See http://goo.gl/hFRmE0

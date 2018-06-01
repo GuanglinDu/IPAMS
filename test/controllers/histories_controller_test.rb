@@ -15,7 +15,7 @@ class HistoriesControllerTest < ActionController::TestCase
     assert_select 'tr th', "MAC Address"
   end
 
-  test "should create" do
+  test "should create history" do
     assert_difference('History.count', 1) do
       #post :create, histories_path, history: {address_id: addresses(:one).id,
       #                                        usage: "Office laptop"}
