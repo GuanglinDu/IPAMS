@@ -1,5 +1,5 @@
 class HelpController < ApplicationController
   def index
-    #authorize SystemUser
+    #authorize Admin 
   end
 end

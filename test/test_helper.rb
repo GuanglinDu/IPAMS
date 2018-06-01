@@ -20,7 +20,6 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
   private
 
   # Returns true inside an integration test.
@@ -30,7 +29,7 @@ class ActiveSupport::TestCase
 
   def sign_in_admin(admin)
     post_via_redirect admin_session_path,
-         admin: {email: admin.email, password: admin.password}
+                      admin: {email: admin.email, password: admin.password}
     # The following format is OK, too.
          #"admin[email]" => tom.email,
          #"admin[password]" =>tom.password

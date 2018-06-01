@@ -1,6 +1,6 @@
 # Headless (no model) policies
 class WelcomePolicy < Struct.new(:admin, :welcome)
-  # Any SystemUser can access the welcome page
+  # Any Admin can access the welcome page
   def index?
     true
   end
