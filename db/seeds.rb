@@ -1,21 +1,34 @@
 # encoding: utf-8
+require_relative 'populate_admins'
+require_relative 'populate_lans'
+require_relative 'populate_departments'
 
-# This file should contain all the record creation needed to seed the database
-# with its default values. The data can then be loaded with the rake db:seed
-# (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-require_relative 'populate_table'
-include PopulateTable
+include PopulateAdmins
+include PopulateLans
+include PopulateDepartments
 
-# Stops rake db:seed in the production environment
-#if (ENV["RAILS_ENV"] == "production" || ENV["RAILS_ENV"] == "test")
+# bundle exec rake db:seed forbidden in the production environment
 if (Rails.env.production? || Rails.env.test?)
-  puts "Running rake db:seed in the production/test environment is forbidden!" \
-    "Usage:\n\tbundle exec rake db:seed RAILS_ENV=development"
+  hint
 else
-  run
+  Address.delete_all
+  Vlan.delete_all
+  Lan.delete_all
+  User.delete_all
+  Department.delete_all
+
+  create_admins
+  create_lans
+  create_vlans Lan.first
+  create_departments
+  create_users Department.first
+
+  # Creates IP addresses for the 1st VLAN
+  name = Vlan.first.vlan_name
+  Rake::Task['init:vlan'].invoke(name)
+end
+
+def hint
+  puts "Running rake db:seed in the production/test environment forbidden!" \
+    "Usage:\n\tbundle exec rake db:seed RAILS_ENV=development"
 end

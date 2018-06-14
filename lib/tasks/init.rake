@@ -1,12 +1,11 @@
 # See Intro to Rake by Shneems: https://www.youtube.com/watch?v=gR0YfJrg9pg
-# Dependency task :environment which is a Rails rake task loading models, etc.
+# Dependency task :environment which is a Rails rake task loading model, etc.
 
 # Initializes table vlans (IPAMS-specific)
-# TODO: Seems this should be enabled on the web UI.
 namespace :init do
   # Assigns the initial IP Addresses to NOBODY who belongs to
   # department NONEXISTENT
-  desc "Initializes table vlans (IPAMS-specific)"
+  desc "Initializes all VLANs (IPAMS-specific)"
   task vlans: :environment do
     # Intializes VLAN by VLAN by populating with the IP addresses
     vlans = Vlan.all # ActiveRecord::Relation
