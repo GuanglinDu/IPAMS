@@ -41,7 +41,6 @@ module PopulateDepartments
         )
       end
     end
-
     puts "~#{USER_COUNT} more users appended to department " \
          "#{department.dept_name}"
   end
