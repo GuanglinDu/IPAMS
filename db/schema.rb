@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160622054304) do
+ActiveRecord::Schema.define(version: 20180703061744) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "ip"
@@ -69,8 +69,8 @@ ActiveRecord::Schema.define(version: 20160622054304) do
     t.string   "mac_address"
     t.string   "user_name"
     t.string   "dept_name"
-    t.integer  "office_phone",     limit: 8
-    t.integer  "cell_phone",       limit: 8
+    t.string   "office_phone",     limit: 8
+    t.string   "cell_phone",       limit: 8
     t.string   "building"
     t.integer  "room"
   end
@@ -97,8 +97,8 @@ ActiveRecord::Schema.define(version: 20160622054304) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
-    t.integer  "office_phone",  limit: 8
-    t.integer  "cell_phone",    limit: 8
+    t.string   "office_phone",  limit: 8
+    t.string   "cell_phone",    limit: 8
     t.string   "email"
     t.string   "building"
     t.integer  "storey"
