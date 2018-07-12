@@ -10,17 +10,20 @@ class AddressesController < ApplicationController
   # See also http://www.whatibroke.com/?p=235
   def index
     if params[:search].present?
-      search = Address.search do
+      search = Address.order(:ip).search do
         fulltext params[:search]
-        paginate page: params[:page] || 1, per_page: 30
+        paginate page:     params[:page] || 1,
+                 per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
       end 
       # Type Sunspot::Search::PaginatedCollection < Array
       @addresses = search.results
     else
       # paginate returns object of 
       # type User::ActiveRecord_Relation < ActiveRecord::Relation
-      @addresses = Address.paginate(page: params[:page],
-        per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
+      @addresses = Address.order(:ip).paginate(
+        page: params[:page],
+        per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
+      )
     end
 
     authorize @addresses

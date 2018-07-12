@@ -8,15 +8,17 @@ class UsersController < ApplicationController
   def index
     # No keywords, no search; paginate all, instead
     if params[:search].present?
-      search = User.search do
+      search = User.order(:name).search do
         fulltext params[:search]
         paginate page: params[:page] || 1, per_page: 30
       end 
       # Type Sunspot::Search::PaginatedCollection < Array
       @users = search.results
     else
-      @users = User.paginate(page: params[:page],
-                             per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
+      @users = User.order(:name).paginate(
+        page:     params[:page],
+        per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
+      )
     end
 
     authorize @users 
