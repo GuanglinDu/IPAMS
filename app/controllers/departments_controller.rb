@@ -1,5 +1,4 @@
 class DepartmentsController < ApplicationController
-
   before_action :set_department, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized
 
