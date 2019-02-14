@@ -23,6 +23,15 @@ gem 'progress_bar',               '1.0.3'
 gem 'rack-ssl',                   '1.4.1'
 gem 'axlsx',                      '3.0.0.pre'
 gem 'axlsx_rails',                '0.4.0'
+gem 'sprockets',                  '2.12.5'
+gem 'nokogiri',                   '1.8.5'
+gem 'rubyzip',                    '1.2.2'
+gem 'ffi',                        '1.9.24'
+# rails (= 4.2.7.1) was resolved to 4.2.7.1, which depends on
+#      activejob (= 4.2.7.1)
+#gem 'activejob',                  '4.2.11'
+gem 'rack',                       '1.6.11'
+gem 'loofah',                     '2.2.3'
 
 group :development, :test do
   gem 'rspec-rails',        '3.4.2'
