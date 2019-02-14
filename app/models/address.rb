@@ -17,6 +17,8 @@ class Address < ActiveRecord::Base
   #before_validation :upcase_mac
   #after_validation :upcase_mac
 
+  default_scope { order(:address_order) }
+
   searchable do
     text :usage, as: :usage_textp
     text :ip, as: :ip_textp

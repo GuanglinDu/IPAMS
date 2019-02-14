@@ -3,14 +3,14 @@ class AddressesController < ApplicationController
 
   # Resolves the FK user_id before updating a record
   before_action :convert_user_name_to_user_id, only: :update
-  before_action :set_recycled_address_values, only: :recycle
+  before_action :set_recycled_address_values,  only: :recycle
 
   # No keywords, no search. Goes to the paginated views, instead.
   # See https://github.com/sunspot/sunspot
   # See also http://www.whatibroke.com/?p=235
   def index
     if params[:search].present?
-      search = Address.order(:ip).search do
+      search = Address.search do
         fulltext params[:search]
         paginate page:     params[:page] || 1,
                  per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
@@ -20,8 +20,8 @@ class AddressesController < ApplicationController
     else
       # paginate returns object of 
       # type User::ActiveRecord_Relation < ActiveRecord::Relation
-      @addresses = Address.order(:ip).paginate(
-        page: params[:page],
+      @addresses = Address.paginate(
+        page:     params[:page],
         per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
       )
     end
@@ -41,7 +41,7 @@ class AddressesController < ApplicationController
 
     @histories = History.where(
       address_id: @address.id).paginate(page: params[:page],
-      per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
+      per_page:   IPAMSConstants::RECORD_COUNT_PER_PAGE
     )
     authorize @histories
 
@@ -57,7 +57,7 @@ class AddressesController < ApplicationController
     authorize @address
   end
 
-  # An IP address can only be destroyed but should be recycled, instead.
+  # An IP address can not be destroyed but should be recycled, instead.
   def destroy
     authorize @address
   end
