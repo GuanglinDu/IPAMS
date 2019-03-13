@@ -25,14 +25,14 @@
     <% sorted.each do |key, value| %>
       <% count = value.length %>
       <% if count > 0 %>
-        Found <%= count %> related records in
+        <%= count %> related records found in
           <%= custom_pluralize(key.to_s, 2) %> on page
           <%= @results.current_page%><br />
         <%= render partial: key.to_s, object: value %>
       <% end %>
     <% end %>
   <% else %>
-    <h4>Oooooops, nothing to search!</h4>
+    <h4>Oooooops, nothing to search for!</h4>
   <% end %>
 </div>
 
