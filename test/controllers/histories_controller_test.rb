@@ -24,4 +24,11 @@ class HistoriesControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:history)
   end
+
+  test "should destroy history" do
+    assert_difference('History.count', -1) do
+      delete :destroy, id: histories(:one)
+    end
+    assert_redirected_to histories_path
+  end
 end

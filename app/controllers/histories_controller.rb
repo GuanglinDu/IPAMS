@@ -1,5 +1,6 @@
 class HistoriesController < ApplicationController
   before_action :retrieve_address, only: :create
+  before_action :set_history,      only: :destroy
 
   def index
     if params[:search].present?
@@ -39,6 +40,16 @@ class HistoriesController < ApplicationController
         flash[:danger] = 'There was a problem recycling the Address.'
         format.html { head :no_content }
       end
+    end
+  end
+
+  def destroy
+    authorize @history
+
+    @history.destroy
+    respond_to do |format|
+      format.html { redirect_to histories_url }
+      format.json { head :no_content }
     end
   end
 
@@ -84,5 +95,9 @@ class HistoriesController < ApplicationController
     @history.end_date = @address.end_date
     @history.application_form = @address.application_form
     #@history.rec_ip = @address.ip
+  end
+
+  def set_history
+    @history = History.find(params[:id])
   end
 end
