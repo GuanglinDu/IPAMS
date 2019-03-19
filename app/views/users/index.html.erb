@@ -17,8 +17,8 @@
 
 <%# The whole table caching with partial names(editable/uneditable) %>
 <div class="row">
-<% partial_name = "editable" %>
-<% partial_name = "uneditable" unless policy(@users).edit? %>
+<% partial_name = "users/editable" %>
+<% partial_name = "users/uneditable" unless policy(@users).edit? %>
 
 <%# The whole table caching is disabled as the authorization will be
     cached along. %>

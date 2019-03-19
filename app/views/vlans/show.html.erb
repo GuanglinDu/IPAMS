@@ -34,7 +34,8 @@
 
   <% partial_name = "addresses/addresses" %>
   <% partial_name = "addresses/uneditable" unless policy(@addresses).edit? %>
-  <%= render partial: partial_name, object: @addresses, locals: {caller_name: "vlan-" + @vlan.vlan_name} %>
+  <%= render partial: partial_name, object: @addresses,
+             locals: {caller_name: "vlan-" + @vlan.vlan_name} %>
 
   <%# Footer pagination %>
   <%= page_entries_info @addresses %><br />

@@ -1,5 +1,4 @@
 class VlansController < ApplicationController
-
   before_action :set_vlan, :only => [:show, :edit, :update, :destroy]
   #after_action :verify_authorized, except: :index
   after_action :verify_authorized

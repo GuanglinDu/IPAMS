@@ -56,7 +56,7 @@ feature "The whole website", :devise do
 
     # Searches for something on the Search view
     click_link "Search"
-    expect(page).to have_content("Oooooops, nothing to search!")
+    expect(page).to have_content("Oooooops, nothing to search for!")
     # FIXME: Unable to autoload constant PaginatedCollectionPolicy
     #fill_in 'search', with: 'lan'
     #click_button 'Global Search'
