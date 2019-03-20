@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails',                      '4.2.7.1'
+gem 'rails',                      '4.2.11.1'
 gem 'sqlite3',                    '1.3.10'
 gem 'sass-rails',                 '4.0.5'
 gem 'uglifier',                   '2.7.0'
@@ -27,9 +27,7 @@ gem 'sprockets',                  '2.12.5'
 gem 'nokogiri',                   '1.8.5'
 gem 'rubyzip',                    '1.2.2'
 gem 'ffi',                        '1.9.24'
-# rails (= 4.2.7.1) was resolved to 4.2.7.1, which depends on
-#      activejob (= 4.2.7.1)
-#gem 'activejob',                  '4.2.11'
+gem 'activejob',                  '4.2.11.1'
 gem 'rack',                       '1.6.11'
 gem 'loofah',                     '2.2.3'
 
