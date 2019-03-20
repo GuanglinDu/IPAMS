@@ -4,27 +4,6 @@ require 'helper_utils'
 module ApplicationHelper
   include HelperUtils
 
-  # Tables relationship: departments -> users -> addresses
-  def find_user(id)
-    User.find(id)
-  end
-
-  def find_address(id)
-    Address.find(id)
-  end
-
-  def find_addresses_of_user(user)
-    user.addresses
-  end
-
-  def find_department_name(department_id)
-    Department.find(department_id).dept_name
-  end
-
-  def find_department(id)
-    Department.find(id)
-  end
-
   # Determines the latest updated_at value from an address record and its parent
   # record user collectively as the addresses#index view is mainly composed of
   # these 2 tables.  

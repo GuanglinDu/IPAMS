@@ -7,8 +7,8 @@ class LansController < ApplicationController
   # GET /lans
   # GET /lans.json
   def index
-    @lans = Lan.paginate(page: params[:page],
-      per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE).order(:lan_number)
+    @lans = Lan.order(:lan_number).paginate(page: params[:page],
+      per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     authorize @lans
     #policy_scope(@lans)
   end
@@ -16,9 +16,8 @@ class LansController < ApplicationController
   # GET /lans/1
   # GET /lans/1.json
   def show
-    @vlans = Vlan.where(lan_id: @lan.id).paginate(page: params[:page],
-      per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE).order(:vlan_number)
-    authorize @lan
+    @vlans = @lan.vlans.order(:vlan_number).paginate(page: params[:page],
+      per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     authorize @vlans
   end
 
