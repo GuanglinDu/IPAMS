@@ -24,7 +24,7 @@
       <td><%= v.building %></td>
       <td><%= v.storey %></td>
       <td><%= v.room %></td>
-      <td><%= find_department_name v.department_id %></td>
+      <td><%= DepartmentsHelper.find_department_name v.department_id %></td>
     </tr>
   <% end %>
 </table>

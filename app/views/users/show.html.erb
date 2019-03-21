@@ -35,7 +35,7 @@
 
 <p>
   <strong>Department:</strong>
-  <%= find_department_name(@user.department_id) %>
+  <%= DepartmentsHelper.find_department_name(@user.department_id) %>
     (id: <%= @user.department_id %>)
 </p>
 

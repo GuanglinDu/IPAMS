@@ -1,6 +1,6 @@
 <%# A user with 1 or 0 IP address %>
 <% user = row_with_one_ip %>
-<% department = find_department(user.department_id) %>
+<% department = DepartmentsHelper.find_department(user.department_id) %>
 
 <tr>
   <%# cache([user, addresses, @department]) do %><%# partial row caching %>

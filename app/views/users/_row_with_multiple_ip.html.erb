@@ -7,7 +7,7 @@
 <% end %>
 
 <% user = row_with_multiple_ip %>
-<% department = find_department(user.department_id) %>
+<% department = DepartmentsHelper.find_department(user.department_id) %>
 
 <tr>
   <%# partial row caching disables as it's inefficiency. %>

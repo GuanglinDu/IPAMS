@@ -15,10 +15,8 @@ class UsersController < ApplicationController
       # Type Sunspot::Search::PaginatedCollection < Array
       @users = search.results
     else
-      @users = User.order(:name).paginate(
-        page:     params[:page],
-        per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
-      )
+      @users = User.order(:name).paginate(page: params[:page],
+        per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     end
 
     authorize @users 
@@ -165,7 +163,7 @@ class UsersController < ApplicationController
       building: @user.building,
       cell_phone: @user.cell_phone,
       office_phone: @user.office_phone,
-      department: find_department_name(@user.department_id)
+      department: DepartmentsHelper.find_department_name(@user.department_id)
     }
   end
 end

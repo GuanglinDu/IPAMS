@@ -1,4 +1,3 @@
-# Puts all the methods globally accessible to views here
 require 'helper_utils'
 
 module ApplicationHelper

@@ -34,7 +34,7 @@
 <% addresses.each do |address| %>
 <% user = find_user(address.user_id) %><%# user in ApplicationHelper %>
 <%# department in ApplicationHelper %>
-<% department = find_department(user.department_id) %>
+<% department = DepartmentsHelper.find_department(user.department_id) %>
 <tr>
   <td><%= count += 1 %></td>
   <td>

@@ -3,6 +3,6 @@
   <td><%= count %></td>
   <td><%= user.name %></td>
   <td colspan="12">---</td>
-  <td><%= find_department_name(user.department_id) %></td>
+  <td><%= DepartmentsHelper.find_department_name(user.department_id) %></td>
   <td></td>
 </tr>

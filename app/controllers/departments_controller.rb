@@ -5,20 +5,16 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
-    @departments = Department.order(:dept_name).paginate(
-      page:     params[:page],
-      per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
-    )
+    @departments = Department.order(:dept_name).paginate(page: params[:page],
+      per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     authorize @departments
   end
 
   # GET /departments/1
   # GET /departments/1.json
   def show
-    @users = @department.users.paginate(
-      page:     params[:page],
-      per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
-    )
+    @users = @department.users.paginate(page: params[:page],
+      per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     authorize @department
   end
 

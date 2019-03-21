@@ -1,9 +1,9 @@
 module DepartmentsHelper
-  def find_department(id)
+  def self.find_department(id)
     Department.find(id)
   end
 
-  def find_department_name(department_id)
+  def self.find_department_name(department_id)
     Department.find(department_id).dept_name
   end
 
