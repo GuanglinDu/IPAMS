@@ -3,7 +3,7 @@ require 'helper_utils'
 module UsersHelper
   include HelperUtils
 
-  def find_user(id)
+  def self.find_user(id)
     User.find(id)
   end
 

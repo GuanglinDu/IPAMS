@@ -1,6 +1,8 @@
 # All models are accessible to both helpers & views
 module LansHelper
-  def find_lan_name(id)
+  # Eric Torrey - Disambiguate Rails helpers:
+  # https://thoughtbot.com/blog/disambiguate-rails-helpers
+  def self.find_lan_name(id)
     name = "unnamed"
     begin
       lan  = Lan.find(id)

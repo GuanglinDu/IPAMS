@@ -49,7 +49,7 @@
 <% end %>
 <tbody id="main-table-body">
   <% addresses.each do |address| %>
-    <% user = find_user(address.user_id) %>
+    <% user = UsersHelper.find_user(address.user_id) %>
     <% department = DepartmentsHelper.find_department(user.department_id) %>
     <% count += 1 %>
 

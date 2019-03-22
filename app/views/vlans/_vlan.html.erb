@@ -12,37 +12,88 @@
  in this case vlan which is then available in the partial for us to show.
 <% end %>
 <tr>
-  <% cache cache_key_for_vlan("editable", vlan), skip_digest: true do %><%# partial row caching %>
+  <%# partial row caching %>
+  <% cache cache_key_for_vlan("editable", vlan), skip_digest: true do %>
   <td><%= vlan_counter + count + 1 %></td>
   <%# Call the helper method from the helper class to retrieve the LAN name
     Or call the model directly: Lan.find(vlan.lan_id).lan_name %>
-  <td><%= find_lan_name(vlan.lan_id) %></td>
+  <td><%= LansHelper.find_lan_name(vlan.lan_id) %></td>
   <td>
-    <a href="#" data-xeditable="true" data-pk="<%= vlan.id %>" data-model="vlan" data-name="vlan_number" data-url="<%= vlan_path(vlan) %>" data-title="VLAN Number"><%= vlan.vlan_number %></a>
+    <a href="#" data-xeditable="true"
+                data-pk="<%= vlan.id %>"
+                data-model="vlan"
+                data-name="vlan_number"
+                data-url="<%= vlan_path(vlan) %>"
+                data-title="VLAN Number">
+      <%= vlan.vlan_number %>
+    </a>
   </td>
   <td>
-    <a href="#" data-xeditable="true" data-pk="<%= vlan.id %>" data-model="vlan" data-name="vlan_name" data-url="<%= vlan_path(vlan) %>" data-title="VLAN Name"><%= vlan.vlan_name %></a>
+    <a href="#" data-xeditable="true"
+                data-pk="<%= vlan.id %>"
+                data-model="vlan"
+                data-name="vlan_name"
+                data-url="<%= vlan_path(vlan) %>"
+                data-title="VLAN Name">
+      <%= vlan.vlan_name %>
+    </a>
   </td>
   <td>
-    <a href="#" data-xeditable="true" data-pk="<%= vlan.id %>" data-model="vlan" data-name="static_ip_start" data-url="<%= vlan_path(vlan) %>" data-title="Static IP Start"><%= vlan.static_ip_start %></a>
+    <a href="#" data-xeditable="true"
+                data-pk="<%= vlan.id %>"
+                data-model="vlan"
+                data-name="static_ip_start"
+                data-url="<%= vlan_path(vlan) %>"
+                data-title="Static IP Start">
+      <%= vlan.static_ip_start %>
+    </a>
   </td>
   <td>
-    <a href="#" data-xeditable="true" data-pk="<%= vlan.id %>" data-model="vlan" data-name="static_ip_end" data-url="<%= vlan_path(vlan) %>" data-title="Static IP End"><%= vlan.static_ip_end %></a>
+    <a href="#" data-xeditable="true"
+                data-pk="<%= vlan.id %>"
+                data-model="vlan"
+                data-name="static_ip_end"
+                data-url="<%= vlan_path(vlan) %>"
+                data-title="Static IP End">
+      <%= vlan.static_ip_end %>
+    </a>
   </td>
   <td>
-    <a href="#" data-xeditable="true" data-pk="<%= vlan.id %>" data-model="vlan" data-name="subnet_mask" data-url="<%= vlan_path(vlan) %>" data-title="Subnet Mask"><%= vlan.subnet_mask %></a>
+    <a href="#" data-xeditable="true"
+                data-pk="<%= vlan.id %>"
+                data-model="vlan"
+                data-name="subnet_mask"
+                data-url="<%= vlan_path(vlan) %>"
+                data-title="Subnet Mask">
+      <%= vlan.subnet_mask %>
+    </a>
   </td>
   <td>
-    <a href="#" data-xeditable="true" data-pk="<%= vlan.id %>" data-model="vlan" data-name="gateway" data-url="<%= vlan_path(vlan) %>" data-title="Gateway"><%= vlan.gateway %></a>
+    <a href="#" data-xeditable="true"
+                data-pk="<%= vlan.id %>"
+                data-model="vlan"
+                data-name="gateway"
+                data-url="<%= vlan_path(vlan) %>"
+                data-title="Gateway">
+      <%= vlan.gateway %>
+    </a>
   </td>
   <td>
-    <a href="#" data-xeditable="true" data-pk="<%= vlan.id %>" data-model="vlan" data-name="vlan_description" data-url="<%= vlan_path(vlan) %>" data-title="Description"><%= vlan.vlan_description %></a>
+    <a href="#" data-xeditable="true"
+                data-pk="<%= vlan.id %>"
+                data-model="vlan"
+                data-name="vlan_description"
+                data-url="<%= vlan_path(vlan) %>"
+                data-title="Description">
+        <%= vlan.vlan_description %>
+    </a>
   </td>
-  <% end %><%# partial row cache %>
+  <% end %>
 
   <%# Links %>  
   <% if policy(vlan).show? %>
-    <td><%= link_to 'Show', vlan, lan_id: vlan.lan_id, class: 'btn btn-primary btn-xs' %></td>
+    <td><%= link_to 'Show', vlan, lan_id: vlan.lan_id,
+                                  class: 'btn btn-primary btn-xs' %></td>
   <% end %>
 
   <% if policy(vlan).edit? %>
@@ -55,7 +106,8 @@
 
   <% if policy(vlan).destroy? %>
     <td>
-    <%= link_to vlan, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
+    <%= link_to vlan, method: :delete, data: { confirm: 'Are you sure?' },
+                      class: 'btn btn-danger btn-xs' do %>
       <i class="glyphicon glyphicon-remove"></i> Destroy
     <% end %>
     </td>

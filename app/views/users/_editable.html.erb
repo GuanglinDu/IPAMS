@@ -8,7 +8,7 @@
     <%= render partial: "users/nobody", object: user, locals: {count: count} %>
   <% else %>
     <%# addresses_helper: helper methods accessible by controllers and views %>
-    <% addresses = find_addresses_of_user(user) %>
+    <% addresses = user.addresses %>
 
     <% if addresses.count >= 2 %>
       <%= render partial: "users/row_with_multiple_ip", object: user,
