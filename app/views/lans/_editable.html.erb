@@ -1,8 +1,6 @@
 <tr>
   <% lan = editable %>
-
-  <%# partial row caching %>
-  <% cache cache_key_for_lan("editable", lan), skip_digest: true do %>
+  <%# cache cache_key_for_lan("editable", lan), skip_digest: true do %>
     <td><%= count + editable_counter + 1 %></td>
     <td><%= lan.lan_number %></td>
     <td>
@@ -24,7 +22,7 @@
         <%= lan.lan_description %>
       </a>
     </td>
-  <% end %>
+  <%# end %>
 
   <td>
     <% if policy(lan).show? %>
@@ -38,8 +36,9 @@
   </td>
   <td>
     <% if policy(lan).destroy? %>
-      <%= link_to lan, method: :delete, data: { confirm: 'Are you sure?' },
-                       class: 'btn btn-danger btn-xs' do %>
+      <%= link_to lan, method: :delete,
+                       data:   {confirm: 'Are you sure?'},
+                       class:  'btn btn-danger btn-xs' do %>
         <i class="glyphicon glyphicon-remove"></i> Destroy
       <% end %>
     <% end %>

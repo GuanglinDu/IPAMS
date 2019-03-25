@@ -15,14 +15,18 @@
 </table>
 
 <%# https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
-<%= page_entries_info @vlans %><br />
-<%= will_paginate @vlans, renderer: BootstrapPagination::Rails %>
+<%= page_entries_info @vlans_of_lan %><br />
+<%= will_paginate @vlans_of_lan, renderer: BootstrapPagination::Rails %>
 
 <h3>Existing VLANs in the <%= @lan.lan_name %></h3>
 
 <% partial_name = "vlans/vlan" %>
 <% partial_name = "vlans/uneditable" unless policy(@lan).edit? %>
-<% cache cache_key_for_lans("lans/" + partial_name, @vlans.offset) do %>
+<% if false %>
+  As the cache caused confused VLAN retrieval error, it was disabled by
+  Guanglin du on 20190325.
+<% end %>
+<%# cache cache_key_for_lans("lans/" + partial_name, @vlans_of_lan.offset) do %>
 <table class="table table-condensed">
   <thead>
   <tr>
@@ -40,24 +44,17 @@
     <th></th>
   </tr>
   </thead>
-
-  <% if false %>
-    As the render method iterates over the @lan.vlans collection,
-    it assigns each vlan to a local variable named the same as the partial,
-    in this case vlan, which is then available in the partial for us to show.
-    The following either will do: 
-    render partial: "vlans/vlan", collection: @lan.vlans
-  <% end %>
   <tbody id="main-table-body">
     <% count = 0 %>
-    <%= render partial: partial_name, collection: @vlans,
-               locals: {count: @vlans.offset} %>
+    <%= render partial:    partial_name,
+               collection: @vlans_of_lan,
+               locals:     {count: @vlans_of_lan.offset} %>
   </tbody>
 </table>
-<% end %>
+<%# end %>
 
-<%= page_entries_info @vlans %><br />
-<%= will_paginate @vlans, renderer: BootstrapPagination::Rails %>
+<%= page_entries_info @vlans_of_lan %><br />
+<%= will_paginate @vlans_of_lan, renderer: BootstrapPagination::Rails %>
 
 <div>
   <%= link_to lans_path, class: 'btn btn-success' do %>

@@ -1,4 +1,7 @@
 class Vlan < ActiveRecord::Base
+  default_scope { order(:vlan_number) }
+  default_scope { order(:vlan_name) }
+
   belongs_to :lan
 
   has_many :addresses, dependent: :destroy
