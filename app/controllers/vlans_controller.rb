@@ -17,6 +17,7 @@ class VlansController < ApplicationController
     authorize @vlan
   end
 
+  # Create a new VLAN
   def create
     @vlan = Vlan.new(vlan_params)
     authorize @vlan

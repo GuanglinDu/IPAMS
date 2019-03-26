@@ -35,17 +35,16 @@
   <%= will_paginate @vlans, renderer: BootstrapPagination::Rails %>
 
   <% if policy(:vlan).new? %>
+    <p>
     <%= link_to new_vlan_path, class: 'btn btn-success' do %>
-      <i class="glyphicon glyphicon-plus"></i> New VLAN 
+      <i class="glyphicon glyphicon-plus"></i> New VLAN
     <% end %>
-    | 
+    </p>
   <% end %>
-
   <%= link_to welcome_path, class: 'btn btn-success' do %>
     <i class="glyphicon glyphicon-home"></i> Home
   <% end %>
-    |
-  <%= link_to lans_path, class: 'btn btn-success' do %>
-    <i class="glyphicon glyphicon-arrow-right"></i> Go to LANs
-  <% end %>
+   | <%= link_to lans_path, class: 'btn btn-success' do %>
+       <i class="glyphicon glyphicon-arrow-right"></i> Go to LANs
+     <% end %>
 </div>
