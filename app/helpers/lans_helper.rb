@@ -5,8 +5,7 @@ module LansHelper
   def self.find_lan_name(id)
     name = "unnamed"
     begin
-      lan  = Lan.find(id)
-      name = lan.lan_name
+      name  = Lan.find(id).lan_name
     rescue ActiveRecord::RecordNotFound
       name = "RecordNotFound"
     end
