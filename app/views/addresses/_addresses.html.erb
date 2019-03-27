@@ -54,7 +54,7 @@
     <% count += 1 %>
 
     <tr id="row-<%= count %>">
-      <% cache([address, user, department], skip_digest: true) do %>
+      <%# cache([address, user, department], skip_digest: true) do %>
       <td id="no"><%= count %></td>
       <td id="ip-address">
         <% clr = user.name == "NOBODY" ? "red" : "green" %>
@@ -208,7 +208,7 @@
           <%= address.recyclable %>
         </a>
       </td>
-      <% end %><%# partial row caching %>
+      <%# end %><%# partial row caching %>
 
       <%# Authorization should NOT be cached!!! %>
       <% if policy(address).show? %>

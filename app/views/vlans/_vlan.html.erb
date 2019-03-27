@@ -7,12 +7,12 @@
   a sneaky iteration counter from inside each partial using the partial
   name appended with _counter, which starts from 0.
 
-  As the render method iterates over the @lan.vlans collection,
+  As the render method iterates over the @vlans collection,
   it assigns each vlan to a local variable named the same as the partial,
   in this case vlan which is then available in the partial for us to show.
 <% end %>
 <tr>
-  <% cache cache_key_for_vlan("editable", vlan), skip_digest: true do %>
+  <%# cache cache_key_for_vlan("editable", vlan), skip_digest: true do %>
   <td><%= vlan_counter + count + 1 %></td>
   <td><%= LansHelper.find_lan_name(vlan.lan_id) %></td>
   <td>
@@ -85,7 +85,7 @@
         <%= vlan.vlan_description %>
     </a>
   </td>
-  <% end %>
+  <%# end %>
 
   <%# Links %>  
   <% if policy(vlan).show? %>
