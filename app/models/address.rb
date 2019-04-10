@@ -26,6 +26,7 @@ class Address < ActiveRecord::Base
     text :assigner,    as: :assigner_textp
     time :start_date
     time :end_date
+    integer :user_id 
   end
 
   protected

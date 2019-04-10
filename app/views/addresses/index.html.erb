@@ -6,11 +6,26 @@
     <%= page_entries_info @addresses %><br />
     <%= will_paginate @addresses, renderer: BootstrapPagination::Rails %>
   </div>
+
   <div class="col-xs-4">
-    <%= form_tag addresses_path, :method => :get do %>
-      <%= text_field_tag :search, params[:search] %>
-      <%= submit_tag "Local Search", :name => nil %><br />
-      (IP, MAC, Usage, Date, Assigner)
+    <div class="col-xs-8">
+      <%= form_tag addresses_path, :method => :get do %>
+        <%= text_field_tag :keywords, params[:keywords] %>
+        <%#= search_field_tag :keywords, params[:keywords] %>
+        <div>
+          <%= radio_button_tag :option, 'All', true,
+                               controller_action: params[:option] %>All
+          <%= radio_button_tag :option, 'Assigned',
+                               params[:option] == "Assigned" ? true : false,
+                               controller_action: params[:option] %>Assigned
+          <%= radio_button_tag :option, 'Free',
+                               params[:option] == "Free" ? true : false,
+                               controller_action: params[:option] %>Free
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <%= submit_tag "Local Search", :name => nil %><br />
+      </div>
     <% end %>
   </div>
 </div>
