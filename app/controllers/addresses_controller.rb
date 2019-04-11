@@ -13,11 +13,10 @@ class AddressesController < ApplicationController
       search = Address.search do
         fulltext params[:keywords]
 
-        nobody_id = User.find_by(name: "NOBODY").id
         if params[:option] == "Assigned"
-          without(:user_id, nobody_id)
+          without(:user_id, AddressesHelper.find_nobody_id)
         elsif params[:option] == "Free"
-          with(:user_id, nobody_id)
+          with(:user_id, AddressesHelper.find_nobody_id)
         end
 
         paginate page:     params[:page] || 1,
@@ -26,13 +25,15 @@ class AddressesController < ApplicationController
       # Type Sunspot::Search::PaginatedCollection < Array
       @addresses = search.results
     elsif params[:option].present? && (params[:option] != "All")
-      nobody_id = User.find_by(name: "NOBODY").id
+      nobody_id = AddressesHelper.find_nobody_id
       if params[:option] == "Assigned"
-        @addresses = Address.where.not(user_id: nobody_id).paginate(
-          page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
+        @addresses = Address.where.not(user_id: AddressesHelper.find_nobody_id)
+          .paginate(page:     params[:page],
+                    per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
       elsif params[:option] == "Free"
-        @addresses = Address.where(user_id: nobody_id).paginate(
-          page: params[:page], per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
+        @addresses = Address.where(user_id: AddressesHelper.find_nobody_id)
+          .paginate(page:     params[:page],
+                    per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
       end
     else
       # paginate returns object of 
@@ -56,8 +57,7 @@ class AddressesController < ApplicationController
 
     @histories = History.where(
       address_id: @address.id).paginate(page: params[:page],
-      per_page:   IPAMSConstants::RECORD_COUNT_PER_PAGE
-    )
+      per_page:   IPAMSConstants::RECORD_COUNT_PER_PAGE)
     authorize @histories
 
     respond_to do |format|
