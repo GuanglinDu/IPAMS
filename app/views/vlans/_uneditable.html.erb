@@ -1,9 +1,8 @@
 <tr>
   <% vlan = uneditable %>
-
-  <% cache cache_key_for_vlan("uneditable", vlan), skip_digest: true do %><%# partial row caching %>
+  <% cache cache_key_for_vlan("uneditable", vlan), skip_digest: true do %>
     <td><%= uneditable_counter + count + 1 %></td>
-    <td><%= find_lan_name(vlan.lan_id) %></td>
+    <td><%= LansHelper.find_lan_name(vlan.lan_id) %></td>
     <td><%= vlan.vlan_number %></td>
     <td><%= vlan.vlan_name %></td>
     <td><%= vlan.static_ip_start %></td>
@@ -14,6 +13,7 @@
   <% end %>
 
   <% if policy(vlan).show? %>
-    <td><%= link_to 'Show', vlan, lan_id: vlan.lan_id, class: 'btn btn-primary btn-xs' %></td>
+    <td><%= link_to 'Show', vlan, lan_id: vlan.lan_id,
+                                  class: 'btn btn-primary btn-xs' %></td>
   <% end %>
 </tr>

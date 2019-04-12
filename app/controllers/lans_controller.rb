@@ -16,9 +16,9 @@ class LansController < ApplicationController
   # GET /lans/1
   # GET /lans/1.json
   def show
-    @vlans = @lan.vlans.order(:vlan_number).paginate(page: params[:page],
+    @vlans_of_lan = @lan.vlans.paginate(page: params[:page],
       per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
-    authorize @vlans
+    authorize @vlans_of_lan
   end
 
   # GET /lans/new

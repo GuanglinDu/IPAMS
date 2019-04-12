@@ -1,4 +1,7 @@
 class Vlan < ActiveRecord::Base
+  default_scope { order(:vlan_name) }
+  default_scope { order(:vlan_number) }
+
   belongs_to :lan
 
   has_many :addresses, dependent: :destroy
@@ -13,7 +16,7 @@ class Vlan < ActiveRecord::Base
             presence: true, uniqueness: true
 
   searchable do
-    text :vlan_name, as: :vlan_name_textp 
+    text :vlan_name,        as: :vlan_name_textp 
     text :vlan_description, as: :vlan_description_textp
     integer :vlan_number
   end

@@ -40,6 +40,7 @@ $(function() {
   set_btn_recycle();
 });
 
+
 // Initializes the recycle button
 var init_btn_recycle = function() {
   $("#main-table-body tr #recycle #btn_recycle").each(function() {
@@ -224,3 +225,5 @@ var updateStartDate = function(response, rowID) {
   });
   $("#" + rowID + " #start-date" + " a").text(time);
 };
+
+

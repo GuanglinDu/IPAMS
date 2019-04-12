@@ -1,9 +1,9 @@
 module AddressesHelper
-  def find_address(id)
+  def self.find_address(id)
     Address.find(id)
   end
 
-  def find_addresses_of_user(user)
-    user.addresses
+  def self.find_nobody_id()
+    nobody_id = User.find_by(name: "NOBODY").id
   end
 end

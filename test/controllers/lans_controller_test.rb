@@ -42,7 +42,7 @@ class LansControllerTest < ActionController::TestCase
     get :show, id: lans(:one)
     assert_response :success
     assert_not_nil assigns(:lan)
-    assert_not_nil assigns(:vlans)
+    assert_not_nil assigns(:vlans_of_lan)
   end
 
   test "should get edit" do

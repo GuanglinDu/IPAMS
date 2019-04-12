@@ -9,21 +9,37 @@ class AddressesController < ApplicationController
   # See https://github.com/sunspot/sunspot
   # See also http://www.whatibroke.com/?p=235
   def index
-    if params[:search].present?
+    if params[:keywords].present?
       search = Address.search do
-        fulltext params[:search]
+        fulltext params[:keywords]
+
+        if params[:option] == "Assigned"
+          without(:user_id, AddressesHelper.find_nobody_id)
+        elsif params[:option] == "Free"
+          with(:user_id, AddressesHelper.find_nobody_id)
+        end
+
         paginate page:     params[:page] || 1,
                  per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
       end 
       # Type Sunspot::Search::PaginatedCollection < Array
       @addresses = search.results
+    elsif params[:option].present? && (params[:option] != "All")
+      nobody_id = AddressesHelper.find_nobody_id
+      if params[:option] == "Assigned"
+        @addresses = Address.where.not(user_id: AddressesHelper.find_nobody_id)
+          .paginate(page:     params[:page],
+                    per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
+      elsif params[:option] == "Free"
+        @addresses = Address.where(user_id: AddressesHelper.find_nobody_id)
+          .paginate(page:     params[:page],
+                    per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
+      end
     else
       # paginate returns object of 
       # type User::ActiveRecord_Relation < ActiveRecord::Relation
-      @addresses = Address.paginate(
-        page:     params[:page],
-        per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
-      )
+      @addresses = Address.paginate(page: params[:page],
+        per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     end
 
     authorize @addresses
@@ -41,8 +57,7 @@ class AddressesController < ApplicationController
 
     @histories = History.where(
       address_id: @address.id).paginate(page: params[:page],
-      per_page:   IPAMSConstants::RECORD_COUNT_PER_PAGE
-    )
+      per_page:   IPAMSConstants::RECORD_COUNT_PER_PAGE)
     authorize @histories
 
     respond_to do |format|

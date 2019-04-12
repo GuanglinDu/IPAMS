@@ -1,5 +1,5 @@
 # Feature: Sign in
-#   As a admin
+#   As an admin
 #   I want to sign in
 #   So I can visit protected areas of the site
 feature 'Signing in', :devise do
