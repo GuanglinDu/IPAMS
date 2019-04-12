@@ -18,4 +18,5 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap3-editable/bootstrap-editable
+//= require d3
 //= require_tree .

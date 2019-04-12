@@ -30,6 +30,8 @@ gem 'ffi',                        '1.9.24'
 gem 'activejob',                  '4.2.11.1'
 gem 'rack',                       '1.6.11'
 gem 'loofah',                     '2.2.3'
+gem 'nokogiri'                    '1.9.1'
+gem 'd3-rails'                    '5.7.0'
 
 group :development, :test do
   gem 'rspec-rails',        '3.4.2'
