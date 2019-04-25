@@ -29,7 +29,7 @@ namespace :init do
   #  t is an instance of Rake::Task.
   desc "Initializes a specified VLAN"
   task :vlan, [:vlan_name] => :environment do |t, args|
-    puts "*** selected VLAN to be initialized: #{args.vlan_name}"    
+    puts "*** Selected VLAN to be initialized: #{args.vlan_name}"    
     vlan = Vlan.find_by vlan_name: args.vlan_name
     if vlan
       init_a_single_vlan vlan

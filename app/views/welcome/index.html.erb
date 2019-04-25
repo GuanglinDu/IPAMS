@@ -1,31 +1,17 @@
 <div class="row">
-  <h3>IPAMS Home Page</h3>
   <% if policy(:welcome).tip? %>
-    <p><strong>You must ask the administrator to assign your role to dive deep. </strong></p>
+    <p><strong>Please ask the admin to get authorized! </strong></p>
   <% end %>
 
-  <div>
-    <p>TODOs(Since Nov. 14, 2014 Fri.):</p>
-    <ol>
-      <li><del>Switch views between LANs, VLANs, IP addresses, departments, users at one's will.</del>Done!</li>
-      <li>Globale search: search for anything with any key word and their combinations.</li>
-      <li>List the info in any order necessary.</li>
-      <li>List the IP addresses of a department.</li>
-      <li>List the users of a department.</li>
-      <li>Import/Export.</li>
-      <li>Enrichment of the main page.</li>
-      <li>Enrichment of the help page.</li>
-    </ol>
+  <div id="main">
+    <div id="sequence"></div>
+    <div id="chart">
+      <div id="explanation" style="visibility: hidden;">
+        <span id="statistics"><span><br />
+      </div>
+    </div>
   </div>
-
-  <div>
-    <h3>An i18n demo:</h3>
-    <p>Displays Hello World in English or Simplified Chinese according to your locale:<%= t('.hello')%></p>
-  </div>
-
-  <div>
-    <%= link_to lans_path, class: 'btn btn-success' do %>
-      <i class="glyphicon glyphicon-arrow-right"></i> Go to LANs 
-    <% end %>
-  </div>
+  <script type="text/javascript">
+    //loadData("draw_donut");
+  </script>
 </div>

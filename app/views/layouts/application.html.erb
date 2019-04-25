@@ -5,33 +5,36 @@
   <%= stylesheet_link_tag "application", media: "all",
                           "data-turbolinks-track" => true %>
   <% if false %>
-    if set true, it will conflict with the Bootstrap in-place editing.
+    If set true, it will conflict with the Bootstrap in-place editing.
     See https://github.com/klenis/bootstrap-x-editable-rails/issues/8
     See also https://goo.gl/mX7IRV
   <% end %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
   <%= csrf_meta_tags %>
+  <%= render 'layouts/shim' %>    
 </head>
 
 <body>
-  <%# Bootstrap navbar %>
-  <%= render 'shared/navigation' %>
+  <div><%= render 'shared/navigation' %></div>
 
   <div id="main-container" class="container">
     <div class="row">
       <div class="col-xs-12">
-        <% flash.each do |name, msg| -%>
+        <% flash.each do |name, msg| %>
           <%= content_tag :div, msg,
                           class: "alert alert-dismissible alert-#{name}" %>
-        <% end -%>
+        <% end %>
       </div>
     </div>
+
     <div class="row">
       <div class="col-xs-12">
         <%= yield %>
+        <%= render 'layouts/footer' %>
         <%= debug(params) if Rails.env.development? %>
       </div>
     </div>
+
   </div>
 </body>
 </html>
