@@ -26,8 +26,9 @@ Ipams::Application.configure do
   config.serve_static_files = false
 
   # Compress JavaScripts and CSS.
-   # disabled for not support the arrow function
-  #config.assets.js_compressor = :uglifier # Rails 5.1 and above?
+  # Disabled for not support the arrow function
+  #config.assets.js_compressor = :uglifier
+  # Rails 5.1 and above?
   #config.assets.js_compressor = Uglifier.new(harmony: true)
   # config.assets.css_compressor = :sass
 
