@@ -15,7 +15,7 @@ var loadData = function(cmd) {
 };
 
 var drawOrUpdate = function(data, cmd) {
-  console.log(data);
+  //console.log(data);
   if (cmd == "draw_donut") {
     drawDonut(data);
   } else if (cmd == "update_page") {
@@ -49,7 +49,7 @@ var drawDonut = function(data) {
 
   // Finds the Root Node
   var root = d3.hierarchy(data)
-	       .sum(d => d.size);
+	       .sum(function(d) { return d.size });
 
   // For efficiency, filter nodes to keep only those large enough to see.
   var nodes = partition(root).descendants()
@@ -57,10 +57,10 @@ var drawDonut = function(data) {
 
   // Calculates each arc
   var arc = d3.arc()
-              .startAngle(d => d.x0)
-              .endAngle(d => d.x1)
-              .innerRadius(d => Math.sqrt(d.y0))
-              .outerRadius(d => Math.sqrt(d.y1));
+              .startAngle(function(d) { return d.x0; })
+              .endAngle(function(d) { return d.x1; })
+              .innerRadius(function(d) { return Math.sqrt(d.y0); })
+              .outerRadius(function(d) { return Math.sqrt(d.y1); });
 
   svg.selectAll('g')
       .data(nodes)
@@ -68,19 +68,24 @@ var drawDonut = function(data) {
       .append('g')
       .attr("class", "node")
       .append('path')
-      .attr("display", d => d.depth ? null : "none")
+      .attr("display", function(d) { return d.depth ? null : "none"; })
       .attr("d", arc)
       .style('stroke', '#fff')
-      .style("fill", d => color((d.children ? d : d.parent).data.name));
+      .style("fill", function(d) {
+	 return color((d.children ? d : d.parent).data.name);
+      });
 
   // Add a Label for Each Node
   svg.selectAll(".node")
      .append("text")
-     .attr("transform", d => "translate(" + arc.centroid(d) + ")rotate("
-                             + computeTextRotation(d) + ")")
-     .attr("dx", "-35")
+     .attr("transform", function(d) {
+	return "translate(" + arc.centroid(d)
+		            + ")rotate("
+                            + computeTextRotation(d) + ")";
+     })
+     .attr("dx", "-50")
      .attr("dy", ".5em")
-     .text(d => d.parent ? d.data.name : "");
+     .text(function(d) { return d.parent ? d.data.name : ""; });
 };
 
 function computeTextRotation(d) {
@@ -94,4 +99,4 @@ function computeTextRotation(d) {
 var updatePage = function(data) {
 };
 
-loadData("draw_donut");
+//loadData("draw_donut");
