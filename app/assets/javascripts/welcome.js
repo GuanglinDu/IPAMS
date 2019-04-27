@@ -52,8 +52,11 @@ var drawDonut = function(data) {
 	       .sum(function(d) { return d.size });
 
   // For efficiency, filter nodes to keep only those large enough to see.
+  // 0.005 radians = 0.29 degrees
   var nodes = partition(root).descendants()
-      .filter(d => (d.x1 - d.x0 > 0.005)); // 0.005 radians = 0.29 degrees
+                             .filter(function(d) {
+			       return d.x1 - d.x0 > 0.005;
+			     });
 
   // Calculates each arc
   var arc = d3.arc()
