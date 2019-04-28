@@ -1,7 +1,6 @@
-var width  = 750;
-var height = 600;
+var width  = 632;
+var height = 632;
 var radius = Math.min(width, height) / 2;
-var donutWidth = 100;
 
 var loadData = function(cmd) {
   $.ajax({
@@ -40,6 +39,9 @@ var drawDonut = function(data) {
     .append('svg')
     .attr('width', width)
     .attr('height', height)
+    .style('width', 'auto')
+    .style('height', 'auto')
+    .style('font', '10px sans-serif')
     .append('g')
     .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
 
@@ -55,7 +57,7 @@ var drawDonut = function(data) {
   // 0.005 radians = 0.29 degrees
   var nodes = partition(root).descendants()
                              .filter(function(d) {
-			       return d.x1 - d.x0 > 0.005;
+			       return (d.x1 - d.x0 > 0.005);
 			     });
 
   // Calculates each arc
@@ -82,24 +84,23 @@ var drawDonut = function(data) {
   svg.selectAll(".node")
      .append("text")
      .attr("transform", function(d) {
-	return "translate(" + arc.centroid(d)
-		            + ")rotate("
-                            + computeTextRotation(d) + ")";
+     	return "translate(" + arc.centroid(d) +
+     	       ")rotate(" + computeTextRotation(d) + ")";
      })
-     .attr("dx", "-50")
-     .attr("dy", ".5em")
+     .attr("dy", ".35em")
+     .attr("text-anchor", "middle")
      .text(function(d) { return d.parent ? d.data.name : ""; });
 };
 
 function computeTextRotation(d) {
-    var angle = (d.x0 + d.x1) / Math.PI * 90;  // <-- 1
-    // Avoids upside-down labels. Labels aligned with slices.
-    return (angle < 90 || angle > 270) ? angle : angle + 180;
-    // Alternate label formatting
-    //return (angle < 180) ? angle - 90 : angle + 90;  // <-- 3 "labels as spokes"
+  var angle = (d.x0 + d.x1) / Math.PI * 90;
+  // Avoids upside-down labels. Labels aligned with slices.
+  //return (angle < 90 || angle > 270) ? angle : angle + 180;
+
+  // Alternate label formatting, in the radian direction
+  return (angle < 180) ? angle - 90 : angle + 90;
 }
 
 var updatePage = function(data) {
 };
 
-//loadData("draw_donut");
