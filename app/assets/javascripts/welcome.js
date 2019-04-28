@@ -1,5 +1,5 @@
-var width  = 632;
-var height = 632;
+var width  = 832;
+var height = 832;
 var radius = Math.min(width, height) / 2;
 
 var loadData = function(cmd) {
