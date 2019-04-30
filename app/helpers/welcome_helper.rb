@@ -6,26 +6,26 @@ module WelcomeHelper
   #  }]
   #}
   def self.do_statistics
-    root = {name: "RIPED Network", children: []}
+    root = {name: "Network", children: []}
     Lan.all.each do |lan|
       lanNode = {name: "#{lan.lan_name}", children: []}
       root[:children].push(lanNode)
 
       lan.vlans.each do |vlan|
-        vlanNode = {name: "#{vlan.vlan_name}", children: []}
-        lanNode[:children].push(self.calc_vlan_usage(vlan, vlanNode))
+        info = self.calc_vlan_usage(vlan)
+        lanNode[:children].push({name: info[0], size: info[1]})
       end
     end
-   root
+    root
   end
 
-  def self.calc_vlan_usage(vlan, node)
+  def self.calc_vlan_usage(vlan)
      total_ip_count    = vlan.addresses.count
      nobody_id = AddressesHelper.find_nobody_id
      free_ip_count = Address.where(["user_id = ? and vlan_id = ?",
-				    "#{nobody_id}", "#{vlan.id}"]).count
-     ratio = "#{free_ip_count}" + "/" + "#{total_ip_count}"
-     node[:children].push({name: "#{ratio}", size: total_ip_count})
-     node
+				                            "#{nobody_id}", "#{vlan.id}"]).count
+     #ratio = "/#{free_ip_count}" + "/" + "#{total_ip_count}"
+     #info = [vlan.vlan_name + ratio, total_ip_count]
+     info = [vlan.vlan_name, total_ip_count]
   end
 end

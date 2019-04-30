@@ -1,5 +1,5 @@
-var width  = 832;
-var height = 832;
+var width  = 732;
+var height = 732;
 var radius = Math.min(width, height) / 2;
 
 var loadData = function(cmd) {
@@ -16,7 +16,7 @@ var loadData = function(cmd) {
 var drawOrUpdate = function(data, cmd) {
   //console.log(data);
   if (cmd == "draw_donut") {
-    drawDonut(data);
+    drawSunburst(data);
   } else if (cmd == "update_page") {
     updatePage(data);
   } else {
@@ -28,9 +28,11 @@ function error() {
   console.log("Something went wrong!");
 }
 
-var drawDonut = function(data) {
+var drawSunburst = function(data) {
+  console.log(data);
   //var color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow,
   //                                        data.children.length + 1));
+
   var color = d3.scaleOrdinal()
                 .domain(data)
                 .range(d3.schemeSet3);
@@ -47,25 +49,25 @@ var drawDonut = function(data) {
 
   // Formats the Data
   var partition = d3.partition()
-		    .size([2 * Math.PI, radius * radius]);
+		                .size([2 * Math.PI, radius]);
 
   // Finds the Root Node
   var root = d3.hierarchy(data)
-	       .sum(function(d) { return d.size });
+               .sum(function(d) { return d.size });
 
   // For efficiency, filter nodes to keep only those large enough to see.
   // 0.005 radians = 0.29 degrees
   var nodes = partition(root).descendants()
                              .filter(function(d) {
-			       return (d.x1 - d.x0 > 0.005);
-			     });
+			                         return (d.x1 - d.x0 > 0.005);
+			                       });
 
   // Calculates each arc
   var arc = d3.arc()
               .startAngle(function(d) { return d.x0; })
               .endAngle(function(d) { return d.x1; })
-              .innerRadius(function(d) { return Math.sqrt(d.y0); })
-              .outerRadius(function(d) { return Math.sqrt(d.y1); });
+              .innerRadius(function(d) { return d.y0; })
+              .outerRadius(function(d) { return d.y1; });
 
   svg.selectAll('g')
       .data(nodes)
@@ -77,18 +79,20 @@ var drawDonut = function(data) {
       .attr("d", arc)
       .style('stroke', '#fff')
       .style("fill", function(d) {
-	 return color((d.children ? d : d.parent).data.name);
+	      return color((d.children ? d : d.parent).data.name);
       });
 
   // Add a Label for Each Node
   svg.selectAll(".node")
      .append("text")
      .attr("transform", function(d) {
-     	return "translate(" + arc.centroid(d) +
-     	       ")rotate(" + computeTextRotation(d) + ")";
+     	 return "translate(" + arc.centroid(d) +
+     	        ")rotate(" + computeTextRotation(d) + ")";
      })
+     .attr("dx", "6") // margin
      .attr("dy", ".35em")
      .attr("text-anchor", "middle")
+     //.style('stroke-width', 5)
      .text(function(d) { return d.parent ? d.data.name : ""; });
 };
 
