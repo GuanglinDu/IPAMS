@@ -33,5 +33,19 @@
       color: #227;
     }
   }
+
+  #explanation {
+    position: absolute;
+    top: 260px;
+    left: 305px;
+    width: 140px;
+    text-align: center;
+    color: #666;
+    z-index: -1;
+  }
+
+  #statistics {
+    font-size: 2.5em;
+  }
 }
 

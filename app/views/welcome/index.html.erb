@@ -3,15 +3,14 @@
     <p><strong>Please ask the admin to get authorized! </strong></p>
   <% end %>
 
-  <div id="main">
-    <div id="sequence"></div>
-    <div id="chart" style="text-align:center;">
-      <div id="explanation" style="visibility: hidden;">
-        <span id="statistics"></span><br />
-      </div>
+  <div id="sequence"></div>
+  <div id="chart" style="text-align:center">
+    <div id="explanation" style="visibility: hidden;">
+      <span id="statistics"></span>
     </div>
   </div>
+
   <script type="text/javascript">
-    loadData("draw_donut");
+    $(document).ready(loadData("draw_donut"));
   </script>
 </div>
