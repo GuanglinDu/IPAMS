@@ -9,7 +9,7 @@ class WelcomeControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
-    assert_select 'title', "IPAMS"
-    assert_select 'h3', "IPAMS Home Page"
+    assert_select 'title', "Home | IPAMS"
+    assert_select 'h4', "Sunburst Perspective"
   end
 end

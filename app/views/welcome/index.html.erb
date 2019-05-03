@@ -1,11 +1,15 @@
+<% provide(:title, "Home") %>
+
 <div class="row">
   <% if policy(:welcome).tip? %>
     <p><strong>Please ask the admin to get authorized! </strong></p>
   <% end %>
 
+  <div><h4>Sunburst Perspective</h4></div>
+
   <div id="sequence"></div>
   <div id="chart" style="text-align:center">
-    <div id="explanation" style="visibility: hidden;">
+    <div id="explanation" style="visibility:hidden">
       <span id="statistics"></span>
     </div>
   </div>

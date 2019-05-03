@@ -109,7 +109,7 @@ var drawSunburst = function(data) {
 
   // Fade all but the current sequence, and show it in the breadcrumb trail.
   function mouseover(d) {
-    var info = d.data.name + ': ' + d.value;
+    var info = d.data.name + ' (IP: ' + d.value + ")";
     d3.select('#statistics').text(info);
 
     d3.select('#explanation').style('visibility', '');
@@ -145,7 +145,7 @@ var drawSunburst = function(data) {
       .duration(1000)
       .style("opacity", 1)
       .on("end", function() {
-              d3.select(this).on("mouseover", mouseover);
+        d3.select(this).on("mouseover", mouseover);
       });
 
     d3.select("#explanation")
