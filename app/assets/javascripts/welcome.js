@@ -165,7 +165,7 @@ var drawSunburst = function(data) {
     // Data join; key function combines name and depth (= position in sequence).
     var trail = d3.select("#trail")
         .selectAll("g")
-        .data(nodeArray, d => d.data.name + d.depth);
+        .data(nodeArray, function(d) { return d.data.name + d.depth; });
 
     // Remove exiting nodes.
     trail.exit().remove();
@@ -184,12 +184,12 @@ var drawSunburst = function(data) {
         .attr("y", b.h / 2)
         .attr("dy", "0.35em")
         .attr("text-anchor", "middle")
-        .text(d => d.data.name);
+        .text(function(d) { return d.data.name; });
 
     // Merge enter and update selections; set position for all nodes.
-    entering.merge(trail).attr("transform", (d, i) =>
-      "translate(" + i * (b.w + b.s) + ", 0)"
-    );
+    entering.merge(trail).attr("transform", function(d, i) {
+      return "translate(" + i * (b.w + b.s) + ", 0)";
+    });
 
     // Now move and update the percentage at the end.
     d3.select("#trail").select("#endlabel")
