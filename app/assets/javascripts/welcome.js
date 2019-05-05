@@ -44,7 +44,7 @@ function error() {
 }
 
 var drawSunburst = function(data) {
-  //console.log(data);
+  console.log(data);
   // Basic setup of page elements.
   initializeBreadcrumbTrail();
 
@@ -117,7 +117,7 @@ var drawSunburst = function(data) {
 
   // Fade all but the current sequence, and show it in the breadcrumb trail.
   function mouseover(d) {
-    var info = d.data.name + ' (IP: ' + d.value + ")";
+    var info = d.data.name + ' (' + d.value + " IPs)";
     d3.select('#statistics').text(info);
 
     d3.select('#explanation').style('visibility', '');
