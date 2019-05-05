@@ -13,10 +13,9 @@ module WelcomeHelper
 
       lan.vlans.each do |vlan|
         info = self.calc_vlan_usage(vlan)
-        vlanNode = {name: info[0], children: [
-          {name: "Used IP", size: info[1]},
-          {name: "Free IP", size: info[2]}
-        ]} 
+        vlanNode = {name: vlan.vlan_name,
+                    children: [{name: info[0], size: info[1]}]
+                   } 
         #lanNode[:children].push({name: info[0], size: info[1]})
         lanNode[:children].push(vlanNode)
       end
@@ -29,9 +28,9 @@ module WelcomeHelper
      nobody_id = AddressesHelper.find_nobody_id
      free_ip_count = Address.where(["user_id = ? and vlan_id = ?",
 				                            "#{nobody_id}", "#{vlan.id}"]).count
-     #ratio = "/#{free_ip_count}" + "/" + "#{total_ip_count}"
+     ratio = "#{free_ip_count}" + "/" + "#{total_ip_count}"
      #info = [vlan.vlan_name + ratio, total_ip_count]
-     used_ip_count = total_ip_count - free_ip_count
-     info = [vlan.vlan_name, used_ip_count, free_ip_count]
+     #used_ip_count = total_ip_count - free_ip_count
+     info = [ratio, total_ip_count]
   end
 end
