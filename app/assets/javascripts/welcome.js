@@ -2,6 +2,11 @@ var width  = 732;
 var height = 732;
 var radius = Math.min(width, height) / 2;
 
+// Breadcrumb dimensions: width, height, spacing, width of tip/tail.
+var b = {
+  w: 160, h: 30, s: 3, t: 10
+};
+
 // Formats the Data
 var partition = d3.partition()
 	                .size([2 * Math.PI, radius]);
@@ -39,13 +44,16 @@ function error() {
 }
 
 var drawSunburst = function(data) {
-  console.log(data);
-  //var color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow,
-  //                                        data.children.length + 1));
+  //console.log(data);
+  // Basic setup of page elements.
+  initializeBreadcrumbTrail();
 
-  var color = d3.scaleOrdinal()
-                .domain(data)
-                .range(d3.schemeSet3);
+  var color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow,
+                                          data.children.length + 1));
+
+  //var color = d3.scaleOrdinal()
+  //              .domain(data)
+  //              .range(d3.schemeSet3);
 
   var svg = d3.select('#chart')
               .append('svg:svg')
@@ -116,7 +124,7 @@ var drawSunburst = function(data) {
 
     var sequenceArray = d.ancestors().reverse();
     sequenceArray.shift(); // remove root node from the array
-    //updateBreadcrumbs(sequenceArray, percentageString);
+    updateBreadcrumbs(sequenceArray, d.data.name);
 
     // Fade all the segments.
     d3.selectAll('path').style('opacity', 0.3);
@@ -133,8 +141,8 @@ var drawSunburst = function(data) {
   // Restore everything to full opacity when moving off the visualization.
   function mouseleave(d) {
     // Hide the breadcrumb trail
-    //d3.select("#trail")
-    //    .style("visibility", "hidden");
+    d3.select("#trail")
+      .style("visibility", "hidden");
 
     // Deactivate all segments during transition.
     d3.selectAll("path").on("mouseover", null);
@@ -151,6 +159,50 @@ var drawSunburst = function(data) {
     d3.select("#explanation")
       .style("visibility", "hidden");
   }
+
+  // Update the breadcrumb trail to show the current sequence and percentage.
+  function updateBreadcrumbs(nodeArray, info) {
+    // Data join; key function combines name and depth (= position in sequence).
+    var trail = d3.select("#trail")
+        .selectAll("g")
+        .data(nodeArray, d => d.data.name + d.depth);
+
+    // Remove exiting nodes.
+    trail.exit().remove();
+
+    // Add breadcrumb and label for entering nodes.
+    var entering = trail.enter().append("svg:g");
+
+    entering.append("svg:polygon")
+        .attr("points", breadcrumbPoints)
+        .style("fill", function(d) {
+          return color((d.children ? d : d.parent).data.name)
+        });
+
+    entering.append("svg:text")
+        .attr("x", (b.w + b.t) / 2)
+        .attr("y", b.h / 2)
+        .attr("dy", "0.35em")
+        .attr("text-anchor", "middle")
+        .text(d => d.data.name);
+
+    // Merge enter and update selections; set position for all nodes.
+    entering.merge(trail).attr("transform", (d, i) =>
+      "translate(" + i * (b.w + b.s) + ", 0)"
+    );
+
+    // Now move and update the percentage at the end.
+    d3.select("#trail").select("#endlabel")
+        .attr("x", (nodeArray.length + 0.5) * (b.w + b.s))
+        .attr("y", b.h / 2)
+        .attr("dy", "0.35em")
+        .attr("text-anchor", "middle")
+        .text(info);
+
+    // Make the breadcrumb trail visible, if it's hidden.
+    d3.select("#trail")
+        .style("visibility", "");
+  }
 };
 
 function computeTextRotation(d) {
@@ -160,6 +212,32 @@ function computeTextRotation(d) {
 
   // Alternate label formatting, in the radian direction
   return (angle < 180) ? angle - 90 : angle + 90;
+}
+
+function initializeBreadcrumbTrail() {
+  // Add the svg area.
+  var trail = d3.select("#sequence").append("svg:svg")
+      .attr("width", width)
+      .attr("height", 50)
+      .attr("id", "trail");
+  // Add the label at the end, for the percentage.
+  trail.append("svg:text")
+    .attr("id", "endlabel")
+    .style("fill", "#000");
+}
+
+// Generate a string that describes the points of a breadcrumb polygon.
+function breadcrumbPoints(d, i) {
+  var points = [];
+  points.push("0,0");
+  points.push(b.w + ",0");
+  points.push(b.w + b.t + "," + (b.h / 2));
+  points.push(b.w + "," + b.h);
+  points.push("0," + b.h);
+  if (i > 0) { // Leftmost breadcrumb; don't include 6th vertex.
+    points.push(b.t + "," + (b.h / 2));
+  }
+  return points.join(" ");
 }
 
 
