@@ -44,16 +44,16 @@ function error() {
 }
 
 var drawSunburst = function(data) {
-  console.log(data);
+  //console.log(data);
   // Basic setup of page elements.
   initializeBreadcrumbTrail();
 
-  var color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow,
-                                          data.children.length + 1));
+ // var color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow,
+ //                                         data.children.length + 1));
 
-  //var color = d3.scaleOrdinal()
-  //              .domain(data)
-  //              .range(d3.schemeSet3);
+  var color = d3.scaleOrdinal()
+                .domain(data)
+                .range(d3.schemeSet3);
 
   var svg = d3.select('#chart')
               .append('svg:svg')

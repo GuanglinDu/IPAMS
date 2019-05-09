@@ -5,7 +5,7 @@ feature "The whole website", :devise do
   scenario "A root browses" do
     @admin = FactoryGirl.create :admin, :root
     sign_in @admin.email, @admin.password
-    expect(page).to have_content("Sunburst Perspective")
+    expect(page).to have_content("(IPAMS)")
     expect(page).to have_content("Sign out")
    
     #lan1 = FactoryGirl.create :lan

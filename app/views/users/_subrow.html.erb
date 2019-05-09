@@ -1,6 +1,6 @@
 <% if false %>
   Rows containing the user's IP addresses
-  Twitter Bootstrap display rest of a table rows using collapse.js
+  Twitter Bootstrap displays rest of a table rows using collapse.js
   http://goo.gl/PaQ2QY
   http://www.bootply.com/122871
 <% end %>
@@ -8,8 +8,8 @@
 <% addr = subrow %>
 <% str = user.id.to_s %>
 
-<%# cache([user, addr]) do %><%# partial row caching %>
-<tr class="collapse <%= str %>">
+<%# cache([user, addr]) do %>
+<tr id="row-<%= count %>-<%= index %>" class="collapse <%= str %>">
   <td colspan="3"></td>
   <td><%= addr.ip %></td>
   <td >
@@ -52,6 +52,31 @@
       <%= addr.assigner %>
     </a>
   </td>
+  <td id="recyclable">
+    <a href="#" data-xeditable="true"
+                data-pk="<%= addr.id %>"
+                data-model="address"
+                data-name="recyclable"
+                data-url="<%= address_path(addr) %>"
+                data-title="Select options"
+                data-type="checklist"
+                data-value="<%= addr.recyclable ? 1 :0 %>">
+      <%= addr.recyclable %>
+    </a>
+  </td>
+  <td id="recycle">
+    <%#= render partial: "addresses/recycle", object: addr %>
+    <% if policy(addr).recycle? %>
+      <%= button_to histories_path(address_id: addr.id),
+                    remote: true,
+                    disabled: !addr.recyclable,
+                    method: :post,
+                    id: :btn_recycle,
+                    class: 'btn btn-success btn-xs',
+                    data: {confirm: "Are you sure?"} do %>
+        <i class="fa fa-recycle"></i> Recycle
+      <% end %>
+    <% end %> 
+  </td>
   <td colspan="7"></td>
 </tr>
-<%# end %>

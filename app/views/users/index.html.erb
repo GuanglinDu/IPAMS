@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-xs-8">
     <h4>Listing Users</h4>
-    <%# Pagination: https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
+    <%# Header pagination %>
     <%= page_entries_info @users %><br />
     <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
   </div>
@@ -35,6 +35,8 @@
     <th>Start Date</th>
     <th>End Date</th>
     <th>Assigner</th>
+    <th>Recyclable</th>
+    <th></th>
     <th>Office phone</th>
     <th>Cell phone</th>
     <th>Email</th>

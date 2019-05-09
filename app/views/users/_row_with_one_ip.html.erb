@@ -2,7 +2,7 @@
 <% user = row_with_one_ip %>
 <% department = DepartmentsHelper.find_department(user.department_id) %>
 
-<tr>
+<tr id="row-<%= count %>">
   <%# cache([user, addresses, @department]) do %><%# partial row caching %>
   <td><%= count %></td>
   <td>
@@ -25,7 +25,7 @@
   </td>
 
   <% if addresses.count == 0 %>
-    <td colspan="5"></td>
+    <td colspan="7"></td>
   <% else %>
     <% addresses.each do |addr| %>
       <td><%= addr.ip %></td>
@@ -68,6 +68,31 @@
                     data-title="Assigner">
           <%= addr.assigner %>
         </a>
+      </td>
+      <td id="recyclable">
+        <a href="#" data-xeditable="true"
+                    data-pk="<%= addr.id %>"
+                    data-model="address"
+                    data-name="recyclable"
+                    data-url="<%= address_path(addr) %>"
+                    data-title="Select options"
+                    data-type="checklist"
+                    data-value="<%= addr.recyclable ? 1 :0 %>">
+          <%= addr.recyclable %>
+        </a>
+      </td>
+      <td id="recycle">
+        <% if policy(addr).recycle? %>
+          <%= button_to histories_path(address_id: addr.id),
+                        remote: true,
+                        disabled: !addr.recyclable,
+                        method: :post,
+                        id: :btn_recycle,
+                        class: 'btn btn-success btn-xs',
+                        data: {confirm: "Are you sure?"} do %>
+            <i class="fa fa-recycle"></i> Recycle
+          <% end %>
+        <% end %> 
       </td>
     <% end %>
   <% end %>

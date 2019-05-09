@@ -9,25 +9,29 @@
   </div>
 
   <div class="col-xs-4">
-    <div class="col-xs-8 .text-right">
-      <%= form_tag addresses_path, :method => :get do %>
-        <%= text_field_tag :keywords, params[:keywords] %>
-        <%#= search_field_tag :keywords, params[:keywords] %>
-        <div>
-          <%= radio_button_tag :option, 'All', true,
-                               controller_action: params[:option] %>All
-          <%= radio_button_tag :option, 'Assigned',
-                               params[:option] == "Assigned" ? true : false,
-                               controller_action: params[:option] %>Assigned
-          <%= radio_button_tag :option, 'Free',
-                               params[:option] == "Free" ? true : false,
-                               controller_action: params[:option] %>Free
+    <div class="row">
+      <div class="col-xs-8 text-right">
+        <%= form_tag addresses_path, :method => :get do %>
+          <%= text_field_tag :keywords, params[:keywords] %>
+          <%#= search_field_tag :keywords, params[:keywords] %>
+	  <div>
+            <%= radio_button_tag :option, 'All', true,
+                                 controller_action: params[:option] %>All
+            <%= radio_button_tag :option, 'Assigned',
+                                 params[:option] == "Assigned" ? true : false,
+                                 controller_action: params[:option] %>Assigned
+            <%= radio_button_tag :option, 'Free',
+                                 params[:option] == "Free" ? true : false,
+                                 controller_action: params[:option] %>Free
+	  </div>
+	</div>
+
+        <div class="col-xs-4 text-left">
+          <%= submit_tag "Local Search", :name => nil %><br />
         </div>
+        <% end %>
       </div>
-      <div class="col-xs-4 .text-left">
-        <%= submit_tag "Local Search", :name => nil %><br />
-      </div>
-    <% end %>
+    </div>
   </div>
 </div>
 

@@ -10,6 +10,6 @@ class WelcomeControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_select 'title', "Home | IPAMS"
-    assert_select 'h4', "Sunburst Perspective"
+    assert_select '#chart', count: 1
   end
 end
