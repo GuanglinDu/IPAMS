@@ -1,3 +1,5 @@
+<% provide(:title, "VLANs") %>
+
 <h3>Listing VLANs</h3>
 <%= page_entries_info @vlans %><br />
 <%= will_paginate @vlans, renderer: BootstrapPagination::Rails %>

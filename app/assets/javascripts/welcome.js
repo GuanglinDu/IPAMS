@@ -1,15 +1,9 @@
-var width  = 732;
-var height = 732;
-var radius = Math.min(width, height) / 2;
+var originalData, width, height;
 
 // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
 var b = {
   w: 160, h: 30, s: 3, t: 10
 };
-
-// Formats the Data
-var partition = d3.partition()
-	                .size([2 * Math.PI, radius]);
 
 // Calculates each arc
 var arc = d3.arc()
@@ -17,6 +11,9 @@ var arc = d3.arc()
             .endAngle(function(d) { return d.x1; })
             .innerRadius(function(d) { return d.y0; })
             .outerRadius(function(d) { return d.y1; });
+
+//var svg = d3.select('div#chart')
+//            .append('svg:svg');
 
 var loadData = function(cmd) {
   $.ajax({
@@ -30,13 +27,16 @@ var loadData = function(cmd) {
 };
 
 var drawOrUpdate = function(data, cmd) {
-  if (cmd == "draw_donut") {
+  if (cmd == "drawSunburst") {
     drawSunburst(data);
-  } else if (cmd == "update_page") {
+  } else if (cmd == "updateSunburst") {
     updatePage(data);
   } else {
     console.log("Unrecognized command: " + cmd);
   }
+
+  // Redraw based on the new size whenever the browser window is resized.
+  window.addEventListener("resize", drawSunburst(data));
 };
 
 function error() {
@@ -44,7 +44,16 @@ function error() {
 }
 
 var drawSunburst = function(data) {
-  //console.log(data);
+  console.log(data);
+  var chartBox = document.querySelector("div#chart");
+  width  = chartBox.clientWidth;
+  height = chartBox.clientHeight;
+  var radius = Math.min(width, height) / 2;
+
+  // Formats the Data
+  var partition = d3.partition()
+	                .size([2 * Math.PI, radius]);
+
   // Basic setup of page elements.
   initializeBreadcrumbTrail();
 
@@ -55,17 +64,14 @@ var drawSunburst = function(data) {
                 .domain(data)
                 .range(d3.schemeSet3);
 
-  var svg = d3.select('#chart')
-              .append('svg:svg')
-              .attr('width', width)
-              .attr('height', height)
-              .style('width', 'auto')
-              .style('height', 'auto')
-              .style('font', '10px sans-serif')
-              .append('svg:g')
-              .attr("id", "container")
-              .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2)
-                + ')');
+  var svg = d3.select('div#chart')
+          .append('svg:svg')
+          .attr('width', width)
+          .attr('height', height)
+          .style('font', '12px sans-serif')
+          .append('svg:g')
+          .attr("id", "container")
+          .attr("transform", "translate(" + width/2 + "," + height/2 + ")");
 
   // Bounding circle underneath the sunburst, to make it easier to detect
   // when the mouse leaves the parent g.
@@ -239,7 +245,8 @@ function breadcrumbPoints(d, i) {
   }
   return points.join(" ");
 }
-
+  
+//loadData("drawSunburst"); // draw the first time to initialize
 
 var updatePage = function(data) {
 };

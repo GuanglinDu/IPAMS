@@ -1,11 +1,19 @@
+#sequence_chart {
+  display: flex;
+  flex-direction: column;
+}
+
 #chart {
   position: relative;
+  top: 0px;
+  left: 0px;
+  height: 800px;
 }
 
 #explanation {
   position: absolute;
-  top: 350px;
-  left: 490px;
+  top: 0px;
+  left: 400px;
   width: 190px;
   color: #666;
   z-index: -1;
