@@ -5,16 +5,17 @@
     <p><strong>Please ask the admin to get authorized! </strong></p>
   <% end %>
 
-  <div class="#sequence_chart">
-    <div id="sequence"></div>
-    <div id="chart" style="text-align:center">
-      <div id="explanation" style="visibility:hidden">
-        <p id="statistics"></p>
-      </div>
-    </div>
+  <div id="sequence"></div>
+
+  <div id="chart" style="text-align:center"></div>
+  
+  <div id="explanation" style="visibility:hidden">
+    <p id="statistics"></p>
   </div>
 
   <script type="text/javascript">
-    $(document).ready(loadData("drawSunburst"));
+    $(document).ready(function() {
+      loadData("drawSunburst");
+    });
   </script>
 </div>

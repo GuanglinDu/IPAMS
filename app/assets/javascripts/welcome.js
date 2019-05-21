@@ -5,6 +5,9 @@ var b = {
   w: 160, h: 30, s: 3, t: 10
 };
 
+//var chartDiv = document.getElementById("chart");
+//var svg = d3.select("div#chart").append('svg:svg');
+
 // Calculates each arc
 var arc = d3.arc()
             .startAngle(function(d) { return d.x0; })
@@ -12,8 +15,7 @@ var arc = d3.arc()
             .innerRadius(function(d) { return d.y0; })
             .outerRadius(function(d) { return d.y1; });
 
-//var svg = d3.select('div#chart')
-//            .append('svg:svg');
+//var svg = d3.select('div#chart').append('svg:svg');
 
 var loadData = function(cmd) {
   $.ajax({
@@ -27,16 +29,18 @@ var loadData = function(cmd) {
 };
 
 var drawOrUpdate = function(data, cmd) {
+  originalData = data;
+
   if (cmd == "drawSunburst") {
     drawSunburst(data);
   } else if (cmd == "updateSunburst") {
-    updatePage(data);
+    updatePage();
   } else {
     console.log("Unrecognized command: " + cmd);
   }
 
   // Redraw based on the new size whenever the browser window is resized.
-  window.addEventListener("resize", drawSunburst(data));
+  window.addEventListener("resize", updatePage);
 };
 
 function error() {
@@ -44,15 +48,19 @@ function error() {
 }
 
 var drawSunburst = function(data) {
-  console.log(data);
-  var chartBox = document.querySelector("div#chart");
-  width  = chartBox.clientWidth;
-  height = chartBox.clientHeight;
+  //console.log(data);
+  var svgBox = document.querySelector("div#chart");
+  width  = svgBox.clientWidth;
+  height = svgBox.clientHeight;
   var radius = Math.min(width, height) / 2;
+  var leftOffset =  width / 2 - 70;
+
+  // Sets the explanation div position
+  d3.select("#explanation").style("left", leftOffset + "px");
 
   // Formats the Data
   var partition = d3.partition()
-	                .size([2 * Math.PI, radius]);
+	                  .size([2 * Math.PI, radius]);
 
   // Basic setup of page elements.
   initializeBreadcrumbTrail();
@@ -65,13 +73,14 @@ var drawSunburst = function(data) {
                 .range(d3.schemeSet3);
 
   var svg = d3.select('div#chart')
-          .append('svg:svg')
-          .attr('width', width)
-          .attr('height', height)
-          .style('font', '12px sans-serif')
-          .append('svg:g')
-          .attr("id", "container")
-          .attr("transform", "translate(" + width/2 + "," + height/2 + ")");
+              .append('svg:svg')
+              .attr("id", "svg-tag")
+              .attr('width', width)
+              .attr('height', height)
+              .style('font', '12px sans-serif')
+              .append('svg:g')
+              .attr("id", "container")
+              .attr("transform", "translate(" + width/2 + "," + height/2 + ")");
 
   // Bounding circle underneath the sunburst, to make it easier to detect
   // when the mouse leaves the parent g.
@@ -147,8 +156,7 @@ var drawSunburst = function(data) {
   // Restore everything to full opacity when moving off the visualization.
   function mouseleave(d) {
     // Hide the breadcrumb trail
-    d3.select("#trail")
-      .style("visibility", "hidden");
+    d3.select("#trail").style("visibility", "hidden");
 
     // Deactivate all segments during transition.
     d3.selectAll("path").on("mouseover", null);
@@ -162,8 +170,7 @@ var drawSunburst = function(data) {
         d3.select(this).on("mouseover", mouseover);
       });
 
-    d3.select("#explanation")
-      .style("visibility", "hidden");
+    d3.select("#explanation").style("visibility", "hidden");
   }
 
   // Update the breadcrumb trail to show the current sequence and percentage.
@@ -206,8 +213,7 @@ var drawSunburst = function(data) {
         .text(info);
 
     // Make the breadcrumb trail visible, if it's hidden.
-    d3.select("#trail")
-        .style("visibility", "");
+    d3.select("#trail").style("visibility", "");
   }
 };
 
@@ -223,13 +229,12 @@ function computeTextRotation(d) {
 function initializeBreadcrumbTrail() {
   // Add the svg area.
   var trail = d3.select("#sequence").append("svg:svg")
-      .attr("width", width)
-      .attr("height", 50)
-      .attr("id", "trail");
+                .attr("width", width)
+                .attr("id", "trail");
   // Add the label at the end, for the percentage.
   trail.append("svg:text")
-    .attr("id", "endlabel")
-    .style("fill", "#000");
+       .attr("id", "endlabel")
+       .style("fill", "#000");
 }
 
 // Generate a string that describes the points of a breadcrumb polygon.
@@ -248,6 +253,8 @@ function breadcrumbPoints(d, i) {
   
 //loadData("drawSunburst"); // draw the first time to initialize
 
-var updatePage = function(data) {
+var updatePage = function() {
+  //console.log("Window resized!");
+  d3.select("#svg-tag").remove();
+  drawSunburst(originalData);
 };
-
