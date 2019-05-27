@@ -1,3 +1,5 @@
+<% provide(:title, "VLANs") %>
+
 <h3>Listing VLANs</h3>
 <%= page_entries_info @vlans %><br />
 <%= will_paginate @vlans, renderer: BootstrapPagination::Rails %>
@@ -35,11 +37,10 @@
   <%= will_paginate @vlans, renderer: BootstrapPagination::Rails %>
 
   <% if policy(:vlan).new? %>
-    <p>
     <%= link_to new_vlan_path, class: 'btn btn-success' do %>
       <i class="glyphicon glyphicon-plus"></i> New VLAN
     <% end %>
-    </p>
+    |
   <% end %>
   <%= link_to welcome_path, class: 'btn btn-success' do %>
     <i class="glyphicon glyphicon-home"></i> Home

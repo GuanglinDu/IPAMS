@@ -9,7 +9,7 @@
 <% user = row_with_multiple_ip %>
 <% department = DepartmentsHelper.find_department(user.department_id) %>
 
-<tr>
+<tr id="row-<%= count %>">
   <%# partial row caching disables as it's inefficiency. %>
   <%# cache([user, @department]) do %>
   <td><%= count %></td>
@@ -33,7 +33,7 @@
       <%= user.title %>
     </a>
   </td>
-  <td colspan="5" data-toggle="collapse"
+  <td colspan="7" data-toggle="collapse"
                   data-target=".<%= user.id.to_s %>" class="text-info">
     <button type="button" class="btn btn-info btn-xs">
       <i class="glyphicon glyphicon-plus">&nbsp;

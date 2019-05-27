@@ -1,0 +1,13 @@
+<%= addr = recycle %>
+
+<% if policy(addr).recycle? %>
+  <%= button_to histories_path(address_id: addr.id),
+                remote: true,
+                disabled: !addr.recyclable,
+                method: :post,
+                id: :btn_recycle,
+                class: 'btn btn-success btn-xs',
+                data: {confirm: "Are you sure?"} do %>
+    <i class="fa fa-recycle"></i> Recycle
+  <% end %>
+<% end %> 

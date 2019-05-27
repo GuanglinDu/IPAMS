@@ -330,6 +330,3 @@ DEPENDENCIES
   turbolinks (= 2.5.3)
   uglifier (= 2.7.0)
   will_paginate-bootstrap (= 1.0.1)
-
-BUNDLED WITH
-   1.17.3

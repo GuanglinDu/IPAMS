@@ -22,7 +22,7 @@
  */
 $(function() {
   $("#main-table-body").on("onAfterUpdate", "td a",
-                           function(event, rowID, cellName, response) {
+      function(event, rowID, cellName, response) {
     // The table cell names, i.e., the td element ids, we take interest in
     // cell-name -> URI pattern 
     var cellNames = { "user-name": "users" }; // use quotes in case of hyphens
@@ -38,8 +38,7 @@ $(function() {
   toggle_recyclable_checkbox();
   // Calls the recycle button handler
   set_btn_recycle();
-});
-
+})
 
 // Initializes the recycle button
 var init_btn_recycle = function() {

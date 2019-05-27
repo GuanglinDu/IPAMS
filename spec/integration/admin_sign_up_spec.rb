@@ -10,8 +10,7 @@ feature "admin signing up", :devise do
     expect(page).to have_content("Sign out")
     expect(page).to have_content("You have signed up successfully.")
     # Admin nobody's role has to be elevated to browse the site
-    expect(page).to have_content("You must ask the administrator to assign" \
-                                 " your role to dive deep.")
+    expect(page).to have_content("Please ask the admin to get authorized!")
   end
 
   scenario "with invalid email" do

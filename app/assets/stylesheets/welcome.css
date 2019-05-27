@@ -1,0 +1,27 @@
+#sequence-chart-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#sequence {
+  height: 40px;
+}
+
+#chart {
+  position: relative;
+  top: 0px;  
+  left: 0px;
+  height: 800px;
+}
+
+#explanation {
+  position: absolute;
+  top: 435px;
+  width: 190px;
+  color: #666;
+  z-index: -1;
+}
+
+#statistics {
+  font-size: 1.2em;
+}

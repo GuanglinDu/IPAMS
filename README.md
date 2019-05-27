@@ -56,9 +56,14 @@ Importing Existing Data (Administrators only)
 ------
 * Please manually create tmp/IMPORT_LOG.txt & tmp/IMPORT_DIFF.txt files, creating the folder along.
 
+License
+------
+The MIT License
+
 History
 ------
-<ol>2019: Nested searching & statistics.</ol>
+<ol>201904: Statistics in a sunburst perspective.</ol>
+<ol>201903: Nested searching & statistics.</ol>
 <ol>2017-2018: Bug fixes.</ol>
 <ol>2016: Search with any arbitrary string implemented.</ol>
 <ol>20150522: Prefix-matching search in Addresses views & Users view.</ol>

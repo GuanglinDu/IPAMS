@@ -28,11 +28,11 @@ class AddressesController < ApplicationController
       nobody_id = AddressesHelper.find_nobody_id
       if params[:option] == "Assigned"
         @addresses = Address.where.not(user_id: AddressesHelper.find_nobody_id)
-          .paginate(page:     params[:page],
+          .paginate(page: params[:page],
                     per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
       elsif params[:option] == "Free"
         @addresses = Address.where(user_id: AddressesHelper.find_nobody_id)
-          .paginate(page:     params[:page],
+          .paginate(page: params[:page],
                     per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
       end
     else
