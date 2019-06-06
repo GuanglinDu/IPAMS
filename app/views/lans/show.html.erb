@@ -68,3 +68,16 @@
     <% end %>
   <% end %>
 </div>
+
+<div id="lan-chart">
+  <svg id="lan-bar-chart" height="400"></svg>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      showLanStats(gon.locale, gon.current_lan_id);
+    });
+  </script>
+</div>
+
+<div id="lan-bar-chart-legend" style="text-align:center">
+  <input type="checkbox" id="vlan-sort">Toggle sort
+</div>

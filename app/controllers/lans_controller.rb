@@ -19,6 +19,14 @@ class LansController < ApplicationController
     @vlans_of_lan = @lan.vlans.paginate(page: params[:page],
       per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     authorize @vlans_of_lan
+
+    gon.current_lan_id = @lan.id # pass to JS
+    gon.locale = I18n.locale
+
+    respond_to do |format|
+      format.html
+      format.json { render json: LansHelper.do_lan_stats(@lan) }
+    end        
   end
 
   # GET /lans/new

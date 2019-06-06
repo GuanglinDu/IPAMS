@@ -31,6 +31,6 @@ module WelcomeHelper
      ratio = "#{free_ip_count}" + "/" + "#{total_ip_count}"
      #info = [vlan.vlan_name + ratio, total_ip_count]
      #used_ip_count = total_ip_count - free_ip_count
-     info = [ratio, total_ip_count]
+     info = [ratio, total_ip_count, free_ip_count]
   end
 end

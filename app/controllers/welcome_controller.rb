@@ -5,6 +5,8 @@ class WelcomeController < ApplicationController
     # Headless (no model) policies
     authorize :welcome
 
+    gon.locale = I18n.locale
+
     respond_to do |format|
       format.html
       format.json { render json: WelcomeHelper.do_statistics }
