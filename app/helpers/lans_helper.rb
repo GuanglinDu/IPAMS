@@ -29,4 +29,14 @@ module LansHelper
     updated_at = lan.updated_at.try(:utc).try(:to_s, :number)
     "lans/#{caller_name}-#{lan.id}-#{updated_at}"
   end
+
+  def self.do_lan_stats(lan)
+    data = []
+    lan.vlans.each do |vlan|
+      info = WelcomeHelper.calc_vlan_usage(vlan)
+      data.push({vlan_name: vlan.vlan_name, used: info[1] - info[2],
+                 free: info[2]})
+    end
+    data
+  end
 end

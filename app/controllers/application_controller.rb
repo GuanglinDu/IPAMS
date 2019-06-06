@@ -51,13 +51,16 @@ class ApplicationController < ActionController::Base
       else
         flash.now[:notice] = "#{params[:locale]} translation not available"
         logger.error flash.now[:notice]
+        I18n.locale = "en"
       end
+    else
+      params[:locale] = "en"
     end
   end
 
-  def default_url_options
-    {locale: I18n.locale}
-  end
+   def default_url_options
+     {locale: I18n.locale}
+   end
 
   # Customizes method pundit_user other than current_user (or current_admin):
   # https://github.com/elabs/pundit

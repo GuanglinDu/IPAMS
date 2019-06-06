@@ -17,11 +17,11 @@ var arc = d3.arc()
 
 //var svg = d3.select('div#chart').append('svg:svg');
 
-var loadData = function(cmd) {
+var loadData = function(locale, cmd) {
   $.ajax({
     type: 'GET',
     contentType: 'application/json; charset=utf-8',
-    url: '/welcome',
+    url: '/' + locale.to_s + '/welcome',
     dataType: 'json',
     success: function(data) { drawOrUpdate(data, cmd); }, 
     failure: function(result) { error(); }
@@ -49,7 +49,6 @@ function error() {
 
 var drawSunburst = function(data) {
   //console.log(data);
-
   svgBox = document.querySelector("div#chart");
   width  = svgBox.clientWidth;
   height = svgBox.clientHeight;
@@ -114,7 +113,7 @@ var drawSunburst = function(data) {
       .style('opacity', 1)
       .on('mouseover', mouseover);
 
-  // Adds a Label for Each Node
+    // Adds a Label for Each Node
     svg.selectAll('.node')  
      .append('svg:text')
      .attr('transform', function(d) {
@@ -263,4 +262,4 @@ var updatePage = function() {
 };
 
 // Initializes: draw the first time here or in welcome#index.
-//loadData("drawSunburst");
+//loadData(gon.locale, "drawSunburst");
