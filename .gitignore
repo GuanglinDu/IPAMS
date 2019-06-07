@@ -37,3 +37,7 @@
 # Ignores https certificates
 *.crt
 *.key  
+
+# Folder on mac OS 
+/.DS_Store
+
