@@ -11,7 +11,7 @@ class SearchControllerTest < ActionController::TestCase
     get :index 
     assert_response :success
     assert_nil assigns(:results)
-    assert_select "h4", "Oooooops, nothing to search!"
+    assert_select "h4", "Oooooops, nothing to search for!"
   end
 
   # FIXME: LoadError: Unable to autoload constant PaginatedCollectionPolicy

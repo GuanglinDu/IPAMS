@@ -1,13 +1,13 @@
+<% provide(:title, "VLANs") %>
+
 <h3>Listing VLANs</h3>
-<%# Header Pagination. https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
 <%= page_entries_info @vlans %><br />
 <%= will_paginate @vlans, renderer: BootstrapPagination::Rails %>
 
 <div>
-  <%# VLAN list %>
   <% partial_name = "vlan" %>
   <% partial_name = "uneditable" unless policy(@vlans).edit? %>
-  <%# cache cache_key_for_vlans(partial_name, @vlans.offset) do %><%# table caching with pagination %>
+  <%# cache cache_key_for_vlans(partial_name, @vlans.offset) do %>
   <table class="table table-striped table-condensed">
     <thead>
     <tr>
@@ -25,37 +25,23 @@
       <th></th>
     </tr>
     </thead>
-    <%# render partial: "vlans/vlan", collection: @lan.vlans %>
     <tbody id="main-table-body">
-      <%= render partial: partial_name, collection: @vlans, locals: {count: @vlans.offset} %>
+      <%= render partial:    partial_name,
+                 collection: @vlans,
+                 locals:     {count: @vlans.offset} %>
     </tbody>
   </table>
   <%# end %>
 
-  <%# Footer Pagination %>
   <%= page_entries_info @vlans %><br />
   <%= will_paginate @vlans, renderer: BootstrapPagination::Rails %>
 
-  <%# Create a new VLAN %>
   <% if policy(:vlan).new? %>
-    <p>
     <%= link_to new_vlan_path, class: 'btn btn-success' do %>
       <i class="glyphicon glyphicon-plus"></i> New VLAN
     <% end %>
-    </p>
+    |
   <% end %>
-</div>
-
-<div>
-  <h3>TODOs</h3>
-  <ol>
-    <li>List the VLANs in any order required;</li>
-    <li>List the IP addresses within a designated VLAN in ascending order (IPv4 at present);</li>
-    <li>Import/export from/to CSV files.</li>
-  </ol>
-</div>
-
-<div>
   <%= link_to welcome_path, class: 'btn btn-success' do %>
     <i class="glyphicon glyphicon-home"></i> Home
    <% end %>

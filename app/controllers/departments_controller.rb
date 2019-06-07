@@ -1,12 +1,11 @@
 class DepartmentsController < ApplicationController
-
   before_action :set_department, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized
 
   # GET /departments
   # GET /departments.json
   def index
-    @departments = Department.paginate(page: params[:page],
+    @departments = Department.order(:dept_name).paginate(page: params[:page],
       per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     authorize @departments
   end
@@ -14,6 +13,8 @@ class DepartmentsController < ApplicationController
   # GET /departments/1
   # GET /departments/1.json
   def show
+    @users = @department.users.paginate(page: params[:page],
+      per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     authorize @department
   end
 
@@ -106,4 +107,4 @@ class DepartmentsController < ApplicationController
   def nonexistent_dept?
     @department.dept_name == "NONEXISTENT"
   end
-end
+end  

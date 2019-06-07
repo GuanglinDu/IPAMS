@@ -20,8 +20,8 @@
 <tbody id="main-table-body">
 <% address.each do |addr| %>
   <%# Calls the helper methods in ApplicationHelper %>
-  <% user = find_user(addr.user_id) %>
-  <% department = find_department(user.department_id) %>
+  <% user = UsersHelper.find_user(addr.user_id) %>
+  <% department = DepartmentsHelper.find_department(user.department_id) %>
   <tr>
     <td>
       <% clr = "green" %>

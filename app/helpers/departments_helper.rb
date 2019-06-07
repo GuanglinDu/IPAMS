@@ -1,4 +1,12 @@
 module DepartmentsHelper
+  def self.find_department(id)
+    Department.find(id)
+  end
+
+  def self.find_department_name(department_id)
+    Department.find(department_id).dept_name
+  end
+
   # Creates a cache key for the Department#index view with pagination.
   # params:
   # +caller_name+:: the name of the calling template or partial

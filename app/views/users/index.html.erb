@@ -1,8 +1,9 @@
-<%# Search based on Sunspot: the pagination and search on the same row %>
+<% provide(:title, "Users") %>
+
 <div class="row">
   <div class="col-xs-8">
     <h4>Listing Users</h4>
-    <%# Pagination: https://github.com/bootstrap-ruby/will_paginate-bootstrap %>
+    <%# Header pagination %>
     <%= page_entries_info @users %><br />
     <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
   </div>
@@ -17,8 +18,8 @@
 
 <%# The whole table caching with partial names(editable/uneditable) %>
 <div class="row">
-<% partial_name = "editable" %>
-<% partial_name = "uneditable" unless policy(@users).edit? %>
+<% partial_name = "users/editable" %>
+<% partial_name = "users/uneditable" unless policy(@users).edit? %>
 
 <%# The whole table caching is disabled as the authorization will be
     cached along. %>
@@ -34,6 +35,8 @@
     <th>Start Date</th>
     <th>End Date</th>
     <th>Assigner</th>
+    <th>Recyclable</th>
+    <th></th>
     <th>Office phone</th>
     <th>Cell phone</th>
     <th>Email</th>

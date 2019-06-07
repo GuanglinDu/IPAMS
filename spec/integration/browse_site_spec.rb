@@ -5,7 +5,7 @@ feature "The whole website", :devise do
   scenario "A root browses" do
     @admin = FactoryGirl.create :admin, :root
     sign_in @admin.email, @admin.password
-    expect(page).to have_content("IPAMS Home Page")
+    expect(page).to have_content("(IPAMS)")
     expect(page).to have_content("Sign out")
    
     #lan1 = FactoryGirl.create :lan
@@ -56,7 +56,7 @@ feature "The whole website", :devise do
 
     # Searches for something on the Search view
     click_link "Search"
-    expect(page).to have_content("Oooooops, nothing to search!")
+    expect(page).to have_content("Oooooops, nothing to search for!")
     # FIXME: Unable to autoload constant PaginatedCollectionPolicy
     #fill_in 'search', with: 'lan'
     #click_button 'Global Search'

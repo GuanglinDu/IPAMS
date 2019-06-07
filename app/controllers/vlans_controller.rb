@@ -1,14 +1,12 @@
 class VlansController < ApplicationController
-
   before_action :set_vlan, :only => [:show, :edit, :update, :destroy]
   #after_action :verify_authorized, except: :index
   after_action :verify_authorized
   #after_action :verify_policy_scoped, only: :index
 
   def index
-    #@vlans = Vlan.order(:vlan_number)
     @vlans = Vlan.paginate(page: params[:page],
-      per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE).order(:vlan_number)
+      per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     authorize @vlans
     #policy_scope(@vlans)
   end

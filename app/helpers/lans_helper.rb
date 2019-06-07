@@ -1,12 +1,11 @@
 # All models are accessible to both helpers & views
 module LansHelper
-  # Helper methods accessiable from the views. See
-  # http://api.rubyonrails.org/classes/AbstractController/Helpers/ClassMethods.html#method-i-helper_method
-  def find_lan_name(id)
+  # Eric Torrey - Disambiguate Rails helpers:
+  # https://thoughtbot.com/blog/disambiguate-rails-helpers
+  def self.find_lan_name(id)
     name = "unnamed"
     begin
-      lan = Lan.find(id)
-      name = lan.lan_name
+      name  = Lan.find(id).lan_name
     rescue ActiveRecord::RecordNotFound
       name = "RecordNotFound"
     end
@@ -29,5 +28,15 @@ module LansHelper
   def cache_key_for_lan(caller_name, lan)
     updated_at = lan.updated_at.try(:utc).try(:to_s, :number)
     "lans/#{caller_name}-#{lan.id}-#{updated_at}"
+  end
+
+  def self.do_lan_stats(lan)
+    data = []
+    lan.vlans.each do |vlan|
+      info = WelcomeHelper.calc_vlan_usage(vlan)
+      data.push({vlan_name: vlan.vlan_name, used: info[1] - info[2],
+                 free: info[2]})
+    end
+    data
   end
 end

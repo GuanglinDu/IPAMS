@@ -1,9 +1,10 @@
 class HistoriesController < ApplicationController
   before_action :retrieve_address, only: :create
+  before_action :set_history,      only: :destroy
 
   def index
     if params[:search].present?
-      @search = History.search do
+      @search = History.order(created_at: :desc).search do
         fulltext params[:search]
         paginate page: params[:page] || 1, per_page: 30
       end 
@@ -12,7 +13,7 @@ class HistoriesController < ApplicationController
     else
       # paginate returns object of 
       # type User::ActiveRecord_Relation < ActiveRecord::Relation
-      @histories = History.paginate(
+      @histories = History.order(created_at: :desc).paginate(
         page: params[:page],
         per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE
       )
@@ -39,6 +40,16 @@ class HistoriesController < ApplicationController
         flash[:danger] = 'There was a problem recycling the Address.'
         format.html { head :no_content }
       end
+    end
+  end
+
+  def destroy
+    authorize @history
+
+    @history.destroy
+    respond_to do |format|
+      format.html { redirect_to histories_url }
+      format.json { head :no_content }
     end
   end
 
@@ -84,5 +95,9 @@ class HistoriesController < ApplicationController
     @history.end_date = @address.end_date
     @history.application_form = @address.application_form
     #@history.rec_ip = @address.ip
+  end
+
+  def set_history
+    @history = History.find(params[:id])
   end
 end

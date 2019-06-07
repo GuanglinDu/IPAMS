@@ -5,21 +5,23 @@
   <% count += 1 %>
   <%# Show less info of NOBODY %>
   <% if user.name == "NOBODY" %>
-    <%= render partial: "nobody", object: user, locals: {count: count} %>
+    <%= render partial: "users/nobody", object: user, locals: {count: count} %>
   <% else %>
     <%# addresses_helper: helper methods accessible by controllers and views %>
-    <% addresses = find_addresses_of_user(user) %>
+    <% addresses = user.addresses %>
 
     <% if addresses.count >= 2 %>
-      <%= render partial: "row_with_multiple_ip", object: user,
+      <%= render partial: "users/row_with_multiple_ip", object: user,
         locals: {count: count, user_ip_count: addresses.count, editable: true} %>
-      <% addresses.each do |addr| %>
-        <%= render partial: "subrow", object: addr,
-                   locals: { user: user, editable: true } %>
+      <% addresses.each_with_index do |addr, index| %>
+        <%= render partial: "users/subrow",
+                   object: addr,
+		   locals: {count: count, index: index, user: user,
+	                    editable: true} %>
       <% end %>
     <% else %>
-        <%= render partial: "row_with_one_ip", object: user,
-          locals: { count: count, addresses: addresses, editable: true } %>
+        <%= render partial: "users/row_with_one_ip", object: user,
+          locals: {count: count, addresses: addresses, editable: true} %>
     <% end %>
   <% end %>
-<% end %><%# iteration end %>
+<% end %>

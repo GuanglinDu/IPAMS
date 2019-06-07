@@ -56,14 +56,20 @@ Importing Existing Data (Administrators only)
 ------
 * Please manually create tmp/IMPORT_LOG.txt & tmp/IMPORT_DIFF.txt files, creating the folder along.
 
+License
+------
+The MIT License
+
 History
 ------
-<ol>20160114: Most of the essential features implemented. Many minor features are under development.</ol>
-<ol>20150522: Implement prefix-matching search in Addresses views & Users view. No cross-table search support at present.</ol>
-<ol>20150520: Implement most of the basic features.</ol>
-<ol>20150116: Implement authorization with Pundit and IP address editing in Vlans & Addresses views.</ol>
-<ol>20150114: Update to Rails 4.1.8 to use ActiveRecord::Enum in role-based authorization with Pundit.</ol>
-<ol>20150111: Use gem Devise to authenticate & gem Pundit to authorize, separately.</ol>
-<ol>20141225: Gem awesome print added to beautify irb and rails console output.</ol>
-<ol>201412: In-place editing added and Bootstrap UI used.</ol>
+<ol>201904: Statistics in a sunburst perspective.</ol>
+<ol>201903: Nested searching & statistics.</ol>
+<ol>2017-2018: Bug fixes.</ol>
+<ol>2016: Search with any arbitrary string implemented.</ol>
+<ol>20150522: Prefix-matching search in Addresses views & Users view.</ol>
+<ol>20150520: Most of the basic features implemented.</ol>
+<ol>20150114: Upgraded to Rails 4.1.8 to use ActiveRecord::Enum in role-based authorization with Pundit.</ol>
+<ol>20150111: Devise & Pundit added.</ol>
+<ol>20141225: Gem awesome_print added.</ol>
+<ol>201412: In-place editing with Bootstrap.</ol>
 <ol>20141021: Scaffold pushed.</ol>

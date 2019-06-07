@@ -1,4 +1,6 @@
 class Address < ActiveRecord::Base
+  default_scope { order(:address_order) }
+
   belongs_to :vlan, touch: true
   belongs_to :user, touch: true
 
@@ -18,12 +20,13 @@ class Address < ActiveRecord::Base
   #after_validation :upcase_mac
 
   searchable do
-    text :usage, as: :usage_textp
-    text :ip, as: :ip_textp
+    text :usage,       as: :usage_textp
+    text :ip,          as: :ip_textp
     text :mac_address, as: :mac_address_textp
-    text :assigner, as: :assigner_textp
+    text :assigner,    as: :assigner_textp
     time :start_date
     time :end_date
+    integer :user_id 
   end
 
   protected

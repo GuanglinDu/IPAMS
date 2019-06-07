@@ -1,3 +1,5 @@
+<% provide(:title, "LANs") %>
+
 <h3>Listing LANs</h3>
 <%# Header pagination: https://goo.gl/bo35MC %>
 <%= page_entries_info @lans %><br />
@@ -7,7 +9,6 @@
 <% partial_name = "uneditable" unless policy(@lans).edit? %>
 
 <%# cache cache_key_for_lans(partial_name, @lans.offset) do %>
-<%# table caching with pagination %>
 <table class="table table-striped">
   <thead>
   <tr>
@@ -21,9 +22,9 @@
   </tr>
   </thead>
   <tbody id="main-table-body">
-    <%= render partial: partial_name,
+    <%= render partial:    partial_name,
                collection: @lans,
-               locals: {count: @lans.offset} %>
+               locals:     {count: @lans.offset} %>
   </tbody>
 </table>
 <%# end %>
@@ -37,7 +38,7 @@
     <i class="glyphicon glyphicon-home"></i> Home
   <% end %>
   <% if policy(:lan).new? %>
-    |<%= link_to new_lan_path, class: 'btn btn-success' do %>
+    | <%= link_to new_lan_path, class: 'btn btn-success' do %>
       <i class="glyphicon glyphicon-plus"></i> New LAN
     <% end %>
   <% end %>

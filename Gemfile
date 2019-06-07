@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails',                      '4.2.7.1'
+gem 'rails',                      '4.2.11.1'
 gem 'sqlite3',                    '1.3.10'
 gem 'sass-rails',                 '4.0.5'
 gem 'uglifier',                   '2.7.0'
@@ -23,6 +23,15 @@ gem 'progress_bar',               '1.0.3'
 gem 'rack-ssl',                   '1.4.1'
 gem 'axlsx',                      '3.0.0.pre'
 gem 'axlsx_rails',                '0.4.0'
+gem 'sprockets',                  '2.12.5'
+gem 'rubyzip',                    '1.2.2'
+gem 'ffi',                        '1.9.24'
+gem 'activejob',                  '4.2.11.1'
+gem 'rack',                       '1.6.11'
+gem 'loofah',                     '2.2.3'
+gem 'nokogiri',                   '1.9.1'
+gem 'd3-rails',                   '5.7.0'
+gem 'gon',                        '6.2.1'
 
 group :development, :test do
   gem 'rspec-rails',        '3.4.2'
@@ -36,6 +45,7 @@ group :development do
 end
 
 group :test do
+  gem 'capybara',           '3.0.1'
   gem 'minitest-reporters', '1.0.5'
   gem 'mini_backtrace',     '0.1.3'
   gem 'guard-minitest',     '2.3.1'

@@ -3,10 +3,10 @@ module CurrentLan
 
   private
 
-    def set_lan 
-      @lan = Lan.find(session[:lan_id])
-    rescue ActiveRecord::RecordNotFound
-      @lan = Lan.create
-      session[:lan_id] = @lan.id
-    end
+  def set_lan 
+    @lan = Lan.find(session[:lan_id])
+  rescue ActiveRecord::RecordNotFound
+    @lan = Lan.create
+    session[:lan_id] = @lan.id
+  end
 end
