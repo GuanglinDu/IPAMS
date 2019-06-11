@@ -45,8 +45,6 @@ var showLanStats = function(locale, lan_id) {
 //   {vlan_name: "VLAN8", used: 322, free: 702}
 // ];
 var drawVlansBarChart = function(data) {
-  console.log("drawVlansBarChart");
-
   var keys = ["used", "free"];
   var vlans = data.map(function(d) { return d.vlan_name; });
   var margin = {top: 50, left: 50, bottom: 80, right: 50};
@@ -66,27 +64,9 @@ var drawVlansBarChart = function(data) {
     .rangeRound([height + margin.top, margin.top]);
 
   //Note: The acute (back quote ``) is not supported in the production mode!
+  var offset = height + margin.top;
   var xAxis = svg.append("g")
-    .attr("transform", "translate(0," + (height + margin.top) + "})")
-    .attr("class", "x-axis");
-
-  var yAxis = svg.append("g")
-    .attr("transform", "translate(" + margin.left + ",0)")
-    .attr("class", "y-axis");
-
-  var colors = {used: "green", free: "red"};
-  var z = d3.scaleOrdinal()
-    .range(Object.values(colors)) // used, free
-    .domain(keys);
-  var x = d3.scaleBand()
-    .range([margin.left, width + margin.left])
-    .padding(0.1);
-
-  var y = d3.scaleLinear()
-    .rangeRound([height + margin.top, margin.top]);
-
-  var xAxis = svg.append("g")
-    .attr("transform", "translate(0," + (height + margin.top) + ")")
+    .attr("transform", "translate(0," + offset + ")")
     .attr("class", "x-axis");
 
   var yAxis = svg.append("g")
