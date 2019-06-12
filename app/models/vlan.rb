@@ -1,5 +1,5 @@
 class Vlan < ActiveRecord::Base
-  default_scope { order(:vlan_name) }
+  #default_scope { order(:vlan_name) }
   default_scope { order(:vlan_number) }
 
   belongs_to :lan
