@@ -61,10 +61,6 @@ var drawVlansBarChart = function(data) {
               .attr("width", chartDiv.clientWidth);
   var height = +svg.attr("height") - margin.top - margin.bottom;
 
-  var x = d3.scaleBand()
-            .range([margin.left, width + margin.left])
-            .padding(0.1);
-
   var y = d3.scaleLinear()
             .rangeRound([height + margin.top, margin.top]);
 
@@ -100,6 +96,9 @@ var drawVlansBarChart = function(data) {
       return d;
     })
 
+    var x = d3.scaleBand()
+              .range([margin.left, width + margin.left])
+              .padding(0.1);
     y.domain([0, d3.max(data, function(d) { return d.total; })]).nice();
 
     svg.selectAll(".y-axis").transition().duration(speed)
