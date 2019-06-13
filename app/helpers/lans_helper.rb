@@ -30,6 +30,16 @@ module LansHelper
     "lans/#{caller_name}-#{lan.id}-#{updated_at}"
   end
 
+  #var data = [
+  #  {vlan_name: "VLAN1", used: 472, free: 552},
+  #  {vlan_name: "VLAN2", used: 769, free: 255},
+  #  {vlan_name: "VLAN3", used: 156, free: 100},
+  #  {vlan_name: "VLAN4", used: 972, free: 52},
+  #  {vlan_name: "VLAN5", used: 28, free: 100},
+  #  {vlan_name: "VLAN6", used: 56, free: 200},
+  #  {vlan_name: "VLAN7", used: 96, free: 32},
+  #  {vlan_name: "VLAN8", used: 322, free: 702}
+  #];
   def self.do_lan_stats(lan)
     data = []
     lan.vlans.each do |vlan|
@@ -37,6 +47,8 @@ module LansHelper
       data.push({vlan_name: vlan.vlan_name, used: info[1] - info[2],
                  free: info[2]})
     end
-    data
+
+    # Sorts the array of hashes according to vlan_names
+    data = data.sort_by { |h| h[:name] }
   end
 end
