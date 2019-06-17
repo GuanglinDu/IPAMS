@@ -1,6 +1,6 @@
 var svgBox, width, height, radius, originalData;
 
-// Breadcrumb dimensions: width, height, spacing, width of tip/tail.
+// Breadcrumb dimensions: width, height, spacing, width of tip/tail
 var b = {
   w: 160, h: 30, s: 3, t: 10
 };
@@ -39,7 +39,7 @@ var drawOrUpdate = function(data, cmd) {
     console.log("Unrecognized command: " + cmd);
   }
 
-  // Redraws based on the new size whenever the browser window is resized.
+  // Redraws based on the new size whenever the browser window is resized
   window.addEventListener("resize", updatePage);
 };
 
@@ -91,7 +91,7 @@ var drawSunburst = function(data) {
   var root = d3.hierarchy(data)
                .sum(function(d) { return d.size });
 
-  // For efficiency, filters nodes to keep only those large enough to see.
+  // For efficiency, filters nodes to keep only those large enough to see
   // 0.005 radians = 0.29 degrees
   var nodes = partition(root).descendants()
                              .filter(function(d) {
@@ -129,7 +129,7 @@ var drawSunburst = function(data) {
     // Adds the mouseleave handler to the bounding circle.
   d3.select("#container").on("mouseleave", mouseleave);
 
-  // Fades all but the current sequence, and show it in the breadcrumb trail.
+  // Fades all but the current sequence, and show it in the breadcrumb trail
   function mouseover(d) {
     var info = d.data.name + ' (' + d.value + " IPs)";
     d3.select('#statistics').text(info);
@@ -143,7 +143,7 @@ var drawSunburst = function(data) {
     // Fades all the segments.
     d3.selectAll('path').style('opacity', 0.3);
 
-    // Then highlights only those that are an ancestor of the current segment.
+    // Then highlights only those that are an ancestor of the current segment
     svg.selectAll('path')
        .filter(function(node){ return sequenceArray.indexOf(node) >= 0; })
        //.filter(function(node) {
@@ -152,7 +152,7 @@ var drawSunburst = function(data) {
        .style('opacity', 1);
   }
 
-  // Restores everything to full opacity when moving off the visualization.
+  // Restores everything to full opacity when moving off the visualization
   function mouseleave(d) {
     // Hides the breadcrumb trail
     d3.select("#trail").style("visibility", "hidden");
@@ -160,7 +160,7 @@ var drawSunburst = function(data) {
     // Deactivates all segments during transition.
     d3.selectAll("path").on("mouseover", null);
 
-    // Transitions each segment to full opacity and then reactivate it.
+    // Transitions each segment to full opacity and then reactivate it
     d3.selectAll("path")
       .transition()
       .duration(1000)
@@ -172,9 +172,9 @@ var drawSunburst = function(data) {
     d3.select("#explanation").style("visibility", "hidden");
   }
 
-  // Updates the breadcrumb trail to show the current sequence and percentage.
+  // Updates the breadcrumb trail to show the current sequence and percentage
   function updateBreadcrumbs(nodeArray, info) {
-    // Data join; key function combines name and depth (= position in sequence).
+    // Data join; key function combines name and depth (= position in sequence)
     var trail = d3.select("#trail")
         .selectAll("g")
         .data(nodeArray, function(d) { return d.data.name + d.depth; });
@@ -182,7 +182,7 @@ var drawSunburst = function(data) {
     // Removes exiting nodes.
     trail.exit().remove();
 
-    // Adds breadcrumb and label for entering nodes.
+    // Adds breadcrumb and label for entering nodes
     var entering = trail.enter().append("svg:g");
 
     entering.append("svg:polygon")
@@ -198,12 +198,12 @@ var drawSunburst = function(data) {
         .attr("text-anchor", "middle")
         .text(function(d) { return d.data.name; });
 
-    // Merge enter and update selections; set position for all nodes.
+    // Merges enter and update selections; set position for all nodes
     entering.merge(trail).attr("transform", function(d, i) {
       return "translate(" + i * (b.w + b.s) + ", 0)";
     });
 
-    // Now move and update the percentage at the end.
+    // Now moves and updates the percentage at the end.
     d3.select("#trail").select("#endlabel")
         .attr("x", (nodeArray.length + 0.5) * (b.w + b.s))
         .attr("y", b.h / 2)
@@ -211,7 +211,7 @@ var drawSunburst = function(data) {
         .attr("text-anchor", "middle")
         .text(info);
 
-    // Make the breadcrumb trail visible, if it's hidden.
+    // Make the breadcrumb trail visible, if it's hidden
     d3.select("#trail").style("visibility", "");
   }
 };
@@ -236,7 +236,7 @@ function initializeBreadcrumbTrail() {
        .style("fill", "#000");
 }
 
-// Generates a string that describes the points of a breadcrumb polygon.
+// Generates a string that describes the points of a breadcrumb polygon
 function breadcrumbPoints(d, i) {
   var points = [];
   points.push("0,0");
@@ -244,7 +244,7 @@ function breadcrumbPoints(d, i) {
   points.push(b.w + b.t + "," + (b.h / 2));
   points.push(b.w + "," + b.h);
   points.push("0," + b.h);
-  if (i > 0) { // Leftmost breadcrumb; don't include 6th vertex.
+  if (i > 0) { // Leftmost breadcrumb; don't include 6th vertex
     points.push(b.t + "," + (b.h / 2));
   }
   return points.join(" ");
@@ -261,5 +261,5 @@ var updatePage = function() {
   drawSunburst(originalData);
 };
 
-// Initializes: draw the first time here or in welcome#index.
+// Initializes: draw the first time here or in welcome#index
 //loadData(gon.locale, "drawSunburst");

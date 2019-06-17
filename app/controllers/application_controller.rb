@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  #protect_from_forgery with: :null_session
 
   before_filter :set_cache_buster
   # http://goo.gl/r2VMFo
@@ -24,12 +25,7 @@ class ApplicationController < ActionController::Base
   # Returning 403 Forbidden if permission is denied
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  # Resets the password
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:account_update) { |u| 
-      u.permit(:password, :password_confirmation, :current_password, :role) 
-    }
-  end
+  protected
 
   def set_cache_buster
     response.headers["Cache-Control"] = "no-cache, no-store, max-age=0," \
@@ -38,7 +34,12 @@ class ApplicationController < ActionController::Base
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
-  protected
+  # Resets the password
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:account_update) { |u| 
+      u.permit(:password, :password_confirmation, :current_password, :role) 
+    }
+  end
 
   # [deprecated] I18n.enforce_available_locales will default to true
   # in the future.
