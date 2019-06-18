@@ -47,9 +47,7 @@ var showLanStats = function(locale, lan_id) {
 var drawVlansBarChart = function(data) {
   var keys = ["used", "free"];
   // Dimensions of legend item: width, height, spacing, radius of rounded rect
-  var li = {
-    w: 75, h: 30, s: 3, r: 3
-  };
+  var li = {w: 75, h: 30, s: 3, r: 3};
 
   var vlans = data.map(function(d) { return d.vlan_name; });
   var margin = {top: 50, left: 50, bottom: 80, right: 50};
@@ -136,9 +134,9 @@ var drawVlansBarChart = function(data) {
     bars.exit().remove();
 
     bars.enter().append("rect")
-        .attr("width", x.bandwidth())
         .merge(bars)
         .transition().duration(speed)
+        .attr("width", x.bandwidth())
         .attr("x", function(d) { return x(d.data.vlan_name); })
         .attr("y", function(d) { return y(d[1]); })
         .attr("height", function(d) { return y(d[0]) - y(d[1]); });
@@ -207,16 +205,10 @@ var drawVlansBarChart = function(data) {
 
   // Redraws the stacked bar chart after the window resizes.
   function updateClientWidth() {
-    chartDiv = document.getElementById("lan-chart");
+    //chartDiv = document.getElementById("lan-chart");
     width = chartDiv.clientWidth - margin.left - margin.right;
-
     svg = d3.select("#lan-bar-chart")
             .attr("width", chartDiv.clientWidth);
-
-    x = d3.scaleBand()
-          .range([margin.left, width + margin.left])
-          .padding(0.1);
-
     update(data, 750);
     drawLegend();    
   }
