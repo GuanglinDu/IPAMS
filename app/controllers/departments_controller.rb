@@ -8,6 +8,13 @@ class DepartmentsController < ApplicationController
     @departments = Department.order(:dept_name).paginate(page: params[:page],
       per_page: IPAMSConstants::RECORD_COUNT_PER_PAGE)
     authorize @departments
+
+    gon.locale = I18n.locale
+  
+    respond_to do |format|
+      format.html
+      format.json { render json: DepartmentsHelper.do_department_stats }
+    end        
   end
 
   # GET /departments/1
