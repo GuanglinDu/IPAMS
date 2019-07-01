@@ -68,9 +68,9 @@ var drawDepartmentBar = function(dataset){
     var yAxis = d3.axisLeft(y).tickFormat(formatPercent);
     //var yAxis = d3.axisLeft();
 
-    x.domain(dataset.map( d => { return d.dept_name; }));
-    // y.domain([0, d3.max(dataset,  d => { return d.user_count; })]);
-    y.domain([0, d3.max(dataset,  d => { return d.user_count; })]);
+    x.domain(dataset.map( function(d) { return d.dept_name; }));
+    // y.domain([0, d3.max(dataset,  function(d) { return d.user_count; })]);
+    y.domain([0, d3.max(dataset,  function(d) { return d.user_count; })]);
 
     svg.append("g")
         .attr("class", "x axis")
@@ -92,34 +92,34 @@ var drawDepartmentBar = function(dataset){
         .data(dataset)
         .enter().append("rect")
         .attr("class", "bar")
-        .style("display", d => { return d.user_count === null ? "none" : null; })
+        .style("display", function(d) { return d.user_count === null ? "none" : null; })
         .style("fill",  "yellow")
-        .attr("x",  d => { return x(d.dept_name); })
+        .attr("x",  function(d) { return x(d.dept_name); })
         .attr("width", x.bandwidth())
-        .attr("y",  d => { return height; })
+        .attr("y",  function(d) { return height; })
         .attr("height", 0)
         .transition()
         .duration(320)
             .delay(function (d, i) {
                     return i * 10;
                 })
-        .attr("y",  d => { return y(d.user_count); })
-        .attr("height",  d => { return height - y(d.user_count); });
+        .attr("y",  function(d) { return y(d.user_count); })
+        .attr("height",  function(d) { return height - y(d.user_count); });
 
     svg.selectAll(".label")        
         .data(dataset)
         .enter()
         .append("text")
         .attr("class", "label")
-        .style("display",  d => { return d.user_count === null ? "none" : null; })
-        .attr("x", ( d => { return x(d.dept_name) + (x.bandwidth() / 2) -8 ; }))
+        .style("display",  function(d) { return d.user_count === null ? "none" : null; })
+        .attr("x", ( function(d) { return x(d.dept_name) + (x.bandwidth() / 2) -8 ; }))
         .style("fill",  "#898989")
-        .attr("y",  d => { return height; })
+        .attr("y",  function(d) { return height; })
         .attr("height", 0)
         .transition()
         .duration(320)
-        .delay((d, i) => { return i * 10; })
-        .text( d => { return formatPercent(d.user_count); })
-        .attr("y",  d => { return y(d.user_count) + .1; })
+        .delay(function(d, i) { return i * 10; })
+        .text( function(d) { return formatPercent(d.user_count); })
+        .attr("y",  function(d) { return y(d.user_count) + .1; })
         .attr("dy", "-.8em"); 
 }
