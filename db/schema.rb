@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20190213071317) do
     t.string   "mac_address"
     t.string   "assigner"
     t.boolean  "recyclable",                 default: true, null: false
-    t.integer  "address_order",    limit: 3
+    t.integer  "address_order",    limit: 3, default: 0
   end
 
   add_index "addresses", ["user_id"], name: "index_addresses_on_user_id"
@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(version: 20190213071317) do
     t.string   "mac_address"
     t.string   "user_name"
     t.string   "dept_name"
-    t.string   "office_phone",     limit: 8
-    t.string   "cell_phone",       limit: 8
+    t.string   "office_phone"
+    t.string   "cell_phone"
     t.string   "building"
     t.integer  "room"
   end
@@ -98,8 +98,8 @@ ActiveRecord::Schema.define(version: 20190213071317) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
-    t.string   "office_phone",  limit: 8
-    t.string   "cell_phone",    limit: 8
+    t.string   "office_phone"
+    t.string   "cell_phone"
     t.string   "email"
     t.string   "building"
     t.integer  "storey"
