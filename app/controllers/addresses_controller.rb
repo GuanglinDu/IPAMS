@@ -128,16 +128,16 @@ class AddressesController < ApplicationController
   # Never trust parameters from the scary internet,
   # only allow the white list through.
   def address_params
-    params[:address].permit(:vlan_id,
-                            :user_id,
-                            :ip,
-                            :mac_address,
-                            :usage,
-                            :start_date,
-                            :end_date,
-                            :application_form,
-                            :assigner,
-                            :recyclable)
+    params.require(:address).permit(:vlan_id,
+                  :user_id,
+                  :ip,
+                  :mac_address,
+                  :usage,
+                  :start_date,
+                  :end_date,
+                  :application_form,
+                  :assigner,
+                  :recyclable)
   end
 
   # Changes a user.name to its user.id (FK user_id) as only the FK is going to
