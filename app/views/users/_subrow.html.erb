@@ -12,6 +12,7 @@
 <tr id="row-<%= count %>-<%= index %>" class="collapse <%= str %>">
   <td colspan="3"></td>
   <td><%= addr.ip %></td>
+  <td><%= AddressesHelper.find_vlan_number(addr) %></td>
   <td >
     <a href="#" data-xeditable="<%= editable %>"
                 data-pk="<%= addr.id %>"
