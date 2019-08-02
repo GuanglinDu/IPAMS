@@ -139,6 +139,7 @@ var drawDepartmentBar = function(dataset){
           .style("display",  function(d) { return d.user_count === null ? "none" : null; })
           .attr("x", ( function(d) { return x(d.dept_name) + (x.bandwidth() / 2) -8 ; }))
           .style("fill",  "#898989")
+          .style("font-size", "12px")
           .attr("y",  function(d) { return height; })
           .attr("height", 0)
           .transition().duration(750)
