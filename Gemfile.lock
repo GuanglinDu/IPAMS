@@ -178,7 +178,7 @@ GEM
     public_suffix (3.0.3)
     pundit (0.3.0)
       activesupport (>= 3.0.0)
-    rack (1.6.11)
+    rack (1.6.12)
     rack-ssl (1.4.1)
       rack
     rack-test (0.6.3)
@@ -322,7 +322,7 @@ DEPENDENCIES
   nokogiri (= 1.9.1)
   progress_bar (= 1.0.3)
   pundit (= 0.3.0)
-  rack (= 1.6.11)
+  rack (= 1.6.12)
   rack-ssl (= 1.4.1)
   rails (= 4.2.11.1)
   rspec-rails (= 3.4.2)
