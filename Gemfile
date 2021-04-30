@@ -31,7 +31,7 @@ gem 'rack',                       '1.6.11'
 gem 'loofah',                     '2.2.3'
 gem 'nokogiri',                   '1.9.1'
 gem 'd3-rails',                   '5.7.0'
-gem 'gon',                        '6.2.1'
+gem 'gon',                        '6.4.0'
 
 group :development, :test do
   gem 'rspec-rails',        '3.4.2'
